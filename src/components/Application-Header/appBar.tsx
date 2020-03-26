@@ -10,7 +10,7 @@ interface AppBarData {
 
 type AppBarProps = AppBarData;
 
-export const JobsAppBar: React.FC<AppBarProps> = (props): JSX.Element => {
+export const appBar: React.FC<AppBarProps> = (props): JSX.Element => {
     
     const { user } = props;
 
