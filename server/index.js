@@ -66,7 +66,6 @@ app.get('/api/greeting', (req, res) => {
 
 app.get("*", proxy("http://localhost:3000"));
 
-
 app.listen(3001, () =>
   console.log('Express server is running on localhost:3001')
 );
