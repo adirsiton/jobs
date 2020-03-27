@@ -32,7 +32,7 @@ class App extends Component<any, any> {
             Edit <code>src/App.js</code> and save to reload.
           </p>
           <form onSubmit={this.handleSubmit}>
-            <label htmlFor="name">Enter your name: </label>
+            <label htmlFor="name">Enter your name here: </label>
             <input
               id="name"
               type="text"
