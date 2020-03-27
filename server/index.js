@@ -7,7 +7,6 @@ const proxy = require("express-http-proxy");
 const passport = require('passport');
 // const OAuth2Strategy = require('passport-oauth2'); will be needed after whiten
 const loginRouter = require('./routes/auth/auth');
-
 const GitHubStrategy = require('passport-github').Strategy;
 
 require('dotenv').config();
