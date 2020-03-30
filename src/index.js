@@ -8,7 +8,18 @@ import { heIL } from '@material-ui/core/locale';
 import App from './App';
 import './index.css';
 
+const assistantColor = 'rgb(89,89,89)';
+
 const projectGlobalTheme = createMuiTheme({
+  typography: {
+    fontFamily: 'Assistant',
+    allVariants: {
+      color: `${assistantColor}`
+    },
+    body1: {
+      fontWeight: "bold"
+    }
+  },
   overrides: {
     MuiInputLabel: {
       formControl: {

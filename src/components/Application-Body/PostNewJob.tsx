@@ -81,7 +81,6 @@ const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => 
 
     const getDepartmentFields = (): JSX.Element => {
         const updateDepartmentField = (field: string, value: string): void => {
-            console.log(42);
             setDepartment({...department,
                 [field]: value
             });
