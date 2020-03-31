@@ -28,7 +28,7 @@ const styles = makeStyles({
 
 const JobsAppBody: React.FC<{}> = (): JSX.Element => {
   const classes = styles({});
-  const [openAddDialog, setOpenAddDialog] = useState<boolean>(true);
+  const [openAddDialog, setOpenAddDialog] = useState<boolean>(true/*false*/); // TODO: Change to false when done, comfortable for develop of feature to be true
 
   return (
     <div className={classes.appBodyContent}>

@@ -3,6 +3,8 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 const postPadding = "1vw";
 const dialogThemeColor = "rgb(89,89,89)";
 const inputFieldBackgroundColor = "rgb(206,206,206)";
+const TEXT_FIELD_HEIGHT = "48px";
+const ROW_TEXT_FIELD_HEIGHT_PADDING = "1vh";
 
 const styles = makeStyles({
     dialogPaper: {
@@ -61,7 +63,7 @@ const styles = makeStyles({
         paddingLeft: "2ch"  
     },    
     jobEntryDateFields: {
-        height: "10vh",
+        height: `calc(${TEXT_FIELD_HEIGHT} + ${ROW_TEXT_FIELD_HEIGHT_PADDING})`,
         display: "flex",
         alignItems: "center"
     },
@@ -69,7 +71,7 @@ const styles = makeStyles({
         paddingLeft: "6ch"
     },    
     jobSeniorityFields: {
-        height: "10vh",
+        height: `calc(${TEXT_FIELD_HEIGHT} + ${ROW_TEXT_FIELD_HEIGHT_PADDING})`,
         display: "flex",
         alignItems: "center"
     },
@@ -77,7 +79,7 @@ const styles = makeStyles({
         paddingLeft: "3ch"  
     },    
     jobDamachFields: {
-        height: "10vh",
+        // height: "10vh",
         display: "flex",
         alignItems: "center"
     },
@@ -92,6 +94,12 @@ const styles = makeStyles({
         marginRight: "5px",
         width: "12ch",
         backgroundColor: `${inputFieldBackgroundColor}`
+    },
+    selectDisabled: {
+        backgroundColor: 'gray',
+    },
+    tooltip: {
+        fontSize: "100% !important" // Important: TY @Material-ui -_-
     },
     jobNicknameText: {
         backgroundColor: `${inputFieldBackgroundColor}`,
@@ -142,16 +150,16 @@ const styles = makeStyles({
     checkboxIcon: {
         fontSize: "24px", // Radio button size
     },
-    numberInput: { // Important: TY @Material-ui -_-
-        width: "10vw",
-        marginRight: "5ch !important",
+    numberInput: { 
+        width: "10ch",
+        marginRight: "5ch !important", // Important: TY @Material-ui -_-
         backgroundColor: `${inputFieldBackgroundColor}`
     },
     numberInputLabel: {
         alignSelf: "center"
     },
     datePicker: {
-        width: "10vw",
+        width: "10ch",
         marginRight: "2ch",
         backgroundColor: `${inputFieldBackgroundColor}`        
     },
