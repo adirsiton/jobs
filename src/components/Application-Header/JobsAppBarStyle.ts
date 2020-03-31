@@ -28,6 +28,9 @@ const styles = () => createStyles({
     },
     logoIcon:{
         margin: '0 5px'
+    },
+    logoTitle: {
+        color: 'white'
     }
 });
 

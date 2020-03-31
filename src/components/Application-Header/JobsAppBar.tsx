@@ -12,24 +12,21 @@ import Tooltip from '@material-ui/core/Tooltip';
 import { User } from '../../types/userTypes';
 import styles from './JobsAppBarStyle';
 
-interface AppBarDataState extends WithStyles<typeof styles> {
+interface AppBarDataProps extends WithStyles<typeof styles> {
     user: User;
 }
 
-const JobsAppBar: React.FC<AppBarDataState> = (props): JSX.Element => {
+const JobsAppBar: React.FC<AppBarDataProps> = (props): JSX.Element => {
     const { user, classes } = props;
 
     // For now I used a stupid function, just to get a different color   
-    const userHaveFavorites = (): boolean =>{
+    const userHaveFavorites = (): boolean => {
         return Math.random() >= 0.5;
     }
 
     const getUserDetails = (): JSX.Element => {
         return (
             <div className={classes.userDetails}>
-                <Avatar className={classes.avatar}>
-                    {user.userInitials}
-                </Avatar>
                 <Tooltip placement="right-end" title="המועדפים שלי" aria-label="my favorites">
                     <IconButton className={userHaveFavorites() ? classes.starIconWhite : classes.starIconYellow}
                         // { todo onClick=showFaivorites } 
@@ -37,6 +34,9 @@ const JobsAppBar: React.FC<AppBarDataState> = (props): JSX.Element => {
                         <StarIcon />
                     </IconButton>
                 </Tooltip>
+                <Avatar className={classes.avatar}>
+                    {user.userInitials}
+                </Avatar>
             </div>
         );
     }
@@ -44,10 +44,10 @@ const JobsAppBar: React.FC<AppBarDataState> = (props): JSX.Element => {
     const getLogo = (): JSX.Element => {
         return (
             <div className={classes.logoContainer}>
-                <Typography variant="subtitle1">
+                <AccessibilityNewIcon className={classes.logoIcon}/>
+                <Typography variant="subtitle1" className={classes.logoTitle}>
                     Jobs
                 </Typography>
-                <AccessibilityNewIcon className={classes.logoIcon}/>
             </div>
         );
     }
@@ -56,12 +56,11 @@ const JobsAppBar: React.FC<AppBarDataState> = (props): JSX.Element => {
     return (
         <AppBar className={classes.root} position="static">
             <Toolbar className={classes.toolbar}>
-                {getUserDetails()}
                 {getLogo()}
+                {getUserDetails()}
             </Toolbar> 
         </AppBar>
     );
 }
 
 export default withStyles(styles)(JobsAppBar);
-
