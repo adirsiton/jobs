@@ -7,11 +7,9 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import Typography from '@material-ui/core/Typography';
-import Select from '@material-ui/core/Select';
 import Checkbox from '@material-ui/core/Checkbox/Checkbox';
 import Switch from '@material-ui/core/Switch';
 import TextField from '@material-ui/core/TextField';
-import MenuItem from '@material-ui/core/MenuItem';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import Radio from '@material-ui/core/Radio';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -29,9 +27,10 @@ import {
 
 import styles from './PostNewJobStyles';
 import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
-import { DepartmentData, DepartmentsManager, EMPTY_DEPARTMENT } from '../../types/Departments';
-import { Role, ROLE_DISPLAYS } from '../../types/Role';
-import { Standard, STANDARD_DISPLAYS } from '../../types/Standard';
+import { Role, ROLE_DISPLAYS } from '../../../types/Role';
+import { Standard, STANDARD_DISPLAYS } from '../../../types/Standard';
+import { DepartmentData, DepartmentsManager, EMPTY_DEPARTMENT } from '../../../types/Departments';
+import DepartmentInput from './DepartmentInput';
 
 interface PostNewJobProps {
     closeDialog: () => void;
@@ -74,90 +73,6 @@ const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => 
                     פרסום תפקיד חדש
                 </Typography>
             </DialogTitle>
-        );
-    }
-
-    const getDepartmentHeader = (): JSX.Element => {
-        return (
-            <div className={classes.departmentHeader}>
-                <Typography variant="caption">
-                    שיוך
-                </Typography>
-                <div className={classes.dashLine} />
-            </div>
-        );
-    }
-
-    const getDepartmentFields = (): JSX.Element => {
-        const departmentFieldMenuItems = (fieldName: string): JSX.Element[] => {
-            return DepartmentsManager.getDepartmentSelectOptions(department, fieldName).map(value => 
-                <MenuItem key={value} value={value}>
-                    {value}
-                </MenuItem>
-            );
-        }
-
-        const selectors: JSX.Element[] = DepartmentsManager.getDepartmentFields().map(fieldName => {
-            const menuItems: JSX.Element[] = departmentFieldMenuItems(fieldName);
-            const isDisabled: boolean = menuItems.length === 0;
-            const tooltipTitle: string = DepartmentsManager.getSelectToolTip(isDisabled, fieldName);
-
-            return (
-                <div 
-                    className={classes.departmentField}
-                    key={fieldName}
-                >
-                    <Typography>
-                        {DepartmentsManager.getDepartmentFieldDisplay(fieldName)}
-                    </Typography>
-                    <Tooltip 
-                        title={tooltipTitle}
-                        classes={{ 
-                            tooltip: classes.tooltip
-                        }}
-                    >
-                        <Select
-                            className={classes.select}
-                            classes={{
-                                icon: classes.selectIcon,
-                                disabled: classes.selectDisabled
-                            }}
-                            disabled={isDisabled}
-                            value={department[fieldName]}
-                            MenuProps={{
-                                anchorOrigin: {
-                                    vertical: "bottom",
-                                    horizontal: "center"
-                                },
-                                transformOrigin: {
-                                    vertical: "top",
-                                    horizontal: "center"
-                                },
-                                getContentAnchorEl: null
-                            }}
-                            onChange={(event: React.ChangeEvent<{ name?: string | undefined; value: unknown; }>) => 
-                                setDepartment(DepartmentsManager.updateDepartment(department, fieldName, String(event.target.value)))}
-                        >
-                            {menuItems}
-                        </Select>
-                    </Tooltip>
-                </div>
-            )
-        });
-        
-        return (
-            <div className={classes.departmentFields}>
-                {selectors}
-            </div>
-        );
-    }
-
-    const getDepartment = (): JSX.Element => {
-        return (
-            <> 
-                {getDepartmentHeader()}
-                {getDepartmentFields()}
-            </>
         );
     }
 
@@ -460,7 +375,7 @@ const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => 
       >
         {getTitle()}
         <DialogContent className={classes.dialogContent}>
-            {getDepartment()}
+            <DepartmentInput department={department} setDepartment={setDepartment} />
             {getJobRequirements()}
             {getJobNickname()}
             {getJobDescription()}
