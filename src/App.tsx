@@ -6,7 +6,7 @@ import JobsAppBody from './components/Application-Body/JobsAppBody';
 const App: React.FC<{}> = (): JSX.Element => {
   return (
     <div>
-      <JobsAppBar user={{name: "Meshushe", userInitials: "Shmuel"}} />
+      <JobsAppBar user={{name: "אדיר סטיון", userInitials: "א י"}} />
       <JobsAppBody />
     </div>
   );
