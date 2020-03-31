@@ -20,7 +20,7 @@ import {
 } from '@material-ui/pickers';
 
 import styles from './PostNewJobStyles';
-import { Switch, TextField, MenuItem } from '@material-ui/core';
+import { Switch, TextField, MenuItem, RadioGroup, Radio, FormControlLabel } from '@material-ui/core';
 import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
 
 interface PostNewJobProps {
@@ -62,8 +62,12 @@ const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => 
 
     const getTitle = (): JSX.Element => {
         return (
-            <DialogTitle className={classes.dialogTitle}>
-                פרסום תפקיד חדש
+            <DialogTitle 
+                className={classes.dialogTitle}
+            >
+                <Typography className={classes.dialogTitleText}>
+                    פרסום תפקיד חדש
+                </Typography>
             </DialogTitle>
         );
     }
@@ -150,6 +154,27 @@ const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => 
                     דרישות התפקיד
                 </Typography>
                 <div className={classes.dashLine} />
+            </div>
+        );
+    }
+
+    const getJobRole = (): JSX.Element => {
+        const JOB_ROLES: string[] = ["תוכניתן", 'רש"צ', "מנהל מוצר"];
+        const radioes = JOB_ROLES.map(jobRole => 
+            <FormControlLabel
+                value={jobRole} 
+                control={<Radio className={classes.radioOption} />} 
+                label={jobRole} 
+            />
+        );
+        return (
+            <div className={classes.jobRole}>
+                <Typography>
+                    תפקיד
+                </Typography>
+                <RadioGroup row>
+                    {radioes}
+                </RadioGroup>
             </div>
         );
     }
@@ -302,6 +327,7 @@ const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => 
     const getJobRequirementsFields = (): JSX.Element => {
         return (
             <>
+                {getJobRole()}
                 {getJobStandard()}
                 {getJobEntryDate()}
                 {getJobSeniority()}
@@ -317,6 +343,20 @@ const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => 
                 {getJobRequirementsFields()}
             </>
         );
+    }
+
+    const getJobNickname = (): JSX.Element => {
+        return (
+            <>
+                <Typography>
+                    שם התפקיד
+                </Typography>
+                <TextField 
+                    className={classes.jobNicknameText}
+                    placeholder='למשל: מפתח צוות תכנון שו"ב'
+                />
+            </>
+        );        
     }
 
     const getJobDescription = (): JSX.Element => {
@@ -362,6 +402,7 @@ const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => 
         <DialogContent className={classes.dialogContent}>
             {getDepartment()}
             {getJobRequirements()}
+            {getJobNickname()}
             {getJobDescription()}
             {/* {getContactInformation()} */}
         </DialogContent>

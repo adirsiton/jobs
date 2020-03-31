@@ -6,12 +6,15 @@ const inputFieldBackgroundColor = "rgb(206,206,206)";
 
 const styles = makeStyles({
     dialogPaper: {
-      width: "40vw"  
+      width: "40vw"
     },
     dialogTitle: {
         padding: "unset",
         paddingRight: `${postPadding}`,
-        color: `${dialogThemeColor}`
+        color: `${dialogThemeColor}`,
+    },
+    dialogTitleText: {
+        fontSize: "150%"
     },
     dialogContent: {
         padding: "unset",
@@ -38,8 +41,16 @@ const styles = makeStyles({
     jobRequirementsHeaderTitle: {
         whiteSpace: "nowrap"
     },
+    jobRole: {
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center"
+    },
+    radioOption: {
+        paddingLeft: "1vw"
+    },
     standardTitle: {
-        paddingLeft: "1vw"  
+        paddingLeft: "4ch"  
     },
     standardFields: {
         display: "flex",
@@ -78,9 +89,14 @@ const styles = makeStyles({
         backgroundColor: `${inputFieldBackgroundColor}`
     },
     select: {
-        marginRight: "0.5vw",
-        width: "8vw",
+        marginRight: "5px",
+        width: "12ch",
         backgroundColor: `${inputFieldBackgroundColor}`
+    },
+    jobNicknameText: {
+        backgroundColor: `${inputFieldBackgroundColor}`,
+        paddingRight: "5px",
+        width: "98%" // TODO: Fix, this is bad solution...
     },
     selectIcon: {
         direction: "rtl"
@@ -112,7 +128,7 @@ const styles = makeStyles({
         padding: "unset",
     },
     checkboxIcon: {
-        fontSize: "3vh",
+        fontSize: "24px", // Radio button size
     },
     numberInput: { // Important: TY @Material-ui -_-
         width: "10vw",

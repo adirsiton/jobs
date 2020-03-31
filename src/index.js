@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
-import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles'; // Warning of M-ui, import like for private module
 import { heIL } from '@material-ui/core/locale';
 
 import App from './App';
@@ -27,14 +27,25 @@ const projectGlobalTheme = createMuiTheme({
       }
     },
     MuiButton: {
-      '&:focus': {
-        outline: 'none'
+      // TODO: Check this...
+      // '&:focus': {
+      //   outline: 'none'
+      // }
+    },
+    MuiRadio: {
+      colorSecondary: {
+        '&$checked': {
+          color: `${assistantColor}`
+        }
+      },
+      root: {
+        padding: 'unset'
       }
     },
     MuiCheckbox: {
       colorSecondary: {
           '&$checked': {
-            color: 'rgb(89,89,89)'
+            color: `${assistantColor}`
           }
       }
     },
