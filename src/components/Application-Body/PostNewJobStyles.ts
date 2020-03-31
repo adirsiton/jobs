@@ -48,9 +48,6 @@ const styles = makeStyles({
         flexDirection: "row",
         alignItems: "center"
     },
-    radioOption: {
-        paddingLeft: "1vw"
-    },
     standardTitle: {
         paddingLeft: "4ch"  
     },

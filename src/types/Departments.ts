@@ -1,6 +1,35 @@
-export type Unit = string;
-export type Branch = string;
-export type Department = string;
+// Todo, Add in DB these relations (Unit, Branch, Department)?
+
+export enum Unit {
+    NO_UNIT = '',
+    MAZPEN = 'מצפ"ן',
+    MAMRAM = 'ממר"מ'
+};
+
+export enum Branch {
+    NO_BRANCH = '',
+    PSAGOT_SHILUVIUT = 'פסגות ושילוביות',
+    AVEN_MITGALGELET = 'אבן מתגלגלת',
+    ANAN_MIVZTAI = 'ענן מבצעי',
+    MERHAV_HATOMCAL = 'מרחב התומכ"ל'
+};
+
+export enum Department {
+    NO_DEPARTMENT = '',
+    DEVOPS = 'DEVOPS',
+    KISHURIUT_AND_FIRE = 'קישוריות ואש',
+    SPECTRUM = 'ספקטרום',
+    HANDASAT_SHILUVIUT = 'הנדסת השילוביות',
+    LA = 'ל"א',
+    AVEN_AHAHAMIM = 'אבן החכמים',
+    GLOBUS = 'גלובוס',
+    MAAVARIM = 'מעברים',
+    PLATFORMS = 'Platforms',
+    BIG_DATA = 'Big Data',
+    CTO = 'Cto',
+    MEMAD = 'מימ"ד',
+    RESHATOT = 'רשתות'
+};
 
 interface DepartmentsData {
     [key: string]: {
@@ -9,27 +38,29 @@ interface DepartmentsData {
 };
 
 const DEPARTMENTS_DATA: DepartmentsData = {
-    'מצפ"ן': {
-        "פסגות ושילוביות": [
-            "DEVOPS",
-            "קישוריות ואש",
-            "ספקטרום",
-            "הנדסת השילוביות",
-            'ל"א'
+    [Unit.MAZPEN]: {
+        [Branch.PSAGOT_SHILUVIUT]: [
+            Department.DEVOPS,
+            Department.KISHURIUT_AND_FIRE,
+            Department.SPECTRUM,
+            Department.HANDASAT_SHILUVIUT,
+            Department.LA
         ],
-        "אבן מתגלגלת": [
-            "אבן החכמים",
-            "גלובוס",
-            "מעברים"
+        [Branch.AVEN_MITGALGELET]: [
+            Department.AVEN_AHAHAMIM,
+            Department.GLOBUS,
+            Department.MAAVARIM
         ]
     },
-    'ממר"מ': {
-        "ענן מבצעי": [
-            "Platforms", "Big Data", "cto"
+    [Unit.MAMRAM]: {
+        [Branch.ANAN_MIVZTAI]: [
+            Department.PLATFORMS,
+            Department.BIG_DATA,
+            Department.CTO
         ],
-        'מרחב התומכ"ל': [
-            'מימ"ד',
-            "רשתות"
+        [Branch.MERHAV_HATOMCAL]: [
+            Department.MEMAD,
+            Department.RESHATOT
         ]
     }
 };
@@ -46,27 +77,47 @@ interface DepartmentDataInfo {
 
 export type DepartmentData = DepartmentDataInfo & StringToStringMapper;
 
+export const EMPTY_DEPARTMENT: DepartmentData = {
+    unit: Unit.NO_UNIT,
+    branch: Branch.NO_BRANCH,
+    department: Department.NO_DEPARTMENT
+}
+
 const DEPARTMENT_TO_DISPLAY: StringToStringMapper = {
-    unit: "יחידה",
-    branch: "ענף",
-    department: "מדור" 
+    unit: 'יחידה',
+    branch: 'ענף',
+    department: 'מדור' 
 };
 
 class Departments {   
     getAllUnits = (): Unit[] => {
-        return Object.keys(DEPARTMENTS_DATA).sort();
+        const units: string[] = Object.keys(DEPARTMENTS_DATA);
+
+        return Object.values(Unit)
+            .filter(unit => units.includes(unit))
+            .sort();
     }
 
     getBranchesOfUnit = (unit: Unit): Branch[] => {        
         if (!unit)
             return [];
-        return Object.keys((DEPARTMENTS_DATA[unit])).sort();
+
+        const branchesOfUnit: string[] = Object.keys((DEPARTMENTS_DATA[unit]));
+        
+        return Object.values(Branch)
+            .filter(branch => branchesOfUnit.includes(branch))
+            .sort();
     }
 
     getDepartmentsOfBranch = (unit: Unit, branch: Branch): Department[] => {
         if (!unit || !branch)
             return [];
-        return DEPARTMENTS_DATA[unit][branch].sort();
+
+        const departmentsOfBranch: string[] = Object.keys((DEPARTMENTS_DATA[unit][branch]));
+    
+        return Object.values(Department)
+            .filter(department => departmentsOfBranch.includes(department))
+            .sort();
     }
 
     getDepartmentFields = (): string[] => {
@@ -117,14 +168,14 @@ class Departments {
             case 'unit': /* fall through */
                 updatedDepartment = {
                     ...updatedDepartment,
-                    branch: '',
-                    department: ''
+                    branch: Branch.NO_BRANCH,
+                    department: Department.NO_DEPARTMENT
                 };
                 break;
             case 'branch':
                 updatedDepartment = {
                     ...updatedDepartment,
-                    department: ''
+                    department: Department.NO_DEPARTMENT
                 };
                 break;
             case 'department':

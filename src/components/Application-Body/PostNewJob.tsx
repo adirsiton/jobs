@@ -29,7 +29,9 @@ import {
 
 import styles from './PostNewJobStyles';
 import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
-import { DepartmentData, DepartmentsManager } from '../../types/Departments';
+import { DepartmentData, DepartmentsManager, EMPTY_DEPARTMENT } from '../../types/Departments';
+import { Role, ROLE_DISPLAYS } from '../../types/Role';
+import { Standard, STANDARD_DISPLAYS } from '../../types/Standard';
 
 interface PostNewJobProps {
     closeDialog: () => void;
@@ -39,16 +41,14 @@ const today = new Date();
 
 const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => {
     const classes = styles({});
+    const [role, setRole] = useState<Role>(Role.NO_ROLE);
+    const standards: Set<Standard> = new Set([]);
     const [shouldChooseDate, setShouldChooseDate] = useState<boolean>(false);
-    const [shouldHaveSeniority, setShouldHaveSeniority] = useState<boolean>(false);
-    const [shouldHaveDamach, setShouldHaveDamach] = useState<boolean>(false);
-    const [yearsInSeniority, setYearsInSeniority] = useState<number>(1);
     const [entryDate, setEntryDate] = useState<MaterialUiPickersDate>(null);
-    const [department, setDepartment] = useState<DepartmentData>({
-        unit: "",
-        branch: "",
-        department: ""
-    });
+    const [shouldHaveSeniority, setShouldHaveSeniority] = useState<boolean>(false);
+    const [yearsInSeniority, setYearsInSeniority] = useState<number>(1);
+    const [shouldHaveDamach, setShouldHaveDamach] = useState<boolean>(false);
+    const [department, setDepartment] = useState<DepartmentData>(EMPTY_DEPARTMENT);
 
     const getTitle = (): JSX.Element => {
         return (
@@ -161,12 +161,11 @@ const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => 
     }
 
     const getJobRole = (): JSX.Element => {
-        const JOB_ROLES: string[] = ["תוכניתן", 'רש"צ', "מנהל מוצר"];
-        const radioes = JOB_ROLES.map(jobRole => 
+        const radioes = ROLE_DISPLAYS.map(jobRole => 
             <FormControlLabel
                 key={jobRole}
                 value={jobRole} 
-                control={<Radio className={classes.radioOption} />} 
+                control={<Radio onClick={() => setRole(jobRole)} />} 
                 label={jobRole} 
             />
         );
@@ -183,14 +182,17 @@ const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => 
     }
 
     const getJobStandard = (): JSX.Element => {
-        const STANDARDS: string[] = ["סרן", 'רס"ן', 'רס"ל'];
-
-        const standardCheckboxes: JSX.Element[] = STANDARDS.map(standard => 
+        const standardCheckboxes: JSX.Element[] = STANDARD_DISPLAYS.map(standard => 
             <div className={classes.checkboxField} key={standard}>
                 <Checkbox 
                     className={classes.checkbox}
                     icon={<CircleUnchecked className={classes.checkboxIcon} />} 
-                    checkedIcon={<CircleCheckedFilled className={classes.checkboxIcon} />} />
+                    checkedIcon={<CircleCheckedFilled className={classes.checkboxIcon} />} 
+                    onClick={() =>
+                        standards.has(standard) 
+                            ? standards.delete(standard)
+                            : standards.add(standard)
+                    } />
                 <Typography>
                     {standard}
                 </Typography>
