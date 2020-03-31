@@ -427,7 +427,7 @@ const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => 
                     tooltip: classes.tooltip
                 }}
             >
-                <span>
+                <span> { /* Span is for the tooltip, when button is disabled */ }
                     <Button 
                         className={classes.postButton}
                         classes={{
