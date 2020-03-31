@@ -113,11 +113,9 @@ class Departments {
         if (!unit || !branch)
             return [];
 
-        const departmentsOfBranch: string[] = Object.keys((DEPARTMENTS_DATA[unit][branch]));
+        const departmentsOfBranch: Department[] = DEPARTMENTS_DATA[unit][branch];
     
-        return Object.values(Department)
-            .filter(department => departmentsOfBranch.includes(department))
-            .sort();
+        return departmentsOfBranch.sort();
     }
 
     getDepartmentFields = (): string[] => {
@@ -189,6 +187,11 @@ class Departments {
         }
 
         return updatedDepartment;
+    }
+
+    isDepartmentSelected = (department: DepartmentData): boolean => {
+        // Most inner select check. So if it selected, then all outer selects are elected too.
+        return department.department !== Department.NO_DEPARTMENT;
     }
 }
 

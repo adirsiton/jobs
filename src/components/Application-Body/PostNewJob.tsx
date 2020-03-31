@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -37,18 +37,33 @@ interface PostNewJobProps {
     closeDialog: () => void;
 }
 
+const JOB_NICKNAME_MAX_LENGTH = 35;
+
 const today = new Date();
 
 const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => {
     const classes = styles({});
+    
+    const [department, setDepartment] = useState<DepartmentData>(EMPTY_DEPARTMENT);
     const [role, setRole] = useState<Role>(Role.NO_ROLE);
-    const standards: Set<Standard> = new Set([]);
+    const [standards, setStandards] = useState<Standard[]>([]);
     const [shouldChooseDate, setShouldChooseDate] = useState<boolean>(false);
     const [entryDate, setEntryDate] = useState<MaterialUiPickersDate>(null);
     const [shouldHaveSeniority, setShouldHaveSeniority] = useState<boolean>(false);
     const [yearsInSeniority, setYearsInSeniority] = useState<number>(1);
     const [shouldHaveDamach, setShouldHaveDamach] = useState<boolean>(false);
-    const [department, setDepartment] = useState<DepartmentData>(EMPTY_DEPARTMENT);
+    const [jobNickname, setJobNickname] = useState<string>('');
+    const [jobDescription, setJobDescription] = useState<string>('');
+    const [isPostButtonDisabled, setIsPostButtonDisabled] = useState<boolean>(false);
+
+    useEffect(() => {
+        const isInputFull: boolean = DepartmentsManager.isDepartmentSelected(department) &&
+            role !== Role.NO_ROLE &&
+            standards.length > 0 &&
+            (!shouldChooseDate || entryDate !== null);
+
+            setIsPostButtonDisabled(!isInputFull);
+    }, [department, role, standards, shouldChooseDate, entryDate]);
 
     const getTitle = (): JSX.Element => {
         return (
@@ -187,11 +202,13 @@ const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => 
                 <Checkbox 
                     className={classes.checkbox}
                     icon={<CircleUnchecked className={classes.checkboxIcon} />} 
-                    checkedIcon={<CircleCheckedFilled className={classes.checkboxIcon} />} 
-                    onClick={() =>
-                        standards.has(standard) 
-                            ? standards.delete(standard)
-                            : standards.add(standard)
+                    checkedIcon={<CircleCheckedFilled className={classes.checkboxIcon} />}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => 
+                        setStandards(
+                            event.target.checked 
+                                ? [...standards, standard]
+                                : standards.filter(selectedStandard => selectedStandard !== standard)
+                        )
                     } />
                 <Typography>
                     {standard}
@@ -359,6 +376,13 @@ const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => 
                 <TextField 
                     className={classes.jobNicknameText}
                     placeholder='למשל: מפתח צוות תכנון שו"ב'
+                    value={jobNickname}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => 
+                        setJobNickname(event.target.value)
+                    }
+                    inputProps={{
+                        maxLength: JOB_NICKNAME_MAX_LENGTH
+                    }}
                 />
             </>
         );        
@@ -377,27 +401,51 @@ const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => 
                     rowsMin={3}
                     rowsMax={3}
                     placeholder={jobDescriptionPlaceHolder}
+                    value={jobDescription}
+                    onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => 
+                        setJobDescription(event.target.value)
+                    }                    
                 />
             </>
         );
     }
 
+    const createNewPost = (): void => {
+        closeDialog();
+    }
+
     const getPostButton = (): JSX.Element => {
+        const tooltipTitle: string = 
+            isPostButtonDisabled 
+                ? "יש למלא את כל השדות"
+                : "";
+
         return (
-            <Button 
-                className={classes.postButton}
-                classes={{
-                    label: classes.postButtonLabel,
-                    startIcon: classes.postButtonIcon
+            <Tooltip 
+                title={tooltipTitle}
+                classes={{ 
+                    tooltip: classes.tooltip
                 }}
-                variant="contained"
-                startIcon={<PostAddIcon />}
-                onClick={closeDialog}
             >
-                <Typography className={classes.postButtonText}>
-                    פרסום
-                </Typography>
-            </Button>
+                <span>
+                    <Button 
+                        className={classes.postButton}
+                        classes={{
+                            label: classes.postButtonLabel,
+                            startIcon: classes.postButtonIcon,
+                            disabled: classes.postButtonDisabled
+                        }}
+                        disabled={isPostButtonDisabled}
+                        variant="contained"
+                        startIcon={<PostAddIcon />}
+                        onClick={createNewPost}
+                    >
+                        <Typography className={classes.postButtonText}>
+                            פרסום
+                        </Typography>
+                    </Button>
+                </span>
+            </Tooltip>
         )
     }
 

@@ -101,7 +101,7 @@ const styles = makeStyles({
     jobNicknameText: {
         backgroundColor: `${inputFieldBackgroundColor}`,
         paddingRight: "5px",
-        width: "98%" // TODO: Fix, this is bad solution...
+        width: "40ch"
     },
     selectIcon: {
         direction: "rtl"
@@ -122,11 +122,15 @@ const styles = makeStyles({
         justifyContent: "center"
     },
     postButtonIcon: {
-        marginRight: "unset"
+        marginRight: "unset",
+        color: 'white'
     },
     postButtonText: {
         paddingRight: "5px",
         color: "white"
+    },
+    postButtonDisabled: {
+        backgroundColor: 'gray !important', // Important: TY @Material-ui -_-
     },
     dashLine: {
         width: "100%",
