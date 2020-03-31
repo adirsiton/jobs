@@ -89,26 +89,26 @@ const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => 
     }
 
     const getDepartmentFields = (): JSX.Element => {
-        const departmentFieldMenuItems = (field: string): JSX.Element[] => {
-            return DepartmentsManager.getDepartmentFieldOptions(department, field).map(value => 
+        const departmentFieldMenuItems = (fieldName: string): JSX.Element[] => {
+            return DepartmentsManager.getDepartmentSelectOptions(department, fieldName).map(value => 
                 <MenuItem key={value} value={value}>
                     {value}
                 </MenuItem>
             );
         }
 
-        const selectors: JSX.Element[] = DepartmentsManager.getDepartmentFields().map(field => {
-            const menuItems: JSX.Element[] = departmentFieldMenuItems(field);
+        const selectors: JSX.Element[] = DepartmentsManager.getDepartmentFields().map(fieldName => {
+            const menuItems: JSX.Element[] = departmentFieldMenuItems(fieldName);
             const isDisabled: boolean = menuItems.length === 0;
-            const tooltipTitle: string = DepartmentsManager.getSelectToolTip(isDisabled, field);
+            const tooltipTitle: string = DepartmentsManager.getSelectToolTip(isDisabled, fieldName);
 
             return (
                 <div 
                     className={classes.departmentField}
-                    key={field}
+                    key={fieldName}
                 >
                     <Typography>
-                        {DepartmentsManager.getDepartmentFieldDisplay(field)}
+                        {DepartmentsManager.getDepartmentFieldDisplay(fieldName)}
                     </Typography>
                     <Tooltip 
                         title={tooltipTitle}
@@ -123,7 +123,7 @@ const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => 
                                 disabled: classes.selectDisabled
                             }}
                             disabled={isDisabled}
-                            value={department[field]}
+                            value={department[fieldName]}
                             MenuProps={{
                                 anchorOrigin: {
                                     vertical: "bottom",
@@ -135,8 +135,8 @@ const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => 
                                 },
                                 getContentAnchorEl: null
                             }}
-                            onChange={(event: any) => 
-                                setDepartment(DepartmentsManager.updateDepartment(department, field, event.target.value))}
+                            onChange={(event: React.ChangeEvent<{ name?: string | undefined; value: unknown; }>) => 
+                                setDepartment(DepartmentsManager.updateDepartment(department, fieldName, String(event.target.value)))}
                         >
                             {menuItems}
                         </Select>

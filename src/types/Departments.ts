@@ -122,12 +122,13 @@ class Departments {
         return Object.keys(DEPARTMENT_TO_DISPLAY);
     }
 
-    getDepartmentFieldDisplay = (field: string): string => {
-        return DEPARTMENT_TO_DISPLAY[field];
+    getDepartmentFieldDisplay = (fieldName: string): string => {
+        return DEPARTMENT_TO_DISPLAY[fieldName];
     }
 
-    getDepartmentFieldOptions = (department: DepartmentData, field: string): string[] => {
-        switch (field) {
+    // When selecting unit/branch/department, we need the options. The method returns these options.
+    getDepartmentSelectOptions = (department: DepartmentData, fieldName: string): string[] => {
+        switch (fieldName) {
             case 'unit':
                 return this.getAllUnits();
             case 'branch':
@@ -139,12 +140,12 @@ class Departments {
         }
     }
 
-    getSelectToolTip = (isDisabled: boolean, field: string): string => {
+    getSelectToolTip = (isDisabled: boolean, fieldName: string): string => {
         if (!isDisabled)
             return "";
 
         const higherField: string = (() => { 
-            switch (field) {
+            switch (fieldName) {
                 case 'unit':
                     throw new Error("Higher level of unit is currently not supported");
                 case 'branch':
@@ -159,18 +160,18 @@ class Departments {
         return `יש לבחור ${this.getDepartmentFieldDisplay(higherField)} קודם`;
     }
 
-    updateDepartment = (department: DepartmentData, field: string, value: string): DepartmentData => {
+    updateDepartment = (department: DepartmentData, fieldName: string, value: string): DepartmentData => {
         let updatedDepartment: DepartmentData = department;
 
-        switch (field) {
-            case 'unit': /* fall through */
+        switch (fieldName) {
+            case 'unit': // Changing unit, means no Branch/Department is selected
                 updatedDepartment = {
                     ...updatedDepartment,
                     branch: Branch.NO_BRANCH,
                     department: Department.NO_DEPARTMENT
                 };
                 break;
-            case 'branch':
+            case 'branch': // Changing branch, means no Department is selected
                 updatedDepartment = {
                     ...updatedDepartment,
                     department: Department.NO_DEPARTMENT
@@ -183,7 +184,7 @@ class Departments {
         }
 
         updatedDepartment = {...updatedDepartment,
-            [field]: value
+            [fieldName]: value
         }
 
         return updatedDepartment;
