@@ -13,6 +13,7 @@ import Checkbox from '@material-ui/core/Checkbox/Checkbox';
 import CircleCheckedFilled from '@material-ui/icons/CheckCircle';
 import CircleUnchecked from '@material-ui/icons/RadioButtonUnchecked';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
+import PostAddIcon from '@material-ui/icons/PostAdd';
 import DateFnsUtils from '@date-io/date-fns';
 import {
   DatePicker,
@@ -381,10 +382,17 @@ const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => 
         return (
             <Button 
                 className={classes.postButton}
+                classes={{
+                    label: classes.postButtonLabel,
+                    startIcon: classes.postButtonIcon
+                }}
                 variant="contained"
+                startIcon={<PostAddIcon />}
                 onClick={closeDialog}
             >
-                פרסום
+                <Typography className={classes.postButtonText}>
+                    פרסום
+                </Typography>
             </Button>
         )
     }

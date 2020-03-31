@@ -102,6 +102,8 @@ const styles = makeStyles({
         direction: "rtl"
     },
     postButton: {
+        width: "12ch",
+        display: "flex",
         color: "white",
         backgroundColor: `${dialogThemeColor}`,
         "&:hover": {
@@ -110,6 +112,16 @@ const styles = makeStyles({
         "&:focus": {
             backgroundColor: `${dialogThemeColor}`,
         }
+    },
+    postButtonLabel: {
+        justifyContent: "center"
+    },
+    postButtonIcon: {
+        marginRight: "unset"
+    },
+    postButtonText: {
+        paddingRight: "5px",
+        color: "white"
     },
     dashLine: {
         width: "100%",
