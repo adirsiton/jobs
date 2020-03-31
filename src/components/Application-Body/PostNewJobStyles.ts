@@ -58,7 +58,7 @@ const styles = makeStyles({
         alignItems: "center"
     },
     jobEntryDateTitle: {
-        paddingLeft: "1vw"  
+        paddingLeft: "2ch"  
     },    
     jobEntryDateFields: {
         height: "10vh",
@@ -66,7 +66,7 @@ const styles = makeStyles({
         alignItems: "center"
     },
     jobSeniorityTitle: {
-        paddingLeft: "1vw"  
+        paddingLeft: "6ch"
     },    
     jobSeniorityFields: {
         height: "10vh",
@@ -74,7 +74,7 @@ const styles = makeStyles({
         alignItems: "center"
     },
     jobDamachTitle: {
-        paddingLeft: "1vw"  
+        paddingLeft: "3ch"  
     },    
     jobDamachFields: {
         height: "10vh",
@@ -132,7 +132,7 @@ const styles = makeStyles({
     },
     numberInput: { // Important: TY @Material-ui -_-
         width: "10vw",
-        marginRight: "1vw !important",
+        marginRight: "5ch !important",
         backgroundColor: `${inputFieldBackgroundColor}`
     },
     numberInputLabel: {
@@ -140,7 +140,7 @@ const styles = makeStyles({
     },
     datePicker: {
         width: "10vw",
-        marginRight: "1vw",
+        marginRight: "2ch",
         backgroundColor: `${inputFieldBackgroundColor}`        
     },
     datePickerInput: {
