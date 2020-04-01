@@ -30,13 +30,13 @@ const styles = makeStyles({
 const JobsAppBody: React.FC<{}> = (): JSX.Element => {
     const classes = styles({});
     const [ads, setAds] = useState<any>([]);
-    const [openAddDialog, setOpenAddDialog] = useState<boolean>(true/*false*/); // TODO: Change to false when done, comfortable for develop of feature to be true
+    const [openAddDialog, setOpenAddDialog] = useState<boolean>(false); 
 
     useEffect(() => {
         getAllAds();
     }, []);
 
-    const getAllAds = (): void => {
+    const getAllAds = (): void => { 
         fetch('/ads').then(response => {
             return response.text();
         }).then(data => {
