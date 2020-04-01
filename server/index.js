@@ -6,7 +6,7 @@ const pino = require('express-pino-logger')();
 const proxy = require("express-http-proxy");
 const passport = require('passport');
 // const OAuth2Strategy = require('passport-oauth2'); will be needed after whiten
-const loginRouter = require('./routes/auth/auth');
+const appRouter = require('./routes/router');
 const GitHubStrategy = require('passport-github').Strategy;
 
 require('dotenv').config();
@@ -48,7 +48,7 @@ passport.deserializeUser(function(name, cb) {
   cb(null, name);
 });
 
-app.use("/", loginRouter);
+app.use("/" , appRouter);
 
 // Accept only authenticated requests, if not redirect to login
 app.use((req, res, next) => {
