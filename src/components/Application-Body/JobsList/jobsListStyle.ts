@@ -8,50 +8,80 @@ const useStyles = makeStyles((theme) =>
             maxWidth: 345,
         },
         avatar: {
-            width: "70px",
-            height: "70px"
+            height: "25px",
+            width: "40px",
+            textAlign: "center",
+            backgroundColor: "#62e5ff",
+            fontSize: "medium",
+            color: "white",
+            borderRadius: "5px"
         },
         jobsList: {
-            margin: "40px 42px 10px 0",
-            display: "flex",
-            flexWrap: "wrap"
-        },
-        job: {
-            // display: inline-block;
-            boxShadow: "-1px 1px 5px 1px #c5c5c5",
-            width: "24vw",
-            height: "38vh",
-            margin: "0 60px 30px 0px",
-            display: "flex",
-            flexDirection: "column"
-            // position: relative;
-        },
-        jobHeader: {
-            flexGrow: 1,
-            display: "flex",
-            flexDirection:"row-reverse",
-            justifyContent: "space-between",
-            padding: "20px",
-        },
-        jobHeaderTitles: {
+            margin: "30px auto",
             display: "flex",
             flexDirection: "column",
-            color: "#bbbbbb",
-            fontSize: "small",
+            width: "78%"
+        },
+        job: {
+            boxShadow: "0px -1px 5px 4px #c5c5c5",
+            marginBottom: "30px",
+            display: "flex",
+            flexDirection: "row",
+            height: '13vh'
+        },
+        jobHeader: {
+            display: "flex",
+            flexDirection: "column",
+            padding: "20px",
+            width: "15%"
+        },
+        jobSecondaryTitles: {
+            display: "flex",
+            flexDirection: "column",
+            color: "#a59e9e",
+            fontSize: "medium",
             fontWeight: 400
         },
         jobMainTitle: {
             fontWeight: "bold",
             fontSize: "x-large",
+            marginBottom: "10px",
+            color: "#8e8d8d"
+        },
+        jobMainTitles: {
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between"
+        },
+        locationTitle: {
+            display: "flex",
+            alignItems: "center"
+        },
+        jobsLocationIcon: {
+            fontSize: "1.1rem"
         },
         jobContent: {
-            // height: "82%",
-            flexGrow: 2
+            flexGrow: 1
         },
         jobFooter: {
-            flexGrow: 1,
-            // height: "18%",
-            backgroundColor: "#f1f1f1"
+            width: "16%",
+            display: "flex",
+            flexDirection: "row",
+            backgroundColor: "#F8F9FC",
+            justifyContent: "space-around",
+        },
+        jobBtn: {
+            color: "#21BD90",
+            fontSize: "larger",
+            '&:hover': {
+                color: "#64e4bf",
+                backgroundColor: "transparent"
+            }
+        },
+        btnIcon: {
+            marginRight: "3px",
+            marginLeft: "5px"
         }
     }),
 );
