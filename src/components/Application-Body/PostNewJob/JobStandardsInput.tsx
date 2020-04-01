@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import Typography from '@material-ui/core/Typography';
+import InputLabel from '@material-ui/core/InputLabel';
 import Checkbox from '@material-ui/core/Checkbox/Checkbox';
 // import CircleChecked from '@material-ui/icons/CheckCircleOutline';
 import CircleCheckedFilled from '@material-ui/icons/CheckCircle';
@@ -40,9 +41,12 @@ const JobStandardsInput: React.FC<JobStandardsInputProps> = (props): JSX.Element
     
     return (
         <div className={classes.standardFields}>
-            <Typography className={classes.standardTitle}>
+            <InputLabel
+                required={true}
+                className={classes.standardTitle}
+            >
                 תקן
-            </Typography>
+            </InputLabel>
             {standardCheckboxes}
         </div>
     );    

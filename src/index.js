@@ -58,7 +58,12 @@ const projectGlobalTheme = createMuiTheme({
           backgroundColor: 'green'
         }        
       }
-    }    
+    },
+    MuiFormHelperText: {
+      root: {
+        textAlign: 'right'
+      }
+    }
   }
 }, heIL);
 

@@ -146,7 +146,7 @@ const styles = makeStyles({
         paddingLeft: "1vw"
     },
     checkbox: {
-        padding: "unset",
+        padding: "unset !important", // Important: TY @Material-ui -_-
     },
     checkboxIcon: {
         fontSize: "24px", // Radio button size
@@ -169,7 +169,7 @@ const styles = makeStyles({
     },
     datePickerLabel: {
         alignSelf: "center"
-    }
+    },
 });
 
 export default styles;

@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+import InputLabel from '@material-ui/core/InputLabel';
 import Typography from '@material-ui/core/Typography';
 import Tooltip from '@material-ui/core/Tooltip';
 
@@ -48,9 +49,11 @@ const DepartmentInput: React.FC<DepartmentInputProps> = (props): JSX.Element => 
                     className={classes.departmentField}
                     key={fieldName}
                 >
-                    <Typography>
+                    <InputLabel
+                        required={true}
+                    >
                         {DepartmentsManager.getDepartmentFieldDisplay(fieldName)}
-                    </Typography>
+                    </InputLabel>
                     <Tooltip 
                         title={tooltipTitle}
                         classes={{ 

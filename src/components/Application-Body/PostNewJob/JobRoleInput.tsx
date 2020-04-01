@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import Typography from '@material-ui/core/Typography';
+import InputLabel from '@material-ui/core/InputLabel';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import Radio from '@material-ui/core/Radio';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -28,9 +28,11 @@ const JobRoleInput: React.FC<JobRoleInputProps> = (props): JSX.Element => {
     
     return (
         <div className={classes.jobRole}>
-            <Typography>
+            <InputLabel
+                required={true}
+            >
                 תפקיד
-            </Typography>
+            </InputLabel>
             <RadioGroup row>
                 {radioes}
             </RadioGroup>

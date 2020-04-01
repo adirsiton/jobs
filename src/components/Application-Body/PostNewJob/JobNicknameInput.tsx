@@ -1,6 +1,7 @@
 import * as React from 'react';
+import { useState, useEffect } from 'react';
 
-import Typography from '@material-ui/core/Typography';
+import InputLabel from '@material-ui/core/InputLabel';
 import TextField from '@material-ui/core/TextField';
 
 import styles from './PostNewJobStyles';
@@ -8,23 +9,46 @@ import styles from './PostNewJobStyles';
 interface JobNicknameInputProps {
     jobNickname: string;
     setJobNickname: (jobNickname: string) => void;
+    didValidationFail: boolean;
 }
 
+const JOB_NICKNAME_MIN_LENGTH = 8;
 const JOB_NICKNAME_MAX_LENGTH = 35;
 
-const JobNicknameInput: React.FC<JobNicknameInputProps> = (props): JSX.Element => {
-    const { jobNickname, setJobNickname } = props;
+export const isJobNicknameInValidLength = (jobNickname: string): boolean => {
+    return jobNickname.length >= JOB_NICKNAME_MIN_LENGTH;
+}
 
+const JobNicknameInput: React.FC<JobNicknameInputProps> = (props): JSX.Element => {
+    const { jobNickname, setJobNickname, didValidationFail } = props;
+    
     const classes = styles({});
+    
+    const [isInError, setIsInError] = useState<boolean>(false);
+
+    useEffect(() => {
+        if (didValidationFail) {
+            setIsInError(!isJobNicknameInValidLength(jobNickname));
+        }
+    }, [didValidationFail]);
 
     return (
         <>
-            <Typography>
+            <InputLabel
+                required
+                error={isInError}
+            >
                 שם התפקיד
-            </Typography>
+            </InputLabel>
             <TextField 
+                required
                 className={classes.jobNicknameText}
                 placeholder='למשל: מפתח צוות תכנון שו"ב'
+                error={isInError}
+                helperText='קלט לא יכול להיות ריק'
+                // FormHelperTextProps={{
+                //     className: classes.formHelperText
+                // }}
                 value={jobNickname}
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => 
                     setJobNickname(event.target.value)

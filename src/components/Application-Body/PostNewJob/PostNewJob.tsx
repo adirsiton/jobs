@@ -21,8 +21,8 @@ import JobStandardsInput from './JobStandardsInput';
 import JobEntryDateInput from './JobEntryDateInput';
 import JobSeniorityInput from './JobSeniorityInput';
 import JobDamachInput from './JobDamachInput';
-import JobNicknameInput from './JobNicknameInput';
-import JobDescriptionInput from './JobDescriptionInput';
+import JobNicknameInput, { isJobNicknameInValidLength } from './JobNicknameInput';
+import JobDescriptionInput, { isJobDescriptionInValidLength } from './JobDescriptionInput';
 
 interface PostNewJobProps {
     closeDialog: () => void;
@@ -42,6 +42,7 @@ const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => 
     const [jobNickname, setJobNickname] = useState<string>('');
     const [jobDescription, setJobDescription] = useState<string>('');
     const [isPostButtonDisabled, setIsPostButtonDisabled] = useState<boolean>(false);
+    const [didValidationFail, setDidValidationFail] = useState<boolean>(false); // Validation is tested after click on post button
 
     useEffect(() => {
         const isInputFull: boolean = DepartmentsManager.isDepartmentSelected(department) &&
@@ -51,6 +52,12 @@ const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => 
 
             setIsPostButtonDisabled(!isInputFull);
     }, [department, role, standards, shouldChooseDate, entryDate]);
+
+    useEffect(() => {
+        if (didValidationFail) {
+
+        }
+    }, []);
 
     const getTitle = (): JSX.Element => {
         return (
@@ -111,8 +118,17 @@ const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => 
         );
     }
 
+    const isAllInputValid = (): boolean => {
+        return isJobNicknameInValidLength(jobNickname) &&
+            isJobDescriptionInValidLength(jobDescription);
+    }
+
     const createNewPost = (): void => {
-        closeDialog();
+        if (isAllInputValid()) {
+            closeDialog();
+        } else {
+            setDidValidationFail(true);
+        }
     }
 
     const getPostButton = (): JSX.Element => {
@@ -165,10 +181,12 @@ const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => 
             {getJobRequirements()}
             <JobNicknameInput 
                 jobNickname={jobNickname}
-                setJobNickname={setJobNickname} />
+                setJobNickname={setJobNickname}
+                didValidationFail={didValidationFail} />
             <JobDescriptionInput 
                 jobDescription={jobDescription}
-                setJobDescription={setJobDescription} />
+                setJobDescription={setJobDescription}
+                didValidationFail={didValidationFail} />
             {/* {getContactInformation()} */}
         </DialogContent>
         <DialogActions>
