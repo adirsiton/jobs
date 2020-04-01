@@ -8,7 +8,7 @@ export PGCLIENTENCODING=utf-8
 PG_USERNAME=${PG_USERNAME:-postgres}
 PG_HOST=${PG_HOST:-localhost}
 PG_DB=${PG_DB:-jobs}
-PG_PASSWORD=${PG_PASSWORD:-postgres}
+PG_PASSWORD=${PG_PASSWORD:-Bb123456}
 
 PGPASSWORD=$PG_PASSWORD dropdb --if-exists --host=$PG_HOST --username=$PG_USERNAME -w $PG_DB
 
@@ -18,6 +18,8 @@ PGPASSWORD=$PG_PASSWORD psql --host=$PG_HOST --username=$PG_USERNAME -w $PG_DB <
 BEGIN;
 
 \i DDL.sql
+
+\i data.sql
 
 COMMIT;
 
