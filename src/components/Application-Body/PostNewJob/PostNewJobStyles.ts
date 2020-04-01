@@ -161,7 +161,7 @@ const styles = makeStyles({
     },
     datePicker: {
         width: "10ch",
-        marginRight: "2ch",
+        marginRight: "2ch !important", // Important: TY @Material-ui -_-
         backgroundColor: `${inputFieldBackgroundColor}`        
     },
     datePickerInput: {

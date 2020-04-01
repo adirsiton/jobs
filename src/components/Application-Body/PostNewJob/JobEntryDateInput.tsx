@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import Typography from '@material-ui/core/Typography';
 import DateFnsUtils from '@date-io/date-fns';
+import heLocale from "date-fns/locale/he";
 import {
   DatePicker,
   MuiPickersUtilsProvider,
@@ -27,7 +28,10 @@ const JobEntryDateInput: React.FC<JobEntryDateProps> = (props): JSX.Element => {
 
     const entryDateInput = (): JSX.Element => {
         return (
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <MuiPickersUtilsProvider 
+                utils={DateFnsUtils}
+                locale={heLocale}
+            >
                 <DatePicker
                     className={classes.datePicker}
                     inputProps={{

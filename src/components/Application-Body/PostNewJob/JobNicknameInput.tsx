@@ -30,7 +30,15 @@ const JobNicknameInput: React.FC<JobNicknameInputProps> = (props): JSX.Element =
         if (didValidationFail) {
             setIsInError(!isJobNicknameInValidLength(jobNickname));
         }
-    }, [didValidationFail]);
+    }, [didValidationFail, jobNickname]);
+
+    const getHelperText = (): string => {
+        if (!isInError)
+            return '';
+        return jobNickname
+            ? `שם תפקיד קצר מדי, צריך להיות באורך של לפחות ${JOB_NICKNAME_MIN_LENGTH} תווים.`
+            : 'שם תפקיד לא יכול להיות ריק.';
+    }
 
     return (
         <>
@@ -45,7 +53,10 @@ const JobNicknameInput: React.FC<JobNicknameInputProps> = (props): JSX.Element =
                 className={classes.jobNicknameText}
                 placeholder='למשל: מפתח צוות תכנון שו"ב'
                 error={isInError}
-                helperText='קלט לא יכול להיות ריק'
+                helperText={getHelperText()}
+                FormHelperTextProps={{
+                    hidden: !isInError
+                }}
                 // FormHelperTextProps={{
                 //     className: classes.formHelperText
                 // }}
