@@ -43,8 +43,9 @@ const JobSeniorityInput: React.FC<JobSeniorityInputProps> = (props): JSX.Element
                     setYearsInSeniority(
                         Math.min(
                             Math.max(MIN_SENIORITY_IN_YEARS, seniorityYearsInput), 
-                            MAX_SENIORITY_IN_YEARS)
+                            MAX_SENIORITY_IN_YEARS
                         )
+                    );
                 }}
                 inputProps={{
                     min: MIN_SENIORITY_IN_YEARS,
