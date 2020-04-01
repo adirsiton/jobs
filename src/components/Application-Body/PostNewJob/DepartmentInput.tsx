@@ -8,7 +8,6 @@ import Tooltip from '@material-ui/core/Tooltip';
 import styles from './PostNewJobStyles';
 import { DepartmentData, DepartmentsManager } from '../../../types/Departments';
 
-
 interface DepartmentInputProps {
     department: DepartmentData;
     setDepartment: (department: DepartmentData) => void;
