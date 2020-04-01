@@ -19,7 +19,6 @@ const DepartmentInput: React.FC<DepartmentInputProps> = (props): JSX.Element => 
 
     const classes = styles({});
 
-
     const getDepartmentHeader = (): JSX.Element => {
         return (
             <div className={classes.departmentHeader}>

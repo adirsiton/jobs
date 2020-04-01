@@ -7,38 +7,26 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import Typography from '@material-ui/core/Typography';
-import Checkbox from '@material-ui/core/Checkbox/Checkbox';
-import Switch from '@material-ui/core/Switch';
-import TextField from '@material-ui/core/TextField';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import Radio from '@material-ui/core/Radio';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Tooltip from '@material-ui/core/Tooltip';
-// import CircleChecked from '@material-ui/icons/CheckCircleOutline';
-import CircleCheckedFilled from '@material-ui/icons/CheckCircle';
-import CircleUnchecked from '@material-ui/icons/RadioButtonUnchecked';
-import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import PostAddIcon from '@material-ui/icons/PostAdd';
-import DateFnsUtils from '@date-io/date-fns';
-import {
-  DatePicker,
-  MuiPickersUtilsProvider,
-} from '@material-ui/pickers';
+import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
 
 import styles from './PostNewJobStyles';
-import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
-import { Role, ROLE_DISPLAYS } from '../../../types/Role';
-import { Standard, STANDARD_DISPLAYS } from '../../../types/Standard';
+import { Role } from '../../../types/Role';
+import { Standard } from '../../../types/Standard';
 import { DepartmentData, DepartmentsManager, EMPTY_DEPARTMENT } from '../../../types/Departments';
 import DepartmentInput from './DepartmentInput';
+import JobRoleInput from './JobRoleInput';
+import JobStandardsInput from './JobStandardsInput';
+import JobEntryDateInput from './JobEntryDateInput';
+import JobSeniorityInput from './JobSeniorityInput';
+import JobDamachInput from './JobDamachInput';
+import JobNicknameInput from './JobNicknameInput';
+import JobDescriptionInput from './JobDescriptionInput';
 
 interface PostNewJobProps {
     closeDialog: () => void;
 }
-
-const JOB_NICKNAME_MAX_LENGTH = 35;
-
-const today = new Date();
 
 const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => {
     const classes = styles({});
@@ -90,185 +78,26 @@ const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => 
         );
     }
 
-    const getJobRole = (): JSX.Element => {
-        const radioes = ROLE_DISPLAYS.map(jobRole => 
-            <FormControlLabel
-                key={jobRole}
-                value={jobRole} 
-                control={<Radio onClick={() => setRole(jobRole)} />} 
-                label={jobRole} 
-            />
-        );
-        return (
-            <div className={classes.jobRole}>
-                <Typography>
-                    תפקיד
-                </Typography>
-                <RadioGroup row>
-                    {radioes}
-                </RadioGroup>
-            </div>
-        );
-    }
-
-    const getJobStandard = (): JSX.Element => {
-        const standardCheckboxes: JSX.Element[] = STANDARD_DISPLAYS.map(standard => 
-            <div className={classes.checkboxField} key={standard}>
-                <Checkbox 
-                    className={classes.checkbox}
-                    icon={<CircleUnchecked className={classes.checkboxIcon} />} 
-                    checkedIcon={<CircleCheckedFilled className={classes.checkboxIcon} />}
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => 
-                        setStandards(
-                            event.target.checked 
-                                ? [...standards, standard]
-                                : standards.filter(selectedStandard => selectedStandard !== standard)
-                        )
-                    } />
-                <Typography>
-                    {standard}
-                </Typography>
-            </div>
-        );
-        
-        return (
-            <div className={classes.standardFields}>
-                <Typography className={classes.standardTitle}>
-                    תקן
-                </Typography>
-                {standardCheckboxes}
-            </div>
-        );    
-    }
-
-    const getJobEntryDate = (): JSX.Element => {
-        return (
-            <div className={classes.jobEntryDateFields}>
-                <Typography className={classes.jobEntryDateTitle}>
-                    כניסה לתפקיד
-                </Typography>
-                <Typography>
-                    מיידי
-                </Typography>
-                <Switch
-                    className={classes.flippedSwitch}
-                    checked={shouldChooseDate}
-                    onChange={() => setShouldChooseDate(!shouldChooseDate)}           
-                />
-                <Typography>
-                    תאריך
-                </Typography>
-                { shouldChooseDate &&
-                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                        <DatePicker
-                            className={classes.datePicker}
-                            inputProps={{
-                                className: classes.datePickerInput,
-                            }}
-                            InputLabelProps={{
-                                classes: {
-                                    root: classes.datePickerLabel,
-                                },
-                                required: true
-                            }}
-                            value={entryDate}
-                            label="שנה/חודש"
-                            onChange={(date: MaterialUiPickersDate) => {if(date) setEntryDate(date)}} 
-                            format="MM/yy"
-                            minDate={today}
-                            // maxDate={today}, TODO
-                            views={["year", "month"]}
-                        />
-                    </MuiPickersUtilsProvider>
-                }
-            </div>
-        );    
-    }
-
-    const getJobSeniority = (): JSX.Element => {
-        const MAX_SENIORITY_IN_YEARS = 50;
-
-        return (
-            <div className={classes.jobSeniorityFields}>
-                <Typography className={classes.jobSeniorityTitle}>
-                    דרוש ותק?
-                </Typography>
-                <Typography>
-                    לא
-                </Typography>
-                <Switch
-                    className={classes.flippedSwitch}
-                    checked={shouldHaveSeniority}
-                    onChange={() => setShouldHaveSeniority(!shouldHaveSeniority)}           
-                />
-                <Typography>
-                    כן
-                </Typography>
-                { shouldHaveSeniority && 
-                    <TextField
-                        classes={{
-                            root: classes.numberInput
-                        }}
-                        InputLabelProps={{
-                            classes: {
-                                root: classes.numberInputLabel,
-                            },
-                            required: true
-                        }}
-                        type="number"
-                        value={yearsInSeniority}
-                        label="ותק בשנים"
-                        onInput={(event: React.ChangeEvent<HTMLInputElement>) => {
-                            const seniorityYearsInput = parseInt(event.target.value) | 1;
-
-                            setYearsInSeniority(
-                                Math.min(
-                                    Math.max(1, seniorityYearsInput), 
-                                    MAX_SENIORITY_IN_YEARS)
-                                )
-                        }}
-                        inputProps={{
-                            min: 1,
-                            max: MAX_SENIORITY_IN_YEARS, // What is the maximum vetek a person might have? ^^
-                            style: { // Couldn't do in jss, TODO
-                                textAlign: "center"
-                            }
-                        }}
-                    />
-                }
-            </div>
-        );
-    }
-
-    const getJobDamach = (): JSX.Element => {
-        return (
-            <div className={classes.jobDamachFields}>
-                <Typography className={classes.jobDamachTitle}>
-                    מוכר לדמ"ח?
-                </Typography>
-                <Typography>
-                    לא
-                </Typography>
-                <Switch
-                    className={classes.flippedSwitch}
-                    checked={shouldHaveDamach}
-                    onChange={() => setShouldHaveDamach(!shouldHaveDamach)}           
-                />
-                <Typography>
-                    כן
-                </Typography>
-            </div>
-        );
-    }    
-
     const getJobRequirementsFields = (): JSX.Element => {
         return (
             <>
-                {getJobRole()}
-                {getJobStandard()}
-                {getJobEntryDate()}
-                {getJobSeniority()}
-                {getJobDamach()}
+                <JobRoleInput setRole={setRole} />
+                <JobStandardsInput 
+                    standards={standards}
+                    setStandards={setStandards} />
+                <JobEntryDateInput
+                    shouldChooseDate={shouldChooseDate}
+                    setShouldChooseDate={setShouldChooseDate}
+                    entryDate={entryDate}
+                    setEntryDate={setEntryDate} />
+                <JobSeniorityInput
+                    shouldHaveSeniority={shouldHaveSeniority}
+                    setShouldHaveSeniority={setShouldHaveSeniority}
+                    yearsInSeniority={yearsInSeniority}
+                    setYearsInSeniority={setYearsInSeniority} />
+                <JobDamachInput 
+                    shouldHaveDamach={shouldHaveDamach}
+                    setShouldHaveDamach={setShouldHaveDamach} />
             </>
         );
     } 
@@ -278,49 +107,6 @@ const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => 
             <> 
                 {getJobRequirementsHeader()}
                 {getJobRequirementsFields()}
-            </>
-        );
-    }
-
-    const getJobNickname = (): JSX.Element => {
-        return (
-            <>
-                <Typography>
-                    שם התפקיד
-                </Typography>
-                <TextField 
-                    className={classes.jobNicknameText}
-                    placeholder='למשל: מפתח צוות תכנון שו"ב'
-                    value={jobNickname}
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => 
-                        setJobNickname(event.target.value)
-                    }
-                    inputProps={{
-                        maxLength: JOB_NICKNAME_MAX_LENGTH
-                    }}
-                />
-            </>
-        );        
-    }
-
-    const getJobDescription = (): JSX.Element => {
-        const jobDescriptionPlaceHolder = "כאן כתוב תיאור של התפקיד ועוד דרישות של מי שפרסם את התפקיד, אנחנו נתן מקום לשלוש שורות ככה שאנשים יוכלו לחפור ולהתפלצן בכייף שלהם."
-
-        return (
-            <>
-                <Typography>
-                    תיאור התפקיד
-                </Typography>
-                <TextareaAutosize 
-                    className={classes.jobDescriptionArea}
-                    rowsMin={3}
-                    rowsMax={3}
-                    placeholder={jobDescriptionPlaceHolder}
-                    value={jobDescription}
-                    onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => 
-                        setJobDescription(event.target.value)
-                    }                    
-                />
             </>
         );
     }
@@ -361,7 +147,7 @@ const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => 
                     </Button>
                 </span>
             </Tooltip>
-        )
+        );
     }
 
     return (
@@ -377,8 +163,12 @@ const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => 
         <DialogContent className={classes.dialogContent}>
             <DepartmentInput department={department} setDepartment={setDepartment} />
             {getJobRequirements()}
-            {getJobNickname()}
-            {getJobDescription()}
+            <JobNicknameInput 
+                jobNickname={jobNickname}
+                setJobNickname={setJobNickname} />
+            <JobDescriptionInput 
+                jobDescription={jobDescription}
+                setJobDescription={setJobDescription} />
             {/* {getContactInformation()} */}
         </DialogContent>
         <DialogActions>
