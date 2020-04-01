@@ -5,4 +5,4 @@ export enum Role {
     PRODUCT_MANAGER = "מנהל מוצר"
 };
 
-export const ROLE_DISPLAYS: Role[] = Object.values(Role).filter(role => role !== Role.NO_ROLE);
+export const ROLES: Role[] = Object.values(Role).filter(role => role !== Role.NO_ROLE);

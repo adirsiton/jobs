@@ -42,29 +42,33 @@ const JobNicknameInput: React.FC<JobNicknameInputProps> = (props): JSX.Element =
 
     return (
         <>
-            <InputLabel
-                required
-                error={isInError}
-            >
-                שם התפקיד
-            </InputLabel>
-            <TextField 
-                required
-                className={classes.jobNicknameText}
-                placeholder='למשל: מפתח צוות תכנון שו"ב'
-                error={isInError}
-                helperText={getHelperText()}
-                FormHelperTextProps={{
-                    hidden: !isInError
-                }}
-                value={jobNickname}
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) => 
-                    setJobNickname(event.target.value)
-                }
-                inputProps={{
-                    maxLength: JOB_NICKNAME_MAX_LENGTH
-                }}
-            />
+            <div
+                className={classes.jobNickname}>
+                <InputLabel
+                    required
+                    error={isInError}
+                >
+                    שם התפקיד
+                </InputLabel>
+                <TextField 
+                    required
+                    // Disable the underline...
+                    className={classes.jobNicknameText}
+                    placeholder='למשל: מפתח צוות תכנון שו"ב'
+                    error={isInError}
+                    helperText={getHelperText()}
+                    FormHelperTextProps={{
+                        hidden: !isInError
+                    }}
+                    value={jobNickname}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => 
+                        setJobNickname(event.target.value)
+                    }
+                    inputProps={{
+                        maxLength: JOB_NICKNAME_MAX_LENGTH
+                    }}
+                />
+            </div>
         </>
     );        
 }

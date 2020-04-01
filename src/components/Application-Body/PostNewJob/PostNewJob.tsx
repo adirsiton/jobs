@@ -23,6 +23,8 @@ import JobSeniorityInput from './JobSeniorityInput';
 import JobDamachInput from './JobDamachInput';
 import JobNicknameInput, { isJobNicknameInValidLength } from './JobNicknameInput';
 import JobDescriptionInput, { isJobDescriptionInValidLength } from './JobDescriptionInput';
+import JobBaseLocationInput from './JobBaseLocationInput';
+import { BaseLocation } from '../../../types/BaseLocation';
 
 interface PostNewJobProps {
     closeDialog: () => void;
@@ -31,7 +33,10 @@ interface PostNewJobProps {
 const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => {
     const classes = styles({});
     
+    // useStates, Ordered by the display view (Top to bottom)
+    const [baseLocation, setBaseLocation] = useState<BaseLocation>(BaseLocation.NO_BASE_LOCATION);    
     const [department, setDepartment] = useState<DepartmentData>(EMPTY_DEPARTMENT);
+    const [jobNickname, setJobNickname] = useState<string>('');
     const [role, setRole] = useState<Role>(Role.NO_ROLE);
     const [standards, setStandards] = useState<Standard[]>([]);
     const [shouldChooseDate, setShouldChooseDate] = useState<boolean>(false);
@@ -39,7 +44,6 @@ const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => 
     const [shouldHaveSeniority, setShouldHaveSeniority] = useState<boolean>(false);
     const [yearsInSeniority, setYearsInSeniority] = useState<number>(1);
     const [shouldHaveDamach, setShouldHaveDamach] = useState<boolean>(false);
-    const [jobNickname, setJobNickname] = useState<string>('');
     const [jobDescription, setJobDescription] = useState<string>('');
     const [isPostButtonDisabled, setIsPostButtonDisabled] = useState<boolean>(false);
     const [didValidationFail, setDidValidationFail] = useState<boolean>(false); // Validation is tested after click on post button
@@ -70,6 +74,17 @@ const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => 
             </DialogTitle>
         );
     }
+    
+    const getDepartmentHeader = (): JSX.Element => {
+        return (
+            <div className={classes.departmentHeader}>
+                <Typography variant="caption">
+                    שיוך
+                </Typography>
+                <div className={classes.dashLine} />
+            </div>
+        );
+    }
 
     const getJobRequirementsHeader = (): JSX.Element => {
         return (
@@ -78,7 +93,7 @@ const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => 
                     className={classes.jobRequirementsHeaderTitle}
                     variant="caption"
                 >
-                    דרישות התפקיד
+                    פרטי התפקיד
                 </Typography>
                 <div className={classes.dashLine} />
             </div>
@@ -88,7 +103,13 @@ const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => 
     const getJobRequirementsFields = (): JSX.Element => {
         return (
             <>
-                <JobRoleInput setRole={setRole} />
+                <JobNicknameInput 
+                    jobNickname={jobNickname}
+                    setJobNickname={setJobNickname}
+                    didValidationFail={didValidationFail} />
+                <JobRoleInput
+                    role={role} 
+                    setRole={setRole} />
                 <JobStandardsInput 
                     standards={standards}
                     setStandards={setStandards} />
@@ -177,12 +198,14 @@ const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => 
       >
         {getTitle()}
         <DialogContent className={classes.dialogContent}>
-            <DepartmentInput department={department} setDepartment={setDepartment} />
+            {getDepartmentHeader()}
+            <JobBaseLocationInput
+                baseLocation={baseLocation}
+                setBaseLocation={setBaseLocation} />
+            <DepartmentInput 
+                department={department} 
+                setDepartment={setDepartment} />
             {getJobRequirements()}
-            <JobNicknameInput 
-                jobNickname={jobNickname}
-                setJobNickname={setJobNickname}
-                didValidationFail={didValidationFail} />
             <JobDescriptionInput 
                 jobDescription={jobDescription}
                 setJobDescription={setJobDescription}

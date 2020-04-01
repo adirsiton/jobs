@@ -5,34 +5,35 @@ import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 
 import styles from './PostNewJobStyles';
-import { Role, ROLES } from '../../../types/Role';
+import { BaseLocationManager, BaseLocation } from '../../../types/BaseLocation';
 
-interface JobRoleInputProps {
-    role: Role;
-    setRole: (role: Role) => void;
+interface JobBaseLocationInput {
+    baseLocation: BaseLocation; // ENUM?
+    setBaseLocation: (baseLocation: BaseLocation) => void;
 }
 
-const JobRoleInput: React.FC<JobRoleInputProps> = (props): JSX.Element => {
-    const { role, setRole } = props;
+const JobBaseLocationInput: React.FC<JobBaseLocationInput> = (props): JSX.Element => {
+    const { baseLocation, setBaseLocation } = props;
 
     const classes = styles({});
 
-    const menuItems = ROLES.map(jobRole => 
-        <MenuItem
-            key={jobRole}
-            value={jobRole} 
-        >
-            {jobRole}
+    const menuItems: JSX.Element[] = BaseLocationManager.getAllBaseLocations().map(value => 
+        <MenuItem key={value} value={value}>
+            {value}
         </MenuItem>
     );
-    
+
     return (
-        <div className={classes.jobRole}>
+        <div 
+            className={classes.baseLocation}
+        >
             <InputLabel
                 required={true}
-                className={classes.jobRoleLabel}
+                classes={{
+                    asterisk: classes.baseLocationLabelText
+                }}
             >
-                מקצוע
+                בסיס
             </InputLabel>
             <Select
                 disableUnderline
@@ -40,7 +41,7 @@ const JobRoleInput: React.FC<JobRoleInputProps> = (props): JSX.Element => {
                 classes={{
                     icon: classes.selectIcon,
                 }}
-                value={role}
+                value={baseLocation}
                 MenuProps={{
                     anchorOrigin: {
                         vertical: "bottom",
@@ -53,7 +54,7 @@ const JobRoleInput: React.FC<JobRoleInputProps> = (props): JSX.Element => {
                     getContentAnchorEl: null
                 }}
                 onChange={(event: React.ChangeEvent<{ name?: string | undefined; value: any/*NoOtherWay*/; }>) => 
-                    setRole(event.target.value)}
+                    setBaseLocation(event.target.value)}
             >
                 {menuItems}
             </Select>
@@ -61,4 +62,4 @@ const JobRoleInput: React.FC<JobRoleInputProps> = (props): JSX.Element => {
     );
 }
 
-export default JobRoleInput;
+export default JobBaseLocationInput;

@@ -19,17 +19,6 @@ const DepartmentInput: React.FC<DepartmentInputProps> = (props): JSX.Element => 
 
     const classes = styles({});
 
-    const getDepartmentHeader = (): JSX.Element => {
-        return (
-            <div className={classes.departmentHeader}>
-                <Typography variant="caption">
-                    שיוך
-                </Typography>
-                <div className={classes.dashLine} />
-            </div>
-        );
-    }
-
     const departmentFieldMenuItems = (fieldName: string): JSX.Element[] => {
         return DepartmentsManager.getDepartmentSelectOptions(department, fieldName).map(value => 
             <MenuItem key={value} value={value}>
@@ -38,69 +27,61 @@ const DepartmentInput: React.FC<DepartmentInputProps> = (props): JSX.Element => 
         );
     }
 
-    const getDepartmentFields = (): JSX.Element => {
-        const selectors: JSX.Element[] = DepartmentsManager.getDepartmentFields().map(fieldName => {
-            const menuItems: JSX.Element[] = departmentFieldMenuItems(fieldName);
-            const isDisabled: boolean = menuItems.length === 0;
-            const tooltipTitle: string = DepartmentsManager.getSelectToolTip(isDisabled, fieldName);
+    const selectors: JSX.Element[] = DepartmentsManager.getDepartmentFields().map(fieldName => {
+        const menuItems: JSX.Element[] = departmentFieldMenuItems(fieldName);
+        const isDisabled: boolean = menuItems.length === 0;
+        const tooltipTitle: string = DepartmentsManager.getSelectToolTip(isDisabled, fieldName);
 
-            return (
-                <div 
-                    className={classes.departmentField}
-                    key={fieldName}
-                >
-                    <InputLabel
-                        required={true}
-                    >
-                        {DepartmentsManager.getDepartmentFieldDisplay(fieldName)}
-                    </InputLabel>
-                    <Tooltip 
-                        title={tooltipTitle}
-                        classes={{ 
-                            tooltip: classes.tooltip
-                        }}
-                    >
-                        <Select
-                            className={classes.select}
-                            classes={{
-                                icon: classes.selectIcon,
-                                disabled: classes.selectDisabled
-                            }}
-                            disabled={isDisabled}
-                            value={department[fieldName]}
-                            MenuProps={{
-                                anchorOrigin: {
-                                    vertical: "bottom",
-                                    horizontal: "center"
-                                },
-                                transformOrigin: {
-                                    vertical: "top",
-                                    horizontal: "center"
-                                },
-                                getContentAnchorEl: null
-                            }}
-                            onChange={(event: React.ChangeEvent<{ name?: string | undefined; value: unknown; }>) => 
-                                setDepartment(DepartmentsManager.updateDepartment(department, fieldName, String(event.target.value)))}
-                        >
-                            {menuItems}
-                        </Select>
-                    </Tooltip>
-                </div>
-            )
-        });
-        
         return (
-            <div className={classes.departmentFields}>
-                {selectors}
+            <div 
+                className={classes.departmentField}
+                key={fieldName}
+            >
+                <InputLabel
+                    required={true}
+                >
+                    {DepartmentsManager.getDepartmentFieldDisplay(fieldName)}
+                </InputLabel>
+                <Tooltip 
+                    title={tooltipTitle}
+                    classes={{ 
+                        tooltip: classes.tooltip
+                    }}
+                >
+                    <Select
+                        disableUnderline
+                        className={classes.select}
+                        classes={{
+                            icon: classes.selectIcon,
+                            disabled: classes.selectDisabled
+                        }}
+                        disabled={isDisabled}
+                        value={department[fieldName]}
+                        MenuProps={{
+                            anchorOrigin: {
+                                vertical: "bottom",
+                                horizontal: "center"
+                            },
+                            transformOrigin: {
+                                vertical: "top",
+                                horizontal: "center"
+                            },
+                            getContentAnchorEl: null
+                        }}
+                        onChange={(event: React.ChangeEvent<{ name?: string | undefined; value: unknown; }>) => 
+                            setDepartment(DepartmentsManager.updateDepartment(department, fieldName, String(event.target.value)))}
+                    >
+                        {menuItems}
+                    </Select>
+                </Tooltip>
             </div>
-        );
-    }
-
+        )
+    });
+        
     return (
-        <> 
-            {getDepartmentHeader()}
-            {getDepartmentFields()}
-        </>
+        <div className={classes.departmentFields}>
+            {selectors}
+        </div>
     );
 }
 

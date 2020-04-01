@@ -4,7 +4,8 @@ const postPadding = "1vw";
 const dialogThemeColor = "rgb(89,89,89)";
 const inputFieldBackgroundColor = "rgb(206,206,206)";
 const TEXT_FIELD_HEIGHT = "48px";
-const ROW_TEXT_FIELD_HEIGHT_PADDING = "1vh";
+const ROW_TEXT_FIELD_HEIGHT_PADDING = "2.5vh";
+const HALF_ROW_TEXT_FIELD_HEIGHT_PADDING = "1.25vh";
 
 const styles = makeStyles({
     dialogPaper: {
@@ -21,7 +22,15 @@ const styles = makeStyles({
     dialogContent: {
         padding: "unset",
         paddingRight: `${postPadding}`,
-        paddingLeft: `${postPadding}`
+    },
+    baseLocation: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginTop: '2vh'
+    },
+    baseLocationLabelText: {
+        paddingRight: '0.5ch'
     },
     departmentHeader: {
         display: "flex",
@@ -35,9 +44,12 @@ const styles = makeStyles({
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",
+        marginTop: `${ROW_TEXT_FIELD_HEIGHT_PADDING}`,
         color: `${dialogThemeColor}`,
+        paddingLeft: `${postPadding}`
     },
     jobRequirementsHeader: {
+        marginTop: `${HALF_ROW_TEXT_FIELD_HEIGHT_PADDING}`,
         display: "flex",
     },
     jobRequirementsHeaderTitle: {
@@ -46,34 +58,53 @@ const styles = makeStyles({
     jobRole: {
         display: "flex",
         flexDirection: "row",
-        alignItems: "center"
+        alignItems: "center",
+        marginTop: `${HALF_ROW_TEXT_FIELD_HEIGHT_PADDING}`,
+    },
+    jobRoleLabel: {
+        marginLeft: '7ch'
     },
     standardTitle: {
-        paddingLeft: "4ch"  
+        paddingLeft: "9ch"  
     },
     standardFields: {
         display: "flex",
         flexDirection: "row",
-        alignItems: "center"
+        alignItems: "center",
+        marginTop: `${HALF_ROW_TEXT_FIELD_HEIGHT_PADDING}`,
+    },
+    datePicker: {
+        // height: '32px',
+        width: "10ch",
+        marginRight: "2ch !important", // Important: TY @Material-ui -_-
+        backgroundColor: `${inputFieldBackgroundColor}`        
+    },
+    datePickerInput: {
+        // height: '32px',
+        textAlign: "center"
+    },
+    datePickerLabel: {
+        // paddingBottom: '32px',
+        alignSelf: "center"
     },
     jobEntryDateTitle: {
-        paddingLeft: "2ch"  
+        paddingLeft: "3ch",
     },    
     jobEntryDateFields: {
-        height: `calc(${TEXT_FIELD_HEIGHT} + ${ROW_TEXT_FIELD_HEIGHT_PADDING})`,
+        height: `calc(${TEXT_FIELD_HEIGHT} + ${HALF_ROW_TEXT_FIELD_HEIGHT_PADDING})`,
         display: "flex",
         alignItems: "center"
     },
     jobSeniorityTitle: {
-        paddingLeft: "6ch"
+        paddingLeft: "7ch"
     },    
     jobSeniorityFields: {
-        height: `calc(${TEXT_FIELD_HEIGHT} + ${ROW_TEXT_FIELD_HEIGHT_PADDING})`,
+        height: `calc(${TEXT_FIELD_HEIGHT} + ${HALF_ROW_TEXT_FIELD_HEIGHT_PADDING})`,
         display: "flex",
         alignItems: "center"
     },
     jobDamachTitle: {
-        paddingLeft: "3ch"  
+        paddingLeft: "4.5ch"  
     },    
     jobDamachFields: {
         // height: "10vh",
@@ -84,13 +115,14 @@ const styles = makeStyles({
         transform: "rotate(180deg)"
     },
     jobDescriptionArea: {
-        width: "100%",
-        backgroundColor: `${inputFieldBackgroundColor}`
+        width: `calc(100% - 2 * ${postPadding})`,
+        backgroundColor: `${inputFieldBackgroundColor}`,
+        paddingLeft: `${postPadding}`
     },
     select: {
         marginRight: "5px",
         width: "12ch",
-        backgroundColor: `${inputFieldBackgroundColor}`
+        backgroundColor: 'rgb(250,250,250)'
     },
     selectDisabled: {
         backgroundColor: 'gray',
@@ -98,13 +130,19 @@ const styles = makeStyles({
     tooltip: {
         fontSize: "100% !important" // Important: TY @Material-ui -_-
     },
+    jobNickname: {
+        display: "flex",
+        alignItems: "center",
+        marginTop: `${HALF_ROW_TEXT_FIELD_HEIGHT_PADDING}`,
+    },
     jobNicknameText: {
         backgroundColor: `${inputFieldBackgroundColor}`,
+        marginRight: "3ch",
         paddingRight: "5px",
         width: "40ch"
     },
     selectIcon: {
-        direction: "rtl"
+        direction: "rtl",
     },
     postButton: {
         width: "12ch",
@@ -134,10 +172,9 @@ const styles = makeStyles({
     },
     dashLine: {
         width: "100%",
-        marginLeft: "2px",
         marginRight: "2px",
         borderBottom: "1px solid black",
-        marginBottom: "0.5em"
+        marginBottom: '0.5em'
     },
     checkboxField: {
         display: "flex",
@@ -157,17 +194,6 @@ const styles = makeStyles({
         backgroundColor: `${inputFieldBackgroundColor}`
     },
     numberInputLabel: {
-        alignSelf: "center"
-    },
-    datePicker: {
-        width: "10ch",
-        marginRight: "2ch !important", // Important: TY @Material-ui -_-
-        backgroundColor: `${inputFieldBackgroundColor}`        
-    },
-    datePickerInput: {
-        textAlign: "center"
-    },
-    datePickerLabel: {
         alignSelf: "center"
     },
 });

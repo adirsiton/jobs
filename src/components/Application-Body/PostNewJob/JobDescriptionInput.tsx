@@ -37,7 +37,6 @@ const JobDescriptionInput: React.FC<JobDescriptionInputProps> = (props): JSX.Ele
                 rowsMin={NUM_ROWS_BEFORE_ELLIPSIS} // Better than 1 line
                 rowsMax={NUM_ROWS_BEFORE_ELLIPSIS} // So won't affect modal... They have scroll :)
                 placeholder={jobDescriptionPlaceHolder}
-                value={jobDescription}
                 onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => 
                     setJobDescription(event.target.value)
                 }
