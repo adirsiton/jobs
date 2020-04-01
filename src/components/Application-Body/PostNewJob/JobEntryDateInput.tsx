@@ -32,7 +32,7 @@ const JobEntryDateInput: React.FC<JobEntryDateProps> = (props): JSX.Element => {
                 locale={heLocale}
             >
                 <DatePicker
-                    clearable
+                    autoOk
                     disablePast
                     className={classes.datePicker}
                     inputProps={{
@@ -45,9 +45,8 @@ const JobEntryDateInput: React.FC<JobEntryDateProps> = (props): JSX.Element => {
                         required: true
                     }}                    
                     value={entryDate}
-                    okLabel='אישור'
-                    cancelLabel='ביטול'
-                    clearLabel='ניקוי'
+                    okLabel=''
+                    cancelLabel=''
                     label="שנה/חודש"
                     openTo='month' // We will most likely post a new job, in the same year                    
                     onChange={setEntryDate}

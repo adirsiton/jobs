@@ -57,9 +57,6 @@ const JobNicknameInput: React.FC<JobNicknameInputProps> = (props): JSX.Element =
                 FormHelperTextProps={{
                     hidden: !isInError
                 }}
-                // FormHelperTextProps={{
-                //     className: classes.formHelperText
-                // }}
                 value={jobNickname}
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => 
                     setJobNickname(event.target.value)

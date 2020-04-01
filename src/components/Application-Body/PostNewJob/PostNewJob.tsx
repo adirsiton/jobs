@@ -55,7 +55,7 @@ const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => 
 
     useEffect(() => {
         if (didValidationFail) {
-
+            // TODO After comments on validations
         }
     }, []);
 
