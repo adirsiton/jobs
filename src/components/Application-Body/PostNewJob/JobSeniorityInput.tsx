@@ -19,6 +19,7 @@ const JobSeniorityInput: React.FC<JobSeniorityInputProps> = (props): JSX.Element
 
     const classes = styles({});
 
+    const MIN_SENIORITY_IN_YEARS = 1; // shouldHaveSeniority = false, Means 0...
     const MAX_SENIORITY_IN_YEARS = 50;
 
     const seniorityNumberInputField = (): JSX.Element => {
@@ -37,16 +38,16 @@ const JobSeniorityInput: React.FC<JobSeniorityInputProps> = (props): JSX.Element
                 value={yearsInSeniority}
                 label="ותק בשנים"
                 onInput={(event: React.ChangeEvent<HTMLInputElement>) => {
-                    const seniorityYearsInput = parseInt(event.target.value) | 1;
+                    const seniorityYearsInput = parseInt(event.target.value) | MIN_SENIORITY_IN_YEARS;
 
                     setYearsInSeniority(
                         Math.min(
-                            Math.max(1, seniorityYearsInput), 
+                            Math.max(MIN_SENIORITY_IN_YEARS, seniorityYearsInput), 
                             MAX_SENIORITY_IN_YEARS)
                         )
                 }}
                 inputProps={{
-                    min: 1,
+                    min: MIN_SENIORITY_IN_YEARS,
                     max: MAX_SENIORITY_IN_YEARS, // What is the maximum vetek a person might have? ^^
                     style: { // Couldn't do in jss, TODO
                         textAlign: "center"

@@ -15,6 +15,8 @@ const JobDescriptionInput: React.FC<JobDescriptionInputProps> = (props): JSX.Ele
 
     const classes = styles({});
 
+    const NUM_ROWS_BEFORE_ELLIPSIS = 3;
+
     const jobDescriptionPlaceHolder = "כאן כתוב תיאור של התפקיד ועוד דרישות של מי שפרסם את התפקיד, אנחנו נתן מקום לשלוש שורות ככה שאנשים יוכלו לחפור ולהתפלצן בכייף שלהם."
 
     return (
@@ -24,8 +26,8 @@ const JobDescriptionInput: React.FC<JobDescriptionInputProps> = (props): JSX.Ele
             </Typography>
             <TextareaAutosize 
                 className={classes.jobDescriptionArea}
-                rowsMin={3}
-                rowsMax={3}
+                rowsMin={NUM_ROWS_BEFORE_ELLIPSIS} // Better than 1 line
+                rowsMax={NUM_ROWS_BEFORE_ELLIPSIS} // So won't affect modal... They have scroll :)
                 placeholder={jobDescriptionPlaceHolder}
                 value={jobDescription}
                 onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => 
