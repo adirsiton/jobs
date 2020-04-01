@@ -7,7 +7,6 @@ const password = process.env.PG_PASSWORD || "postgres";
 const host = process.env.PG_HOST || "localhost";
 const dbName = process.env.PG_DB || "jobs"
 
-
 const pool = new Pool({
   user: user,
   host: host,
