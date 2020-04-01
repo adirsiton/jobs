@@ -60,11 +60,9 @@ const projectGlobalTheme = createMuiTheme({
       }
     },
     MuiSelect: {
-      select: {        
-        ":&select": {
+      select: {
           paddingLeft: "24px",
-          paddingRight: "2px"
-        }
+          paddingRight: "3px !important"  
       },
       icon: {
         right: "unset", // Reverse to Hebrew
