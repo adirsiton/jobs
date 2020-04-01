@@ -3,10 +3,8 @@ import * as React from 'react';
 import Typography from '@material-ui/core/Typography';
 import DateFnsUtils from '@date-io/date-fns';
 import heLocale from "date-fns/locale/he";
-import {
-  DatePicker,
-  MuiPickersUtilsProvider,
-} from '@material-ui/pickers';
+import MuiPickersUtilsProvider from "@material-ui/pickers/MuiPickersUtilsProvider";
+import { DatePicker } from "@material-ui/pickers/DatePicker/DatePicker";
 import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
 
 import styles from './PostNewJobStyles';
@@ -20,6 +18,7 @@ interface JobEntryDateProps {
 }
 
 const today: Date = new Date();
+const nextYear: Date = new Date(new Date(today).setFullYear(today.getFullYear() + 1));
 
 const JobEntryDateInput: React.FC<JobEntryDateProps> = (props): JSX.Element => {
     const { shouldChooseDate, setShouldChooseDate, entryDate, setEntryDate } = props;
@@ -33,6 +32,8 @@ const JobEntryDateInput: React.FC<JobEntryDateProps> = (props): JSX.Element => {
                 locale={heLocale}
             >
                 <DatePicker
+                    clearable
+                    disablePast
                     className={classes.datePicker}
                     inputProps={{
                         className: classes.datePickerInput,
@@ -42,13 +43,17 @@ const JobEntryDateInput: React.FC<JobEntryDateProps> = (props): JSX.Element => {
                             root: classes.datePickerLabel,
                         },
                         required: true
-                    }}
+                    }}                    
                     value={entryDate}
+                    okLabel='אישור'
+                    cancelLabel='ביטול'
+                    clearLabel='ניקוי'
                     label="שנה/חודש"
-                    onChange={(date: MaterialUiPickersDate) => {if(date) setEntryDate(date)}} 
+                    openTo='month' // We will most likely post a new job, in the same year                    
+                    onChange={setEntryDate}
                     format="MM/yy"
-                    minDate={today}
-                    // maxDate={today}, TODO
+                    minDate={today} // Hide previous years
+                    maxDate={nextYear} // Job's entry date is relevant up to 12 months from today
                     views={["year", "month"]}
                 />
             </MuiPickersUtilsProvider>
