@@ -19,6 +19,8 @@ BEGIN;
 
 \i DDL.sql
 
+\i data.sql
+
 COMMIT;
 
 EOF
