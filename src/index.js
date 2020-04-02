@@ -8,9 +8,10 @@ import { heIL } from '@material-ui/core/locale';
 import App from './App';
 import './index.css';
 
-const MINI_TEXT_INPUT_PADDING = '0.75ch';
+const MINI_TEXT_INPUT_PADDING = '1ch';
 const assistantColor = '#595959';
 const boxShadow = "0px 1px 7px 1px rgba(0,0,0,0.75)";
+const GREEN_COLOR = ''
 
 const projectGlobalTheme = createMuiTheme({
   textArea: {
@@ -28,11 +29,27 @@ const projectGlobalTheme = createMuiTheme({
     }
   },
   overrides: {
+    MuiPickersToolbar: {
+      toolbar: {
+        backgroundColor: 'green',
+      },
+    },
+    MuiPickersCalendarHeader: {
+      switchHeader: {
+        backgroundColor: 'green',
+      },
+    },    
     MuiInput: {
       input: {
+        // font: 'caption',
         "&::placeholder": {
           fontStyle: 'italic',
         },
+      }
+    },
+    MuiInputBase: {
+      input: {
+        font: 'caption'
       }
     },
     MuiInputLabel: {
@@ -88,6 +105,9 @@ const projectGlobalTheme = createMuiTheme({
         boxShadow
       },
     },
+    MuiMenu: {
+      // font
+    },
     MuiSelect: {
       select: {
         boxShadow,
@@ -95,7 +115,7 @@ const projectGlobalTheme = createMuiTheme({
           boxShadow: 'unset'
         },
         paddingLeft: "24px", // Reverse to Hebrew
-        paddingRight: "3px !important"  
+        paddingRight: "1ch !important"  
       },
       icon: {
         right: "unset", // Reverse to Hebrew

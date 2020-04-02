@@ -46,7 +46,7 @@ const JobEntryDateInput: React.FC<JobEntryDateProps> = (props): JSX.Element => {
                             root: classes.datePickerLabel,
                         },
                         required: true
-                    }}                
+                    }}
                     value={entryDate}
                     okLabel=''
                     cancelLabel=''

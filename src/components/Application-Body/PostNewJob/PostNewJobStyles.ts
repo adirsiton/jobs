@@ -48,7 +48,7 @@ const styles = makeStyles({
         justifyContent: "space-between",
         marginTop: `${ROW_TEXT_FIELD_HEIGHT_PADDING}`,
         color: `${dialogThemeColor}`,
-        marginLeft: `calc(${postPadding} + ${postPadding})`
+        marginLeft: `calc(2 * ${postPadding})`
     },
     subtitlesMargin: {
         display: 'flex',
@@ -86,7 +86,7 @@ const styles = makeStyles({
         // height: '32px',
         width: "10ch",
         marginRight: "2ch !important", // Important: TY @Material-ui -_-
-        backgroundColor: `${inputFieldBackgroundColor}`
+        backgroundColor: `${inputFieldBackgroundColor} !important`
     },
     datePickerInput: {
         // height: '32px',

@@ -33,7 +33,9 @@ const JobStandardsInput: React.FC<JobStandardsInputProps> = (props): JSX.Element
                             : standards.filter(selectedStandard => selectedStandard !== standard)
                     )
                 } />
-            <Typography>
+            <Typography
+                variant='subtitle1'
+            >
                 {standard}
             </Typography>
         </div>
