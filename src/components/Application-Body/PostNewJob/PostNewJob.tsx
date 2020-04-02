@@ -52,13 +52,15 @@ const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => 
     const [contactInformation, setContactInformation] = useState<ContactInformation>(EMPTY_CONTACT_INFORMATION);
 
     useEffect(() => {
-        const isInputFull: boolean = DepartmentsManager.isDepartmentSelected(department) &&
+        const isInputFull: boolean = 
+            baseLocation !== BaseLocation.NO_BASE_LOCATION &&
+            DepartmentsManager.isDepartmentSelected(department) &&
             role !== Role.NO_ROLE &&
             standards.length > 0 &&
             (!shouldChooseDate || entryDate !== null);
 
             setIsPostButtonDisabled(!isInputFull);
-    }, [department, role, standards, shouldChooseDate, entryDate]);
+    }, [baseLocation, department, role, standards, shouldChooseDate, entryDate]);
 
     useEffect(() => {
         if (didValidationFail) {

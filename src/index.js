@@ -8,6 +8,7 @@ import { heIL } from '@material-ui/core/locale';
 import App from './App';
 import './index.css';
 
+const MINI_TEXT_INPUT_PADDING = '0.75ch';
 const assistantColor = '#595959';
 const boxShadow = "0px 1px 7px 1px rgba(0,0,0,0.75)";
 
@@ -35,9 +36,6 @@ const projectGlobalTheme = createMuiTheme({
       }
     },
     MuiInputLabel: {
-      root: {
-        fontStyle: 'italic',
-      },
       formControl: {
         left: "unset",
       },
@@ -66,22 +64,24 @@ const projectGlobalTheme = createMuiTheme({
     MuiCheckbox: {
       colorSecondary: {
           '&$checked': {
-            color: `${assistantColor}`
+            color: '#21BD90'
           }
       }
     },
     MuiSwitch: {
+      color: '#21BD90',
       colorSecondary: {
         '&$checked': {
-          color: 'green',
+          color: '#21BD90',
         },
         '&$checked + $track': {
-          backgroundColor: 'green'
+          backgroundColor: '#21BD90'
         }        
       }
     },
     MuiTextField: {
       root: {
+        paddingRight: `${MINI_TEXT_INPUT_PADDING}`,
         "&::placeholder": {
           fontStyle: 'italic'
         },

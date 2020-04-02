@@ -27,6 +27,11 @@ const JobDescriptionInput: React.FC<JobDescriptionInputProps> = (props): JSX.Ele
 
     const jobDescriptionPlaceHolder = "אנחנו ממליצים לציין תחומי אחריות, הגורמים מולם נדרש לעבוד ותהליכים שיידרש להוביל כחלק מהתפקיד."
 
+    const fontStyle: string =
+        jobDescription
+            ? 'initial'
+            : 'italic';
+
     return (
         <div 
             className={classes.subtitlesMargin}
@@ -42,6 +47,9 @@ const JobDescriptionInput: React.FC<JobDescriptionInputProps> = (props): JSX.Ele
                 onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => 
                     setJobDescription(event.target.value)
                 }
+                style={{
+                    fontStyle // TODO: Try to add this in classname
+                }}
             />
         </div>
     );

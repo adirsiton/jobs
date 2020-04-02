@@ -94,7 +94,8 @@ const styles = makeStyles({
     },
     datePickerLabel: {
         // paddingBottom: '32px',
-        alignSelf: "center"
+        alignSelf: "center",
+        fontStyle: 'italic'
     },
     jobEntryDateTitle: {
         paddingLeft: "3ch",
@@ -145,7 +146,6 @@ const styles = makeStyles({
     },
     jobNicknameText: {
         backgroundColor: `${inputFieldBackgroundColor}`,
-        paddingRight: "5px",
         width: "40ch"
     },
     selectIcon: {
@@ -202,6 +202,7 @@ const styles = makeStyles({
     },
     numberInputLabel: {
         alignSelf: "center",
+        fontStyle: 'italic'
     },
 });
 
