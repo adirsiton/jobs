@@ -3,11 +3,11 @@ INSERT INTO jobs.users(upn, display_name) VALUES
     ('s8258065', 'דניאל דימנשטיין'),
     ('s8222765', 'אדיר סטיון');
 
-INSERT INTO jobs.tags(name) VALUES 
-    ('TL'),
-    ('PO'),
-    ('DEV'),
-    ('PM');
+INSERT INTO jobs.tags(name, color) VALUES 
+    ('TL', '#00B0F0'),
+    ('PO', '#FFC000' ),
+    ('DEV','#7030A0'),
+    ('PM', '#FF0066');
 
 INSERT INTO jobs.roles(name) VALUES 
     ('תוכניתן'),
@@ -80,10 +80,8 @@ INSERT INTO jobs.tags_of_ads(tag_id, advertisement_id) VALUES
 	(2, 2),
 	(4, 3),
 	(1, 4),
-	(3, 4),
 	(2, 5),
 	(1, 6),
-	(2, 6),
 	(2, 7);
 
 INSERT INTO  jobs.favorite_ads_of_users(upn, advertisement_id) VALUES

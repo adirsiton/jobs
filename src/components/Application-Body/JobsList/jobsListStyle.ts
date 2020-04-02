@@ -1,15 +1,13 @@
-// import { createStyles } from '@material-ui/core';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-
 
 const useStyles = makeStyles((theme) =>
     createStyles({
         root: {
             maxWidth: 345,
         },
-        avatar: {
+        tag: {
             height: "25px",
-            width: "40px",
+            width: "45px",
             textAlign: "center",
             backgroundColor: "#62e5ff",
             fontSize: "medium",
@@ -17,42 +15,52 @@ const useStyles = makeStyles((theme) =>
             borderRadius: "5px"
         },
         jobsList: {
-            margin: "30px auto",
             display: "flex",
             flexDirection: "column",
-            width: "78%"
+            width: "75%",
+            '&::-webkit-scrollbar': {
+                display: "none"
+            },
+            height: "76vh",
+            overflow: "scroll",
+            padding: "34px",
+            alignSelf: "center"
         },
         job: {
-            boxShadow: "0px -1px 5px 4px #c5c5c5",
+            boxShadow: "14px 0px 8px 2px #bbbbbb, -14px 0px 8px 2px #bbbbbb",
             marginBottom: "30px",
             display: "flex",
             flexDirection: "row",
-            height: '13vh'
+            height: '14vh',
+            minHeight: '120px',
+            width: "100%",
+            minWidth: '1220px'
         },
         jobHeader: {
             display: "flex",
             flexDirection: "column",
             padding: "20px",
-            width: "15%"
+            width: "24%"
         },
-        jobSecondaryTitles: {
-            display: "flex",
-            flexDirection: "column",
-            color: "#a59e9e",
-            fontSize: "medium",
-            fontWeight: 400
-        },
-        jobMainTitle: {
+        jobTitle: {
             fontWeight: "bold",
-            fontSize: "x-large",
+            fontSize: "24px",
             marginBottom: "10px",
-            color: "#8e8d8d"
+            color: "#595959"
         },
         jobMainTitles: {
             display: "flex",
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "space-between"
+        },
+        jobSecondaryTitles: {
+            display: "flex",
+            flexDirection: "column",
+            color: "#a59e9e",
+            fontSize: "medium",
+            fontWeight: 400,
+            lineHeight: 1.6
         },
         locationTitle: {
             display: "flex",
@@ -62,18 +70,32 @@ const useStyles = makeStyles((theme) =>
             fontSize: "1.1rem"
         },
         jobContent: {
-            flexGrow: 1
+            flexGrow: 1,
+            margin: "60px 0 10px 0",
+            lineHeight: 1.6
+        },
+        jobContentFooter: {
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            width: "48%"
+        },
+        jobContentTitle: {
+            fontWeight: "bold",
+            color: "#595959",
         },
         jobFooter: {
-            width: "16%",
+            width: "18%",
             display: "flex",
             flexDirection: "row",
             backgroundColor: "#F8F9FC",
             justifyContent: "space-around",
+
         },
         jobBtn: {
             color: "#21BD90",
-            fontSize: "larger",
+            fontSize: "22px",
+            flexGrow: 1,
             '&:hover': {
                 color: "#64e4bf",
                 backgroundColor: "transparent"
@@ -82,7 +104,8 @@ const useStyles = makeStyles((theme) =>
         btnIcon: {
             marginRight: "3px",
             marginLeft: "5px"
-        }
+        },
+
     }),
 );
 

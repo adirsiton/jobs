@@ -7,7 +7,8 @@ CREATE TABLE jobs.users(
 
 CREATE TABLE jobs.tags(
 	id serial PRIMARY KEY,
-	name text
+	name text,
+	color text
 );
 
 CREATE TABLE jobs.roles(
@@ -71,7 +72,7 @@ CREATE TABLE jobs.standards_of_ads(
 CREATE TABLE jobs.tags_of_ads(
 	tag_id int REFERENCES jobs.tags(id) ON DELETE CASCADE,
 	advertisement_id int REFERENCES jobs.advertisements(id) ON DELETE CASCADE,
-	PRIMARY KEY(tag_id, advertisement_id)
+	PRIMARY KEY(advertisement_id)
 );
 
 CREATE TABLE jobs.favorite_ads_of_users(

@@ -7,12 +7,16 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import PostNewJob from './PostNewJob/PostNewJob';
 import JobsList from './JobsList/jobsList';
 
+import { getAllAds } from '../../server/ads';
+
 const dialogThemeColor = "rgb(89,89,89)";
 const styles = makeStyles({
     appBodyContent: {
-        paddingLeft: '2vw',
+        padding: '2vw',
         paddingRight: '2vw',
         paddingTop: '2vh',
+        display: "flex",
+        flexDirection: "column"
     },
     addNewPostButton: {
         color: "white",
@@ -23,27 +27,20 @@ const styles = makeStyles({
         "&:focus": {
             backgroundColor: `${dialogThemeColor}`,
         },
-        float: "left"
+        alignSelf: "flex-end"
     }
 });
 
 const JobsAppBody: React.FC<{}> = (): JSX.Element => {
     const classes = styles({});
     const [ads, setAds] = useState<any>([]);
-    const [openAddDialog, setOpenAddDialog] = useState<boolean>(false); 
+    const [openAddDialog, setOpenAddDialog] = useState<boolean>(false);
 
     useEffect(() => {
-        getAllAds();
+        getAllAds().then(data =>
+            setAds(data)
+        );
     }, []);
-
-    const getAllAds = (): void => { 
-        fetch('/ads').then(response => {
-            return response.text();
-        }).then(data => {
-            setAds(data);
-        });
-    }
-
 
     return (
         <div className={classes.appBodyContent}>
