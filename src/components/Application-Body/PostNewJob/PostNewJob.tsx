@@ -41,7 +41,7 @@ const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => 
     const [jobNickname, setJobNickname] = useState<string>('');
     const [role, setRole] = useState<Role>(Role.NO_ROLE);
     const [standards, setStandards] = useState<Standard[]>([]);
-    const [shouldChooseDate, setShouldChooseDate] = useState<boolean>(true/*Change to false */);
+    const [shouldChooseDate, setShouldChooseDate] = useState<boolean>(false);
     const [dateInError, setDateInError] = useState<boolean>(false);
     const [entryDate, setEntryDate] = useState<MaterialUiPickersDate>(null);
     const [shouldHaveSeniority, setShouldHaveSeniority] = useState<boolean>(false);

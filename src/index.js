@@ -6,9 +6,10 @@ import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles'; //
 import { heIL } from '@material-ui/core/locale';
 
 import App from './App';
-import './index.css';
 import { NEW_JOB_COLOR, DARK_TEST_COLOR, BOX_SHADOW, TEXT_AND_ICONS_ADS_BACKGROUND_COLOR, TOOLTIP_OR_SCROLLER_COLOR } from './assets/projectJSS/Colors';
 import { ASSISTANT_FONT, ITALIC_FONT } from './assets/projectJSS/Fonts';
+
+import './index.css';
 
 const MINI_TEXT_INPUT_PADDING = '1ch';
 
