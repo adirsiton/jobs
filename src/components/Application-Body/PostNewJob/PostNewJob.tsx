@@ -42,6 +42,7 @@ const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => 
     const [role, setRole] = useState<Role>(Role.NO_ROLE);
     const [standards, setStandards] = useState<Standard[]>([]);
     const [shouldChooseDate, setShouldChooseDate] = useState<boolean>(true/*Change to false */);
+    const [dateInError, setDateInError] = useState<boolean>(false);
     const [entryDate, setEntryDate] = useState<MaterialUiPickersDate>(null);
     const [shouldHaveSeniority, setShouldHaveSeniority] = useState<boolean>(false);
     const [yearsInSeniority, setYearsInSeniority] = useState<number>(1);
@@ -57,10 +58,11 @@ const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => 
             DepartmentsManager.isDepartmentSelected(department) &&
             role !== Role.NO_ROLE &&
             standards.length > 0 &&
-            (!shouldChooseDate || entryDate !== null);
+            (!shouldChooseDate || (!dateInError && entryDate !== null));
 
             setIsPostButtonDisabled(!isInputFull);
-    }, [baseLocation, department, role, standards, shouldChooseDate, entryDate]);
+    }, [baseLocation, department, role, standards, 
+        shouldChooseDate, entryDate, dateInError]);
 
     useEffect(() => {
         if (didValidationFail) {
@@ -147,7 +149,9 @@ const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => 
                     shouldChooseDate={shouldChooseDate}
                     setShouldChooseDate={setShouldChooseDate}
                     entryDate={entryDate}
-                    setEntryDate={setEntryDate} />
+                    setEntryDate={setEntryDate}
+                    dateInError={dateInError}
+                    setDateInError={setDateInError} />
                 <JobSeniorityInput
                     shouldHaveSeniority={shouldHaveSeniority}
                     setShouldHaveSeniority={setShouldHaveSeniority}
@@ -198,7 +202,6 @@ const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => 
                         classes={{
                             label: classes.postButtonLabel,
                             startIcon: classes.postButtonIcon,
-                            disabled: classes.postButtonDisabled
                         }}
                         disabled={isPostButtonDisabled}
                         variant="contained"

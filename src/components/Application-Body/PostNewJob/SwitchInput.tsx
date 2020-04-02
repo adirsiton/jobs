@@ -31,10 +31,12 @@ const SwitchInput: React.FC<SwitchInputProps> = (props): JSX.Element => {
                 onChange={() => setChecked(!checked)}           
             />
             <Typography
+                className={classes.leftOfSwitch}
                 variant='subtitle1'
             >
                 {leftText}
             </Typography>
+            <div className={classes.afterSwitch} />
         </>
     );
 }

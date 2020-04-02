@@ -82,18 +82,13 @@ const styles = makeStyles({
         marginTop: `${HALF_ROW_TEXT_FIELD_HEIGHT_PADDING}`,
     },
     datePicker: {
-        // height: '32px',
-        width: "10ch",
-        marginRight: "2ch !important", // Important: TY @Material-ui -_-
-        backgroundColor: `${TEXT_AND_ICONS_ADS_BACKGROUND_COLOR} !important`
+        width: "11.5ch",
+        backgroundColor: `${TEXT_AND_ICONS_ADS_BACKGROUND_COLOR}`
     },
     datePickerInput: {
-        // height: '32px',
         textAlign: "center"
     },
     datePickerLabel: {
-        // paddingBottom: '32px',
-        alignSelf: "center",
         fontStyle: `${ITALIC_FONT}`
     },
     jobEntryDateTitle: {
@@ -115,7 +110,16 @@ const styles = makeStyles({
         alignItems: "center"
     },
     flippedSwitch: { // We want "$checked" to be on the -left- side, in material ui -default- is the -right- side...
-        transform: "rotate(180deg)"
+        transform: "rotate(180deg)",
+        position: 'absolute', // So all switches are aligned together, veritcal (In column)
+        marginRight: '3ch'
+    },
+    leftOfSwitch: {
+        position: 'absolute',
+        marginRight: 'calc(3.5 * 3ch)'
+    },
+    afterSwitch: {
+        marginRight: '12ch'
     },
     jobDescriptionArea: {
         width: `calc(100% - 3 * ${postPadding})`,
@@ -157,6 +161,9 @@ const styles = makeStyles({
         },
         "&:focus": {
             backgroundColor: `${NEW_JOB_COLOR}`,
+        },
+        '&:disabled': {
+            backgroundColor: 'gray'
         }
     },
     postButtonLabel: {
@@ -169,9 +176,6 @@ const styles = makeStyles({
     postButtonText: {
         paddingRight: "5px",
         color: `${LIGHT_COLOR_TEXT}`
-    },
-    postButtonDisabled: {
-        backgroundColor: 'gray !important', // Important: TY @Material-ui -_-
     },
     dashLine: {
         width: "100%",
@@ -192,8 +196,8 @@ const styles = makeStyles({
         fontSize: "24px", // Radio button size
     },
     numberInput: { 
-        width: "10ch",
-        marginRight: "5ch !important", // Important: TY @Material-ui -_-
+        width: "11.5ch",
+        marginRight: "1.25ch",
         backgroundColor: `${TEXT_AND_ICONS_ADS_BACKGROUND_COLOR}`
     },
     numberInputLabel: {

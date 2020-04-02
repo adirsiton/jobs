@@ -1,5 +1,6 @@
 import { createStyles } from '@material-ui/core';
-import { LIGHT_COLOR_TEXT, AVATAR_COLOR, NAV_BAR_COLOR } from '../../assets/projectJSS/Colors';
+import { LIGHT_COLOR_TEXT, AVATAR_COLOR, 
+         NAV_BAR_COLOR, YELLOW_STAR_COLOR } from '../../assets/projectJSS/Colors';
 
 const styles = () => createStyles({
     root: {
@@ -17,7 +18,7 @@ const styles = () => createStyles({
         fontSize: '150%'
     },
     starIconYellow: {
-        color: 'yellow',
+        color: `${YELLOW_STAR_COLOR}`,
     },
     starIconWhite: {
         color: `${LIGHT_COLOR_TEXT}`,

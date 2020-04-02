@@ -32,6 +32,11 @@ const projectGlobalTheme = createMuiTheme({
         fontSize: "100%"
       }
     },
+    MuiPickersYear: {
+      yearSelected: {
+        color: `${NEW_JOB_COLOR}`,
+      },
+    },
     MuiPickersToolbar: {
       toolbar: {
         backgroundColor: `${NEW_JOB_COLOR}`
@@ -41,7 +46,12 @@ const projectGlobalTheme = createMuiTheme({
       switchHeader: {
         backgroundColor: `${NEW_JOB_COLOR}`
       }
-    },    
+    },
+    MuiPickersMonth: {
+      monthSelected: {
+        color: `${NEW_JOB_COLOR}`,
+      },
+    },
     MuiInput: {
       input: {
         "&::placeholder": {
