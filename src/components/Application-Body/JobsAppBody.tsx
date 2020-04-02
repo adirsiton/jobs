@@ -5,24 +5,23 @@ import Button from '@material-ui/core/Button';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
 import PostNewJob from './PostNewJob/PostNewJob';
-
-const dialogThemeColor = "rgb(89,89,89)";
-const PostButtonColor = '#21BD90';
+import { LIGHT_COLOR_TEXT, NEW_JOB_COLOR } from '../../assets/projectJSS/Colors';
+import { Typography } from '@material-ui/core';
 
 const styles = makeStyles({
     appBodyContent: {
-        paddingLeft: '2vw',
+        paddingLeft: '3vw',
         paddingRight: '2vw',
         paddingTop: '2vh',
     },
     addNewPostButton: {
-        color: "white",
-        backgroundColor: `${PostButtonColor}`,
+        color: `${LIGHT_COLOR_TEXT}`,
+        backgroundColor: `${NEW_JOB_COLOR}`,
         "&:hover": {
-            backgroundColor: `${PostButtonColor}`,
+            backgroundColor: `${NEW_JOB_COLOR}`,
         },
         "&:focus": {
-            backgroundColor: `${PostButtonColor}`,
+            backgroundColor: `${NEW_JOB_COLOR}`,
         },
         float: "left"
     }
@@ -37,8 +36,13 @@ const JobsAppBody: React.FC<{}> = (): JSX.Element => {
         <Button
             className={classes.addNewPostButton}
             variant="contained"
-            onClick={() => setOpenAddDialog(true)}>
+            onClick={() => setOpenAddDialog(true)}
+        >
+            <Typography
+                variant='h5'
+            >
                 + פרסום תפקיד חדש
+            </Typography>
         </Button>
         { openAddDialog && <PostNewJob closeDialog={() => setOpenAddDialog(false)} /> }
     </div>

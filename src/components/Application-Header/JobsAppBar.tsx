@@ -28,11 +28,11 @@ const JobsAppBar: React.FC<AppBarDataProps> = (props): JSX.Element => {
     const getUserDetails = (): JSX.Element => {
         return (
             <div className={classes.userDetails}>
-                <Tooltip placement="right-end" title="המועדפים שלי" aria-label="my favorites">
+                <Tooltip placement="right" title="המועדפים שלי" aria-label="my favorites">
                     <IconButton className={userHaveFavorites() ? classes.starIconWhite : classes.starIconYellow}
                         // { todo onClick=showFaivorites } 
                         aria-label="my favorites" component="span">
-                        <StarIcon />
+                        <StarIcon className={classes.starIcon} />
                     </IconButton>
                 </Tooltip>
                 <Avatar className={classes.avatar}>

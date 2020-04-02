@@ -1,13 +1,14 @@
 import makeStyles from '@material-ui/core/styles/makeStyles';
+import { NEW_JOB_COLOR,
+         LIGHT_COLOR_TEXT,
+         TEXT_AND_ICONS_ADS_BACKGROUND_COLOR, 
+         BOX_SHADOW} from '../../../assets/projectJSS/Colors';
+import { ITALIC_FONT } from '../../../assets/projectJSS/Fonts';
 
 const postPadding = "1vw";
-const dialogThemeColor = "rgb(89,89,89)";
-const inputFieldBackgroundColor = "white";
 const TEXT_FIELD_HEIGHT = "48px";
 const ROW_TEXT_FIELD_HEIGHT_PADDING = "2.5vh";
 const HALF_ROW_TEXT_FIELD_HEIGHT_PADDING = "1.25vh";
-const boxShadow = "0px 1px 7px 1px rgba(0,0,0,0.75)";
-const PostButtonColor = '#21BD90';
 
 const styles = makeStyles({
     dialogPaper: {
@@ -16,7 +17,6 @@ const styles = makeStyles({
     dialogTitle: {
         padding: "unset",
         paddingRight: `${postPadding}`,
-        color: `${dialogThemeColor}`,
     },
     dialogTitleText: {
         fontSize: "150%"
@@ -47,7 +47,6 @@ const styles = makeStyles({
         flexDirection: "row",
         justifyContent: "space-between",
         marginTop: `${ROW_TEXT_FIELD_HEIGHT_PADDING}`,
-        color: `${dialogThemeColor}`,
         marginLeft: `calc(2 * ${postPadding})`
     },
     subtitlesMargin: {
@@ -86,7 +85,7 @@ const styles = makeStyles({
         // height: '32px',
         width: "10ch",
         marginRight: "2ch !important", // Important: TY @Material-ui -_-
-        backgroundColor: `${inputFieldBackgroundColor} !important`
+        backgroundColor: `${TEXT_AND_ICONS_ADS_BACKGROUND_COLOR} !important`
     },
     datePickerInput: {
         // height: '32px',
@@ -95,10 +94,10 @@ const styles = makeStyles({
     datePickerLabel: {
         // paddingBottom: '32px',
         alignSelf: "center",
-        fontStyle: 'italic'
+        fontStyle: `${ITALIC_FONT}`
     },
     jobEntryDateTitle: {
-        paddingLeft: "3ch",
+        paddingLeft: "3ch"
     },    
     jobEntryDateFields: {
         height: `calc(${TEXT_FIELD_HEIGHT} + ${HALF_ROW_TEXT_FIELD_HEIGHT_PADDING})`,
@@ -120,9 +119,9 @@ const styles = makeStyles({
     },
     jobDescriptionArea: {
         width: `calc(100% - 3 * ${postPadding})`,
-        backgroundColor: `${inputFieldBackgroundColor}`,
+        backgroundColor: `${TEXT_AND_ICONS_ADS_BACKGROUND_COLOR}`,
         marginLeft: `calc(2 * ${postPadding})`,
-        boxShadow
+        boxShadow: BOX_SHADOW
     },
     select: {
         marginRight: '5px',
@@ -136,16 +135,13 @@ const styles = makeStyles({
     roleSelect: {
         width: "12ch",
     },
-    tooltip: {
-        fontSize: "100% !important" // Important: TY @Material-ui -_-
-    },
     jobNickname: {
         display: "flex",
         alignItems: "center",
         marginTop: `${HALF_ROW_TEXT_FIELD_HEIGHT_PADDING}`,
     },
     jobNicknameText: {
-        backgroundColor: `${inputFieldBackgroundColor}`,
+        backgroundColor: `${TEXT_AND_ICONS_ADS_BACKGROUND_COLOR}`,
         width: "40ch"
     },
     selectIcon: {
@@ -154,13 +150,13 @@ const styles = makeStyles({
     postButton: {
         width: "12ch",
         display: "flex",
-        color: "white",
-        backgroundColor: `${PostButtonColor}`,
+        color: `${LIGHT_COLOR_TEXT}`,
+        backgroundColor: `${NEW_JOB_COLOR}`,
         "&:hover": {
-            backgroundColor: `${PostButtonColor}`,
+            backgroundColor: `${NEW_JOB_COLOR}`,
         },
         "&:focus": {
-            backgroundColor: `${PostButtonColor}`,
+            backgroundColor: `${NEW_JOB_COLOR}`,
         }
     },
     postButtonLabel: {
@@ -168,11 +164,11 @@ const styles = makeStyles({
     },
     postButtonIcon: {
         marginRight: "unset",
-        color: 'white'
+        color: `${LIGHT_COLOR_TEXT}`
     },
     postButtonText: {
         paddingRight: "5px",
-        color: "white"
+        color: `${LIGHT_COLOR_TEXT}`
     },
     postButtonDisabled: {
         backgroundColor: 'gray !important', // Important: TY @Material-ui -_-
@@ -198,11 +194,11 @@ const styles = makeStyles({
     numberInput: { 
         width: "10ch",
         marginRight: "5ch !important", // Important: TY @Material-ui -_-
-        backgroundColor: `${inputFieldBackgroundColor}`
+        backgroundColor: `${TEXT_AND_ICONS_ADS_BACKGROUND_COLOR}`
     },
     numberInputLabel: {
         alignSelf: "center",
-        fontStyle: 'italic'
+        fontStyle: `${ITALIC_FONT}`
     },
 });
 

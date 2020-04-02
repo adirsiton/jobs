@@ -4,6 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 
 import styles from './PostNewJobStyles';
+import { ITALIC_FONT } from '../../../assets/projectJSS/Fonts';
 
 interface JobDescriptionInputProps {
     jobDescription: string;
@@ -30,7 +31,7 @@ const JobDescriptionInput: React.FC<JobDescriptionInputProps> = (props): JSX.Ele
     const fontStyle: string =
         jobDescription
             ? 'initial'
-            : 'italic';
+            : `${ITALIC_FONT}`;
 
     return (
         <div 

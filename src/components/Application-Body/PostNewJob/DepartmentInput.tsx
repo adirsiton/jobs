@@ -44,9 +44,6 @@ const DepartmentInput: React.FC<DepartmentInputProps> = (props): JSX.Element => 
                 </InputLabel>
                 <Tooltip 
                     title={tooltipTitle}
-                    classes={{ 
-                        tooltip: classes.tooltip
-                    }}
                 >
                     <Select
                         disableUnderline

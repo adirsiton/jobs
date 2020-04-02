@@ -7,44 +7,46 @@ import { heIL } from '@material-ui/core/locale';
 
 import App from './App';
 import './index.css';
+import { NEW_JOB_COLOR, DARK_TEST_COLOR, BOX_SHADOW, TEXT_AND_ICONS_ADS_BACKGROUND_COLOR, TOOLTIP_OR_SCROLLER_COLOR } from './assets/projectJSS/Colors';
+import { ASSISTANT_FONT, ITALIC_FONT } from './assets/projectJSS/Fonts';
 
 const MINI_TEXT_INPUT_PADDING = '1ch';
-const assistantColor = '#595959';
-const boxShadow = "0px 1px 7px 1px rgba(0,0,0,0.75)";
-const GREEN_COLOR = ''
 
 const projectGlobalTheme = createMuiTheme({
   textArea: {
     "&::placeholder": {
-      fontStyle: 'italic',
-    },
+      fontStyle: `${ITALIC_FONT}`
+    }
   },
   typography: {
-    fontFamily: 'Assistant',
-    allVariants: {
-      color: `${assistantColor}`
-    },
+    fontFamily: `${ASSISTANT_FONT}`,
     body1: {
-      fontWeight: "bold"
+      fontWeight: "900",
+      color: `${DARK_TEST_COLOR}`
     }
   },
   overrides: {
+    MuiTooltip: {
+      backgroundColor: `${TOOLTIP_OR_SCROLLER_COLOR}`,
+      tooltip: {
+        fontSize: "100%"
+      }
+    },
     MuiPickersToolbar: {
       toolbar: {
-        backgroundColor: 'green',
+        backgroundColor: `${NEW_JOB_COLOR}`
       },
     },
     MuiPickersCalendarHeader: {
       switchHeader: {
-        backgroundColor: 'green',
-      },
+        backgroundColor: `${NEW_JOB_COLOR}`
+      }
     },    
     MuiInput: {
       input: {
-        // font: 'caption',
         "&::placeholder": {
-          fontStyle: 'italic',
-        },
+          fontStyle: `${ITALIC_FONT}`
+        }
       }
     },
     MuiInputBase: {
@@ -59,19 +61,19 @@ const projectGlobalTheme = createMuiTheme({
     },
     MuiButton: {
       contained: {
-        boxShadow,
+        boxShadow: BOX_SHADOW,
         '&:hover': {
-          boxShadow
+          boxShadow: BOX_SHADOW
         },
         '&:focus': {
-          boxShadow
+          boxShadow: BOX_SHADOW
         }
       }
     },
     MuiRadio: {
       colorSecondary: {
         '&$checked': {
-          color: `${assistantColor}`
+          color: `${NEW_JOB_COLOR}`
         }
       },
       root: {
@@ -81,18 +83,18 @@ const projectGlobalTheme = createMuiTheme({
     MuiCheckbox: {
       colorSecondary: {
           '&$checked': {
-            color: '#21BD90'
+            color: `${NEW_JOB_COLOR}`
           }
       }
     },
     MuiSwitch: {
-      color: '#21BD90',
+      color: `${NEW_JOB_COLOR}`,
       colorSecondary: {
         '&$checked': {
-          color: '#21BD90',
+          color: `${NEW_JOB_COLOR}`,
         },
         '&$checked + $track': {
-          backgroundColor: '#21BD90'
+          backgroundColor: `${NEW_JOB_COLOR}`
         }        
       }
     },
@@ -100,22 +102,20 @@ const projectGlobalTheme = createMuiTheme({
       root: {
         paddingRight: `${MINI_TEXT_INPUT_PADDING}`,
         "&::placeholder": {
-          fontStyle: 'italic'
+          fontStyle: `${ITALIC_FONT}`
         },
-        boxShadow
+        boxShadow: BOX_SHADOW
       },
-    },
-    MuiMenu: {
-      // font
     },
     MuiSelect: {
       select: {
-        boxShadow,
+        boxShadow: BOX_SHADOW,
         '&$disabled': {
           boxShadow: 'unset'
         },
         paddingLeft: "24px", // Reverse to Hebrew
-        paddingRight: "1ch !important"  
+        paddingRight: "1ch !important"  ,
+        backgroundColor: `${TEXT_AND_ICONS_ADS_BACKGROUND_COLOR}`
       },
       icon: {
         right: "unset", // Reverse to Hebrew
