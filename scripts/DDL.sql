@@ -22,22 +22,27 @@ CREATE TABLE jobs.standards(
 
 CREATE TABLE jobs.units(
 	id serial PRIMARY KEY,
-	name text UNIQUE
+	name text UNIQUE -- assuming all unit names in army are unique
 );
 
 CREATE TABLE jobs.branches(
 	id serial PRIMARY KEY,
+	name text,
 	unit_id int REFERENCES jobs.units(id) ON DELETE CASCADE,
-	name text UNIQUE,
 	UNIQUE (id, unit_id)
 );
 
 CREATE TABLE jobs.departments(
 	id serial PRIMARY KEY,
+	name text,
 	branch_id int REFERENCES jobs.branches(id) ON DELETE CASCADE,
-	name text UNIQUE,
 	UNIQUE (id, branch_id)
-);	
+);
+
+CREATE TABLE jobs.base_locations(
+	id serial PRIMARY KEY,
+	name text
+);
 
 CREATE TABLE jobs.advertisements(
 	id serial PRIMARY KEY,
@@ -45,15 +50,16 @@ CREATE TABLE jobs.advertisements(
 	unit_id int,
 	branch_id int,
 	department_id int REFERENCES jobs.departments(id) ON DELETE CASCADE,
+	job_name text,
 	description text,
 	entry_date Date,
 	seniority int,
 	is_damach boolean,
 	advertiser_upn text REFERENCES jobs.users(upn) ON DELETE CASCADE,
 	contact text,
-	base_location text,
-	FOREIGN KEY (branch_id, unit_id) REFERENCES jobs.branches (id, unit_id),
-	FOREIGN KEY (department_id, branch_id) REFERENCES jobs.departments (id, branch_id)
+	base_location_id int REFERENCES jobs.base_locations(id) ON DELETE CASCADE,
+	FOREIGN KEY (branch_id, unit_id) REFERENCES jobs.branches(id, unit_id),
+	FOREIGN KEY (department_id, branch_id) REFERENCES jobs.departments(id, branch_id)
 );
 
 CREATE TABLE jobs.standards_of_ads(
