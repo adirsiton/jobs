@@ -25,10 +25,12 @@ const JobDescriptionInput: React.FC<JobDescriptionInputProps> = (props): JSX.Ele
 
     const classes = styles({});
 
-    const jobDescriptionPlaceHolder = "כאן כתוב תיאור של התפקיד ועוד דרישות של מי שפרסם את התפקיד, אנחנו נתן מקום לשלוש שורות ככה שאנשים יוכלו לחפור ולהתפלצן בכייף שלהם."
+    const jobDescriptionPlaceHolder = "אנחנו ממליצים לציין תחומי אחריות, הגורמים מולם נדרש לעבוד ותהליכים שיידרש להוביל כחלק מהתפקיד."
 
     return (
-        <>
+        <div 
+            className={classes.subtitlesMargin}
+        >
             <Typography>
                 תיאור התפקיד
             </Typography>
@@ -41,7 +43,7 @@ const JobDescriptionInput: React.FC<JobDescriptionInputProps> = (props): JSX.Ele
                     setJobDescription(event.target.value)
                 }
             />
-        </>
+        </div>
     );
 }
 

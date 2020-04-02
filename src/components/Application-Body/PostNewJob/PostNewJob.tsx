@@ -12,19 +12,21 @@ import PostAddIcon from '@material-ui/icons/PostAdd';
 import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
 
 import styles from './PostNewJobStyles';
-import { Role } from '../../../types/Role';
-import { Standard } from '../../../types/Standard';
-import { DepartmentData, DepartmentsManager, EMPTY_DEPARTMENT } from '../../../types/Departments';
+import JobBaseLocationInput from './JobBaseLocationInput';
+import { BaseLocation } from '../../../types/BaseLocation';
 import DepartmentInput from './DepartmentInput';
+import { DepartmentData, DepartmentsManager, EMPTY_DEPARTMENT } from '../../../types/Departments';
+import JobNicknameInput, { isJobNicknameInValidLength } from './JobNicknameInput';
 import JobRoleInput from './JobRoleInput';
+import { Role } from '../../../types/Role';
 import JobStandardsInput from './JobStandardsInput';
+import { Standard } from '../../../types/Standard';
 import JobEntryDateInput from './JobEntryDateInput';
 import JobSeniorityInput from './JobSeniorityInput';
 import JobDamachInput from './JobDamachInput';
-import JobNicknameInput, { isJobNicknameInValidLength } from './JobNicknameInput';
 import JobDescriptionInput, { isJobDescriptionInValidLength } from './JobDescriptionInput';
-import JobBaseLocationInput from './JobBaseLocationInput';
-import { BaseLocation } from '../../../types/BaseLocation';
+import JobContactInformationInput from './JobContactInformationInput';
+import { ContactInformation, EMPTY_CONTACT_INFORMATION } from '../../../types/ContactInformation';
 
 interface PostNewJobProps {
     closeDialog: () => void;
@@ -47,6 +49,7 @@ const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => 
     const [jobDescription, setJobDescription] = useState<string>('');
     const [isPostButtonDisabled, setIsPostButtonDisabled] = useState<boolean>(false);
     const [didValidationFail, setDidValidationFail] = useState<boolean>(false); // Validation is tested after click on post button
+    const [contactInformation, setContactInformation] = useState<ContactInformation>(EMPTY_CONTACT_INFORMATION);
 
     useEffect(() => {
         const isInputFull: boolean = DepartmentsManager.isDepartmentSelected(department) &&
@@ -78,11 +81,34 @@ const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => 
     const getDepartmentHeader = (): JSX.Element => {
         return (
             <div className={classes.departmentHeader}>
-                <Typography variant="caption">
+                <Typography variant="subtitle1">
                     שיוך
                 </Typography>
                 <div className={classes.dashLine} />
             </div>
+        );
+    }
+
+    const getDepartmentFields = (): JSX.Element => {
+        return (
+            <div className={classes.subtitlesMargin}
+            >
+                <JobBaseLocationInput
+                    baseLocation={baseLocation}
+                    setBaseLocation={setBaseLocation} />
+                <DepartmentInput 
+                    department={department} 
+                    setDepartment={setDepartment} />
+            </div>
+        );
+    }
+
+    const getDepartment = (): JSX.Element => {
+        return (
+            <>
+                {getDepartmentHeader()}
+                {getDepartmentFields()}
+            </>
         );
     }
 
@@ -91,7 +117,7 @@ const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => 
             <div className={classes.jobRequirementsHeader}>
                 <Typography 
                     className={classes.jobRequirementsHeaderTitle}
-                    variant="caption"
+                    variant="subtitle1"
                 >
                     פרטי התפקיד
                 </Typography>
@@ -102,7 +128,9 @@ const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => 
 
     const getJobRequirementsFields = (): JSX.Element => {
         return (
-            <>
+            <div 
+                className={classes.subtitlesMargin}
+            >
                 <JobNicknameInput 
                     jobNickname={jobNickname}
                     setJobNickname={setJobNickname}
@@ -126,7 +154,7 @@ const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => 
                 <JobDamachInput 
                     shouldHaveDamach={shouldHaveDamach}
                     setShouldHaveDamach={setShouldHaveDamach} />
-            </>
+            </div>
         );
     } 
 
@@ -198,19 +226,16 @@ const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => 
       >
         {getTitle()}
         <DialogContent className={classes.dialogContent}>
-            {getDepartmentHeader()}
-            <JobBaseLocationInput
-                baseLocation={baseLocation}
-                setBaseLocation={setBaseLocation} />
-            <DepartmentInput 
-                department={department} 
-                setDepartment={setDepartment} />
+            {getDepartment()}
             {getJobRequirements()}
             <JobDescriptionInput 
                 jobDescription={jobDescription}
                 setJobDescription={setJobDescription}
                 didValidationFail={didValidationFail} />
-            {/* {getContactInformation()} */}
+            <JobContactInformationInput 
+                contactInformation={contactInformation}
+                setContactInformation={setContactInformation}
+            />
         </DialogContent>
         <DialogActions>
             {getPostButton()}

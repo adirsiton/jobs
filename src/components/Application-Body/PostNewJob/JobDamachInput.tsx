@@ -17,14 +17,18 @@ const JobDamachInput: React.FC<JobDamachInputProps> = (props): JSX.Element => {
 
     return (
         <div className={classes.jobDamachFields}>
-            <Typography className={classes.jobDamachTitle}>
+            <Typography variant='body1'>
                 מוכר לדמ"ח?
             </Typography>
-            <SwitchInput 
-                leftText="כן"
-                rightText="לא"
-                checked={shouldHaveDamach}
-                setChecked={setShouldHaveDamach} />
+            <div
+                className={classes.jobRequirementsMargin}
+            >
+                <SwitchInput 
+                    leftText="כן"
+                    rightText="לא"
+                    checked={shouldHaveDamach}
+                    setChecked={setShouldHaveDamach} />
+            </div>
         </div>
     );
 }

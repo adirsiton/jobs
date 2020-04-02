@@ -30,33 +30,36 @@ const JobRoleInput: React.FC<JobRoleInputProps> = (props): JSX.Element => {
         <div className={classes.jobRole}>
             <InputLabel
                 required={true}
-                className={classes.jobRoleLabel}
             >
                 מקצוע
             </InputLabel>
-            <Select
-                disableUnderline
-                className={classes.select}
-                classes={{
-                    icon: classes.selectIcon,
-                }}
-                value={role}
-                MenuProps={{
-                    anchorOrigin: {
-                        vertical: "bottom",
-                        horizontal: "center"
-                    },
-                    transformOrigin: {
-                        vertical: "top",
-                        horizontal: "center"
-                    },
-                    getContentAnchorEl: null
-                }}
-                onChange={(event: React.ChangeEvent<{ name?: string | undefined; value: any/*NoOtherWay*/; }>) => 
-                    setRole(event.target.value)}
+            <div 
+                className={classes.jobRequirementsMargin}
             >
-                {menuItems}
-            </Select>
+                <Select
+                    disableUnderline
+                    className={classes.roleSelect}
+                    classes={{
+                        icon: classes.selectIcon,
+                    }}
+                    value={role}
+                    MenuProps={{
+                        anchorOrigin: {
+                            vertical: "bottom",
+                            horizontal: "center"
+                        },
+                        transformOrigin: {
+                            vertical: "top",
+                            horizontal: "center"
+                        },
+                        getContentAnchorEl: null
+                    }}
+                    onChange={(event: React.ChangeEvent<{ name?: string | undefined; value: any/*NoOtherWay*/; }>) => 
+                        setRole(event.target.value)}
+                >
+                    {menuItems}
+                </Select>
+            </div>
         </div>
     );
 }

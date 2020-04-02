@@ -43,11 +43,14 @@ const JobStandardsInput: React.FC<JobStandardsInputProps> = (props): JSX.Element
         <div className={classes.standardFields}>
             <InputLabel
                 required={true}
-                className={classes.standardTitle}
             >
                 תקן
             </InputLabel>
-            {standardCheckboxes}
+            <div
+                className={classes.jobRequirementsMargin}
+            >
+                {standardCheckboxes}
+            </div>
         </div>
     );    
 }

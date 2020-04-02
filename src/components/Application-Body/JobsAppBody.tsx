@@ -7,6 +7,8 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import PostNewJob from './PostNewJob/PostNewJob';
 
 const dialogThemeColor = "rgb(89,89,89)";
+const PostButtonColor = '#21BD90';
+
 const styles = makeStyles({
     appBodyContent: {
         paddingLeft: '2vw',
@@ -15,12 +17,12 @@ const styles = makeStyles({
     },
     addNewPostButton: {
         color: "white",
-        backgroundColor: `${dialogThemeColor}`,
+        backgroundColor: `${PostButtonColor}`,
         "&:hover": {
-            backgroundColor: `${dialogThemeColor}`,
+            backgroundColor: `${PostButtonColor}`,
         },
         "&:focus": {
-            backgroundColor: `${dialogThemeColor}`,
+            backgroundColor: `${PostButtonColor}`,
         },
         float: "left"
     }

@@ -8,9 +8,15 @@ import { heIL } from '@material-ui/core/locale';
 import App from './App';
 import './index.css';
 
-const assistantColor = 'rgb(89,89,89)';
+const assistantColor = '#595959';
+const boxShadow = "0px 1px 7px 1px rgba(0,0,0,0.75)";
 
 const projectGlobalTheme = createMuiTheme({
+  textArea: {
+    "&::placeholder": {
+      fontStyle: 'italic',
+    },
+  },
   typography: {
     fontFamily: 'Assistant',
     allVariants: {
@@ -21,16 +27,31 @@ const projectGlobalTheme = createMuiTheme({
     }
   },
   overrides: {
-    MuiInputLabel: {
-      formControl: {
-        left: "unset",
+    MuiInput: {
+      input: {
+        "&::placeholder": {
+          fontStyle: 'italic',
+        },
       }
     },
+    MuiInputLabel: {
+      root: {
+        fontStyle: 'italic',
+      },
+      formControl: {
+        left: "unset",
+      },
+    },
     MuiButton: {
-      // TODO: Check this...
-      // '&:focus': {
-      //   outline: 'none'
-      // }
+      contained: {
+        boxShadow,
+        '&:hover': {
+          boxShadow
+        },
+        '&:focus': {
+          boxShadow
+        }
+      }
     },
     MuiRadio: {
       colorSecondary: {
@@ -59,9 +80,17 @@ const projectGlobalTheme = createMuiTheme({
         }        
       }
     },
+    MuiTextField: {
+      root: {
+        "&::placeholder": {
+          fontStyle: 'italic'
+        },
+        boxShadow
+      },
+    },
     MuiSelect: {
       select: {
-        boxShadow: "0px 1px 7px 1px rgba(0,0,0,0.75)",
+        boxShadow,
         '&$disabled': {
           boxShadow: 'unset'
         },

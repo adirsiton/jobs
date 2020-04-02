@@ -43,31 +43,39 @@ const JobNicknameInput: React.FC<JobNicknameInputProps> = (props): JSX.Element =
     return (
         <>
             <div
-                className={classes.jobNickname}>
+                className={classes.jobNickname}
+            >
                 <InputLabel
                     required
                     error={isInError}
                 >
                     שם התפקיד
                 </InputLabel>
-                <TextField 
-                    required
-                    // Disable the underline...
-                    className={classes.jobNicknameText}
-                    placeholder='למשל: מפתח צוות תכנון שו"ב'
-                    error={isInError}
-                    helperText={getHelperText()}
-                    FormHelperTextProps={{
-                        hidden: !isInError
-                    }}
-                    value={jobNickname}
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => 
-                        setJobNickname(event.target.value)
-                    }
-                    inputProps={{
-                        maxLength: JOB_NICKNAME_MAX_LENGTH
-                    }}
-                />
+                <div
+                    className={classes.jobRequirementsMargin}
+                >
+                    <TextField 
+                        required                        
+                        // Disable the underline...
+                        className={classes.jobNicknameText}
+                        placeholder='למשל: מנהל מוצר שו"ב ל"א'
+                        error={isInError}
+                        helperText={getHelperText()}
+
+                        FormHelperTextProps={{
+                            hidden: !isInError,
+                        }}
+                        value={jobNickname}
+                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => 
+                            setJobNickname(event.target.value)
+                        }
+                        inputProps={{
+                            maxLength: JOB_NICKNAME_MAX_LENGTH,
+                        }}
+                        InputProps={{
+                            disableUnderline: true,
+                        }} />
+                </div>
             </div>
         </>
     );        

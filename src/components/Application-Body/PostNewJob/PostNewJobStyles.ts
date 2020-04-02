@@ -2,10 +2,12 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 
 const postPadding = "1vw";
 const dialogThemeColor = "rgb(89,89,89)";
-const inputFieldBackgroundColor = "rgb(206,206,206)";
+const inputFieldBackgroundColor = "white";
 const TEXT_FIELD_HEIGHT = "48px";
 const ROW_TEXT_FIELD_HEIGHT_PADDING = "2.5vh";
 const HALF_ROW_TEXT_FIELD_HEIGHT_PADDING = "1.25vh";
+const boxShadow = "0px 1px 7px 1px rgba(0,0,0,0.75)";
+const PostButtonColor = '#21BD90';
 
 const styles = makeStyles({
     dialogPaper: {
@@ -46,7 +48,12 @@ const styles = makeStyles({
         justifyContent: "space-between",
         marginTop: `${ROW_TEXT_FIELD_HEIGHT_PADDING}`,
         color: `${dialogThemeColor}`,
-        paddingLeft: `${postPadding}`
+        marginLeft: `calc(${postPadding} + ${postPadding})`
+    },
+    subtitlesMargin: {
+        display: 'flex',
+        flexDirection: 'column',
+        marginRight: '2ch'
     },
     jobRequirementsHeader: {
         marginTop: `${HALF_ROW_TEXT_FIELD_HEIGHT_PADDING}`,
@@ -55,17 +62,19 @@ const styles = makeStyles({
     jobRequirementsHeaderTitle: {
         whiteSpace: "nowrap"
     },
+    jobRequirementsMargin: {
+        position: 'absolute',
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginRight: '12ch',
+    },
     jobRole: {
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
-        marginTop: `${HALF_ROW_TEXT_FIELD_HEIGHT_PADDING}`,
-    },
-    jobRoleLabel: {
-        marginLeft: '7ch'
-    },
-    standardTitle: {
-        paddingLeft: "9ch"  
+        marginTop: `calc(${ROW_TEXT_FIELD_HEIGHT_PADDING} + ${HALF_ROW_TEXT_FIELD_HEIGHT_PADDING})`,
+        marginBottom: `${ROW_TEXT_FIELD_HEIGHT_PADDING}`,
     },
     standardFields: {
         display: "flex",
@@ -77,7 +86,7 @@ const styles = makeStyles({
         // height: '32px',
         width: "10ch",
         marginRight: "2ch !important", // Important: TY @Material-ui -_-
-        backgroundColor: `${inputFieldBackgroundColor}`        
+        backgroundColor: `${inputFieldBackgroundColor}`
     },
     datePickerInput: {
         // height: '32px',
@@ -95,17 +104,11 @@ const styles = makeStyles({
         display: "flex",
         alignItems: "center"
     },
-    jobSeniorityTitle: {
-        paddingLeft: "7ch"
-    },    
     jobSeniorityFields: {
         height: `calc(${TEXT_FIELD_HEIGHT} + ${HALF_ROW_TEXT_FIELD_HEIGHT_PADDING})`,
         display: "flex",
         alignItems: "center"
     },
-    jobDamachTitle: {
-        paddingLeft: "4.5ch"  
-    },    
     jobDamachFields: {
         // height: "10vh",
         display: "flex",
@@ -115,17 +118,22 @@ const styles = makeStyles({
         transform: "rotate(180deg)"
     },
     jobDescriptionArea: {
-        width: `calc(100% - 2 * ${postPadding})`,
+        width: `calc(100% - 3 * ${postPadding})`,
         backgroundColor: `${inputFieldBackgroundColor}`,
-        paddingLeft: `${postPadding}`
+        marginLeft: `calc(2 * ${postPadding})`,
+        boxShadow
     },
     select: {
-        marginRight: "5px",
+        marginRight: '5px',
         width: "12ch",
-        backgroundColor: 'rgb(250,250,250)'
     },
     selectDisabled: {
+        marginRight: '5px',
+        width: "12ch",
         backgroundColor: 'gray',
+    },
+    roleSelect: {
+        width: "12ch",
     },
     tooltip: {
         fontSize: "100% !important" // Important: TY @Material-ui -_-
@@ -137,7 +145,6 @@ const styles = makeStyles({
     },
     jobNicknameText: {
         backgroundColor: `${inputFieldBackgroundColor}`,
-        marginRight: "3ch",
         paddingRight: "5px",
         width: "40ch"
     },
@@ -148,12 +155,12 @@ const styles = makeStyles({
         width: "12ch",
         display: "flex",
         color: "white",
-        backgroundColor: `${dialogThemeColor}`,
+        backgroundColor: `${PostButtonColor}`,
         "&:hover": {
-            backgroundColor: `${dialogThemeColor}`,
+            backgroundColor: `${PostButtonColor}`,
         },
         "&:focus": {
-            backgroundColor: `${dialogThemeColor}`,
+            backgroundColor: `${PostButtonColor}`,
         }
     },
     postButtonLabel: {
@@ -174,13 +181,13 @@ const styles = makeStyles({
         width: "100%",
         marginRight: "2px",
         borderBottom: "1px solid black",
-        marginBottom: '0.5em'
+        marginBottom: '0.75em'
     },
     checkboxField: {
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
-        paddingLeft: "1vw"
+        marginLeft: `${postPadding}`
     },
     checkbox: {
         padding: "unset !important", // Important: TY @Material-ui -_-
@@ -194,7 +201,7 @@ const styles = makeStyles({
         backgroundColor: `${inputFieldBackgroundColor}`
     },
     numberInputLabel: {
-        alignSelf: "center"
+        alignSelf: "center",
     },
 });
 

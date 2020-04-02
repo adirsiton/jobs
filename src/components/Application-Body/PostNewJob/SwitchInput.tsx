@@ -20,7 +20,9 @@ const SwitchInput: React.FC<SwitchInputProps> = (props): JSX.Element => {
 
     return (
         <>
-            <Typography>
+            <Typography
+                variant='subtitle1'
+            >
                 {rightText}
             </Typography>
             <Switch
@@ -28,7 +30,9 @@ const SwitchInput: React.FC<SwitchInputProps> = (props): JSX.Element => {
                 checked={checked}
                 onChange={() => setChecked(!checked)}           
             />
-            <Typography>
+            <Typography
+                variant='subtitle1'
+            >
                 {leftText}
             </Typography>
         </>

@@ -62,15 +62,19 @@ const JobSeniorityInput: React.FC<JobSeniorityInputProps> = (props): JSX.Element
 
     return (
         <div className={classes.jobSeniorityFields}>
-            <Typography className={classes.jobSeniorityTitle}>
+            <Typography>
                 דרוש ותק?
             </Typography>
-            <SwitchInput 
-                leftText="כן"
-                rightText="לא"
-                checked={shouldHaveSeniority}
-                setChecked={setShouldHaveSeniority} />
-            { shouldHaveSeniority && seniorityNumberInputField() }
+            <div
+                className={classes.jobRequirementsMargin}
+            >
+                <SwitchInput 
+                    leftText="כן"
+                    rightText="לא"
+                    checked={shouldHaveSeniority}
+                    setChecked={setShouldHaveSeniority} />
+                { shouldHaveSeniority && seniorityNumberInputField() }
+            </div>
         </div>
     );
 }

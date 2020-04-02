@@ -38,12 +38,15 @@ const JobEntryDateInput: React.FC<JobEntryDateProps> = (props): JSX.Element => {
                     inputProps={{
                         className: classes.datePickerInput,
                     }}
+                    InputProps={{
+                        disableUnderline: true
+                    }}
                     InputLabelProps={{
                         classes: {
                             root: classes.datePickerLabel,
                         },
                         required: true
-                    }}                    
+                    }}                
                     value={entryDate}
                     okLabel=''
                     cancelLabel=''
@@ -64,12 +67,16 @@ const JobEntryDateInput: React.FC<JobEntryDateProps> = (props): JSX.Element => {
             <Typography className={classes.jobEntryDateTitle}>
                 כניסה לתפקיד
             </Typography>
-            <SwitchInput 
-                leftText="תאריך"
-                rightText="מיידי"
-                checked={shouldChooseDate}
-                setChecked={setShouldChooseDate} />
-            { shouldChooseDate && entryDateInput()}
+            <div
+                className={classes.jobRequirementsMargin}
+            >
+                <SwitchInput 
+                    leftText="תאריך"
+                    rightText="מיידי"
+                    checked={shouldChooseDate}
+                    setChecked={setShouldChooseDate} />
+                { shouldChooseDate && entryDateInput()}
+            </div>
         </div>
     );    
 }
