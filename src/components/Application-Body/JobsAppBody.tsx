@@ -12,7 +12,7 @@ import { getAllAds } from '../../server/ads';
 const dialogThemeColor = "rgb(89,89,89)";
 const styles = makeStyles({
     appBodyContent: {
-        padding: '2vw',
+        paddingLeft: '2vw',
         paddingRight: '2vw',
         paddingTop: '2vh',
         display: "flex",
