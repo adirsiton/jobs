@@ -1,7 +1,7 @@
 
-import { Ad, sqlAd } from '../types/Ads'
+import { Advertisement , sqlAd } from '../types/Advertisements'
 
-export async function getAllAds(): Promise<Ad[]> {
+export async function getAllAds(): Promise<Advertisement []> {
     const ads: string = await fetch('/ads').then(response => {
         return response.text();
     }).then(data => {
@@ -13,7 +13,7 @@ export async function getAllAds(): Promise<Ad[]> {
     return jsonAds.map(ad => parseAd(ad));
 }
 
-function parseAd(adJson: sqlAd): Ad {
+function parseAd(adJson: sqlAd): Advertisement  {
     return {
         id: adJson.id,
         name: adJson.job_name,
@@ -48,7 +48,7 @@ function parseAd(adJson: sqlAd): Ad {
         },
         advertiser: {
             upn: adJson.advertiser_upn,
-            dispalyName: adJson.advertiser,
+            displayName: adJson.advertiser,
             contact: adJson.contact
         }
 

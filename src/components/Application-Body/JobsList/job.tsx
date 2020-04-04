@@ -5,10 +5,10 @@ import StarBorderOutlinedIcon from '@material-ui/icons/StarBorderOutlined';
 import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
 import styles from './jobsListStyle';
 
-import { Ad } from '../../../types/Ads';
+import { Advertisement  } from '../../../types/Advertisements';
 
 interface JobsProps {
-    ad: Ad
+    ad: Advertisement 
 }
 
 const Job: React.FC<JobsProps> = (props): JSX.Element => {

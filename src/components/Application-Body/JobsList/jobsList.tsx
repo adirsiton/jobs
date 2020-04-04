@@ -2,11 +2,11 @@ import * as React from 'react';
 import styles from './jobsListStyle';
 import Job from './job';
 
-import { Ad } from '../../../types/Ads';
+import { Advertisement  } from '../../../types/Advertisements';
 
 
 interface JobsListProps {
-    ads: Ad[]
+    ads: Advertisement []
 
 }
 

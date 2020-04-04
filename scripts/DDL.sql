@@ -8,7 +8,8 @@ CREATE TABLE jobs.users(
 CREATE TABLE jobs.tags(
 	id serial PRIMARY KEY,
 	name text,
-	color text
+	color text,
+	UNIQUE (name)
 );
 
 CREATE TABLE jobs.roles(

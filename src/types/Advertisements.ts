@@ -1,4 +1,4 @@
-export interface Ad {
+export interface Advertisement  {
     id: number;
     name: String;
     description: string;
@@ -11,7 +11,7 @@ export interface Ad {
     branch: AdPropertiesData;
     department: AdPropertiesData;
     location: AdPropertiesData;
-    advertiser: Advertieser;
+    advertiser: Advertiser ;
     tag: {
         name: string;
         color: string;
@@ -23,9 +23,9 @@ export interface AdPropertiesData {
     name: string
 }
 
-export interface Advertieser {
+export interface Advertiser {
     upn: string;
-    dispalyName: string;
+    displayName: string;
     contact: string;
 }
 
@@ -39,7 +39,7 @@ export interface sqlAd {
     description: string;
     entry_date: string;
     seniority: number;
-    is_damach: true
+    is_damach: true;
     advertiser_upn: string;
     contact: string;
     base_location_id: number;
@@ -51,5 +51,5 @@ export interface sqlAd {
     advertiser: string;
     tag: string;
     tag_color: string;
-    standards_array: string[]
+    standards_array: string[];
 }
