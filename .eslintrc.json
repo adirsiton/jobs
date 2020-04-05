@@ -94,7 +94,7 @@
         "no-else-return": 0,
         "@typescript-eslint/no-var-requires": 0,
         "arrow-body-style": [1, "as-needed"],
-        "import/no-unresolved": 0, // ts paths are not recognized for som reason
+        "import/no-unresolved": 0, // ts paths are not recognized for some reason
         "import/no-duplicates": 0,
         "no-useless-return": 0,
         "no-nested-ternary": 0,
