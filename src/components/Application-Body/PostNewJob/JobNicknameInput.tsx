@@ -9,7 +9,7 @@ import styles from './PostNewJobStyles';
 interface JobNicknameInputProps {
     jobNickname: string;
     setJobNickname: (jobNickname: string) => void;
-    didValidationFail: boolean;
+    isValid: boolean;
 }
 
 const JOB_NICKNAME_MIN_LENGTH = 8;
@@ -20,17 +20,17 @@ export const isJobNicknameInValidLength = (jobNickname: string): boolean => {
 }
 
 const JobNicknameInput: React.FC<JobNicknameInputProps> = (props): JSX.Element => {
-    const { jobNickname, setJobNickname, didValidationFail } = props;
+    const { jobNickname, setJobNickname, isValid } = props;
     
     const classes = styles({});
     
     const [isInError, setIsInError] = useState<boolean>(false);
 
     useEffect(() => {
-        if (didValidationFail) {
+        if (isValid) {
             setIsInError(!isJobNicknameInValidLength(jobNickname));
         }
-    }, [didValidationFail, jobNickname]);
+    }, [isValid, jobNickname]);
 
     const getHelperText = (): string => {
         if (!isInError)

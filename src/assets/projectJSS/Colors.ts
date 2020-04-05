@@ -1,6 +1,6 @@
 // File contains all theme colors through the project, documented in 1st page of PowerPoint/Pdf
 
-// Usage: color: `${NAV_BAR_COLOR}`,
+// Usage: color: NAV_BAR_COLOR,
 
 export const NAV_BAR_COLOR = 'rgb(40,54,67)';
 export const LIGHT_COLOR_TEXT = '#FFFFFF';
@@ -13,4 +13,6 @@ export const NEW_JOB_COLOR = '#21BD90';
 export const YELLOW_STAR_COLOR = 'rgb(254,201,62)'; // Same as in PowerPoint
 
 // Shadow similar to PowerPoint
-export const BOX_SHADOW = "0px 1px 7px 1px rgba(0,0,0,0.75)";
+export const BOX_SHADOW = {
+    boxShadow: "0px 1px 7px 1px rgba(0,0,0,0.75)"
+};

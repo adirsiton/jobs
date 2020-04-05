@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 
+import swal from 'sweetalert2';
+// import Like from '../../../assets/icons/Like.svg';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -27,6 +29,7 @@ import JobDamachInput from './JobDamachInput';
 import JobDescriptionInput, { isJobDescriptionInValidLength } from './JobDescriptionInput';
 import JobContactInformationInput from './JobContactInformationInput';
 import { ContactInformation, EMPTY_CONTACT_INFORMATION } from '../../../types/ContactInformation';
+import { NEW_JOB_COLOR } from '../../../assets/projectJSS/Colors';
 
 interface PostNewJobProps {
     closeDialog: () => void;
@@ -49,7 +52,7 @@ const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => 
     const [shouldHaveDamach, setShouldHaveDamach] = useState<boolean>(false);
     const [jobDescription, setJobDescription] = useState<string>('');
     const [isPostButtonDisabled, setIsPostButtonDisabled] = useState<boolean>(false);
-    const [didValidationFail, setDidValidationFail] = useState<boolean>(false); // Validation is tested after click on post button
+    const [isValid, setIsValid] = useState<boolean>(false); // Validation is tested after click on post button
     const [contactInformation, setContactInformation] = useState<ContactInformation>(EMPTY_CONTACT_INFORMATION);
 
     useEffect(() => {
@@ -65,7 +68,7 @@ const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => 
         shouldChooseDate, entryDate, dateInError]);
 
     useEffect(() => {
-        if (didValidationFail) {
+        if (isValid) {
             // TODO After comments on validations
         }
     }, []);
@@ -138,7 +141,7 @@ const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => 
                 <JobNicknameInput 
                     jobNickname={jobNickname}
                     setJobNickname={setJobNickname}
-                    didValidationFail={didValidationFail} />
+                    isValid={isValid} />
                 <JobRoleInput
                     role={role} 
                     setRole={setRole} />
@@ -181,8 +184,16 @@ const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => 
     const createNewPost = (): void => {
         if (isAllInputValid()) {
             closeDialog();
+            swal.fire({
+               title: 'יש אישור!',
+               icon: 'info', // TODO Change to Dialog
+            //    iconHtml: like,
+               text: `פרסמנו את הג'וב ועכשיו אפשר יהיה למצוא אותו במסך הראשי, ברגע שתהיה התעניינות כלשהי בתפקיד נדאג לעדכן אותך מי המועמדים`,
+               confirmButtonText: 'אחלה, תודה',
+               confirmButtonColor: NEW_JOB_COLOR ,
+            });
         } else {
-            setDidValidationFail(true);
+            setIsValid(true);
         }
     }
 
@@ -233,7 +244,7 @@ const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => 
             <JobDescriptionInput 
                 jobDescription={jobDescription}
                 setJobDescription={setJobDescription}
-                didValidationFail={didValidationFail} />
+                isValid={isValid} />
             <JobContactInformationInput 
                 contactInformation={contactInformation}
                 setContactInformation={setContactInformation}

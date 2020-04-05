@@ -3,19 +3,20 @@ import { useState } from 'react';
 
 import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
-import DateFnsUtils from '@date-io/date-fns';
-import heLocale from "date-fns/locale/he";
 import MuiPickersUtilsProvider from "@material-ui/pickers/MuiPickersUtilsProvider";
 import { KeyboardDatePicker } from "@material-ui/pickers/DatePicker/DatePicker";
 import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
+import { ParsableDate } from '@material-ui/pickers/constants/prop-types';
 
-import styles from './PostNewJobStyles';
-import SwitchInput from './SwitchInput';
+import DateFnsUtils from '@date-io/date-fns';
+import heLocale from "date-fns/locale/he";
 import format from 'date-fns/format';
 import startOfMonth from 'date-fns/startOfMonth';
 import endOfMonth from 'date-fns/endOfMonth';
 import addYears from 'date-fns/addYears';
-import { ParsableDate } from '@material-ui/pickers/constants/prop-types';
+
+import styles from './PostNewJobStyles';
+import SwitchInput from './SwitchInput';
 
 const DATE_FNS_MONTH_FORMAT = 'MM/yy';
 const MONTH_DISPLAY = 'MM/yy';
@@ -76,8 +77,8 @@ const JobEntryDateInput: React.FC<JobEntryDateProps> = (props): JSX.Element => {
                         placeholder={format(today, DATE_FNS_MONTH_FORMAT)}
                         okLabel=''
                         cancelLabel=''
-                        minDateMessage='תאריך העסקה לא יכול להיות בעבר'
-                        maxDateMessage='תאריך יכול להיקבע לכל היותר שנה הבאה'
+                        minDateMessage='תאריך הכניסה לתפקיד צריך להיות עתידי'
+                        maxDateMessage='תאריך הכניסה לתפקיד יהיה לכל היותר שנה קדימה'
                         invalidDateMessage='תאריך לא תקין'
                         onBlur={() => {
                             if(dateInError) {

@@ -16,14 +16,14 @@ const styles = makeStyles({
     },
     dialogTitle: {
         padding: "unset",
-        paddingRight: `${postPadding}`,
+        paddingRight: postPadding,
     },
     dialogTitleText: {
         fontSize: "150%"
     },
     dialogContent: {
         padding: "unset",
-        paddingRight: `${postPadding}`,
+        paddingRight: postPadding,
     },
     baseLocation: {
         display: 'flex',
@@ -46,7 +46,7 @@ const styles = makeStyles({
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",
-        marginTop: `${ROW_TEXT_FIELD_HEIGHT_PADDING}`,
+        marginTop: ROW_TEXT_FIELD_HEIGHT_PADDING,
         marginLeft: `calc(2 * ${postPadding})`
     },
     subtitlesMargin: {
@@ -55,7 +55,7 @@ const styles = makeStyles({
         marginRight: '2ch'
     },
     jobRequirementsHeader: {
-        marginTop: `${HALF_ROW_TEXT_FIELD_HEIGHT_PADDING}`,
+        marginTop: HALF_ROW_TEXT_FIELD_HEIGHT_PADDING,
         display: "flex",
     },
     jobRequirementsHeaderTitle: {
@@ -73,23 +73,23 @@ const styles = makeStyles({
         flexDirection: "row",
         alignItems: "center",
         marginTop: `calc(${ROW_TEXT_FIELD_HEIGHT_PADDING} + ${HALF_ROW_TEXT_FIELD_HEIGHT_PADDING})`,
-        marginBottom: `${ROW_TEXT_FIELD_HEIGHT_PADDING}`,
+        marginBottom: ROW_TEXT_FIELD_HEIGHT_PADDING,
     },
     standardFields: {
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
-        marginTop: `${HALF_ROW_TEXT_FIELD_HEIGHT_PADDING}`,
+        marginTop: HALF_ROW_TEXT_FIELD_HEIGHT_PADDING,
     },
     datePicker: {
         width: "11.5ch",
-        backgroundColor: `${TEXT_AND_ICONS_ADS_BACKGROUND_COLOR}`
+        backgroundColor: TEXT_AND_ICONS_ADS_BACKGROUND_COLOR
     },
     datePickerInput: {
         textAlign: "center"
     },
     datePickerLabel: {
-        fontStyle: `${ITALIC_FONT}`
+        fontStyle: ITALIC_FONT
     },
     jobEntryDateTitle: {
         paddingLeft: "3ch"
@@ -123,9 +123,9 @@ const styles = makeStyles({
     },
     jobDescriptionArea: {
         width: `calc(100% - 3 * ${postPadding})`,
-        backgroundColor: `${TEXT_AND_ICONS_ADS_BACKGROUND_COLOR}`,
+        backgroundColor: TEXT_AND_ICONS_ADS_BACKGROUND_COLOR,
         marginLeft: `calc(2 * ${postPadding})`,
-        boxShadow: BOX_SHADOW
+        ...BOX_SHADOW
     },
     select: {
         marginRight: '5px',
@@ -142,10 +142,10 @@ const styles = makeStyles({
     jobNickname: {
         display: "flex",
         alignItems: "center",
-        marginTop: `${HALF_ROW_TEXT_FIELD_HEIGHT_PADDING}`,
+        marginTop: HALF_ROW_TEXT_FIELD_HEIGHT_PADDING,
     },
     jobNicknameText: {
-        backgroundColor: `${TEXT_AND_ICONS_ADS_BACKGROUND_COLOR}`,
+        backgroundColor: TEXT_AND_ICONS_ADS_BACKGROUND_COLOR,
         width: "40ch"
     },
     selectIcon: {
@@ -154,13 +154,13 @@ const styles = makeStyles({
     postButton: {
         width: "12ch",
         display: "flex",
-        color: `${LIGHT_COLOR_TEXT}`,
-        backgroundColor: `${NEW_JOB_COLOR}`,
+        color: LIGHT_COLOR_TEXT,
+        backgroundColor: NEW_JOB_COLOR,
         "&:hover": {
-            backgroundColor: `${NEW_JOB_COLOR}`,
+            backgroundColor: NEW_JOB_COLOR,
         },
         "&:focus": {
-            backgroundColor: `${NEW_JOB_COLOR}`,
+            backgroundColor: NEW_JOB_COLOR,
         },
         '&:disabled': {
             backgroundColor: 'gray'
@@ -171,11 +171,11 @@ const styles = makeStyles({
     },
     postButtonIcon: {
         marginRight: "unset",
-        color: `${LIGHT_COLOR_TEXT}`
+        color: LIGHT_COLOR_TEXT
     },
     postButtonText: {
         paddingRight: "5px",
-        color: `${LIGHT_COLOR_TEXT}`
+        color: LIGHT_COLOR_TEXT
     },
     dashLine: {
         width: "100%",
@@ -187,7 +187,7 @@ const styles = makeStyles({
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
-        marginLeft: `${postPadding}`
+        marginLeft: postPadding
     },
     checkbox: {
         padding: "unset !important", // Important: TY @Material-ui -_-
@@ -198,11 +198,11 @@ const styles = makeStyles({
     numberInput: { 
         width: "11.5ch",
         marginRight: "1.25ch",
-        backgroundColor: `${TEXT_AND_ICONS_ADS_BACKGROUND_COLOR}`
+        backgroundColor: TEXT_AND_ICONS_ADS_BACKGROUND_COLOR
     },
     numberInputLabel: {
         alignSelf: "center",
-        fontStyle: `${ITALIC_FONT}`
+        fontStyle: ITALIC_FONT
     },
 });
 

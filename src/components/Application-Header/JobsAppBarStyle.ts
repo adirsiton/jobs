@@ -4,24 +4,24 @@ import { LIGHT_COLOR_TEXT, AVATAR_COLOR,
 
 const styles = () => createStyles({
     root: {
-        backgroundColor: `${NAV_BAR_COLOR}`
+        backgroundColor: NAV_BAR_COLOR
     },
     toolbar: { 
         display: 'flex',
         justifyContent: 'space-between'
     },
     avatar: {
-        backgroundColor: `${AVATAR_COLOR}`,
+        backgroundColor: AVATAR_COLOR,
         margin: '0 5px'
     },
     starIcon: {
         fontSize: '150%'
     },
     starIconYellow: {
-        color: `${YELLOW_STAR_COLOR}`,
+        color: YELLOW_STAR_COLOR,
     },
     starIconWhite: {
-        color: `${LIGHT_COLOR_TEXT}`,
+        color: LIGHT_COLOR_TEXT,
     },
     userDetails: {
         display: 'flex',
@@ -36,7 +36,7 @@ const styles = () => createStyles({
         fontSize: '150%'
     },
     logoTitle: {
-        color: `${LIGHT_COLOR_TEXT}`
+        color: LIGHT_COLOR_TEXT
     }
 });
 

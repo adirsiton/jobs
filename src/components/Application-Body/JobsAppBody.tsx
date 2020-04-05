@@ -15,13 +15,13 @@ const styles = makeStyles({
         paddingTop: '2vh',
     },
     addNewPostButton: {
-        color: `${LIGHT_COLOR_TEXT}`,
-        backgroundColor: `${NEW_JOB_COLOR}`,
+        color: LIGHT_COLOR_TEXT,
+        backgroundColor: NEW_JOB_COLOR,
         "&:hover": {
-            backgroundColor: `${NEW_JOB_COLOR}`,
+            backgroundColor: NEW_JOB_COLOR,
         },
         "&:focus": {
-            backgroundColor: `${NEW_JOB_COLOR}`,
+            backgroundColor: NEW_JOB_COLOR,
         },
         float: "left"
     }
