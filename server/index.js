@@ -10,7 +10,7 @@ const appRouter = require('./routes/router');
 const GitHubStrategy = require('passport-github').Strategy;
 
 require('dotenv').config();
-const port = process.env.PORT || 3001;
+const port = process.env.SERVER_PORT || 3001;
 const webappUrl= process.env.WEBAPP_URL || "http://localhost:3000";
 const sessionSecret = process.env.SESSION_SECRET || "secret_session_shhh";
 
