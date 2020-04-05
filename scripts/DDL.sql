@@ -48,7 +48,8 @@ CREATE TABLE jobs.base_locations(
 
 CREATE TABLE jobs.advertisements(
 	id serial PRIMARY KEY,
-	role_id int,
+	role_id int REFERENCES jobs.roles(id) ON DELETE CASCADE,
+	tag_id int REFERENCES jobs.tags(id) ON DELETE CASCADE,
 	unit_id int,
 	branch_id int,
 	department_id int REFERENCES jobs.departments(id) ON DELETE CASCADE,
@@ -68,12 +69,6 @@ CREATE TABLE jobs.standards_of_ads(
 	standard_id int REFERENCES jobs.standards(id) ON DELETE CASCADE,
 	advertisement_id int REFERENCES jobs.advertisements(id) ON DELETE CASCADE,
 	PRIMARY KEY(standard_id, advertisement_id)
-);
-
-CREATE TABLE jobs.tags_of_ads(
-	tag_id int REFERENCES jobs.tags(id) ON DELETE CASCADE,
-	advertisement_id int REFERENCES jobs.advertisements(id) ON DELETE CASCADE,
-	PRIMARY KEY(advertisement_id)
 );
 
 CREATE TABLE jobs.favorite_ads_of_users(

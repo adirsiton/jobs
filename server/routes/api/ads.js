@@ -18,8 +18,7 @@ router.get('/', async (req, res) => {
         JOIN jobs.departments departments ON (ads.department_id=departments.id AND ads.branch_id=departments.branch_id)
         JOIN jobs.base_locations locations ON ads.base_location_id=locations.id
         JOIN jobs.users users ON ads.advertiser_upn=users.upn
-        JOIN jobs.tags_of_ads tagsOfAds ON ads.id=tagsOfAds.advertisement_id
-        JOIN jobs.tags tags ON tagsOfAds.tag_id=tags.id`);
+        JOIN jobs.tags tags ON ads.tag_id=tags.id`);
     res.send(rows);
 });
 
