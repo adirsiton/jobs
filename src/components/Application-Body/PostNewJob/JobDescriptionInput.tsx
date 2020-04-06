@@ -17,8 +17,12 @@ const JOB_DESCRIPTION_MIN_LENGTH = 20;
 const JOB_DESCRIPTION_MAX_LENGTH = 200;
 
 export const isJobDescriptionInValidLength = (jobDescription: string): boolean => {
-    return jobDescription.length >= JOB_DESCRIPTION_MIN_LENGTH &&
-        jobDescription.length <= JOB_DESCRIPTION_MAX_LENGTH;
+    // TODO: Once validation is done... return what's below
+
+    return true;
+
+    // return jobDescription.length >= JOB_DESCRIPTION_MIN_LENGTH &&
+    //     jobDescription.length <= JOB_DESCRIPTION_MAX_LENGTH;
 }
 
 const JobDescriptionInput: React.FC<JobDescriptionInputProps> = (props): JSX.Element => {
