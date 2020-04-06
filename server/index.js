@@ -71,8 +71,11 @@ app.get('/api/greeting', (req, res) => {
 });
 
 // serve web application
-app.use(express.static(path.join(__dirname, staticFilesLocation)));
+const staticCalculatedLocation = path.join(__dirname, staticFilesLocation);
+app.use(express.static(staticCalculatedLocation));
 
-app.listen(port, () => 
-  console.log('Express server is running on port ' + port)
+app.listen(port, () => { 
+  console.log('Express server is running on port ' + port);
+  console.log('Serving static files from ' + staticCalculatedLocation);
+}
 );
