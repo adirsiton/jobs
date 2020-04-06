@@ -22,4 +22,105 @@ router.get('/', async (req, res) => {
     res.send(rows);
 });
 
+// Method assumes that every name is unique!! As this is how the DB is
+const mapUniqueNamesToIds = async (uniqueNames) => {
+    const {
+        baseLocation,
+        departmentData,
+        role,
+        standards,
+    } = uniqueNames;
+
+    const roleId = await db.query(`
+        SELECT id
+        FROM jobs.roles
+        WHERE name = ${role}
+    `).rows[0];
+
+    const baseLocationId = await db.query(`
+        SELECT id
+        FROM jobs.base_locations
+        WHERE name = ${baseLocation}
+    `).rows[0];
+
+    const unitId = await db.query(`
+        SELECT id
+        FROM jobs.units
+        WHERE name = ${departmentData.unit}
+    `).rows[0];
+
+    const branchId = await db.query(`
+        SELECT id
+        FROM jobs.branches
+        WHERE name = ${departmentData.branch} AND unit_id = ${unitId}
+    `).rows[0];
+
+    const departmentId = await db.query(`
+        SELECT id
+        FROM jobs.departments
+        WHERE name = ${departmentData.department} AND branch_id = ${branchId}
+    `).rows[0];
+
+    console.log(
+        {
+            baseLocationId,
+            roleId,
+            unitId,
+            branchId,
+            departmentId
+        }
+    );
+
+    return {
+        baseLocationId,
+        roleId,
+        unitId,
+        branchId,
+        departmentId
+    };
+}
+
+router.post('/', async (req, res) => {
+    console.log(req.body);
+    const ads = req.body;
+    const { baseLocation, departmentData, jobNickname, role,
+            standards, entryDate, yearsInSeniority, shouldHaveDamach, 
+            jobDescription, contactInformation} = ads;
+    
+    try {
+        const {
+            baseLocationId,
+            roleId,
+            unitId,
+            branchId,
+            departmentId
+        } = await mapUniqueNamesToIds({
+            baseLocation,
+            departmentData,
+            role,
+            standards,
+        }); 
+
+        // TODO: (Fix both)
+        advertiser_upn = '';
+        // contactInformation = '';
+
+        // await db.query(`
+        //     INSERT INTO jobs.advertisements (
+        //         role_id, unit_id, branch_id, department_id, job_name,
+        //         description, entry_date, seniority, is_damach, advertiser_upn, 
+        //         contact, base_location_id
+        //     ) VALUES (
+        //         ${roleId}, ${unitId}, ${branchId}, ${departmentId}, ${jobNickname}, 
+        //         ${jobDescription}, ${entryDate}, ${yearsInSeniority}, ${shouldHaveDamach}, ${advertiser_upn}, 
+        //         ${contactInformation.fullName}, ${baseLocationId}
+        //     )
+        // `);
+    } catch(error) {
+        console.log("Error is " + error);
+    }
+
+    // TODO: Insert standards...
+});
+
 module.exports = router;

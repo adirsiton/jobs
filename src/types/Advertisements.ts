@@ -1,3 +1,9 @@
+import { Standard } from "./Standard";
+import { ContactInformation } from "./ContactInformation";
+import { BaseLocation } from "./BaseLocation";
+import { DepartmentData } from "./Departments";
+import { Role } from "./Role";
+
 export interface Advertisement  {
     id: number;
     name: String;
@@ -16,6 +22,19 @@ export interface Advertisement  {
         name: string;
         color: string;
     };
+}
+
+export interface AdvertisementInsertData {
+    baseLocation: BaseLocation;
+    departmentData: DepartmentData;
+    jobNickname: string;
+    role: Role;
+    standards: Standard[];
+    entryDate: string; // Empty means Immediately, format: MM/YY (No need for days atm)
+    yearsInSeniority: number;
+    shouldHaveDamach: boolean;
+    jobDescription: string;
+    contactInformation: ContactInformation;
 }
 
 export interface AdPropertiesData {

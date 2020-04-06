@@ -1,5 +1,5 @@
 
-import { Advertisement , sqlAd } from '../types/Advertisements'
+import { Advertisement , sqlAd, AdvertisementInsertData } from '../types/Advertisements'
 
 export async function getAllAds(): Promise<Advertisement []> {
     const ads: string = await fetch('/ads').then(response => {
@@ -11,6 +11,19 @@ export async function getAllAds(): Promise<Advertisement []> {
     const jsonAds: sqlAd[] = JSON.parse(ads);
 
     return jsonAds.map(ad => parseAd(ad));
+}
+
+export const addNewAd = async (ad: AdvertisementInsertData): Promise<void> => {
+    console.log(ad);
+    
+    await fetch('/ads', {
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+        },
+        method: 'POST',
+        body: JSON.stringify(ad),
+    });
 }
 
 function parseAd(adJson: sqlAd): Advertisement  {

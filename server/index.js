@@ -16,6 +16,7 @@ const sessionSecret = process.env.SESSION_SECRET || "secret_session_shhh";
 
 const app = express();
 app.use(cors());
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(pino);
 app.use(

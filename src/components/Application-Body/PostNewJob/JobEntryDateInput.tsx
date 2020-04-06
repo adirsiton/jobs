@@ -19,7 +19,7 @@ import styles from './PostNewJobStyles';
 import SwitchInput from './SwitchInput';
 
 const DATE_FNS_MONTH_FORMAT = 'MM/yy';
-const MONTH_DISPLAY = 'MM/yy';
+export const MONTH_DISPLAY_FORMAT = 'MM/yy';
 
 interface JobEntryDateProps {
     shouldChooseDate: boolean;
@@ -96,7 +96,7 @@ const JobEntryDateInput: React.FC<JobEntryDateProps> = (props): JSX.Element => {
                         label="שנה/חודש"
                         openTo='month' // We will most likely post a new job, in the same year                    
                         onChange={setEntryDate}
-                        format={MONTH_DISPLAY}
+                        format={MONTH_DISPLAY_FORMAT}
                         minDate={thisMonth} // Hide previous months
                         maxDate={nextYear} // Job's entry date is relevant up to 12 months from today
                         views={["year", "month"]}

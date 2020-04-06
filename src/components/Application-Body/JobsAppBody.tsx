@@ -38,11 +38,12 @@ const JobsAppBody: React.FC<{}> = (): JSX.Element => {
   const [ads, setAds] = useState<Advertisement[]>([]);
   const [openAddDialog, setOpenAddDialog] = useState<boolean>(false);
 
+  const fetchAllAds = () => {
+    getAllAds().then(data => setAds(data));
+  }
   useEffect(() => {
-        getAllAds().then(data =>
-            setAds(data)
-        );
-    }, []);
+      fetchAllAds();
+  }, []);
 
   return (
     <div className={classes.appBodyContent}>
@@ -58,7 +59,9 @@ const JobsAppBody: React.FC<{}> = (): JSX.Element => {
             </Typography>
         </Button>
         <JobsList ads={ads} />
-        { openAddDialog && <PostNewJob closeDialog={() => setOpenAddDialog(false)} /> }
+        { openAddDialog && <PostNewJob 
+            fetchAfterAdd={fetchAllAds}
+            closeDialog={() => setOpenAddDialog(false)} /> }
     </div>
   );
 }

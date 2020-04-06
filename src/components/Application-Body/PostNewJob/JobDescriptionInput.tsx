@@ -9,7 +9,7 @@ import { ITALIC_FONT } from '../../../assets/projectJSS/Fonts';
 interface JobDescriptionInputProps {
     jobDescription: string;
     setJobDescription: (jobDescription: string) => void;
-    isValid: boolean;
+    didValidate: boolean;
 }
 
 const NUM_ROWS_BEFORE_ELLIPSIS = 3;
@@ -22,7 +22,7 @@ export const isJobDescriptionInValidLength = (jobDescription: string): boolean =
 }
 
 const JobDescriptionInput: React.FC<JobDescriptionInputProps> = (props): JSX.Element => {
-    const { jobDescription, setJobDescription, isValid } = props;
+    const { jobDescription, setJobDescription, didValidate } = props;
 
     const classes = styles({});
 
