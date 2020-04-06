@@ -2,19 +2,13 @@
 require('dotenv').config();
 const { Pool } = require('pg')
 
-const connectionString = process.env.PG_CONNECTION_STRING || `postgres://postgres:Aa123456@localhost:5432/jobs`;
+const user = process.env.PG_USERNAME || "postgres";
+const password = process.env.PG_PASSWORD || "postgres";
+const host = process.env.PG_HOST || "localhost";
+const database = process.env.PG_DB || "jobs";
+const port = process.env.PG_PORT || 5432;
 
-const pool = new Pool({connectionString});
-
-// Test connection
-pool.connect((err, client, release) => {
-  if (err) {
-    console.log('Error on db connection', err);
-  } else {
-    console.log('Connected to db ' + host);
-    release();
-  }
-});
+const pool = new Pool({ user, host, database, password, port });
 
 module.exports = {
   query: (text, params) => pool.query(text, params),
