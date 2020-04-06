@@ -65,7 +65,7 @@ app.get('/api/greeting', (req, res) => {
 });
 
 // serve web application
-app.use(express.static('build'));
+app.use('/', express.static('build'));
 
 app.listen(port, () =>
   console.log('Express server is running on port ' + port)
