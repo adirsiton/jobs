@@ -3,10 +3,12 @@ const bodyParser = require('body-parser');
 const cors = require("cors");
 const session = require("express-session");
 const pino = require('express-pino-logger')();
+const path = require('path');
 const passport = require('passport');
-// const OAuth2Strategy = require('passport-oauth2'); will be needed after whiten
-const appRouter = require('./routes/router');
 const GitHubStrategy = require('passport-github').Strategy;
+// const OAuth2Strategy = require('passport-oauth2'); will be needed after whiten
+const loginRouter = require('./routes/auth/auth');
+const appRouter = require('./routes/router');
 
 require('dotenv').config();
 const port = process.env.SERVER_PORT || 3001;
@@ -46,7 +48,8 @@ passport.deserializeUser(function(name, cb) {
   cb(null, name);
 });
 
-app.use("/" , appRouter);
+// The only routes that are unauthenticated open
+app.use(loginRouter);
 
 // Accept only authenticated requests, if not redirect to login
 app.use((req, res, next) => {
@@ -58,6 +61,8 @@ app.use((req, res, next) => {
   }
 });
 
+app.use(appRouter);
+
 app.get('/api/greeting', (req, res) => {
   const name = req.query.name || 'World';
   res.setHeader('Content-Type', 'application/json');
@@ -65,8 +70,8 @@ app.get('/api/greeting', (req, res) => {
 });
 
 // serve web application
-app.use('/', express.static('build'));
+app.use(express.static(path.join(__dirname, '..', 'build')));
 
-app.listen(port, () =>
+app.listen(port, () => 
   console.log('Express server is running on port ' + port)
 );
