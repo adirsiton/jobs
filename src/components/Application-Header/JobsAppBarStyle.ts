@@ -2,14 +2,15 @@ import { createStyles } from '@material-ui/core';
 
 const styles = () => createStyles({
     root: {
-        backgroundColor: 'gray'
+        backgroundColor: 'rgb(39,54,68)'
     },
     toolbar: { 
         display: 'flex',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        paddingRight: '0px'
     },
     avatar: {
-        backgroundColor: 'rgb(87,87,87)',
+        backgroundColor: 'rgb(72,90,115)',
         margin: '0 5px'
     },
     starIconYellow:{
@@ -29,7 +30,13 @@ const styles = () => createStyles({
     logoIcon:{
         margin: '0 5px'
     },
-    logoTitle: {
+    logoSystemName: {
+        color: 'white',
+        marginLeft: '20px',
+        fontWeight: 'bold'    
+    },
+    logoSubTitle: {
+        marginTop: '20px',
         color: 'white'
     }
 });

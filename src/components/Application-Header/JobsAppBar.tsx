@@ -4,12 +4,12 @@ import { withStyles, WithStyles } from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import AccessibilityNewIcon from '@material-ui/icons/AccessibilityNew';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import StarIcon from '@material-ui/icons/Star';
 import Tooltip from '@material-ui/core/Tooltip';
 
+import  jobsLogo from '../../assets/images/jobsLogo.png';
 import { User } from '../../types/userTypes';
 import styles from './JobsAppBarStyle';
 
@@ -28,7 +28,7 @@ const JobsAppBar: React.FC<AppBarDataProps> = (props): JSX.Element => {
     const getUserDetails = (): JSX.Element => {
         return (
             <div className={classes.userDetails}>
-                <Tooltip placement="right-end" title="המועדפים שלי" aria-label="my favorites">
+                <Tooltip placement="right" title="ג'ובים ששמרתי" aria-label="my favorites">
                     <IconButton className={userHaveFavorites() ? classes.starIconWhite : classes.starIconYellow}
                         // { todo onClick=showFaivorites } 
                         aria-label="my favorites" component="span">
@@ -45,9 +45,12 @@ const JobsAppBar: React.FC<AppBarDataProps> = (props): JSX.Element => {
     const getLogo = (): JSX.Element => {
         return (
             <div className={classes.logoContainer}>
-                <AccessibilityNewIcon className={classes.logoIcon}/>
-                <Typography variant="subtitle1" className={classes.logoTitle}>
-                    Jobs
+                <img src={jobsLogo} alt="jobs_logo"/>
+                <Typography variant="h3" className={classes.logoSystemName}>
+                    ג'ובניק
+                </Typography>
+                <Typography variant="h6" className={classes.logoSubTitle}>
+                    מוצא לך את הג'וב הבא
                 </Typography>
             </div>
         );

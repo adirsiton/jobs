@@ -32,6 +32,16 @@ const projectGlobalTheme = createMuiTheme({
       //   outline: 'none'
       // }
     },
+    MuiTooltip:{
+      tooltip: { 
+        backgroundColor: 'rgb(72,90,115,30)',
+        color: 'white',
+        fontSize: '1.3erm'
+      },
+      popper:{
+        marginLeft: '-10px',
+      }
+    },
     MuiRadio: {
       colorSecondary: {
         '&$checked': {
