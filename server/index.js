@@ -3,7 +3,6 @@ const bodyParser = require('body-parser');
 const cors = require("cors");
 const session = require("express-session");
 const pino = require('express-pino-logger')();
-const proxy = require("express-http-proxy");
 const passport = require('passport');
 // const OAuth2Strategy = require('passport-oauth2'); will be needed after whiten
 const appRouter = require('./routes/router');
@@ -11,7 +10,6 @@ const GitHubStrategy = require('passport-github').Strategy;
 
 require('dotenv').config();
 const port = process.env.SERVER_PORT || 3001;
-const webappUrl= process.env.WEBAPP_URL || "http://localhost:3000";
 const sessionSecret = process.env.SESSION_SECRET || "secret_session_shhh";
 
 const app = express();
@@ -66,8 +64,8 @@ app.get('/api/greeting', (req, res) => {
   res.send(JSON.stringify({ greeting: `Hello ${name}!` }));
 });
 
-// proxy to the webapp
-app.get("*", proxy(webappUrl));
+// serve web application
+app.use(express.static('build'));
 
 app.listen(port, () =>
   console.log('Express server is running on port ' + port)
