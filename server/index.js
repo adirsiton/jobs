@@ -3,7 +3,6 @@ const bodyParser = require('body-parser');
 const cors = require("cors");
 const session = require("express-session");
 const pino = require('express-pino-logger')();
-const proxy = require("express-http-proxy");
 const passport = require('passport');
 // const OAuth2Strategy = require('passport-oauth2'); will be needed after whiten
 const appRouter = require('./routes/router');
@@ -67,7 +66,8 @@ app.get('/api/greeting', (req, res) => {
 });
 
 // proxy to the webapp
-app.get("*", proxy(webappUrl));
+// app.get("*", proxy(webappUrl));
+app.use(express.static('build'));
 
 app.listen(port, () =>
   console.log('Express server is running on port ' + port)
