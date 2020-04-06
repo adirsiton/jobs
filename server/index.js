@@ -13,6 +13,7 @@ const appRouter = require('./routes/router');
 require('dotenv').config();
 const port = process.env.SERVER_PORT || 3001;
 const sessionSecret = process.env.SESSION_SECRET || "secret_session_shhh";
+const staticFilesLocation = process.env.STATIC_FILES_LOCATION || "../build";
 
 const app = express();
 app.use(cors());
@@ -70,7 +71,7 @@ app.get('/api/greeting', (req, res) => {
 });
 
 // serve web application
-app.use(express.static(path.join(__dirname, '..', 'build')));
+app.use(express.static(path.join(__dirname, staticFilesLocation)));
 
 app.listen(port, () => 
   console.log('Express server is running on port ' + port)
