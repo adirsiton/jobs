@@ -122,8 +122,6 @@ router.post('/', async (req, res) => {
         await db.query('ROLLBACK');
         res.sendStatus(500);
     }
-
-    // TODO: Insert standards...
 });
 
 module.exports = router;

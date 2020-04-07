@@ -93,7 +93,7 @@ class Departments {
 
     // TODO: Apply to DB smart select... FIX
     getBranchesOfUnit = (unit: Unit, allBranchOptions: Branch[]): Branch[] => {        
-        if (unit.id < 0)
+        if (unit.id === NO_UNIT.id)
             return [];
 
         const branchesOfUnit = allBranchOptions;
@@ -102,7 +102,7 @@ class Departments {
     }
 
     getDepartmentsOfBranch = (unit: Unit, branch: Branch, allDepartmentOptions: Department[]): Department[] => {
-        if (unit.id < 0 || branch.id < 0)
+        if (unit.id === NO_UNIT.id || branch.id === NO_BRANCH.id)
             return [];
     
         const departmentsOfBranch: Department[] = allDepartmentOptions;
