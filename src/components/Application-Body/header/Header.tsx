@@ -7,7 +7,13 @@ import { faFilter } from '@fortawesome/free-solid-svg-icons';
 import styles from './HeaderStyle';
 import PostNewJob from './PostNewJob/PostNewJob';
 
-const Header: React.FC = (props): JSX.Element => {
+interface HeaderOwnProps {
+    searchValue: string;
+    onSearchValueChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+const Header: React.FC<HeaderOwnProps> = (props): JSX.Element => {
+    const { onSearchValueChange, searchValue } = props;
     const classes = styles({});
 
     const [openAddDialog, setOpenAddDialog] = useState<boolean>(false);
@@ -22,6 +28,8 @@ const Header: React.FC = (props): JSX.Element => {
                         <FontAwesomeIcon icon={faFilter}/>
                     </InputAdornment>
                 }
+                onChange={onSearchValueChange}
+                value={searchValue}
             />
                 
             <Button

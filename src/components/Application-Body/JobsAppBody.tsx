@@ -1,12 +1,11 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
 import JobsList from './JobsList/jobsList';
-
-import { getAllAds } from '../../server/ads';
 import Header from './header/Header';
+import { getAllAds } from '../../server/ads';
+import { Advertisement } from '../../types/Advertisements';
 
 const styles = makeStyles({
     appBodyContent: {
@@ -20,8 +19,8 @@ const styles = makeStyles({
 
 const JobsAppBody: React.FC<{}> = (): JSX.Element => {
     const classes = styles({});
-    const [ads, setAds] = useState<any>([]);
-    
+    const [ads, setAds] = useState<Advertisement[]>([]);
+    const [searchValue, setSearchValue] = useState<string>('');
 
     useEffect(() => {
         getAllAds().then(data =>
@@ -29,10 +28,22 @@ const JobsAppBody: React.FC<{}> = (): JSX.Element => {
         );
     }, []);
 
+    const onSearchValueChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+        setSearchValue(event.target.value);
+    }
+
+    const getFilteredAds = (): Advertisement[] => {
+        return ads.filter(ad => (
+                ad.name.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1 ||
+                ad.tag.name.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1
+            )
+        );
+    }
+
     return (
         <div className={classes.appBodyContent}>
-            <Header/>
-            <JobsList ads={ads} />
+            <Header searchValue={searchValue} onSearchValueChange={onSearchValueChange}/>
+            <JobsList ads={getFilteredAds()} isFiltered={searchValue !== '' && ads.length !== 0}/>
         </div>
     );
 }

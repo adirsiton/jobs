@@ -105,7 +105,15 @@ const useStyles = makeStyles((theme) =>
             marginRight: "3px",
             marginLeft: "5px"
         },
-
+        searchNotFound: {
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            marginTop: '28vh'
+        },
+        bigFont: {
+            fontSize: '3em'
+        }
     }),
 );
 
