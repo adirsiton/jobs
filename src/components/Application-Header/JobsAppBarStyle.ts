@@ -12,12 +12,6 @@ const styles = () => createStyles({
         backgroundColor: 'rgb(87,87,87)',
         margin: '0 5px'
     },
-    starIconYellow:{
-        color: 'yellow'
-    },
-    starIconWhite:{
-        color: 'white'
-    },
     userDetails:{
         display: 'flex',
         alignItems: 'center'

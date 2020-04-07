@@ -10,9 +10,13 @@ const GitHubStrategy = require('passport-github').Strategy;
 const loginRouter = require('./routes/auth/auth');
 const appRouter = require('./routes/router');
 
+const proxy = require("express-http-proxy"); // DELETE
+
+
 require('dotenv').config();
 const port = process.env.SERVER_PORT || 3001;
 const sessionSecret = process.env.SESSION_SECRET || "secret_session_shhh";
+const webappUrl= process.env.WEBAPP_URL || "http://localhost:3000"; // DELETE
 const staticFilesLocation = process.env.STATIC_FILES_LOCATION || "../build";
 
 const app = express();
@@ -74,8 +78,11 @@ app.get('/api/greeting', (req, res) => {
 const staticCalculatedLocation = path.join(__dirname, staticFilesLocation);
 app.use(express.static(staticCalculatedLocation));
 
+if (process.env.NODE_ENV === 'development') { //DELETE
+  app.get("*", proxy(webappUrl));
+}
+
 app.listen(port, () => { 
   console.log('Express server is running on port ' + port);
   console.log('Serving static files from ' + staticCalculatedLocation);
-}
-);
+});

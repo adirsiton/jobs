@@ -6,12 +6,12 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import AccessibilityNewIcon from '@material-ui/icons/AccessibilityNew';
 import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
-import StarIcon from '@material-ui/icons/Star';
 import Tooltip from '@material-ui/core/Tooltip';
 
 import { User } from '../../types/userTypes';
 import styles from './JobsAppBarStyle';
+import FavoriteList from './favorite-list/FavoriteList';
+import { Advertisement } from '../../types/Advertisements';
 
 interface AppBarDataProps extends WithStyles<typeof styles> {
     user: User;
@@ -25,15 +25,13 @@ const JobsAppBar: React.FC<AppBarDataProps> = (props): JSX.Element => {
         return Math.random() >= 0.5;
     }
 
+    const exampleAd: any = {"id":1,"role_id":1,"tag_id":4,"unit_id":1,"branch_id":1,"department_id":1,"job_name":"מנהל מוצר מעגל האש","description":"מנהל מוצר האש, אחראי על כלל ייצוג תהליך מעגל האש במערכת ועבודה רב\"ז.","entry_date":"2020-08-31T21:00:00.000Z","seniority":2,"is_damach":true,"advertiser_upn":"s8182384","contact":"פלאפון 0527777780","base_location_id":1,"role_name":"תוכניתן","unit_name":"מצפ\"ן","department_name":"DEVOPS","branch_name":"פסגות שילוביות","location":"של\"ר","advertiser":"מיכאל הופמן","tag":"PM","tag_color":"#FF0066","standards_array":["סרן","רס\"ן"]};
+
     const getUserDetails = (): JSX.Element => {
         return (
             <div className={classes.userDetails}>
                 <Tooltip placement="right-end" title="המועדפים שלי" aria-label="my favorites">
-                    <IconButton className={userHaveFavorites() ? classes.starIconWhite : classes.starIconYellow}
-                        // { todo onClick=showFaivorites } 
-                        aria-label="my favorites" component="span">
-                        <StarIcon />
-                    </IconButton>
+                    <FavoriteList ads={[exampleAd]}/>
                 </Tooltip>
                 <Avatar className={classes.avatar}>
                     {user.userInitials}
