@@ -1,32 +1,48 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
+
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
+import { LIGHT_COLOR_TEXT, NEW_JOB_COLOR } from '../../assets/projectJSS/Colors';
 import JobsList from './JobsList/jobsList';
 import Header from './header/Header';
+
 import { getAllAds } from '../../server/ads';
 import { Advertisement } from '../../types/Advertisements';
 
 const styles = makeStyles({
     appBodyContent: {
-        paddingLeft: '2vw',
+        paddingLeft: '3vw',
         paddingRight: '2vw',
         paddingTop: '2vh',
         display: "flex",
         flexDirection: "column"
+    },
+    addNewPostButton: {
+        color: LIGHT_COLOR_TEXT,
+        backgroundColor: NEW_JOB_COLOR,
+        "&:hover": {
+            backgroundColor: NEW_JOB_COLOR,
+        },
+        "&:focus": {
+            backgroundColor: NEW_JOB_COLOR,
+        },
+        alignSelf: "flex-end"
     }
 });
 
 const JobsAppBody: React.FC<{}> = (): JSX.Element => {
-    const classes = styles({});
-    const [ads, setAds] = useState<Advertisement[]>([]);
-    const [searchValue, setSearchValue] = useState<string>('');
+  const classes = styles({});
+  const [ads, setAds] = useState<Advertisement[]>([]);
+  const [searchValue, setSearchValue] = useState<string>('');
 
-    useEffect(() => {
-        getAllAds().then(data =>
-            setAds(data)
-        );
-    }, []);
+  const fetchAllAds = (): void => {
+    getAllAds().then(data => setAds(data));
+  }
+
+  useEffect(() => {
+      fetchAllAds();
+  }, []);
 
     const onSearchValueChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
         setSearchValue(event.target.value);
@@ -40,12 +56,15 @@ const JobsAppBody: React.FC<{}> = (): JSX.Element => {
         );
     }
 
-    return (
-        <div className={classes.appBodyContent}>
-            <Header searchValue={searchValue} onSearchValueChange={onSearchValueChange}/>
-            <JobsList ads={getFilteredAds()} isFiltered={searchValue !== '' && ads.length !== 0}/>
-        </div>
-    );
+  return (
+    <div className={classes.appBodyContent}>
+        <Header 
+            searchValue={searchValue} 
+            onSearchValueChange={onSearchValueChange}
+            fetchAllAdsAfterPost={fetchAllAds} />
+        <JobsList ads={getFilteredAds()} isFiltered={searchValue !== '' && ads.length !== 0}/>
+    </div>
+  );
 }
 
 export default JobsAppBody;

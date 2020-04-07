@@ -32,7 +32,7 @@ const JobsAppBar: React.FC<AppBarDataProps> = (props): JSX.Element => {
                     <IconButton className={userHaveFavorites() ? classes.starIconWhite : classes.starIconYellow}
                         // { todo onClick=showFaivorites } 
                         aria-label="my favorites" component="span">
-                        <StarIcon />
+                        <StarIcon className={classes.starIcon} />
                     </IconButton>
                 </Tooltip>
                 <Avatar className={classes.avatar}>

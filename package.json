@@ -28,7 +28,8 @@
     "pg": "^8.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1"
+    "react-scripts": "3.4.1",
+    "sweetalert2": "^9.10.9"
   },
   "scripts": {
     "start": "react-scripts start",

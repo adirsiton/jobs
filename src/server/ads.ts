@@ -1,28 +1,48 @@
 
-import { Advertisement , sqlAd } from '../types/Advertisements'
+import { Advertisement , sqlAd, AdvertisementInsertData } from '../types/Advertisements';
+import { AllSelectOptions } from '../types/AllSelectOptions';
 
 export async function getAllAds(): Promise<Advertisement []> {
-    const ads: string = await fetch('/ads').then(response => {
-        return response.text();
+    const ads: sqlAd[] = await fetch('/ads').then(response => {
+        return response.json();
     }).then(data => {
         return data;
     });
 
-    const jsonAds: sqlAd[] = JSON.parse(ads);
+    return ads.map(ad => parseAd(ad));
+}
 
-    return jsonAds.map(ad => parseAd(ad));
+export const getAllSelectOptions = async (): Promise<AllSelectOptions> => {    
+    const response: Response = await fetch('/ads/options', {
+        method: 'GET'
+    });
+
+    const allSelectOptions = await response.json();
+
+    return allSelectOptions;
+}
+
+export const addNewAd = async (ad: AdvertisementInsertData): Promise<void> => {    
+    await fetch('/ads', {
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+        },
+        method: 'POST',
+        body: JSON.stringify(ad),
+    });
 }
 
 function parseAd(adJson: sqlAd): Advertisement  {
     return {
         id: adJson.id,
-        name: adJson.job_name,
+        name: adJson.job_title,
         tag: {
             name: adJson.tag,
             color: adJson.tag_color
         },
-        description: adJson.description,
-        entryDate: new Date(adJson.entry_date),
+        description: adJson.job_description,
+        entryDate: adJson.entry_date,
         seniority: adJson.seniority,
         isDamach: adJson.is_damach,
         standards: adJson.standards_array,

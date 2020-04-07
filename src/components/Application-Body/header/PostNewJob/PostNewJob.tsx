@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 
+import swal from 'sweetalert2';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -12,45 +13,70 @@ import PostAddIcon from '@material-ui/icons/PostAdd';
 import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
 
 import styles from './PostNewJobStyles';
-import { Role } from '../../../../types/Role';
-import { Standard } from '../../../../types/Standard';
-import { DepartmentData, DepartmentsManager, EMPTY_DEPARTMENT } from '../../../../types/Departments';
+import JobBaseLocationInput from './JobBaseLocationInput';
+import { BaseLocation, NO_BASE_LOCATION } from '../../../../types/BaseLocation';
 import DepartmentInput from './DepartmentInput';
+import { DepartmentData, DepartmentsManager, EMPTY_DEPARTMENT } from '../../../../types/Departments';
+import JobNicknameInput, { isJobNicknameInValidLength } from './JobNicknameInput';
 import JobRoleInput from './JobRoleInput';
+import { Role, NO_ROLE } from '../../../../types/Role';
 import JobStandardsInput from './JobStandardsInput';
-import JobEntryDateInput from './JobEntryDateInput';
+import { Standard } from '../../../../types/Standard';
+import JobEntryDateInput, { MONTH_DISPLAY_FORMAT } from './JobEntryDateInput';
 import JobSeniorityInput from './JobSeniorityInput';
 import JobDamachInput from './JobDamachInput';
-import JobNicknameInput from './JobNicknameInput';
-import JobDescriptionInput from './JobDescriptionInput';
+import JobDescriptionInput, { isJobDescriptionInValidLength } from './JobDescriptionInput';
+import JobContactInformationInput from './JobContactInformationInput';
+import { ContactInformation, EMPTY_CONTACT_INFORMATION } from '../../../../types/ContactInformation';
+import { NEW_JOB_COLOR } from '../../../../assets/projectJSS/Colors';
+import { addNewAd } from '../../../../server/ads';
+import { format } from 'date-fns';
+import { AllSelectOptions } from '../../../../types/AllSelectOptions';
 
 interface PostNewJobProps {
+    allSelectOptions: AllSelectOptions;
     closeDialog: () => void;
+    fetchAllAdsAfterPost: () => void;
 }
 
-const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => {
+const PostNewJob: React.FC<PostNewJobProps> = (props): JSX.Element => {
+    const { allSelectOptions, closeDialog, fetchAllAdsAfterPost } = props;
     const classes = styles({});
     
+    // useStates, Ordered by the display view (Top to bottom)
+    const [baseLocation, setBaseLocation] = useState<BaseLocation>(NO_BASE_LOCATION);    
     const [department, setDepartment] = useState<DepartmentData>(EMPTY_DEPARTMENT);
-    const [role, setRole] = useState<Role>(Role.NO_ROLE);
+    const [jobNickname, setJobNickname] = useState<string>('');
+    const [role, setRole] = useState<Role>(NO_ROLE);
     const [standards, setStandards] = useState<Standard[]>([]);
     const [shouldChooseDate, setShouldChooseDate] = useState<boolean>(false);
+    const [dateInError, setDateInError] = useState<boolean>(false);
     const [entryDate, setEntryDate] = useState<MaterialUiPickersDate>(null);
     const [shouldHaveSeniority, setShouldHaveSeniority] = useState<boolean>(false);
     const [yearsInSeniority, setYearsInSeniority] = useState<number>(1);
     const [shouldHaveDamach, setShouldHaveDamach] = useState<boolean>(false);
-    const [jobNickname, setJobNickname] = useState<string>('');
     const [jobDescription, setJobDescription] = useState<string>('');
     const [isPostButtonDisabled, setIsPostButtonDisabled] = useState<boolean>(false);
+    const [didValidate, setDidValidate] = useState<boolean>(false); // Validation is tested after click on post button
+    const [contactInformation, setContactInformation] = useState<ContactInformation>(EMPTY_CONTACT_INFORMATION);
 
     useEffect(() => {
-        const isInputFull: boolean = DepartmentsManager.isDepartmentSelected(department) &&
-            role !== Role.NO_ROLE &&
+        const isInputFull: boolean = 
+            baseLocation.id !== NO_BASE_LOCATION.id &&
+            DepartmentsManager.isDepartmentSelected(department) &&
+            role.id !== NO_ROLE.id &&
             standards.length > 0 &&
-            (!shouldChooseDate || entryDate !== null);
+            (!shouldChooseDate || (!dateInError && entryDate !== null));
 
             setIsPostButtonDisabled(!isInputFull);
-    }, [department, role, standards, shouldChooseDate, entryDate]);
+    }, [baseLocation, department, role, standards, 
+        shouldChooseDate, entryDate, dateInError]);
+
+    useEffect(() => {
+        if (didValidate) {
+            // TODO After comments on validations
+        }
+    }, [didValidate]);
 
     const getTitle = (): JSX.Element => {
         return (
@@ -63,15 +89,53 @@ const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => 
             </DialogTitle>
         );
     }
+    
+    const getDepartmentHeader = (): JSX.Element => {
+        return (
+            <div className={classes.departmentHeader}>
+                <Typography variant="subtitle1">
+                    שיוך
+                </Typography>
+                <div className={classes.dashLine} />
+            </div>
+        );
+    }
+
+    const getDepartmentFields = (): JSX.Element => {
+        return (
+            <div className={classes.subtitlesMargin}
+            >
+                <JobBaseLocationInput
+                    baseLocation={baseLocation}
+                    setBaseLocation={setBaseLocation}
+                    allBaseLocationOptions={allSelectOptions.baseLocationOptions} />
+                <DepartmentInput 
+                    department={department} 
+                    setDepartment={setDepartment} 
+                    allUnitOptions={allSelectOptions.unitOptions}
+                    allBranchOptions={allSelectOptions.branchOptions}
+                    allDepartmentOptions={allSelectOptions.departmentOptions} />
+            </div>
+        );
+    }
+
+    const getDepartment = (): JSX.Element => {
+        return (
+            <>
+                {getDepartmentHeader()}
+                {getDepartmentFields()}
+            </>
+        );
+    }
 
     const getJobRequirementsHeader = (): JSX.Element => {
         return (
             <div className={classes.jobRequirementsHeader}>
                 <Typography 
                     className={classes.jobRequirementsHeaderTitle}
-                    variant="caption"
+                    variant="subtitle1"
                 >
-                    דרישות התפקיד
+                    פרטי התפקיד
                 </Typography>
                 <div className={classes.dashLine} />
             </div>
@@ -80,16 +144,28 @@ const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => 
 
     const getJobRequirementsFields = (): JSX.Element => {
         return (
-            <>
-                <JobRoleInput setRole={setRole} />
+            <div 
+                className={classes.subtitlesMargin}
+            >
+                <JobNicknameInput 
+                    jobNickname={jobNickname}
+                    setJobNickname={setJobNickname}
+                    didValidate={didValidate} />
+                <JobRoleInput
+                    role={role} 
+                    setRole={setRole}
+                    allRoleOptions={allSelectOptions.roleOptions} />
                 <JobStandardsInput 
                     standards={standards}
-                    setStandards={setStandards} />
+                    setStandards={setStandards}
+                    allStandardOptions={allSelectOptions.standardOptions} />
                 <JobEntryDateInput
                     shouldChooseDate={shouldChooseDate}
                     setShouldChooseDate={setShouldChooseDate}
                     entryDate={entryDate}
-                    setEntryDate={setEntryDate} />
+                    setEntryDate={setEntryDate}
+                    dateInError={dateInError}
+                    setDateInError={setDateInError} />
                 <JobSeniorityInput
                     shouldHaveSeniority={shouldHaveSeniority}
                     setShouldHaveSeniority={setShouldHaveSeniority}
@@ -98,7 +174,7 @@ const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => 
                 <JobDamachInput 
                     shouldHaveDamach={shouldHaveDamach}
                     setShouldHaveDamach={setShouldHaveDamach} />
-            </>
+            </div>
         );
     } 
 
@@ -111,8 +187,46 @@ const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => 
         );
     }
 
-    const createNewPost = (): void => {
-        closeDialog();
+    const isAllInputValid = (): boolean => {
+        return isJobNicknameInValidLength(jobNickname) &&
+            isJobDescriptionInValidLength(jobDescription);
+    }
+
+    const createNewPost = async (): Promise<void> => {
+        if (isAllInputValid()) {
+            try {
+                await addNewAd({
+                    baseLocation,
+                    departmentData: department,
+                    jobNickname,
+                    role,
+                    standards,
+                    entryDate: entryDate ? format(entryDate!, MONTH_DISPLAY_FORMAT): '', // Empty means Immediately, format: MM/YY (No need for days atm)
+                    yearsInSeniority: shouldHaveSeniority ? yearsInSeniority : 0,
+                    shouldHaveDamach,
+                    jobDescription,
+                    contactInformation
+                });
+                fetchAllAdsAfterPost();
+                closeDialog();
+                swal.fire({
+                   title: 'יש אישור!',
+                   icon: 'success',
+                   text: `פרסמנו את הג'וב ועכשיו אפשר יהיה למצוא אותו במסך הראשי, ברגע שתהיה התעניינות כלשהי בתפקיד נדאג לעדכן אותך מי המועמדים`,
+                   confirmButtonText: 'אחלה, תודה',
+                   confirmButtonColor: NEW_JOB_COLOR ,
+                });    
+            }
+            catch(error) {
+                swal.fire({
+                    title: 'קרתה שגיאה',
+                    icon: 'error',
+                    text: 'הייתה שגיאה בניסיון הוספה מודעה חדשה, נסו שנית'
+                });
+            }
+        } else {
+            setDidValidate(true);
+        }
     }
 
     const getPostButton = (): JSX.Element => {
@@ -124,9 +238,6 @@ const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => 
         return (
             <Tooltip 
                 title={tooltipTitle}
-                classes={{ 
-                    tooltip: classes.tooltip
-                }}
             >
                 <span> { /* Span is for the tooltip, when button is disabled */ }
                     <Button 
@@ -134,7 +245,6 @@ const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => 
                         classes={{
                             label: classes.postButtonLabel,
                             startIcon: classes.postButtonIcon,
-                            disabled: classes.postButtonDisabled
                         }}
                         disabled={isPostButtonDisabled}
                         variant="contained"
@@ -161,15 +271,16 @@ const PostNewJob: React.FC<PostNewJobProps> = ({ closeDialog }): JSX.Element => 
       >
         {getTitle()}
         <DialogContent className={classes.dialogContent}>
-            <DepartmentInput department={department} setDepartment={setDepartment} />
+            {getDepartment()}
             {getJobRequirements()}
-            <JobNicknameInput 
-                jobNickname={jobNickname}
-                setJobNickname={setJobNickname} />
             <JobDescriptionInput 
                 jobDescription={jobDescription}
-                setJobDescription={setJobDescription} />
-            {/* {getContactInformation()} */}
+                setJobDescription={setJobDescription}
+                didValidate={didValidate} />
+            <JobContactInformationInput 
+                contactInformation={contactInformation}
+                setContactInformation={setContactInformation}
+            />
         </DialogContent>
         <DialogActions>
             {getPostButton()}

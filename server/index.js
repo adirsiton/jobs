@@ -17,6 +17,7 @@ const staticFilesLocation = process.env.STATIC_FILES_LOCATION || "../build";
 
 const app = express();
 app.use(cors());
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(pino);
 app.use(

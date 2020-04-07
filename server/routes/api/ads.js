@@ -19,7 +19,109 @@ router.get('/', async (req, res) => {
         JOIN jobs.base_locations locations ON ads.base_location_id=locations.id
         JOIN jobs.users users ON ads.advertiser_upn=users.upn
         JOIN jobs.tags tags ON ads.tag_id=tags.id`);
-    res.send(rows);
+    res.json(rows);
+});
+
+router.get('/options', async (req, res) => {
+    // TODO: Refactor into loop of tables, rather than 1 by 1 
+
+    const standardOptions = await db.query(`
+        SELECT id, name
+        FROM jobs.standards
+    `).then(result => result.rows);
+
+    const roleOptions = await db.query(`
+        SELECT id, name
+        FROM jobs.roles
+    `).then(result => result.rows);
+
+    const baseLocationOptions = await db.query(`
+        SELECT id, name
+        FROM jobs.base_locations
+    `).then(result => result.rows);
+
+    // TODO: Unit-Branch-Department, load necessary in future... 
+    const unitOptions = await db.query(`
+        SELECT id, name
+        FROM jobs.units
+    `).then(result => result.rows);
+
+    const branchOptions = await db.query(`
+        SELECT id, name
+        FROM jobs.branches
+    `).then(result => result.rows);
+
+    const departmentOptions = await db.query(`
+        SELECT id, name
+        FROM jobs.departments
+    `).then(result => result.rows);
+
+    const allSelectOptions = {
+        roleOptions,
+        standardOptions,
+        baseLocationOptions,
+        unitOptions,
+        branchOptions,
+        departmentOptions
+    };
+
+    res.json(allSelectOptions);
+});
+
+router.post('/', async (req, res) => {
+    console.log(req.body);
+    const ads = req.body;
+    const { baseLocation, departmentData, jobNickname, role,
+            standards, entryDate, yearsInSeniority, shouldHaveDamach, 
+            jobDescription, contactInformation} = ads;
+
+    const baseLocationId = baseLocation.id;
+    const roleId = role.id;
+    const { unit, branch, department } = departmentData;
+    const unitId = unit.id;
+    const branchId = branch.id;
+    const departmentId = department.id;
+    const standardIds = standards.map(standard => standard.id);
+    const advertiser_upn = 's8258065'; // TODO: load from req.body
+    const tagId = 3; // TODO: Fix this.... ERD has to go some refactor...
+
+
+    try {
+        await db.query('BEGIN');
+        // await db.query(`
+        // INSERT INTO jobs.advertisements(role_id,tag_id, unit_id, branch_id, department_id, job_title,job_description, entry_date, seniority, is_damach, advertiser_upn, contact, base_location_id) VALUES
+        // (1, 4, 1, 1, 1,'מנהל מוצר מעגל האש', 'מנהל מוצר האש, אחראי על כלל ייצוג תהליך מעגל האש במערכת ועבודה רב"ז.', '09/20', 2, true, 's8182384', 'פלאפון 0527777780', 1)        
+        // `);
+        const values = [roleId, tagId, unitId, branchId, departmentId, jobNickname, jobDescription, entryDate, yearsInSeniority, shouldHaveDamach, advertiser_upn, contactInformation.fullName, baseLocationId];
+        const advertisementId = await db.query(`
+            INSERT INTO jobs.advertisements (
+                role_id, tag_id, unit_id, branch_id, department_id, job_title, job_description, entry_date, seniority, is_damach, advertiser_upn, contact, base_location_id
+            ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) 
+            RETURNING id
+        `, values).then(result => result.rows[0].id);
+        
+        for (const standardId of standardIds) {
+            await db.query(`
+                INSERT INTO jobs.standards_of_ads (
+                    advertisement_id, standard_id 
+                ) VALUES ($1, $2)
+            `, [advertisementId, standardId]);
+        }
+
+        // TODO: Use unnest($2::integer[]), pq-function-unnestunknown-is-not-unique
+        // await db.query(`
+        //     INSERT INTO jobs.standards_of_ads (
+        //         advertisement_id, standard_id 
+        //     ) VALUES ($1, ${standardIds})
+        // `, [advertisementId]);
+
+        await db.query('COMMIT');
+        res.sendStatus(200);
+    } catch(error) {
+        console.log("Error is " + error);
+        await db.query('ROLLBACK');
+        res.sendStatus(500);
+    }
 });
 
 module.exports = router;

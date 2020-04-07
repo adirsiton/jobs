@@ -19,6 +19,7 @@ const JobSeniorityInput: React.FC<JobSeniorityInputProps> = (props): JSX.Element
 
     const classes = styles({});
 
+    const SENIORITY_SCROLL_STEP = 1;
     const MIN_SENIORITY_IN_YEARS = 1; // shouldHaveSeniority = false, Means 0...
     const MAX_SENIORITY_IN_YEARS = 50;
 
@@ -38,7 +39,7 @@ const JobSeniorityInput: React.FC<JobSeniorityInputProps> = (props): JSX.Element
                 value={yearsInSeniority}
                 label="ותק בשנים"
                 onInput={(event: React.ChangeEvent<HTMLInputElement>) => {
-                    const seniorityYearsInput = parseInt(event.target.value) | MIN_SENIORITY_IN_YEARS;
+                    const seniorityYearsInput = parseInt(event.target.value) || MIN_SENIORITY_IN_YEARS;
 
                     setYearsInSeniority(
                         Math.min(
@@ -50,6 +51,7 @@ const JobSeniorityInput: React.FC<JobSeniorityInputProps> = (props): JSX.Element
                 inputProps={{
                     min: MIN_SENIORITY_IN_YEARS,
                     max: MAX_SENIORITY_IN_YEARS, // What is the maximum vetek a person might have? ^^
+                    step: SENIORITY_SCROLL_STEP,
                     style: { // Couldn't do in jss, TODO
                         textAlign: "center"
                     }
@@ -60,15 +62,19 @@ const JobSeniorityInput: React.FC<JobSeniorityInputProps> = (props): JSX.Element
 
     return (
         <div className={classes.jobSeniorityFields}>
-            <Typography className={classes.jobSeniorityTitle}>
+            <Typography>
                 דרוש ותק?
             </Typography>
-            <SwitchInput 
-                leftText="כן"
-                rightText="לא"
-                checked={shouldHaveSeniority}
-                setChecked={setShouldHaveSeniority} />
-            { shouldHaveSeniority && seniorityNumberInputField() }
+            <div
+                className={classes.jobRequirementsMargin}
+            >
+                <SwitchInput 
+                    leftText="כן"
+                    rightText="לא"
+                    checked={shouldHaveSeniority}
+                    setChecked={setShouldHaveSeniority} />
+                { shouldHaveSeniority && seniorityNumberInputField() }
+            </div>
         </div>
     );
 }
