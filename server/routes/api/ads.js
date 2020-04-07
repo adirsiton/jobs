@@ -19,66 +19,54 @@ router.get('/', async (req, res) => {
         JOIN jobs.base_locations locations ON ads.base_location_id=locations.id
         JOIN jobs.users users ON ads.advertiser_upn=users.upn
         JOIN jobs.tags tags ON ads.tag_id=tags.id`);
-    res.send(rows);
+    res.json(rows);
 });
 
-// Method assumes that every name is unique!! As this is how the DB is
-const mapUniqueNamesToIds = async (uniqueNames) => {
-    const {
-        baseLocation,
-        departmentData,
-        role,
-        standards,
-    } = uniqueNames;
+router.get('/options', async (req, res) => {
+    // TODO: Refactor into loop of tables, rather than 1 by 1 
 
-    const roleId = await db.query(`
-        SELECT id
+    const standardOptions = await db.query(`
+        SELECT id, name
+        FROM jobs.standards
+    `).then(result => result.rows);
+
+    const roleOptions = await db.query(`
+        SELECT id, name
         FROM jobs.roles
-        WHERE name = ${role}
-    `).rows[0];
+    `).then(result => result.rows);
 
-    const baseLocationId = await db.query(`
-        SELECT id
+    const baseLocationOptions = await db.query(`
+        SELECT id, name
         FROM jobs.base_locations
-        WHERE name = ${baseLocation}
-    `).rows[0];
+    `).then(result => result.rows);
 
-    const unitId = await db.query(`
-        SELECT id
+    // TODO: Unit-Branch-Department, load necessary in future... 
+    const unitOptions = await db.query(`
+        SELECT id, name
         FROM jobs.units
-        WHERE name = ${departmentData.unit}
-    `).rows[0];
+    `).then(result => result.rows);
 
-    const branchId = await db.query(`
-        SELECT id
+    const branchOptions = await db.query(`
+        SELECT id, name
         FROM jobs.branches
-        WHERE name = ${departmentData.branch} AND unit_id = ${unitId}
-    `).rows[0];
+    `).then(result => result.rows);
 
-    const departmentId = await db.query(`
-        SELECT id
+    const departmentOptions = await db.query(`
+        SELECT id, name
         FROM jobs.departments
-        WHERE name = ${departmentData.department} AND branch_id = ${branchId}
-    `).rows[0];
+    `).then(result => result.rows);
 
-    console.log(
-        {
-            baseLocationId,
-            roleId,
-            unitId,
-            branchId,
-            departmentId
-        }
-    );
-
-    return {
-        baseLocationId,
-        roleId,
-        unitId,
-        branchId,
-        departmentId
+    const allSelectOptions = {
+        roleOptions,
+        standardOptions,
+        baseLocationOptions,
+        unitOptions,
+        branchOptions,
+        departmentOptions
     };
-}
+
+    res.json(allSelectOptions);
+});
 
 router.post('/', async (req, res) => {
     console.log(req.body);
@@ -86,38 +74,36 @@ router.post('/', async (req, res) => {
     const { baseLocation, departmentData, jobNickname, role,
             standards, entryDate, yearsInSeniority, shouldHaveDamach, 
             jobDescription, contactInformation} = ads;
-    
+
+    const baseLocationId = baseLocation.id;
+    const roleId = role.id;
+    const { unit, branch, department } = departmentData;
+    const unitId = unit.id;
+    const branchId = branch.id;
+    const departmentId = department.id;
+    const standardIds = standards.map(standard => standard.id);
+    const advertiser_upn = 's8258065'; // TODO: load from req.body
+    const tagId = 1; // TODO: Fix this.... ERD has to go some refactor...
+
+
     try {
-        const {
-            baseLocationId,
-            roleId,
-            unitId,
-            branchId,
-            departmentId
-        } = await mapUniqueNamesToIds({
-            baseLocation,
-            departmentData,
-            role,
-            standards,
-        }); 
-
-        // TODO: (Fix both)
-        advertiser_upn = '';
-        // contactInformation = '';
-
+        await db.query('BEGIN');
         // await db.query(`
-        //     INSERT INTO jobs.advertisements (
-        //         role_id, unit_id, branch_id, department_id, job_name,
-        //         description, entry_date, seniority, is_damach, advertiser_upn, 
-        //         contact, base_location_id
-        //     ) VALUES (
-        //         ${roleId}, ${unitId}, ${branchId}, ${departmentId}, ${jobNickname}, 
-        //         ${jobDescription}, ${entryDate}, ${yearsInSeniority}, ${shouldHaveDamach}, ${advertiser_upn}, 
-        //         ${contactInformation.fullName}, ${baseLocationId}
-        //     )
+        // INSERT INTO jobs.advertisements(role_id,tag_id, unit_id, branch_id, department_id, job_title,job_description, entry_date, seniority, is_damach, advertiser_upn, contact, base_location_id) VALUES
+        // (1, 4, 1, 1, 1,'מנהל מוצר מעגל האש', 'מנהל מוצר האש, אחראי על כלל ייצוג תהליך מעגל האש במערכת ועבודה רב"ז.', '09/20', 2, true, 's8182384', 'פלאפון 0527777780', 1)        
         // `);
+        const values = [roleId, tagId, unitId, branchId, departmentId, jobNickname, jobDescription, entryDate, yearsInSeniority, shouldHaveDamach, advertiser_upn, contactInformation.fullName, baseLocationId];
+        await db.query(`
+            INSERT INTO jobs.advertisements (
+                role_id, tag_id, unit_id, branch_id, department_id, job_title, job_description, entry_date, seniority, is_damach, advertiser_upn, contact, base_location_id
+            ) VALUES ( $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
+        `, values);
+        await db.query('COMMIT');
+        res.sendStatus(200);
     } catch(error) {
         console.log("Error is " + error);
+        await db.query('ROLLBACK');
+        res.sendStatus(500);
     }
 
     // TODO: Insert standards...

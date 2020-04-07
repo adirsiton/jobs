@@ -8,7 +8,7 @@ export interface Advertisement  {
     id: number;
     name: String;
     description: string;
-    entryDate: Date;
+    entryDate: string;
     seniority: number;
     isDamach: boolean;
     standards: string[];
@@ -54,8 +54,8 @@ export interface sqlAd {
     unit_id: number;
     branch_id: number;
     department_id: number;
-    job_name: string;
-    description: string;
+    job_title: string;
+    job_description: string;
     entry_date: string;
     seniority: number;
     is_damach: true;

@@ -6,28 +6,33 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Tooltip from '@material-ui/core/Tooltip';
 
 import styles from './PostNewJobStyles';
-import { DepartmentData, DepartmentsManager } from '../../../types/Departments';
+import { DepartmentData, DepartmentsManager, Unit, Branch, Department } from '../../../types/Departments';
 
 interface DepartmentInputProps {
     department: DepartmentData;
     setDepartment: (department: DepartmentData) => void;
+    allUnitOptions: Unit[];
+    allBranchOptions: Branch[];
+    allDepartmentOptions: Department[];
 }
 
 const DepartmentInput: React.FC<DepartmentInputProps> = (props): JSX.Element => {
-    const { department, setDepartment } = props;
+    const { department, setDepartment,
+            allUnitOptions, allBranchOptions, allDepartmentOptions } = props;
 
     const classes = styles({});
 
-    const departmentFieldMenuItems = (fieldName: string): JSX.Element[] => {
-        return DepartmentsManager.getDepartmentSelectOptions(department, fieldName).map(value => 
-            <MenuItem key={value} value={value}>
-                {value}
+    const departmentFieldMenuItems = (allUnitOptions: Unit[], allBranchOptions: Branch[], allDepartmentOptions: Department[], fieldName: string): JSX.Element[] => {
+        return DepartmentsManager.getDepartmentSelectOptions(allUnitOptions, allBranchOptions, allDepartmentOptions, 
+                                                             department, fieldName).map(value => 
+            <MenuItem key={value.id} value={value.id}>
+                {value.name}
             </MenuItem>
         );
     }
 
     const selectors: JSX.Element[] = DepartmentsManager.getDepartmentFields().map(fieldName => {
-        const menuItems: JSX.Element[] = departmentFieldMenuItems(fieldName);
+        const menuItems: JSX.Element[] = departmentFieldMenuItems(allUnitOptions, allBranchOptions, allDepartmentOptions, fieldName);
         const isDisabled: boolean = menuItems.length === 0;
         const tooltipTitle: string = DepartmentsManager.getSelectToolTip(isDisabled, fieldName);
 
@@ -52,7 +57,7 @@ const DepartmentInput: React.FC<DepartmentInputProps> = (props): JSX.Element => 
                             disabled: classes.selectDisabled
                         }}
                         disabled={isDisabled}
-                        value={department[fieldName]}
+                        value={department[fieldName].id}
                         MenuProps={{
                             anchorOrigin: {
                                 vertical: "bottom",
@@ -65,7 +70,9 @@ const DepartmentInput: React.FC<DepartmentInputProps> = (props): JSX.Element => 
                             getContentAnchorEl: null
                         }}
                         onChange={(event: React.ChangeEvent<{ name?: string | undefined; value: unknown; }>) => 
-                            setDepartment(DepartmentsManager.updateDepartment(department, fieldName, String(event.target.value)))}
+                            setDepartment(DepartmentsManager
+                                .updateDepartment(allUnitOptions, allBranchOptions, allDepartmentOptions, 
+                                                  department, fieldName, parseInt(String(event.target.value))))}
                     >
                         {menuItems}
                     </Select>

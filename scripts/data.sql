@@ -54,7 +54,8 @@ INSERT INTO jobs.base_locations(name) VALUES
     ('צריפין'),
     ('קריה');
     
-INSERT INTO jobs.advertisements(role_id,tag_id, unit_id, branch_id, department_id, job_name,description, entry_date, seniority, is_damach, advertiser_upn, contact, base_location_id) VALUES
+-- Refactor tagId
+INSERT INTO jobs.advertisements(role_id,tag_id, unit_id, branch_id, department_id, job_title,job_description, entry_date, seniority, is_damach, advertiser_upn, contact, base_location_id) VALUES
 	(1, 4, 1, 1, 1,'מנהל מוצר מעגל האש', 'מנהל מוצר האש, אחראי על כלל ייצוג תהליך מעגל האש במערכת ועבודה רב"ז.', '09/20', 2, true, 's8182384', 'פלאפון 0527777780', 1),
 	(3, 2, 1, 2, 6, 'דרוש מפתח תותח','מפתח לצוות התכנון של מערכת שו"ב ל"א, פיתוח אלגוריתמי אפקטיביות חסימה למערך הל"א', '08/20', 3, true, 's8182384', 'פלאפון 0527732470', 1),
 	(2, 4, 2, 5, 13, 'מנהל מוצר מעגל','מנהל מוצר האש, אחראי על כלל ייצוג תהליך מעגל האש במערכת ועבודה רב"ז.', '04/20', 2, true, 's8258065', 'פלאפון 0527732470', 1),

@@ -14,12 +14,12 @@ import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
 
 import styles from './PostNewJobStyles';
 import JobBaseLocationInput from './JobBaseLocationInput';
-import { BaseLocation } from '../../../types/BaseLocation';
+import { BaseLocation, NO_BASE_LOCATION } from '../../../types/BaseLocation';
 import DepartmentInput from './DepartmentInput';
 import { DepartmentData, DepartmentsManager, EMPTY_DEPARTMENT } from '../../../types/Departments';
 import JobNicknameInput, { isJobNicknameInValidLength } from './JobNicknameInput';
 import JobRoleInput from './JobRoleInput';
-import { Role } from '../../../types/Role';
+import { Role, NO_ROLE } from '../../../types/Role';
 import JobStandardsInput from './JobStandardsInput';
 import { Standard } from '../../../types/Standard';
 import JobEntryDateInput, { MONTH_DISPLAY_FORMAT } from './JobEntryDateInput';
@@ -31,21 +31,23 @@ import { ContactInformation, EMPTY_CONTACT_INFORMATION } from '../../../types/Co
 import { NEW_JOB_COLOR } from '../../../assets/projectJSS/Colors';
 import { addNewAd } from '../../../server/ads';
 import { format } from 'date-fns';
+import { AllSelectOptions } from '../../../types/AllSelectOptions';
 
 interface PostNewJobProps {
+    allSelectOptions: AllSelectOptions;
     closeDialog: () => void;
     fetchAfterAdd: () => void;
 }
 
 const PostNewJob: React.FC<PostNewJobProps> = (props): JSX.Element => {
-    const { closeDialog, fetchAfterAdd } = props;
+    const { allSelectOptions, closeDialog, fetchAfterAdd } = props;
     const classes = styles({});
     
     // useStates, Ordered by the display view (Top to bottom)
-    const [baseLocation, setBaseLocation] = useState<BaseLocation>(BaseLocation.NO_BASE_LOCATION);    
+    const [baseLocation, setBaseLocation] = useState<BaseLocation>(NO_BASE_LOCATION);    
     const [department, setDepartment] = useState<DepartmentData>(EMPTY_DEPARTMENT);
     const [jobNickname, setJobNickname] = useState<string>('');
-    const [role, setRole] = useState<Role>(Role.NO_ROLE);
+    const [role, setRole] = useState<Role>(NO_ROLE);
     const [standards, setStandards] = useState<Standard[]>([]);
     const [shouldChooseDate, setShouldChooseDate] = useState<boolean>(false);
     const [dateInError, setDateInError] = useState<boolean>(false);
@@ -60,9 +62,9 @@ const PostNewJob: React.FC<PostNewJobProps> = (props): JSX.Element => {
 
     useEffect(() => {
         const isInputFull: boolean = 
-            baseLocation !== BaseLocation.NO_BASE_LOCATION &&
+            baseLocation.id !== NO_BASE_LOCATION.id &&
             DepartmentsManager.isDepartmentSelected(department) &&
-            role !== Role.NO_ROLE &&
+            role.id !== NO_ROLE.id &&
             standards.length > 0 &&
             (!shouldChooseDate || (!dateInError && entryDate !== null));
 
@@ -105,10 +107,14 @@ const PostNewJob: React.FC<PostNewJobProps> = (props): JSX.Element => {
             >
                 <JobBaseLocationInput
                     baseLocation={baseLocation}
-                    setBaseLocation={setBaseLocation} />
+                    setBaseLocation={setBaseLocation}
+                    allBaseLocationOptions={allSelectOptions.baseLocationOptions} />
                 <DepartmentInput 
                     department={department} 
-                    setDepartment={setDepartment} />
+                    setDepartment={setDepartment} 
+                    allUnitOptions={allSelectOptions.unitOptions}
+                    allBranchOptions={allSelectOptions.branchOptions}
+                    allDepartmentOptions={allSelectOptions.departmentOptions} />
             </div>
         );
     }
@@ -147,10 +153,12 @@ const PostNewJob: React.FC<PostNewJobProps> = (props): JSX.Element => {
                     didValidate={didValidate} />
                 <JobRoleInput
                     role={role} 
-                    setRole={setRole} />
+                    setRole={setRole}
+                    allRoleOptions={allSelectOptions.roleOptions} />
                 <JobStandardsInput 
                     standards={standards}
-                    setStandards={setStandards} />
+                    setStandards={setStandards}
+                    allStandardOptions={allSelectOptions.standardOptions} />
                 <JobEntryDateInput
                     shouldChooseDate={shouldChooseDate}
                     setShouldChooseDate={setShouldChooseDate}

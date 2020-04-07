@@ -5,21 +5,27 @@ import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 
 import styles from './PostNewJobStyles';
-import { BaseLocationManager, BaseLocation } from '../../../types/BaseLocation';
+import { BaseLocation } from '../../../types/BaseLocation';
 
 interface JobBaseLocationInput {
-    baseLocation: BaseLocation; // ENUM?
+    baseLocation: BaseLocation;
     setBaseLocation: (baseLocation: BaseLocation) => void;
+    allBaseLocationOptions: BaseLocation[];
 }
 
 const JobBaseLocationInput: React.FC<JobBaseLocationInput> = (props): JSX.Element => {
-    const { baseLocation, setBaseLocation } = props;
+    const { baseLocation, setBaseLocation, allBaseLocationOptions } = props;
 
     const classes = styles({});
 
-    const menuItems: JSX.Element[] = BaseLocationManager.getAllBaseLocations().map(value => 
-        <MenuItem key={value} value={value}>
-            {value}
+    console.log(allBaseLocationOptions);
+
+    const menuItems: JSX.Element[] = allBaseLocationOptions.map(baseLocationOption => 
+        <MenuItem 
+            key={baseLocationOption.id}
+            value={baseLocationOption.id}
+        >
+            {baseLocationOption.name}
         </MenuItem>
     );
 
@@ -41,7 +47,7 @@ const JobBaseLocationInput: React.FC<JobBaseLocationInput> = (props): JSX.Elemen
                 classes={{
                     icon: classes.selectIcon,
                 }}
-                value={baseLocation}
+                value={baseLocation.id}
                 MenuProps={{
                     anchorOrigin: {
                         vertical: "bottom",
@@ -54,7 +60,7 @@ const JobBaseLocationInput: React.FC<JobBaseLocationInput> = (props): JSX.Elemen
                     getContentAnchorEl: null
                 }}
                 onChange={(event: React.ChangeEvent<{ name?: string | undefined; value: any/*NoOtherWay*/; }>) => 
-                    setBaseLocation(event.target.value)}
+                    setBaseLocation(allBaseLocationOptions.find(baseLocationOption => event.target.value === baseLocationOption.id)!)}
             >
                 {menuItems}
             </Select>

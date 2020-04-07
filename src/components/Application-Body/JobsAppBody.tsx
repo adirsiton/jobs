@@ -9,8 +9,9 @@ import PostNewJob from './PostNewJob/PostNewJob';
 import { LIGHT_COLOR_TEXT, NEW_JOB_COLOR } from '../../assets/projectJSS/Colors';
 import JobsList from './JobsList/jobsList';
 
-import { getAllAds } from '../../server/ads';
+import { getAllAds, getAllSelectOptions } from '../../server/ads';
 import { Advertisement } from '../../types/Advertisements';
+import { AllSelectOptions } from '../../types/AllSelectOptions';
 
 const styles = makeStyles({
     appBodyContent: {
@@ -37,13 +38,22 @@ const JobsAppBody: React.FC<{}> = (): JSX.Element => {
   const classes = styles({});
   const [ads, setAds] = useState<Advertisement[]>([]);
   const [openAddDialog, setOpenAddDialog] = useState<boolean>(false);
+  const [allSelectOptions, setAllSelectOptions] = useState<AllSelectOptions | null>(null);
 
   const fetchAllAds = () => {
     getAllAds().then(data => setAds(data));
   }
+
   useEffect(() => {
       fetchAllAds();
   }, []);
+
+  useEffect(() => {
+      if (openAddDialog) {
+          getAllSelectOptions()
+            .then(allSelectOptions => setAllSelectOptions(allSelectOptions));
+      }
+  }, [openAddDialog]);
 
   return (
     <div className={classes.appBodyContent}>
@@ -59,7 +69,9 @@ const JobsAppBody: React.FC<{}> = (): JSX.Element => {
             </Typography>
         </Button>
         <JobsList ads={ads} />
-        { openAddDialog && <PostNewJob 
+        { allSelectOptions && console.log(allSelectOptions)}
+        { openAddDialog && allSelectOptions && <PostNewJob 
+            allSelectOptions={allSelectOptions}
             fetchAfterAdd={fetchAllAds}
             closeDialog={() => setOpenAddDialog(false)} /> }
     </div>

@@ -5,24 +5,25 @@ import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 
 import styles from './PostNewJobStyles';
-import { Role, ROLES } from '../../../types/Role';
+import { Role } from '../../../types/Role';
 
 interface JobRoleInputProps {
     role: Role;
     setRole: (role: Role) => void;
+    allRoleOptions: Role[];
 }
 
 const JobRoleInput: React.FC<JobRoleInputProps> = (props): JSX.Element => {
-    const { role, setRole } = props;
+    const { role, setRole, allRoleOptions } = props;
 
     const classes = styles({});
 
-    const menuItems = ROLES.map(jobRole => 
+    const menuItems = allRoleOptions.map(roleOption => 
         <MenuItem
-            key={jobRole}
-            value={jobRole} 
+            key={roleOption.id}
+            value={roleOption.id} 
         >
-            {jobRole}
+            {roleOption.name}
         </MenuItem>
     );
     
@@ -42,7 +43,7 @@ const JobRoleInput: React.FC<JobRoleInputProps> = (props): JSX.Element => {
                     classes={{
                         icon: classes.selectIcon,
                     }}
-                    value={role}
+                    value={role.id}
                     MenuProps={{
                         anchorOrigin: {
                             vertical: "bottom",
@@ -54,8 +55,10 @@ const JobRoleInput: React.FC<JobRoleInputProps> = (props): JSX.Element => {
                         },
                         getContentAnchorEl: null
                     }}
-                    onChange={(event: React.ChangeEvent<{ name?: string | undefined; value: any/*NoOtherWay*/; }>) => 
-                        setRole(event.target.value)}
+                    onChange={
+                        (event: React.ChangeEvent<{ name?: string | undefined; value: any/*NoOtherWay*/; }>) =>
+                            setRole(allRoleOptions.find(roleOption => event.target.value === roleOption.id)!)
+                    }
                 >
                     {menuItems}
                 </Select>
