@@ -1,17 +1,14 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
-import PostNewJob from './PostNewJob/PostNewJob';
 import { LIGHT_COLOR_TEXT, NEW_JOB_COLOR } from '../../assets/projectJSS/Colors';
 import JobsList from './JobsList/jobsList';
+import Header from './header/Header';
 
-import { getAllAds, getAllSelectOptions } from '../../server/ads';
+import { getAllAds } from '../../server/ads';
 import { Advertisement } from '../../types/Advertisements';
-import { AllSelectOptions } from '../../types/AllSelectOptions';
 
 const styles = makeStyles({
     appBodyContent: {
@@ -37,10 +34,9 @@ const styles = makeStyles({
 const JobsAppBody: React.FC<{}> = (): JSX.Element => {
   const classes = styles({});
   const [ads, setAds] = useState<Advertisement[]>([]);
-  const [openAddDialog, setOpenAddDialog] = useState<boolean>(false);
-  const [allSelectOptions, setAllSelectOptions] = useState<AllSelectOptions | null>(null);
+  const [searchValue, setSearchValue] = useState<string>('');
 
-  const fetchAllAds = () => {
+  const fetchAllAds = (): void => {
     getAllAds().then(data => setAds(data));
   }
 
@@ -48,32 +44,25 @@ const JobsAppBody: React.FC<{}> = (): JSX.Element => {
       fetchAllAds();
   }, []);
 
-  useEffect(() => {
-      if (openAddDialog) {
-          getAllSelectOptions()
-            .then(allSelectOptions => setAllSelectOptions(allSelectOptions));
-      }
-  }, [openAddDialog]);
+    const onSearchValueChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+        setSearchValue(event.target.value);
+    }
+
+    const getFilteredAds = (): Advertisement[] => {
+        return ads.filter(ad => (
+                ad.name.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1 ||
+                ad.tag.name.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1
+            )
+        );
+    }
 
   return (
     <div className={classes.appBodyContent}>
-        <Button
-            className={classes.addNewPostButton}
-            variant="contained"
-            onClick={() => setOpenAddDialog(true)}
-        >
-            <Typography
-                variant='h5'
-            >
-                + פרסום תפקיד חדש
-            </Typography>
-        </Button>
-        <JobsList ads={ads} />
-        { allSelectOptions && console.log(allSelectOptions)}
-        { openAddDialog && allSelectOptions && <PostNewJob 
-            allSelectOptions={allSelectOptions}
-            fetchAfterAdd={fetchAllAds}
-            closeDialog={() => setOpenAddDialog(false)} /> }
+        <Header 
+            searchValue={searchValue} 
+            onSearchValueChange={onSearchValueChange}
+            fetchAllAdsAfterPost={fetchAllAds} />
+        <JobsList ads={getFilteredAds()} isFiltered={searchValue !== '' && ads.length !== 0}/>
     </div>
   );
 }

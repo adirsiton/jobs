@@ -8,7 +8,7 @@ import CircleCheckedFilled from '@material-ui/icons/CheckCircleOutline';
 import CircleUnchecked from '@material-ui/icons/RadioButtonUnchecked';
 
 import styles from './PostNewJobStyles';
-import { Standard } from '../../../types/Standard';
+import { Standard } from '../../../../types/Standard';
 
 interface JobStandardsInputProps {
     standards: Standard[];

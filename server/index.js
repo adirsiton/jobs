@@ -3,16 +3,17 @@ const bodyParser = require('body-parser');
 const cors = require("cors");
 const session = require("express-session");
 const pino = require('express-pino-logger')();
-const proxy = require("express-http-proxy");
+const path = require('path');
 const passport = require('passport');
-// const OAuth2Strategy = require('passport-oauth2'); will be needed after whiten
-const appRouter = require('./routes/router');
 const GitHubStrategy = require('passport-github').Strategy;
+// const OAuth2Strategy = require('passport-oauth2'); will be needed after whiten
+const loginRouter = require('./routes/auth/auth');
+const appRouter = require('./routes/router');
 
 require('dotenv').config();
 const port = process.env.SERVER_PORT || 3001;
-const webappUrl= process.env.WEBAPP_URL || "http://localhost:3000";
 const sessionSecret = process.env.SESSION_SECRET || "secret_session_shhh";
+const staticFilesLocation = process.env.STATIC_FILES_LOCATION || "../build";
 
 const app = express();
 app.use(cors());
@@ -49,7 +50,8 @@ passport.deserializeUser(function(name, cb) {
   cb(null, name);
 });
 
-app.use("/" , appRouter);
+// The only routes that are unauthenticated open
+app.use(loginRouter);
 
 // Accept only authenticated requests, if not redirect to login
 app.use((req, res, next) => {
@@ -61,15 +63,20 @@ app.use((req, res, next) => {
   }
 });
 
+app.use(appRouter);
+
 app.get('/api/greeting', (req, res) => {
   const name = req.query.name || 'World';
   res.setHeader('Content-Type', 'application/json');
   res.send(JSON.stringify({ greeting: `Hello ${name}!` }));
 });
 
-// proxy to the webapp
-app.get("*", proxy(webappUrl));
+// serve web application
+const staticCalculatedLocation = path.join(__dirname, staticFilesLocation);
+app.use(express.static(staticCalculatedLocation));
 
-app.listen(port, () =>
-  console.log('Express server is running on port ' + port)
+app.listen(port, () => { 
+  console.log('Express server is running on port ' + port);
+  console.log('Serving static files from ' + staticCalculatedLocation);
+}
 );

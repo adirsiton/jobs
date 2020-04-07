@@ -8,7 +8,8 @@ const styles = () => createStyles({
     },
     toolbar: { 
         display: 'flex',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        paddingRight: '0px'
     },
     avatar: {
         backgroundColor: AVATAR_COLOR,
@@ -37,6 +38,15 @@ const styles = () => createStyles({
     },
     logoTitle: {
         color: LIGHT_COLOR_TEXT
+    },
+    logoSystemName: {
+        color: 'white',
+        marginLeft: '20px',
+        fontWeight: 'bold'    
+    },
+    logoSubTitle: {
+        marginTop: '20px',
+        color: 'white'
     }
 });
 

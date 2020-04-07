@@ -14,33 +14,33 @@ import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
 
 import styles from './PostNewJobStyles';
 import JobBaseLocationInput from './JobBaseLocationInput';
-import { BaseLocation, NO_BASE_LOCATION } from '../../../types/BaseLocation';
+import { BaseLocation, NO_BASE_LOCATION } from '../../../../types/BaseLocation';
 import DepartmentInput from './DepartmentInput';
-import { DepartmentData, DepartmentsManager, EMPTY_DEPARTMENT } from '../../../types/Departments';
+import { DepartmentData, DepartmentsManager, EMPTY_DEPARTMENT } from '../../../../types/Departments';
 import JobNicknameInput, { isJobNicknameInValidLength } from './JobNicknameInput';
 import JobRoleInput from './JobRoleInput';
-import { Role, NO_ROLE } from '../../../types/Role';
+import { Role, NO_ROLE } from '../../../../types/Role';
 import JobStandardsInput from './JobStandardsInput';
-import { Standard } from '../../../types/Standard';
+import { Standard } from '../../../../types/Standard';
 import JobEntryDateInput, { MONTH_DISPLAY_FORMAT } from './JobEntryDateInput';
 import JobSeniorityInput from './JobSeniorityInput';
 import JobDamachInput from './JobDamachInput';
 import JobDescriptionInput, { isJobDescriptionInValidLength } from './JobDescriptionInput';
 import JobContactInformationInput from './JobContactInformationInput';
-import { ContactInformation, EMPTY_CONTACT_INFORMATION } from '../../../types/ContactInformation';
-import { NEW_JOB_COLOR } from '../../../assets/projectJSS/Colors';
-import { addNewAd } from '../../../server/ads';
+import { ContactInformation, EMPTY_CONTACT_INFORMATION } from '../../../../types/ContactInformation';
+import { NEW_JOB_COLOR } from '../../../../assets/projectJSS/Colors';
+import { addNewAd } from '../../../../server/ads';
 import { format } from 'date-fns';
-import { AllSelectOptions } from '../../../types/AllSelectOptions';
+import { AllSelectOptions } from '../../../../types/AllSelectOptions';
 
 interface PostNewJobProps {
     allSelectOptions: AllSelectOptions;
     closeDialog: () => void;
-    fetchAfterAdd: () => void;
+    fetchAllAdsAfterPost: () => void;
 }
 
 const PostNewJob: React.FC<PostNewJobProps> = (props): JSX.Element => {
-    const { allSelectOptions, closeDialog, fetchAfterAdd } = props;
+    const { allSelectOptions, closeDialog, fetchAllAdsAfterPost } = props;
     const classes = styles({});
     
     // useStates, Ordered by the display view (Top to bottom)
@@ -207,7 +207,7 @@ const PostNewJob: React.FC<PostNewJobProps> = (props): JSX.Element => {
                     jobDescription,
                     contactInformation
                 });
-                fetchAfterAdd();
+                fetchAllAdsAfterPost();
                 closeDialog();
                 swal.fire({
                    title: 'יש אישור!',

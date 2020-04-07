@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 
 import styles from './PostNewJobStyles';
-import { ITALIC_FONT } from '../../../assets/projectJSS/Fonts';
+import { ITALIC_FONT } from '../../../../assets/projectJSS/Fonts';
 
 interface JobDescriptionInputProps {
     jobDescription: string;

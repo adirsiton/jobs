@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import styles from './PostNewJobStyles';
-import { ContactInformation } from '../../../types/ContactInformation';
+import { ContactInformation } from '../../../../types/ContactInformation';
 
 interface ContactInformationProps {
     contactInformation: ContactInformation;

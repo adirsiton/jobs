@@ -19,14 +19,10 @@ export const getAllSelectOptions = async (): Promise<AllSelectOptions> => {
 
     const allSelectOptions = await response.json();
 
-    console.log(allSelectOptions);
-
     return allSelectOptions;
 }
 
-export const addNewAd = async (ad: AdvertisementInsertData): Promise<void> => {
-    console.log(ad);
-    
+export const addNewAd = async (ad: AdvertisementInsertData): Promise<void> => {    
     await fetch('/ads', {
         headers: {
             Accept: 'application/json',
