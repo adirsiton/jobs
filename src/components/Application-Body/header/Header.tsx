@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { useState } from 'react';
-import { Button, OutlinedInput, InputAdornment } from '@material-ui/core';
+import { useState, useEffect, useRef } from 'react';
+import { Button, OutlinedInput, InputAdornment, ButtonProps } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilter } from '@fortawesome/free-solid-svg-icons';
 
@@ -17,6 +17,19 @@ const Header: React.FC<HeaderOwnProps> = (props): JSX.Element => {
     const classes = styles({});
 
     const [openAddDialog, setOpenAddDialog] = useState<boolean>(false);
+    const addButtonRef = useRef(null);
+
+    // when closing dialog - blur the add button
+    useEffect(() => {
+        if (!openAddDialog && addButtonRef) {
+            // @ts-ignore
+            addButtonRef.current.blur();
+        }
+    }, [openAddDialog]);
+
+    const onCloseDialog = (): void => {
+        setOpenAddDialog(false);
+    }
 
     return (
         <div className={classes.root}>
@@ -35,10 +48,11 @@ const Header: React.FC<HeaderOwnProps> = (props): JSX.Element => {
             <Button
                 className={classes.addNewPostButton}
                 variant="contained"
-                onClick={() => setOpenAddDialog(true)}>
+                onClick={() => setOpenAddDialog(true)}
+                ref={addButtonRef}>
                 + פרסום תפקיד חדש
             </Button>
-            {openAddDialog && <PostNewJob closeDialog={() => setOpenAddDialog(false)} />}
+            {openAddDialog && <PostNewJob closeDialog={onCloseDialog} />}
         </div>
     );
 }

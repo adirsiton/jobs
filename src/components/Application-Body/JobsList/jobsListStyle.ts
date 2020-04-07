@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) =>
         jobsList: {
             display: "flex",
             flexDirection: "column",
-            width: "75%",
+            width: "85%",
             '&::-webkit-scrollbar': {
                 display: "none"
             },
