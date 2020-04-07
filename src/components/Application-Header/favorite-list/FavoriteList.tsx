@@ -1,20 +1,24 @@
 import * as React from 'react';
 
+import { observer, inject } from 'mobx-react';
+
 import { withStyles, WithStyles } from '@material-ui/core';
-import Menu from '@material-ui/core/Menu';
 import IconButton from '@material-ui/core/IconButton';
 import StarIcon from '@material-ui/icons/Star';
+import Popover from '@material-ui/core/Popover';
+import Divider from '@material-ui/core/Divider';
 
-import styles from './FavoriteListStyles';
-import { Advertisement } from '../../../types/Advertisements';
 import FavoriteItem from './FavoriteItem';
+import { JobsStore } from '../../../store/JobsStore';
+import styles from './FavoriteListStyles';
 
 interface FavoriteListProps extends WithStyles<typeof styles> {
-    ads: Advertisement[];
+    jobsStore?: JobsStore;
 }
 
 const FavoriteList: React.FC<FavoriteListProps> = (props): JSX.Element => {
-    const { ads, classes } = props;
+    const { classes } = props;
+    const jobsStore = props.jobsStore!;
 
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -27,19 +31,34 @@ const FavoriteList: React.FC<FavoriteListProps> = (props): JSX.Element => {
 
     return (
         <>
-            <IconButton className={ads.length !== 0 ? classes.starIconWhite : classes.starIconYellow}
+            <IconButton className={jobsStore.advertisements.length === 0 ? classes.starIconWhite : classes.starIconYellow}
                 onClick={handleClick} 
                 aria-label="my favorites" component="span">
                 <StarIcon />
             </IconButton>
-            <Menu
+            <Popover
                 open={Boolean(anchorEl)}
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'center',
+                  }}
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'center',
+                  }}
                 onClose={handleClose}
             >
-                {ads.map((ad) => <FavoriteItem ad={ad}/>)}
-            </Menu>
+                {jobsStore.advertisements.slice(0,2).map((ad) => (
+                    <>
+                        <FavoriteItem key={`${ad.id}-favorite`} ad={ad}/>
+                        <Divider key={`${ad.id}-favorite-divider`}/>
+                    </>
+                    )
+                )}
+            </Popover>
         </>
     );
 }
 
-export default withStyles(styles)(FavoriteList); 
+export default withStyles(styles)(inject('jobsStore')(observer(FavoriteList))); 

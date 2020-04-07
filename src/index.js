@@ -14,7 +14,7 @@ const projectGlobalTheme = createMuiTheme({
   typography: {
     fontFamily: 'Assistant',
     allVariants: {
-      color: `${assistantColor}`
+      color: `${assistantColor}`,
     },
     body1: {
       fontWeight: "bold"

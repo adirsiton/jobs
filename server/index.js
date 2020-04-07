@@ -6,18 +6,19 @@ const pino = require('express-pino-logger')();
 const path = require('path');
 const passport = require('passport');
 const GitHubStrategy = require('passport-github').Strategy;
+const proxy = require("express-http-proxy"); // For development
 // const OAuth2Strategy = require('passport-oauth2'); will be needed after whiten
 const loginRouter = require('./routes/auth/auth');
 const appRouter = require('./routes/router');
 
-const proxy = require("express-http-proxy"); // DELETE
 
 
 require('dotenv').config();
 const port = process.env.SERVER_PORT || 3001;
 const sessionSecret = process.env.SESSION_SECRET || "secret_session_shhh";
-const webappUrl= process.env.WEBAPP_URL || "http://localhost:3000"; // DELETE
+const webappUrl= process.env.WEBAPP_URL || "http://localhost:3000"; // For development
 const staticFilesLocation = process.env.STATIC_FILES_LOCATION || "../build";
+const staticCalculatedLocation = path.join(__dirname, staticFilesLocation);
 
 const app = express();
 app.use(cors());
@@ -74,15 +75,15 @@ app.get('/api/greeting', (req, res) => {
   res.send(JSON.stringify({ greeting: `Hello ${name}!` }));
 });
 
-// serve web application
-const staticCalculatedLocation = path.join(__dirname, staticFilesLocation);
-app.use(express.static(staticCalculatedLocation));
-
 if (process.env.NODE_ENV === 'development') { //DELETE
   app.get("*", proxy(webappUrl));
+} else {
+  app.use(express.static(staticCalculatedLocation));
 }
 
 app.listen(port, () => { 
   console.log('Express server is running on port ' + port);
-  console.log('Serving static files from ' + staticCalculatedLocation);
+  console.log(process.env.NODE_ENV !== 'development' 
+    ? `Serving static files from ${staticCalculatedLocation}`
+    : `Serving static files via proxy from ${webappUrl}`);
 });

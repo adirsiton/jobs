@@ -7,11 +7,10 @@ import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import Tooltip from '@material-ui/core/Tooltip';
 
-import  jobsLogo from '../../assets/images/jobsLogo.png';
 import { User } from '../../types/userTypes';
-import styles from './JobsAppBarStyle';
+import  jobsLogo from '../../assets/images/jobsLogo.png';
 import FavoriteList from './favorite-list/FavoriteList';
-import { Advertisement } from '../../types/Advertisements';
+import styles from './JobsAppBarStyle';
 
 interface AppBarDataProps extends WithStyles<typeof styles> {
     user: User;
@@ -25,13 +24,11 @@ const JobsAppBar: React.FC<AppBarDataProps> = (props): JSX.Element => {
         return Math.random() >= 0.5;
     }
 
-    const exampleAd: any = {"id":1,"role_id":1,"tag_id":4,"unit_id":1,"branch_id":1,"department_id":1,"job_name":"מנהל מוצר מעגל האש","description":"מנהל מוצר האש, אחראי על כלל ייצוג תהליך מעגל האש במערכת ועבודה רב\"ז.","entry_date":"2020-08-31T21:00:00.000Z","seniority":2,"is_damach":true,"advertiser_upn":"s8182384","contact":"פלאפון 0527777780","base_location_id":1,"role_name":"תוכניתן","unit_name":"מצפ\"ן","department_name":"DEVOPS","branch_name":"פסגות שילוביות","location":"של\"ר","advertiser":"מיכאל הופמן","tag":"PM","tag_color":"#FF0066","standards_array":["סרן","רס\"ן"]};
-
     const getUserDetails = (): JSX.Element => {
         return (
             <div className={classes.userDetails}>
                 <Tooltip placement="right" title="ג'ובים ששמרתי" aria-label="my favorites">
-                    <FavoriteList ads={[exampleAd]}/>
+                    <FavoriteList/>
                 </Tooltip>
                 <Avatar className={classes.avatar}>
                     {user.userInitials}

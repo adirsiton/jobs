@@ -1,11 +1,12 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+
+import { observer, inject } from 'mobx-react';
 
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
 import JobsList from './JobsList/jobsList';
-
-import { getAllAds } from '../../server/ads';
+import { JobsStore } from '../../store/JobsStore';
 import Header from './header/Header';
 
 const styles = makeStyles({
@@ -18,23 +19,24 @@ const styles = makeStyles({
     }
 });
 
-const JobsAppBody: React.FC<{}> = (): JSX.Element => {
+interface JobsAppBodyOwnProps {
+    jobsStore?: JobsStore;
+}
+
+const JobsAppBody: React.FC<JobsAppBodyOwnProps> = (props): JSX.Element => {
     const classes = styles({});
-    const [ads, setAds] = useState<any>([]);
-    
+    const jobsStore = props.jobsStore!;
 
     useEffect(() => {
-        getAllAds().then(data =>
-            setAds(data)
-        );
+        jobsStore.loadAdvertisements();
     }, []);
 
     return (
         <div className={classes.appBodyContent}>
             <Header/>
-            <JobsList ads={ads} />
+            <JobsList ads={jobsStore.advertisements} />
         </div>
     );
 }
 
-export default JobsAppBody;
+export default inject('jobsStore')(observer(JobsAppBody));
