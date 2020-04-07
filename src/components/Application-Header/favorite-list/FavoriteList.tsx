@@ -34,7 +34,7 @@ const FavoriteList: React.FC<FavoriteListProps> = (props): JSX.Element => {
             <IconButton className={jobsStore.advertisements.length === 0 ? classes.starIconWhite : classes.starIconYellow}
                 onClick={handleClick} 
                 aria-label="my favorites" component="span">
-                <StarIcon />
+                <StarIcon className={classes.starIcon} />
             </IconButton>
             <Popover
                 open={Boolean(anchorEl)}

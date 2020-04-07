@@ -1,8 +1,10 @@
 import { createStyles } from '@material-ui/core';
+import { LIGHT_COLOR_TEXT, AVATAR_COLOR, 
+         NAV_BAR_COLOR, YELLOW_STAR_COLOR } from '../../assets/projectJSS/Colors';
 
 const styles = () => createStyles({
     root: {
-        backgroundColor: 'rgb(39,54,68)'
+        backgroundColor: NAV_BAR_COLOR
     },
     toolbar: { 
         display: 'flex',
@@ -10,10 +12,10 @@ const styles = () => createStyles({
         paddingRight: '0px'
     },
     avatar: {
-        backgroundColor: 'rgb(72,90,115)',
+        backgroundColor: AVATAR_COLOR,
         margin: '0 5px'
     },
-    userDetails:{
+    userDetails: {
         display: 'flex',
         alignItems: 'center'
     },
@@ -21,8 +23,12 @@ const styles = () => createStyles({
         display: 'flex',
         alignItems: 'center'
     },
-    logoIcon:{
-        margin: '0 5px'
+    logoIcon: {
+        margin: '0 5px',
+        fontSize: '150%'
+    },
+    logoTitle: {
+        color: LIGHT_COLOR_TEXT
     },
     logoSystemName: {
         color: 'white',

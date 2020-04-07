@@ -1,25 +1,31 @@
 import * as React from 'react';
 
 import Typography from '@material-ui/core/Typography';
+import InputLabel from '@material-ui/core/InputLabel';
 import Checkbox from '@material-ui/core/Checkbox/Checkbox';
-import CircleCheckedFilled from '@material-ui/icons/CheckCircle';
+// import CircleChecked from '@material-ui/icons/CheckCircleOutline';
+import CircleCheckedFilled from '@material-ui/icons/CheckCircleOutline';
 import CircleUnchecked from '@material-ui/icons/RadioButtonUnchecked';
 
 import styles from './PostNewJobStyles';
-import { Standard, STANDARD_DISPLAYS } from '../../../../types/Standard';
+import { Standard } from '../../../../types/Standard';
 
 interface JobStandardsInputProps {
     standards: Standard[];
     setStandards: (standard: Standard[]) => void;
+    allStandardOptions: Standard[];
 }
 
 const JobStandardsInput: React.FC<JobStandardsInputProps> = (props): JSX.Element => {
-    const { standards, setStandards } = props;
+    const { standards, setStandards, allStandardOptions } = props;
 
     const classes = styles({});
 
-    const standardCheckboxes: JSX.Element[] = STANDARD_DISPLAYS.map(standard => 
-        <div className={classes.checkboxField} key={standard}>
+    const standardCheckboxes: JSX.Element[] = allStandardOptions.map(standardOption => 
+        <div 
+            className={classes.checkboxField} 
+            key={standardOption.id}
+        >
             <Checkbox 
                 className={classes.checkbox}
                 icon={<CircleUnchecked className={classes.checkboxIcon} />} 
@@ -27,22 +33,30 @@ const JobStandardsInput: React.FC<JobStandardsInputProps> = (props): JSX.Element
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => 
                     setStandards(
                         event.target.checked 
-                            ? [...standards, standard]
-                            : standards.filter(selectedStandard => selectedStandard !== standard)
+                            ? [...standards, standardOption]
+                            : standards.filter(selectedStandard => selectedStandard.id !== standardOption.id)
                     )
                 } />
-            <Typography>
-                {standard}
+            <Typography
+                variant='subtitle1'
+            >
+                {standardOption.name}
             </Typography>
         </div>
     );
     
     return (
         <div className={classes.standardFields}>
-            <Typography className={classes.standardTitle}>
+            <InputLabel
+                required={true}
+            >
                 תקן
-            </Typography>
-            {standardCheckboxes}
+            </InputLabel>
+            <div
+                className={classes.jobRequirementsMargin}
+            >
+                {standardCheckboxes}
+            </div>
         </div>
     );    
 }

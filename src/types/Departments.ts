@@ -1,34 +1,26 @@
 // Todo, Add in DB these relations (Unit, Branch, Department)?
 
-export enum Unit {
-    NO_UNIT = '',
-    MAZPEN = 'מצפ"ן',
-    MAMRAM = 'ממר"מ'
+import { SelectChooseOption, NO_SELECTED_OPTION } from "./ChooseOption";
+
+export interface Unit extends SelectChooseOption {};
+
+export const NO_UNIT: Unit = {
+    id: NO_SELECTED_OPTION,
+    name: ''
 };
 
-export enum Branch {
-    NO_BRANCH = '',
-    PSAGOT_SHILUVIUT = 'פסגות ושילוביות',
-    AVEN_MITGALGELET = 'אבן מתגלגלת',
-    ANAN_MIVZTAI = 'ענן מבצעי',
-    MERHAV_HATOMCAL = 'מרחב התומכ"ל'
+export interface Branch extends SelectChooseOption {};
+
+export const NO_BRANCH: Branch = {
+    id: NO_SELECTED_OPTION,
+    name: ''
 };
 
-export enum Department {
-    NO_DEPARTMENT = '',
-    DEVOPS = 'DEVOPS',
-    KISHURIUT_AND_FIRE = 'קישוריות ואש',
-    SPECTRUM = 'ספקטרום',
-    HANDASAT_SHILUVIUT = 'הנדסת השילוביות',
-    LA = 'ל"א',
-    AVEN_AHAHAMIM = 'אבן החכמים',
-    GLOBUS = 'גלובוס',
-    MAAVARIM = 'מעברים',
-    PLATFORMS = 'Platforms',
-    BIG_DATA = 'Big Data',
-    CTO = 'Cto',
-    MEMAD = 'מימ"ד',
-    RESHATOT = 'רשתות'
+export interface Department extends SelectChooseOption {};
+
+export const NO_DEPARTMENT: Department = {
+    id: NO_SELECTED_OPTION,
+    name: ''
 };
 
 interface DepartmentsData {
@@ -37,36 +29,37 @@ interface DepartmentsData {
     }
 };
 
-const DEPARTMENTS_DATA: DepartmentsData = {
-    [Unit.MAZPEN]: {
-        [Branch.PSAGOT_SHILUVIUT]: [
-            Department.DEVOPS,
-            Department.KISHURIUT_AND_FIRE,
-            Department.SPECTRUM,
-            Department.HANDASAT_SHILUVIUT,
-            Department.LA
-        ],
-        [Branch.AVEN_MITGALGELET]: [
-            Department.AVEN_AHAHAMIM,
-            Department.GLOBUS,
-            Department.MAAVARIM
-        ]
-    },
-    [Unit.MAMRAM]: {
-        [Branch.ANAN_MIVZTAI]: [
-            Department.PLATFORMS,
-            Department.BIG_DATA,
-            Department.CTO
-        ],
-        [Branch.MERHAV_HATOMCAL]: [
-            Department.MEMAD,
-            Department.RESHATOT
-        ]
-    }
-};
+// TODO: Ensure this happens
+// const DEPARTMENTS_DATA: DepartmentsData = {
+//     [Unit.MAZPEN]: {
+//         [Branch.PSAGOT_SHILUVIUT]: [
+//             Department.DEVOPS,
+//             Department.KISHURIUT_AND_FIRE,
+//             Department.SPECTRUM,
+//             Department.HANDASAT_SHILUVIUT,
+//             Department.LA
+//         ],
+//         [Branch.AVEN_MITGALGELET]: [
+//             Department.AVEN_AHAHAMIM,
+//             Department.GLOBUS,
+//             Department.MAAVARIM
+//         ]
+//     },
+//     [Unit.MAMRAM]: {
+//         [Branch.ANAN_MIVZTAI]: [
+//             Department.PLATFORMS,
+//             Department.BIG_DATA,
+//             Department.CTO
+//         ],
+//         [Branch.MERHAV_HATOMCAL]: [
+//             Department.MEMAD,
+//             Department.RESHATOT
+//         ]
+//     }
+// };
 
-interface StringToStringMapper {
-    [key: string]: string;
+interface StringToSelectMapper {
+    [key: string]: SelectChooseOption;
 }
 
 interface DepartmentDataInfo {
@@ -75,12 +68,16 @@ interface DepartmentDataInfo {
     department: Department;
 }
 
-export type DepartmentData = DepartmentDataInfo & StringToStringMapper;
+export type DepartmentData = DepartmentDataInfo & StringToSelectMapper;
 
 export const EMPTY_DEPARTMENT: DepartmentData = {
-    unit: Unit.NO_UNIT,
-    branch: Branch.NO_BRANCH,
-    department: Department.NO_DEPARTMENT
+    unit: NO_UNIT,
+    branch: NO_BRANCH,
+    department: NO_DEPARTMENT
+}
+
+interface StringToStringMapper {
+    [key: string]: string;
 }
 
 const DEPARTMENT_TO_DISPLAY: StringToStringMapper = {
@@ -90,32 +87,27 @@ const DEPARTMENT_TO_DISPLAY: StringToStringMapper = {
 };
 
 class Departments {   
-    getAllUnits = (): Unit[] => {
-        const units: string[] = Object.keys(DEPARTMENTS_DATA);
-
-        return Object.values(Unit)
-            .filter(unit => units.includes(unit))
-            .sort();
+    getAllUnits = (allUnitOptions: Unit[]): Unit[] => {
+        return allUnitOptions;
     }
 
-    getBranchesOfUnit = (unit: Unit): Branch[] => {        
-        if (!unit)
+    // TODO: Apply to DB smart select... FIX
+    getBranchesOfUnit = (unit: Unit, allBranchOptions: Branch[]): Branch[] => {        
+        if (unit.id === NO_UNIT.id)
             return [];
 
-        const branchesOfUnit: string[] = Object.keys((DEPARTMENTS_DATA[unit]));
-        
-        return Object.values(Branch)
-            .filter(branch => branchesOfUnit.includes(branch))
-            .sort();
+        const branchesOfUnit = allBranchOptions;
+
+        return branchesOfUnit;
     }
 
-    getDepartmentsOfBranch = (unit: Unit, branch: Branch): Department[] => {
-        if (!unit || !branch)
+    getDepartmentsOfBranch = (unit: Unit, branch: Branch, allDepartmentOptions: Department[]): Department[] => {
+        if (unit.id === NO_UNIT.id || branch.id === NO_BRANCH.id)
             return [];
-
-        const departmentsOfBranch: Department[] = DEPARTMENTS_DATA[unit][branch];
     
-        return departmentsOfBranch.sort();
+        const departmentsOfBranch: Department[] = allDepartmentOptions;
+
+        return departmentsOfBranch;
     }
 
     getDepartmentFields = (): string[] => {
@@ -127,14 +119,14 @@ class Departments {
     }
 
     // When selecting unit/branch/department, we need the options. The method returns these options.
-    getDepartmentSelectOptions = (department: DepartmentData, fieldName: string): string[] => {
+    getDepartmentSelectOptions = (allUnitOptions: Unit[], allBranchOptions: Branch[], allDepartmentOptions: Department[], department: DepartmentData, fieldName: string): SelectChooseOption[] => {
         switch (fieldName) {
             case 'unit':
-                return this.getAllUnits();
+                return this.getAllUnits(allUnitOptions);
             case 'branch':
-                return this.getBranchesOfUnit(department.unit);
+                return this.getBranchesOfUnit(department.unit, allBranchOptions);
             case 'department':
-                return this.getDepartmentsOfBranch(department.unit, department.branch)
+                return this.getDepartmentsOfBranch(department.unit, department.branch, allDepartmentOptions)
             default:
                 throw new Error("Field type not handled!");
         }
@@ -160,31 +152,36 @@ class Departments {
         return `יש לבחור ${this.getDepartmentFieldDisplay(higherField)} קודם`;
     }
 
-    updateDepartment = (department: DepartmentData, fieldName: string, value: string): DepartmentData => {
+    updateDepartment = (allUnitOptions: Unit[], allBranchOptions: Branch[], allDepartmentOptions: Department[], 
+                        department: DepartmentData, fieldName: string, selectOptionId: number): DepartmentData => {
         let updatedDepartment: DepartmentData = department;
+        let selectChooseOption: SelectChooseOption;
 
         switch (fieldName) {
             case 'unit': // Changing unit, means no Branch/Department is selected
                 updatedDepartment = {
                     ...updatedDepartment,
-                    branch: Branch.NO_BRANCH,
-                    department: Department.NO_DEPARTMENT
+                    branch: NO_BRANCH,
+                    department: NO_DEPARTMENT
                 };
+                selectChooseOption = allUnitOptions.find(unitOption => unitOption.id === selectOptionId)!;
                 break;
             case 'branch': // Changing branch, means no Department is selected
                 updatedDepartment = {
                     ...updatedDepartment,
-                    department: Department.NO_DEPARTMENT
+                    department: NO_DEPARTMENT
                 };
+                selectChooseOption = allBranchOptions.find(branchOption => branchOption.id === selectOptionId)!;
                 break;
             case 'department':
+                selectChooseOption = allDepartmentOptions.find(departmentOption => departmentOption.id === selectOptionId)!;
                 break;
             default:
                 throw new Error("Field type not handled!");
         }
 
         updatedDepartment = {...updatedDepartment,
-            [fieldName]: value
+            [fieldName]: selectChooseOption
         }
 
         return updatedDepartment;
@@ -192,7 +189,7 @@ class Departments {
 
     isDepartmentSelected = (department: DepartmentData): boolean => {
         // Most inner select check. So if it selected, then all outer selects are elected too.
-        return department.department !== Department.NO_DEPARTMENT;
+        return department.department.id !== NO_DEPARTMENT.id;
     }
 }
 

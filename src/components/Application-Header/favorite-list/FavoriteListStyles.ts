@@ -1,11 +1,15 @@
 import { createStyles } from '@material-ui/core';
+import { YELLOW_STAR_COLOR, LIGHT_COLOR_TEXT } from '../../../assets/projectJSS/Colors';
 
 const styles = () => createStyles({
+    starIcon: {
+        fontSize: '150%'
+    },
     starIconYellow: {
-        color: '#ffcd29'
+        color: YELLOW_STAR_COLOR,
     },
     starIconWhite: {
-        color: 'white'
+        color: LIGHT_COLOR_TEXT,
     },
     favoriteRoot: {
         width: '18vw'

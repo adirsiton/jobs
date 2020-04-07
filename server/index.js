@@ -22,6 +22,7 @@ const staticCalculatedLocation = path.join(__dirname, staticFilesLocation);
 
 const app = express();
 app.use(cors());
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(pino);
 app.use(

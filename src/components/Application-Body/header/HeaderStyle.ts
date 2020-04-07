@@ -1,7 +1,5 @@
 import makeStyles from "@material-ui/core/styles/makeStyles";
 
-const dialogThemeColor = "rgb(89,89,89)";
-
 const styles = makeStyles({
     root: {
         display: 'flex',
@@ -10,14 +8,14 @@ const styles = makeStyles({
     },
     addNewPostButton: {
         color: "white",
-        backgroundColor: `${dialogThemeColor}`,
+        backgroundColor: `#21bd90`,
         "&:hover": {
-            backgroundColor: `${dialogThemeColor}`,
+            backgroundColor: `#00d699`,
         },
         "&:focus": {
-            backgroundColor: `${dialogThemeColor}`,
+            backgroundColor: `#00eba8`,
         },
-        alignSelf: "flex-end"
+        width: '10vw'
     },
     searchBar: {
         width: '50vw',

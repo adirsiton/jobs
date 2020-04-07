@@ -1,8 +1,8 @@
-export enum Role {
-    NO_ROLE = '',
-    PROGRAMMER = 'תוכניתן',
-    TEAM_LEADER = 'רש"צ',
-    PRODUCT_MANAGER = "מנהל מוצר"
-};
+import { SelectChooseOption, NO_SELECTED_OPTION } from "./ChooseOption";
 
-export const ROLE_DISPLAYS: Role[] = Object.values(Role).filter(role => role !== Role.NO_ROLE);
+export interface Role extends SelectChooseOption {};
+
+export const NO_ROLE: Role = {
+    id: NO_SELECTED_OPTION,
+    name: ''
+}
