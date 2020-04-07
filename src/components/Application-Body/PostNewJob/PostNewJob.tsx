@@ -201,7 +201,7 @@ const PostNewJob: React.FC<PostNewJobProps> = (props): JSX.Element => {
                     jobNickname,
                     role,
                     standards,
-                    entryDate: entryDate ? format(entryDate!.getDate(), MONTH_DISPLAY_FORMAT): '', // Empty means Immediately, format: MM/YY (No need for days atm)
+                    entryDate: entryDate ? format(entryDate!, MONTH_DISPLAY_FORMAT): '', // Empty means Immediately, format: MM/YY (No need for days atm)
                     yearsInSeniority: shouldHaveSeniority ? yearsInSeniority : 0,
                     shouldHaveDamach,
                     jobDescription,

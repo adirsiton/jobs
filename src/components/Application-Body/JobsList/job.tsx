@@ -31,7 +31,7 @@ const Job: React.FC<JobsProps> = (props): JSX.Element => {
                 <span> {ad.description} </span>
                 <div className={classes.jobContentFooter}>
                     <div> <span className={classes.jobContentTitle}> תקן:</span>  <span> {ad.standards.join('/')} </span></div>
-                    <div > <span className={classes.jobContentTitle}> כניסה לתפקיד:</span>  <span> { ad.entryDate} </span></div>
+                    <div > <span className={classes.jobContentTitle}> כניסה לתפקיד:</span>  <span> {ad.entryDate ? ad.entryDate : 'מיידי'} </span></div>
                 </div>
             </div>
             <div className={classes.jobFooter}>
