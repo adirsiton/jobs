@@ -43,7 +43,7 @@ const JobsAppBody: React.FC<JobsAppBodyOwnProps> = (props): JSX.Element => {
 
         return ads.filter(ad => (
                 ad.name.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1 ||
-                ad.tag.name.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1
+                ad.role.initials.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1
             )
         );
     }

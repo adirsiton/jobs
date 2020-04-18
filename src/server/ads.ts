@@ -54,23 +54,21 @@ export const addNewAd = async (ad: AdvertisementInsertData): Promise<void> => {
     });
 }
 
-function parseAd(adJson: sqlAd): Advertisement  {
+function parseAd(adJson: sqlAd): Advertisement {
     return {
         id: adJson.id,
         name: adJson.job_title,
-        tag: {
-            name: adJson.tag,
-            color: adJson.tag_color
+        role: {
+            id: adJson.role_id,
+            name: adJson.role_name,
+            initials: adJson.role_initials,
+            color: adJson.role_color
         },
         description: adJson.job_description,
         entryDate: adJson.entry_date,
         seniority: adJson.seniority,
         isDamach: adJson.is_damach,
         standards: adJson.standards_array,
-        role: {
-            id: adJson.role_id,
-            name: adJson.role_name
-        },
         unit: {
             id: adJson.unit_id,
             name: adJson.unit_name
@@ -92,6 +90,5 @@ function parseAd(adJson: sqlAd): Advertisement  {
             displayName: adJson.advertiser,
             contact: adJson.contact
         }
-
     };
 }

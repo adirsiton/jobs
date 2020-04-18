@@ -20,8 +20,8 @@ const FavoriteItem: React.SFC<FavoriteItemProps> = (props): JSX.Element => {
             <div className={classes.favoriteContent}>
                 <div className={classes.favoriteHeader}>
                     <span className={classes.favoriteTitle} title={"" + ad.name}>{ad.name}</span>
-                    <Typography className={classes.favoriteTag} style={{ backgroundColor: ad.tag.color }}>
-                        {ad.tag.name} 
+                    <Typography className={classes.favoriteTag} style={{ backgroundColor: ad.role.color }}>
+                        {ad.role.initials} 
                     </Typography>
                 </div>
                 <div className={classes.favoriteSecondaryTitle}>

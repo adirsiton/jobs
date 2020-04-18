@@ -23,9 +23,9 @@ const Job: React.FC<JobsProps> = (props): JSX.Element => {
                     <span className={classes.jobTitle}> {ad.name}</span>
                     <Typography 
                         className={classes.tag} 
-                        style={{ backgroundColor: ad.tag.color }}
+                        style={{ backgroundColor: ad.role.color }}
                         >
-                        {ad.tag.name}
+                        {ad.role.initials}
                     </Typography>
                 </div>
                 <div className={classes.jobSecondaryTitles}>
