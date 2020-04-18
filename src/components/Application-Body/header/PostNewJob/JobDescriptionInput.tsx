@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import Typography from '@material-ui/core/Typography';
+import InputLabel from '@material-ui/core/InputLabel';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 
 import styles from './PostNewJobStyles';
@@ -41,9 +41,9 @@ const JobDescriptionInput: React.FC<JobDescriptionInputProps> = (props): JSX.Ele
         <div 
             className={classes.subtitlesMargin}
         >
-            <Typography>
+            <InputLabel>
                 תיאור התפקיד
-            </Typography>
+            </InputLabel>
             <TextareaAutosize 
                 className={classes.jobDescriptionArea}
                 rowsMin={NUM_ROWS_BEFORE_ELLIPSIS} // Better than 1 line

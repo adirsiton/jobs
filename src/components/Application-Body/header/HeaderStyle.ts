@@ -1,4 +1,5 @@
 import makeStyles from "@material-ui/core/styles/makeStyles";
+import { LIGHT_COLOR_TEXT, NEW_JOB_COLOR } from "../../../assets/projectJSS/Colors";
 
 const styles = makeStyles({
     root: {
@@ -7,20 +8,23 @@ const styles = makeStyles({
         height: '5vh'
     },
     addNewPostButton: {
-        color: "white",
-        backgroundColor: `#21bd90`,
+        color: LIGHT_COLOR_TEXT,
+        backgroundColor: NEW_JOB_COLOR,
         "&:hover": {
             backgroundColor: `#00d699`,
         },
         "&:focus": {
             backgroundColor: `#00eba8`,
         },
-        width: '10vw'
+        minWidth: '10ch',
     },
     searchBar: {
         width: '50vw',
         fontSize: '1.3em',
-        boxShadow: '6px 5px 8px 3px #ccc'
+        boxShadow: "0.5ch 0px 8px 2px #bbbbbb, -0.5ch 0px 8px 2px #bbbbbb",
+    },
+    searchBarText: {
+        fontSize: '100%'
     }
 });
 

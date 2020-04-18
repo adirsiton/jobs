@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import Typography from '@material-ui/core/Typography';
+import InputLabel from '@material-ui/core/InputLabel';
 import TextField from '@material-ui/core/TextField';
 
 import styles from './PostNewJobStyles';
@@ -27,11 +27,16 @@ const JobSeniorityInput: React.FC<JobSeniorityInputProps> = (props): JSX.Element
         return (
             <TextField
                 classes={{
-                    root: classes.numberInput
+                    root: classes.seniorityNumberInput,
+                }}
+                InputProps={{
+                    classes: {
+                        input: classes.seniorityNumberText
+                    }
                 }}
                 InputLabelProps={{
                     classes: {
-                        root: classes.numberInputLabel,
+                        root: classes.seniorityNumberInputLabel,                        
                     },
                     required: true
                 }}
@@ -41,12 +46,9 @@ const JobSeniorityInput: React.FC<JobSeniorityInputProps> = (props): JSX.Element
                 onInput={(event: React.ChangeEvent<HTMLInputElement>) => {
                     const seniorityYearsInput = parseInt(event.target.value) || MIN_SENIORITY_IN_YEARS;
 
-                    setYearsInSeniority(
-                        Math.min(
-                            Math.max(MIN_SENIORITY_IN_YEARS, seniorityYearsInput), 
-                            MAX_SENIORITY_IN_YEARS
-                        )
-                    );
+                    if(seniorityYearsInput <= MAX_SENIORITY_IN_YEARS) {
+                        setYearsInSeniority(Math.max(MIN_SENIORITY_IN_YEARS, seniorityYearsInput));
+                    }
                 }}
                 inputProps={{
                     min: MIN_SENIORITY_IN_YEARS,
@@ -62,9 +64,9 @@ const JobSeniorityInput: React.FC<JobSeniorityInputProps> = (props): JSX.Element
 
     return (
         <div className={classes.jobSeniorityFields}>
-            <Typography>
+            <InputLabel>
                 דרוש ותק?
-            </Typography>
+            </InputLabel>
             <div
                 className={classes.jobRequirementsMargin}
             >

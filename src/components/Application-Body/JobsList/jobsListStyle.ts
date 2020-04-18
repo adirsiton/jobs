@@ -6,12 +6,11 @@ const useStyles = makeStyles((theme) =>
             maxWidth: 345,
         },
         tag: {
-            height: "25px",
-            width: "45px",
+            width: "4ch",
+            height: "1.5rem",
             textAlign: "center",
-            backgroundColor: "#62e5ff",
-            fontSize: "medium",
             color: "white",
+            fontFamily: 'unset',
             borderRadius: "5px"
         },
         jobsList: {

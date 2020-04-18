@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
 import StarBorderOutlinedIcon from '@material-ui/icons/StarBorderOutlined';
 import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
@@ -20,7 +21,12 @@ const Job: React.FC<JobsProps> = (props): JSX.Element => {
             <div className={classes.jobHeader}>
                 <div className={classes.jobMainTitles}>
                     <span className={classes.jobTitle}> {ad.name}</span>
-                    <div className={classes.tag} style={{ backgroundColor: ad.tag.color }}> {ad.tag.name} </div>
+                    <Typography 
+                        className={classes.tag} 
+                        style={{ backgroundColor: ad.tag.color }}
+                        >
+                        {ad.tag.name}
+                    </Typography>
                 </div>
                 <div className={classes.jobSecondaryTitles}>
                     <span> {`${ad.unit.name}/${ad.branch.name}/${ad.department.name}`}</span>
