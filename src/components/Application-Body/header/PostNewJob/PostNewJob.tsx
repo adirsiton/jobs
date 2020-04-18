@@ -113,9 +113,7 @@ const PostNewJob: React.FC<PostNewJobProps> = (props): JSX.Element => {
                 <DepartmentInput 
                     department={department} 
                     setDepartment={setDepartment} 
-                    allUnitOptions={allSelectOptions.unitOptions}
-                    allBranchOptions={allSelectOptions.branchOptions}
-                    allDepartmentOptions={allSelectOptions.departmentOptions} />
+                    allUnitOptions={allSelectOptions.unitOptions} />
             </div>
         );
     }

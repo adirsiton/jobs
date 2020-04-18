@@ -46,26 +46,38 @@ router.get('/options', async (req, res) => {
         FROM jobs.units
     `).then(result => result.rows);
 
-    const branchOptions = await db.query(`
-        SELECT id, name
-        FROM jobs.branches
-    `).then(result => result.rows);
-
-    const departmentOptions = await db.query(`
-        SELECT id, name
-        FROM jobs.departments
-    `).then(result => result.rows);
-
     const allSelectOptions = {
         roleOptions,
         standardOptions,
         baseLocationOptions,
-        unitOptions,
-        branchOptions,
-        departmentOptions
+        unitOptions
     };
 
     res.json(allSelectOptions);
+});
+
+router.get('/branches/:unitId', async (req, res) => {
+    const { unitId } = req.params;
+
+    const branchesOfUnit = await db.query(`
+        SELECT id, name
+        FROM jobs.branches
+        WHERE unit_id = $1
+    `, [unitId]).then(result => result.rows);
+
+    res.json(branchesOfUnit);
+});
+
+router.get('/departments/:branchId', async (req, res) => {
+    const { branchId } = req.params;
+
+    const departmentsOfBranch = await db.query(`
+        SELECT id, name
+        FROM jobs.departments
+        WHERE branch_id = $1
+    `, [branchId]).then(result => result.rows);
+
+    res.json(departmentsOfBranch);
 });
 
 router.post('/', async (req, res) => {

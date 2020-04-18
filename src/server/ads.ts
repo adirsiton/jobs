@@ -1,6 +1,7 @@
 
 import { Advertisement , sqlAd, AdvertisementInsertData } from '../types/Advertisements';
 import { AllSelectOptions } from '../types/AllSelectOptions';
+import { Branch, Department } from '../types/Departments';
 
 export async function getAllAds(): Promise<Advertisement []> {
     const ads: sqlAd[] = await fetch('/ads').then(response => {
@@ -20,6 +21,26 @@ export const getAllSelectOptions = async (): Promise<AllSelectOptions> => {
     const allSelectOptions = await response.json();
 
     return allSelectOptions;
+}
+
+export const getBranchesOfUnit = async (unitId: number): Promise<Branch[]> => {    
+    const response: Response = await fetch(`/ads/branches/${unitId}`, {
+        method: 'GET'
+    });
+
+    const branchesOfUnit = await response.json();
+
+    return branchesOfUnit;
+}
+
+export const getDepartmentsOfBranch = async (branchId: number): Promise<Department[]> => {    
+    const response: Response = await fetch(`/ads/departments/${branchId}`, {
+        method: 'GET'
+    });
+
+    const departmentsOfBranch = await response.json();
+
+    return departmentsOfBranch;
 }
 
 export const addNewAd = async (ad: AdvertisementInsertData): Promise<void> => {    
