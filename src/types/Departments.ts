@@ -9,18 +9,24 @@ export const NO_UNIT: Unit = {
     name: ''
 };
 
-export interface Branch extends SelectChooseOption {};
+export interface Branch extends SelectChooseOption {
+    unit_id: number
+};
 
 export const NO_BRANCH: Branch = {
     id: NO_SELECTED_OPTION,
-    name: ''
+    name: '',
+    unit_id: -1
 };
 
-export interface Department extends SelectChooseOption {};
+export interface Department extends SelectChooseOption {
+    branch_id: number
+};
 
 export const NO_DEPARTMENT: Department = {
     id: NO_SELECTED_OPTION,
-    name: ''
+    name: '',
+    branch_id: -1
 };
 
 interface DepartmentsData {
@@ -29,34 +35,6 @@ interface DepartmentsData {
     }
 };
 
-// TODO: Ensure this happens
-// const DEPARTMENTS_DATA: DepartmentsData = {
-//     [Unit.MAZPEN]: {
-//         [Branch.PSAGOT_SHILUVIUT]: [
-//             Department.DEVOPS,
-//             Department.KISHURIUT_AND_FIRE,
-//             Department.SPECTRUM,
-//             Department.HANDASAT_SHILUVIUT,
-//             Department.LA
-//         ],
-//         [Branch.AVEN_MITGALGELET]: [
-//             Department.AVEN_AHAHAMIM,
-//             Department.GLOBUS,
-//             Department.MAAVARIM
-//         ]
-//     },
-//     [Unit.MAMRAM]: {
-//         [Branch.ANAN_MIVZTAI]: [
-//             Department.PLATFORMS,
-//             Department.BIG_DATA,
-//             Department.CTO
-//         ],
-//         [Branch.MERHAV_HATOMCAL]: [
-//             Department.MEMAD,
-//             Department.RESHATOT
-//         ]
-//     }
-// };
 
 interface StringToSelectMapper {
     [key: string]: SelectChooseOption;

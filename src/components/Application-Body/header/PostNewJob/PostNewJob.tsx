@@ -42,9 +42,9 @@ interface PostNewJobProps {
 const PostNewJob: React.FC<PostNewJobProps> = (props): JSX.Element => {
     const { allSelectOptions, closeDialog, fetchAllAdsAfterPost } = props;
     const classes = styles({});
-    
+
     // useStates, Ordered by the display view (Top to bottom)
-    const [baseLocation, setBaseLocation] = useState<BaseLocation>(NO_BASE_LOCATION);    
+    const [baseLocation, setBaseLocation] = useState<BaseLocation>(NO_BASE_LOCATION);
     const [department, setDepartment] = useState<DepartmentData>(EMPTY_DEPARTMENT);
     const [jobNickname, setJobNickname] = useState<string>('');
     const [role, setRole] = useState<Role>(NO_ROLE);
@@ -61,15 +61,15 @@ const PostNewJob: React.FC<PostNewJobProps> = (props): JSX.Element => {
     const [contactInformation, setContactInformation] = useState<ContactInformation>(EMPTY_CONTACT_INFORMATION);
 
     useEffect(() => {
-        const isInputFull: boolean = 
+        const isInputFull: boolean =
             baseLocation.id !== NO_BASE_LOCATION.id &&
             DepartmentsManager.isDepartmentSelected(department) &&
             role.id !== NO_ROLE.id &&
             standards.length > 0 &&
             (!shouldChooseDate || (!dateInError && entryDate !== null));
 
-            setIsPostButtonDisabled(!isInputFull);
-    }, [baseLocation, department, role, standards, 
+        setIsPostButtonDisabled(!isInputFull);
+    }, [baseLocation, department, role, standards,
         shouldChooseDate, entryDate, dateInError]);
 
     useEffect(() => {
@@ -80,7 +80,7 @@ const PostNewJob: React.FC<PostNewJobProps> = (props): JSX.Element => {
 
     const getTitle = (): JSX.Element => {
         return (
-            <DialogTitle 
+            <DialogTitle
                 className={classes.dialogTitle}
             >
                 <Typography className={classes.dialogTitleText}>
@@ -89,7 +89,7 @@ const PostNewJob: React.FC<PostNewJobProps> = (props): JSX.Element => {
             </DialogTitle>
         );
     }
-    
+
     const getDepartmentHeader = (): JSX.Element => {
         return (
             <div className={classes.departmentHeader}>
@@ -109,12 +109,16 @@ const PostNewJob: React.FC<PostNewJobProps> = (props): JSX.Element => {
                     baseLocation={baseLocation}
                     setBaseLocation={setBaseLocation}
                     allBaseLocationOptions={allSelectOptions.baseLocationOptions} />
-                <DepartmentInput 
-                    department={department} 
-                    setDepartment={setDepartment} 
+                <DepartmentInput
+                    department={department}
+                    setDepartment={setDepartment}
                     allUnitOptions={allSelectOptions.unitOptions}
-                    allBranchOptions={allSelectOptions.branchOptions}
-                    allDepartmentOptions={allSelectOptions.departmentOptions} />
+                    allBranchOptions={allSelectOptions.branchOptions.filter(branch => {
+                        return department.unit.id === -1 || branch.unit_id === department.unit.id
+                    })}
+                    allDepartmentOptions={allSelectOptions.departmentOptions.filter(dp => {
+                        return department.branch.id === -1 || dp.branch_id === department.branch.id
+                    })} />
             </div>
         );
     }
@@ -131,7 +135,7 @@ const PostNewJob: React.FC<PostNewJobProps> = (props): JSX.Element => {
     const getJobRequirementsHeader = (): JSX.Element => {
         return (
             <div className={classes.jobRequirementsHeader}>
-                <Typography 
+                <Typography
                     className={classes.jobRequirementsHeaderTitle}
                     variant="subtitle1"
                 >
@@ -144,18 +148,18 @@ const PostNewJob: React.FC<PostNewJobProps> = (props): JSX.Element => {
 
     const getJobRequirementsFields = (): JSX.Element => {
         return (
-            <div 
+            <div
                 className={classes.subtitlesMargin}
             >
-                <JobNicknameInput 
+                <JobNicknameInput
                     jobNickname={jobNickname}
                     setJobNickname={setJobNickname}
                     didValidate={didValidate} />
                 <JobRoleInput
-                    role={role} 
+                    role={role}
                     setRole={setRole}
                     allRoleOptions={allSelectOptions.roleOptions} />
-                <JobStandardsInput 
+                <JobStandardsInput
                     standards={standards}
                     setStandards={setStandards}
                     allStandardOptions={allSelectOptions.standardOptions} />
@@ -171,16 +175,16 @@ const PostNewJob: React.FC<PostNewJobProps> = (props): JSX.Element => {
                     setShouldHaveSeniority={setShouldHaveSeniority}
                     yearsInSeniority={yearsInSeniority}
                     setYearsInSeniority={setYearsInSeniority} />
-                <JobDamachInput 
+                <JobDamachInput
                     shouldHaveDamach={shouldHaveDamach}
                     setShouldHaveDamach={setShouldHaveDamach} />
             </div>
         );
-    } 
+    }
 
     const getJobRequirements = (): JSX.Element => {
         return (
-            <> 
+            <>
                 {getJobRequirementsHeader()}
                 {getJobRequirementsFields()}
             </>
@@ -201,7 +205,7 @@ const PostNewJob: React.FC<PostNewJobProps> = (props): JSX.Element => {
                     jobNickname,
                     role,
                     standards,
-                    entryDate: entryDate ? format(entryDate!, MONTH_DISPLAY_FORMAT): '', // Empty means Immediately, format: MM/YY (No need for days atm)
+                    entryDate: entryDate ? format(entryDate!, MONTH_DISPLAY_FORMAT) : '', // Empty means Immediately, format: MM/YY (No need for days atm)
                     yearsInSeniority: shouldHaveSeniority ? yearsInSeniority : 0,
                     shouldHaveDamach,
                     jobDescription,
@@ -210,14 +214,14 @@ const PostNewJob: React.FC<PostNewJobProps> = (props): JSX.Element => {
                 fetchAllAdsAfterPost();
                 closeDialog();
                 swal.fire({
-                   title: 'יש אישור!',
-                   icon: 'success',
-                   text: `פרסמנו את הג'וב ועכשיו אפשר יהיה למצוא אותו במסך הראשי, ברגע שתהיה התעניינות כלשהי בתפקיד נדאג לעדכן אותך מי המועמדים`,
-                   confirmButtonText: 'אחלה, תודה',
-                   confirmButtonColor: NEW_JOB_COLOR ,
-                });    
+                    title: 'יש אישור!',
+                    icon: 'success',
+                    text: `פרסמנו את הג'וב ועכשיו אפשר יהיה למצוא אותו במסך הראשי, ברגע שתהיה התעניינות כלשהי בתפקיד נדאג לעדכן אותך מי המועמדים`,
+                    confirmButtonText: 'אחלה, תודה',
+                    confirmButtonColor: NEW_JOB_COLOR,
+                });
             }
-            catch(error) {
+            catch (error) {
                 swal.fire({
                     title: 'קרתה שגיאה',
                     icon: 'error',
@@ -230,17 +234,17 @@ const PostNewJob: React.FC<PostNewJobProps> = (props): JSX.Element => {
     }
 
     const getPostButton = (): JSX.Element => {
-        const tooltipTitle: string = 
-            isPostButtonDisabled 
+        const tooltipTitle: string =
+            isPostButtonDisabled
                 ? "יש למלא את כל השדות"
                 : "";
 
         return (
-            <Tooltip 
+            <Tooltip
                 title={tooltipTitle}
             >
-                <span> { /* Span is for the tooltip, when button is disabled */ }
-                    <Button 
+                <span> { /* Span is for the tooltip, when button is disabled */}
+                    <Button
                         className={classes.postButton}
                         classes={{
                             label: classes.postButtonLabel,
@@ -261,32 +265,32 @@ const PostNewJob: React.FC<PostNewJobProps> = (props): JSX.Element => {
     }
 
     return (
-      <Dialog
-        fullWidth={true}
-        open={true}
-        onClose={closeDialog}
-        PaperProps={{
-            className: classes.dialogPaper
-        }}
-      >
-        {getTitle()}
-        <DialogContent className={classes.dialogContent}>
-            {getDepartment()}
-            {getJobRequirements()}
-            <JobDescriptionInput 
-                jobDescription={jobDescription}
-                setJobDescription={setJobDescription}
-                didValidate={didValidate} />
-            <JobContactInformationInput 
-                contactInformation={contactInformation}
-                setContactInformation={setContactInformation}
-            />
-        </DialogContent>
-        <DialogActions>
-            {getPostButton()}
-        </DialogActions>
-      </Dialog>
-  );
+        <Dialog
+            fullWidth={true}
+            open={true}
+            onClose={closeDialog}
+            PaperProps={{
+                className: classes.dialogPaper
+            }}
+        >
+            {getTitle()}
+            <DialogContent className={classes.dialogContent}>
+                {getDepartment()}
+                {getJobRequirements()}
+                <JobDescriptionInput
+                    jobDescription={jobDescription}
+                    setJobDescription={setJobDescription}
+                    didValidate={didValidate} />
+                <JobContactInformationInput
+                    contactInformation={contactInformation}
+                    setContactInformation={setContactInformation}
+                />
+            </DialogContent>
+            <DialogActions>
+                {getPostButton()}
+            </DialogActions>
+        </Dialog>
+    );
 }
 
 export default PostNewJob;

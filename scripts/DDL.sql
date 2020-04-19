@@ -1,25 +1,26 @@
 CREATE SCHEMA jobs;
 
-CREATE TABLE jobs.users(
-	upn text PRIMARY KEY,
-	display_name text
-);
-
-CREATE TABLE jobs.tags(
+CREATE TABLE jobs.standards(
 	id serial PRIMARY KEY,
-	name text,
-	color text,
-	UNIQUE (name)
+	name text
 );
 
 CREATE TABLE jobs.roles(
 	id serial PRIMARY KEY,
-	name text
+	name text,
+	tag text,
+	color text,
+	UNIQUE (tag)
 );
 
-CREATE TABLE jobs.standards(
-	id serial PRIMARY KEY,
-	name text
+CREATE TABLE jobs.users(
+	upn text PRIMARY KEY,
+	display_name text
+	-- ,
+	-- rank_id int REFERENCES jobs.standards(id) ON DELETE CASCADE,
+	-- role_id int REFERENCES jobs.roles(id) ON DELETE CASCADE,
+	-- phone_number text,
+	-- UNIQUE (phone_number)
 );
 
 CREATE TABLE jobs.units(
@@ -49,10 +50,9 @@ CREATE TABLE jobs.base_locations(
 CREATE TABLE jobs.advertisements(
 	id serial PRIMARY KEY,
 	role_id int REFERENCES jobs.roles(id) ON DELETE CASCADE,
-	tag_id int REFERENCES jobs.tags(id) ON DELETE CASCADE,
 	unit_id int,
 	branch_id int,
-	department_id int REFERENCES jobs.departments(id) ON DELETE CASCADE,
+	department_id int,
 	job_title text,
 	job_description text,
 	entry_date text,
@@ -75,4 +75,17 @@ CREATE TABLE jobs.favorite_ads_of_users(
 	upn text REFERENCES jobs.users(upn) ON DELETE CASCADE,
 	advertisement_id int REFERENCES jobs.advertisements(id) ON DELETE CASCADE,
 	PRIMARY KEY(upn, advertisement_id)
+);
+
+CREATE TABLE jobs.users_previous_jobs(
+	job_name text NOT NULL,
+	upn text REFERENCES jobs.users(upn) ON DELETE CASCADE,
+	unit_id int REFERENCES jobs.units(id) ON DELETE CASCADE,
+	branch_id int,
+	department_id int,
+	start_date text,
+	end_date text,
+	PRIMARY KEY(upn, job_name),
+	FOREIGN KEY (branch_id, unit_id) REFERENCES jobs.branches(id, unit_id),
+	FOREIGN KEY (department_id, branch_id) REFERENCES jobs.departments(id, branch_id)
 );

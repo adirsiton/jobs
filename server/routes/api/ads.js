@@ -6,7 +6,7 @@ const router = express.Router();
 router.get('/', async (req, res) => {
     const { rows } = await db.query(`
         SELECT ads.*, roles.name as role_name, units.name as unit_name, departments.name  as department_name, 
-		branches.name as branch_name, locations.name as location, users.display_name advertiser, tags.name tag, tags.color tag_color,
+		branches.name as branch_name, locations.name as location, users.display_name advertiser, roles.tag tag, roles.color tag_color,
 		(SELECT ARRAY(SELECT st.name  
 		            FROM jobs.standards_of_ads standardsOfAds
 		            JOIN jobs.standards st on standardsOfAds.standard_id = st.id
@@ -17,8 +17,7 @@ router.get('/', async (req, res) => {
         JOIN jobs.branches branches ON (ads.branch_id=branches.id AND ads.unit_id=branches.unit_id)
         JOIN jobs.departments departments ON (ads.department_id=departments.id AND ads.branch_id=departments.branch_id)
         JOIN jobs.base_locations locations ON ads.base_location_id=locations.id
-        JOIN jobs.users users ON ads.advertiser_upn=users.upn
-        JOIN jobs.tags tags ON ads.tag_id=tags.id`);
+        JOIN jobs.users users ON ads.advertiser_upn=users.upn`);
     res.json(rows);
 });
 
@@ -47,12 +46,12 @@ router.get('/options', async (req, res) => {
     `).then(result => result.rows);
 
     const branchOptions = await db.query(`
-        SELECT id, name
+        SELECT id, name, unit_id
         FROM jobs.branches
     `).then(result => result.rows);
 
     const departmentOptions = await db.query(`
-        SELECT id, name
+        SELECT id, name, branch_id
         FROM jobs.departments
     `).then(result => result.rows);
 
@@ -83,20 +82,18 @@ router.post('/', async (req, res) => {
     const departmentId = department.id;
     const standardIds = standards.map(standard => standard.id);
     const advertiser_upn = 's8258065'; // TODO: load from req.body
-    const tagId = 3; // TODO: Fix this.... ERD has to go some refactor...
-
+    const contactName = contactInformation.fullName;
 
     try {
         await db.query('BEGIN');
-        // await db.query(`
-        // INSERT INTO jobs.advertisements(role_id,tag_id, unit_id, branch_id, department_id, job_title,job_description, entry_date, seniority, is_damach, advertiser_upn, contact, base_location_id) VALUES
-        // (1, 4, 1, 1, 1,'מנהל מוצר מעגל האש', 'מנהל מוצר האש, אחראי על כלל ייצוג תהליך מעגל האש במערכת ועבודה רב"ז.', '09/20', 2, true, 's8182384', 'פלאפון 0527777780', 1)        
-        // `);
-        const values = [roleId, tagId, unitId, branchId, departmentId, jobNickname, jobDescription, entryDate, yearsInSeniority, shouldHaveDamach, advertiser_upn, contactInformation.fullName, baseLocationId];
+        const values = [roleId, unitId, branchId, departmentId, jobNickname, jobDescription, 
+                entryDate, yearsInSeniority, shouldHaveDamach, advertiser_upn, contactName, 
+                baseLocationId];
         const advertisementId = await db.query(`
             INSERT INTO jobs.advertisements (
-                role_id, tag_id, unit_id, branch_id, department_id, job_title, job_description, entry_date, seniority, is_damach, advertiser_upn, contact, base_location_id
-            ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) 
+                role_id, unit_id, branch_id, department_id, job_title, job_description, entry_date, 
+                seniority, is_damach, advertiser_upn, contact, base_location_id) 
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) 
             RETURNING id
         `, values).then(result => result.rows[0].id);
         
@@ -107,13 +104,6 @@ router.post('/', async (req, res) => {
                 ) VALUES ($1, $2)
             `, [advertisementId, standardId]);
         }
-
-        // TODO: Use unnest($2::integer[]), pq-function-unnestunknown-is-not-unique
-        // await db.query(`
-        //     INSERT INTO jobs.standards_of_ads (
-        //         advertisement_id, standard_id 
-        //     ) VALUES ($1, ${standardIds})
-        // `, [advertisementId]);
 
         await db.query('COMMIT');
         res.sendStatus(200);
