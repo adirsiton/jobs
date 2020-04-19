@@ -49,6 +49,8 @@ INSERT INTO jobs.departments(branch_id, name) VALUES
     (6, 'תומכי החלוה'),
     (6, 'שכר קבע');
 
+
+
 INSERT INTO jobs.base_locations(name) VALUES
     ('של"ר'),
     ('צריפין'),

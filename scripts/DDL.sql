@@ -41,6 +41,12 @@ CREATE TABLE jobs.departments(
 	UNIQUE (id, branch_id)
 );
 
+CREATE TABLE jobs.department_head(
+	user text REFERENCES jobs.users(upn) ON DELETE CASCADE,
+	department_id int REFERENCES jobs.departments(id) ON DELETE CASCADE,
+	UNIQUE (id, department_id)
+);
+
 CREATE TABLE jobs.base_locations(
 	id serial PRIMARY KEY,
 	name text
