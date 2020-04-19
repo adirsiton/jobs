@@ -18,21 +18,21 @@ interface FavoriteListProps extends WithStyles<typeof styles> {
 
 const FavoriteList: React.FC<FavoriteListProps> = (props): JSX.Element => {
     const { classes } = props;
-    const jobsStore = props.jobsStore!;
+    const jobsStore: JobsStore = props.jobsStore!;
 
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const handleSavedJobsButtonClick = (event: React.MouseEvent<HTMLButtonElement>): void => {
         setAnchorEl(event.currentTarget);
       };
     
-      const handleClose = () => {
+      const handleClose = (): void => {
         setAnchorEl(null);
       };
 
     return (
         <>
             <IconButton className={jobsStore.advertisements.length === 0 ? classes.starIconWhite : classes.starIconYellow}
-                onClick={handleClick} 
+                onClick={handleSavedJobsButtonClick} 
                 aria-label="my favorites" component="span">
                 <StarIcon className={classes.starIcon} />
             </IconButton>

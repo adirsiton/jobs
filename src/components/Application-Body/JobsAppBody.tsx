@@ -38,7 +38,7 @@ interface JobsAppBodyOwnProps {
 
 const JobsAppBody: React.FC<JobsAppBodyOwnProps> = (props): JSX.Element => {
     const classes = styles({});
-    const jobsStore = props.jobsStore!;
+    const jobsStore: JobsStore = props.jobsStore!;
 
     const [searchValue, setSearchValue] = useState<string>('');
 
@@ -51,7 +51,7 @@ const JobsAppBody: React.FC<JobsAppBodyOwnProps> = (props): JSX.Element => {
     }
 
     const getFilteredAds = (): Advertisement[] => {
-        const ads = jobsStore.advertisements;
+        const ads: Advertisement[] = jobsStore.advertisements;
 
         return ads.filter(ad => (
                 ad.name.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1 ||
@@ -65,7 +65,7 @@ const JobsAppBody: React.FC<JobsAppBodyOwnProps> = (props): JSX.Element => {
             <Header 
                 searchValue={searchValue} 
                 onSearchValueChange={onSearchValueChange}
-                fetchAllAdsAfterPost={() => {jobsStore.loadAdvertisements()}} />
+                fetchAllAdsAfterPost={jobsStore.loadAdvertisements} />
             <JobsList ads={jobsStore.advertisements} isFiltered={searchValue !== '' && jobsStore.advertisements.length !== 0}/>
         </div>
     );
