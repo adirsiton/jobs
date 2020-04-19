@@ -14,15 +14,15 @@ export class JobsStore {
         return this.isLoadingAds.get();
     }
 
-    loadAdvertisements = () => {
+    loadAdvertisements = async () => {
         // Fetch data from server
         this.isLoadingAds.set(true);
-        getAllAds().then(data => {
-            this.ads.set(data);
-            this.isLoadingAds.set(false);
-        });
+        const ads: Advertisement[] = await getAllAds();
+        this.ads.set(ads);
+        this.isLoadingAds.set(false);
     }
 }
+
 decorate(JobsStore, {
     advertisements: computed,
     isLoading: computed,
