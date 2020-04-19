@@ -27,7 +27,7 @@ import JobEntryDateInput, { MONTH_DISPLAY_FORMAT } from './JobEntryDateInput';
 import JobSeniorityInput from './JobSeniorityInput';
 import JobDamachInput from './JobDamachInput';
 import JobDescriptionInput, { isJobDescriptionInValidLength } from './JobDescriptionInput';
-import JobContactInformationInput from './JobContactInformationInput';
+import JobContactInformationInput, { isContactInfoLegal } from './JobContactInformationInput';
 import { ContactInformation, EMPTY_CONTACT_INFORMATION } from '../../../../types/ContactInformation';
 import { NEW_JOB_COLOR } from '../../../../assets/projectJSS/Colors';
 import { addNewAd } from '../../../../server/ads';
@@ -67,11 +67,11 @@ const PostNewJob: React.FC<PostNewJobProps> = (props): JSX.Element => {
             DepartmentsManager.isDepartmentSelected(department) &&
             role.id !== NO_ROLE.id &&
             standards.length > 0 &&
-            (!shouldChooseDate || (!dateInError && entryDate !== null));
+            (!shouldChooseDate || (!dateInError && entryDate !== null)) &&
+            isContactInfoLegal(contactInformation);
 
             setIsPostButtonDisabled(!isInputFull);
-    }, [baseLocation, department, role, standards, 
-        shouldChooseDate, entryDate, dateInError]);
+    }, [baseLocation, department, role, standards, shouldChooseDate, entryDate, dateInError, contactInformation]);
 
     useEffect(() => {
         if (didValidate) {

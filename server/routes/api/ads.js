@@ -101,7 +101,7 @@ router.post('/', async (req, res) => {
         // INSERT INTO jobs.advertisements(role_id, unit_id, branch_id, department_id, job_title,job_description, entry_date, seniority, is_damach, advertiser_upn, contact, base_location_id) VALUES
         // (1, 4, 1, 1, 1,'מנהל מוצר מעגל האש', 'מנהל מוצר האש, אחראי על כלל ייצוג תהליך מעגל האש במערכת ועבודה רב"ז.', '09/20', 2, true, 's8182384', 'פלאפון 0527777780', 1)        
         // `);
-        const values = [roleId, unitId, branchId, departmentId, jobNickname, jobDescription, entryDate, yearsInSeniority, shouldHaveDamach, advertiser_upn, contactInformation.fullName, baseLocationId];
+        const values = [roleId, unitId, branchId, departmentId, jobNickname, jobDescription, entryDate, yearsInSeniority, shouldHaveDamach, advertiser_upn, `${contactInformation.fullName} ${contactInformation.phoneNumber}`, baseLocationId];
         const advertisementId = await db.query(`
             INSERT INTO jobs.advertisements (
                 role_id, unit_id, branch_id, department_id, job_title, job_description, entry_date, seniority, is_damach, advertiser_upn, contact, base_location_id

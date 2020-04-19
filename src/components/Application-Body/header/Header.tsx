@@ -27,7 +27,7 @@ const Header: React.FC<HeaderOwnProps> = (props): JSX.Element => {
     const classes = styles({});
 
     const [allSelectOptions, setAllSelectOptions] = useState<AllSelectOptions | null>(null);
-    const [openAddDialog, setOpenAddDialog] = useState<boolean>(false/*TODO:false*/);
+    const [openAddDialog, setOpenAddDialog] = useState<boolean>(true/*TODO:false*/);
     const addButtonRef = useRef(null);
 
     // when closing dialog - blur the add button

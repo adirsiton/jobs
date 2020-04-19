@@ -25,6 +25,7 @@ const styles = makeStyles({
     dialogContent: {
         padding: "unset",
         paddingRight: postPadding,
+        overflowY: 'unset'
     },
     baseLocation: {
         display: 'flex',
@@ -148,6 +149,35 @@ const styles = makeStyles({
     jobNicknameText: {
         backgroundColor: TEXT_AND_ICONS_ADS_BACKGROUND_COLOR,
         width: "40ch"
+    },
+    contactInfo: {
+        display: "flex",
+        alignItems: "center",
+        marginTop: MINIMAL_HEIGHT_PADDING,
+        marginBottom: ROW_TEXT_FIELD_HEIGHT_PADDING
+    },
+    contactNicknameText: {
+        fontStyle: ITALIC_FONT,
+        backgroundColor: TEXT_AND_ICONS_ADS_BACKGROUND_COLOR,
+        width: "17ch"
+    },
+    // contactNicknameLabel: {
+    //     fontStyle: ITALIC_FONT,
+    //     '&:focus': {
+    //         transform: 'translate(0, 8px) scale(1)'
+    //     }
+    // },
+    contactPhoneSuffix: {
+        backgroundColor: TEXT_AND_ICONS_ADS_BACKGROUND_COLOR,
+        fontStyle: ITALIC_FONT,
+        marginLeft: '1ch',
+        marginRight: '2ch',
+        width: '6ch',
+        direction: 'ltr',
+        paddingLeft: '1ch'
+    },
+    contactPhonePrefix: {
+        marginRight: '1ch'
     },
     selectIcon: {
         direction: "rtl",
