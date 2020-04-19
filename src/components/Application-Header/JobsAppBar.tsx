@@ -5,12 +5,11 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
-import StarIcon from '@material-ui/icons/Star';
 import Tooltip from '@material-ui/core/Tooltip';
 
-import  jobsLogo from '../../assets/images/jobsLogo.png';
 import { User } from '../../types/userTypes';
+import  jobsLogo from '../../assets/images/jobsLogo.png';
+import FavoriteList from './favorite-list/FavoriteList';
 import styles from './JobsAppBarStyle';
 
 interface AppBarDataProps extends WithStyles<typeof styles> {
@@ -29,11 +28,7 @@ const JobsAppBar: React.FC<AppBarDataProps> = (props): JSX.Element => {
         return (
             <div className={classes.userDetails}>
                 <Tooltip placement="right" title="ג'ובים ששמרתי" aria-label="my favorites">
-                    <IconButton className={userHaveFavorites() ? classes.starIconWhite : classes.starIconYellow}
-                        // { todo onClick=showFaivorites } 
-                        aria-label="my favorites" component="span">
-                        <StarIcon className={classes.starIcon} />
-                    </IconButton>
+                    <FavoriteList/>
                 </Tooltip>
                 <Avatar className={classes.avatar}>
                     {user.userInitials}

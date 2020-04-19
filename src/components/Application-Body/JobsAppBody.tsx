@@ -1,13 +1,14 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 
+import { observer, inject } from 'mobx-react';
+
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
 import { LIGHT_COLOR_TEXT, NEW_JOB_COLOR } from '../../assets/projectJSS/Colors';
+import { JobsStore } from '../../store/JobsStore';
 import JobsList from './JobsList/jobsList';
 import Header from './header/Header';
-
-import { getAllAds } from '../../server/ads';
 import { Advertisement } from '../../types/Advertisements';
 
 const styles = makeStyles({
@@ -31,24 +32,27 @@ const styles = makeStyles({
     }
 });
 
-const JobsAppBody: React.FC<{}> = (): JSX.Element => {
-  const classes = styles({});
-  const [ads, setAds] = useState<Advertisement[]>([]);
-  const [searchValue, setSearchValue] = useState<string>('');
+interface JobsAppBodyOwnProps {
+    jobsStore?: JobsStore;
+}
 
-  const fetchAllAds = (): void => {
-    getAllAds().then(data => setAds(data));
-  }
+const JobsAppBody: React.FC<JobsAppBodyOwnProps> = (props): JSX.Element => {
+    const classes = styles({});
+    const jobsStore: JobsStore = props.jobsStore!;
 
-  useEffect(() => {
-      fetchAllAds();
-  }, []);
+    const [searchValue, setSearchValue] = useState<string>('');
+
+    useEffect(() => {
+        jobsStore.loadAdvertisements();
+    }, []);
 
     const onSearchValueChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
         setSearchValue(event.target.value);
     }
 
     const getFilteredAds = (): Advertisement[] => {
+        const ads: Advertisement[] = jobsStore.advertisements;
+
         return ads.filter(ad => (
                 ad.name.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1 ||
                 ad.tag.name.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1
@@ -56,15 +60,15 @@ const JobsAppBody: React.FC<{}> = (): JSX.Element => {
         );
     }
 
-  return (
-    <div className={classes.appBodyContent}>
-        <Header 
-            searchValue={searchValue} 
-            onSearchValueChange={onSearchValueChange}
-            fetchAllAdsAfterPost={fetchAllAds} />
-        <JobsList ads={getFilteredAds()} isFiltered={searchValue !== '' && ads.length !== 0}/>
-    </div>
-  );
+    return (
+        <div className={classes.appBodyContent}>
+            <Header 
+                searchValue={searchValue} 
+                onSearchValueChange={onSearchValueChange}
+                fetchAllAdsAfterPost={jobsStore.loadAdvertisements} />
+            <JobsList ads={jobsStore.advertisements} isFiltered={searchValue !== '' && jobsStore.advertisements.length !== 0}/>
+        </div>
+    );
 }
 
-export default JobsAppBody;
+export default inject('jobsStore')(observer(JobsAppBody));
