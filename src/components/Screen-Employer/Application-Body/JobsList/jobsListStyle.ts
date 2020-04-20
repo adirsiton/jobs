@@ -71,7 +71,8 @@ const useStyles = makeStyles((theme) =>
             '&:hover': {
                 color: "#64e4bf",
                 backgroundColor: "transparent"
-            }
+            },
+            padding: 'unset'
         },
         locationTitle: {
             display: "flex",

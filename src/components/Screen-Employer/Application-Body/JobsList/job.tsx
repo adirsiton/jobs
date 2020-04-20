@@ -42,7 +42,9 @@ const Job: React.FC<JobsProps> = (props): JSX.Element => {
                             052-1111111
                         </Typography>
                         <Button className={classes.viewJobBtn} startIcon={<VisibilityOutlinedIcon className={classes.btnIcon} />}>
-                            לצפייה ברזומה
+                            <Typography variant='h6'>
+                                לצפייה ברזומה
+                            </Typography>
                         </Button>
                     </div>
                     <div className={classes.candidate}>
@@ -56,7 +58,9 @@ const Job: React.FC<JobsProps> = (props): JSX.Element => {
                             052-2222222
                         </Typography>
                         <Button className={classes.viewJobBtn} startIcon={<VisibilityOutlinedIcon className={classes.btnIcon} />}>
-                            לצפייה ברזומה
+                            <Typography variant='h6'>
+                                לצפייה ברזומה
+                            </Typography>
                         </Button>
                     </div>
                     <div className={classes.candidate}>
@@ -70,7 +74,9 @@ const Job: React.FC<JobsProps> = (props): JSX.Element => {
                             052-3333333
                         </Typography>
                         <Button className={classes.viewJobBtn} startIcon={<VisibilityOutlinedIcon className={classes.btnIcon} />}>
-                            לצפייה ברזומה
+                            <Typography variant='h6'>
+                                לצפייה ברזומה
+                            </Typography>
                         </Button>
                     </div>
                 </div>
