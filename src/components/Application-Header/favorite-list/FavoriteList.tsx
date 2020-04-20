@@ -23,7 +23,6 @@ const FavoriteList: React.FC<FavoriteListProps> = (props): JSX.Element => {
     const userFavoriteAdsIds: number[] = rootStore.userStore.getUser.favoriteAds!;
     const allAd: Advertisement[] = rootStore.jobsStore.advertisements;
 
-
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const handleSavedJobsButtonClick = (event: React.MouseEvent<HTMLButtonElement>): void => {
         if (userFavoriteAdsIds.length > 0) {
