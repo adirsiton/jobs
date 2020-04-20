@@ -1,9 +1,7 @@
 import * as React from 'react';
 import { useState, useEffect, useRef } from 'react';
 
-import Button from '@material-ui/core/Button';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
-import Typography from '@material-ui/core/Typography';
 import InputAdornment from '@material-ui/core/InputAdornment';
 
 
@@ -11,7 +9,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilter } from '@fortawesome/free-solid-svg-icons';
 
 import styles from './HeaderStyle';
-import PostNewJob from './PostNewJob/PostNewJob';
 
 import { getAllSelectOptions } from '../../../server/ads';
 import { AllSelectOptions } from '../../../types/AllSelectOptions';
@@ -66,24 +63,7 @@ const Header: React.FC<HeaderOwnProps> = (props): JSX.Element => {
                 onChange={onSearchValueChange}
                 value={searchValue}
             />
-                
-            <Button
-                className={classes.addNewPostButton}
-                variant="contained"
-                onClick={() => setOpenAddDialog(true)}
-                ref={addButtonRef}
-            >
-                <Typography
-                    variant='h5'
-                >
-                    + פרסום תפקיד חדש
-                </Typography>
-            </Button>
-            { openAddDialog && allSelectOptions && <PostNewJob 
-                allSelectOptions={allSelectOptions}
-                fetchAllAdsAfterPost={fetchAllAdsAfterPost}
-                closeDialog={onCloseDialog} />}
-            </div>
+        </div>
     );
 }
 
