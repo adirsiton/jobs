@@ -1,4 +1,7 @@
 import * as React from 'react';
+import { useEffect } from 'react'
+
+import { observer, inject } from 'mobx-react';
 
 import { withStyles, WithStyles } from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
@@ -7,31 +10,42 @@ import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import Tooltip from '@material-ui/core/Tooltip';
 
-import { User } from '../../types/userTypes';
+import { User } from '../../types/User';
 import  jobsLogo from '../../assets/images/jobsLogo.png';
+import { UserDetailsStore } from '../../store/UserDetailsStore';
 import FavoriteList from './favorite-list/FavoriteList';
 import styles from './JobsAppBarStyle';
 
 interface AppBarDataProps extends WithStyles<typeof styles> {
-    user: User;
+    userDetailsStore?: UserDetailsStore;
 }
 
 const JobsAppBar: React.FC<AppBarDataProps> = (props): JSX.Element => {
-    const { user, classes } = props;
+    const { classes } = props;
 
-    // For now I used a stupid function, just to get a different color   
-    const userHaveFavorites = (): boolean => {
-        return Math.random() >= 0.5;
+    const userDetailsStore: UserDetailsStore = props.userDetailsStore!;
+    const myUser: User = userDetailsStore.getUserDetails;
+
+    useEffect(() => {
+        userDetailsStore.loadUserDetails();
+    }, []);
+
+    const getUserInitials = (name: string): string => {
+        const splitName: string[] = name.split(' ');
+        return splitName.map(n=> n[0]).join(' '); 
     }
 
-    const getUserDetails = (): JSX.Element => {
+    const getUserDetails = (): JSX.Element | void  => {
+        if (userDetailsStore.isLoading || myUser === undefined) {
+            return;
+        }
         return (
             <div className={classes.userDetails}>
                 <Tooltip placement="right" title="ג'ובים ששמרתי" aria-label="my favorites">
                     <FavoriteList/>
                 </Tooltip>
                 <Avatar className={classes.avatar}>
-                    {user.userInitials}
+                    {getUserInitials(myUser.name)}
                 </Avatar>
             </div>
         );
@@ -62,4 +76,4 @@ const JobsAppBar: React.FC<AppBarDataProps> = (props): JSX.Element => {
     );
 }
 
-export default withStyles(styles)(JobsAppBar);
+export default withStyles(styles)(inject('userDetailsStore')(observer(JobsAppBar)));
