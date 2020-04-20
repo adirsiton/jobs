@@ -40,18 +40,16 @@ const FavoriteList: React.FC<FavoriteListProps> = (props): JSX.Element => {
 
     const displayFavoriteItems = (): JSX.Element[] => {
         return userFavoriteAdsIds.map(favorId => {
-            const favorAd = allAd.find(ad => ad.id === favorId)
+            const favorAd = allAd.find(ad => ad.id === favorId);
             if (typeof favorAd === "undefined") { return <></>; }
             return (
                 <div key={`${favorAd!.id}-favorite-div`}>
                     <FavoriteItem key={`${favorAd!.id}-favorite`} ad={favorAd}/>
                     <Divider key={`${favorAd.id}-favorite-divider`}/>
                 </div>
-            )
-
+            );
         })
     }
-    
 
     return (
         <>

@@ -24,7 +24,7 @@ const JobsAppBar: React.FC<AppBarDataProps> = (props): JSX.Element => {
     const { classes } = props;
 
     const userStore: UserStore = props.userStore!;
-    const myUser: User = userStore.getUser;
+    const user: User = userStore.getUser;
 
     useEffect(() => {
         userStore.loadUserDetails();
@@ -36,7 +36,7 @@ const JobsAppBar: React.FC<AppBarDataProps> = (props): JSX.Element => {
     }
 
     const getUserDetails = (): JSX.Element | void  => {
-        if (userStore.isLoading || myUser === undefined) {
+        if (userStore.isLoading || user === undefined) {
             return;
         }
         return (
@@ -45,7 +45,7 @@ const JobsAppBar: React.FC<AppBarDataProps> = (props): JSX.Element => {
                     <FavoriteList/>
                 </Tooltip>
                 <Avatar className={classes.avatar}>
-                    {getUserInitials(myUser.name)}
+                    {getUserInitials(user.name)}
                 </Avatar>
             </div>
         );
