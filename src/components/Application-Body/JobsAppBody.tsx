@@ -5,7 +5,6 @@ import { observer, inject } from 'mobx-react';
 
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
-import { LIGHT_COLOR_TEXT, NEW_JOB_COLOR } from '../../assets/projectJSS/Colors';
 import { JobsStore } from '../../store/JobsStore';
 import JobsList from './JobsList/jobsList';
 import Header from './header/Header';
@@ -18,17 +17,6 @@ const styles = makeStyles({
         paddingTop: '2vh',
         display: "flex",
         flexDirection: "column"
-    },
-    addNewPostButton: {
-        color: LIGHT_COLOR_TEXT,
-        backgroundColor: NEW_JOB_COLOR,
-        "&:hover": {
-            backgroundColor: NEW_JOB_COLOR,
-        },
-        "&:focus": {
-            backgroundColor: NEW_JOB_COLOR,
-        },
-        alignSelf: "flex-end"
     }
 });
 
@@ -44,7 +32,7 @@ const JobsAppBody: React.FC<JobsAppBodyOwnProps> = (props): JSX.Element => {
 
     useEffect(() => {
         jobsStore.loadAdvertisements();
-    }, []);
+    }, [jobsStore]);
 
     const onSearchValueChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
         setSearchValue(event.target.value);
@@ -55,7 +43,7 @@ const JobsAppBody: React.FC<JobsAppBodyOwnProps> = (props): JSX.Element => {
 
         return ads.filter(ad => (
                 ad.name.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1 ||
-                ad.tag.name.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1
+                ad.role.initials.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1
             )
         );
     }

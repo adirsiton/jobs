@@ -34,14 +34,13 @@ const styles = () => createStyles({
         maxWidth: '85%'
     },
     favoriteTag: {
-        height: "25px",
-        width: "45px",
+        width: "4ch",
+        height: "1.5rem",
         textAlign: "center",
-        backgroundColor: "#62e5ff",
-        fontSize: "medium",
         color: "white",
+        fontFamily: 'unset',
         borderRadius: "5px"
-    },
+},
     favoriteSecondaryTitle: {
         overflow: 'hidden',
         whiteSpace: 'nowrap',

@@ -5,5 +5,5 @@ export interface ContactInformation {
 
 export const EMPTY_CONTACT_INFORMATION: ContactInformation = {
     fullName: '',
-    phoneNumber: ''
+    phoneNumber: '-'
 } 
