@@ -34,12 +34,9 @@ const JobsAppEmployerBody: React.FC<JobsAppEmployerBodyOwnProps> = (props): JSX.
 
     return (
         <div className={classes.appBodyContent}>
-            <h1>
-                
-            </h1>
             <Header 
                 fetchAllAdsAfterPost={jobsStore.loadAdvertisements} />
-            {/* <JobsList ads={jobsStore.advertisements} /> */}
+            <JobsList ads={jobsStore.advertisements} />
         </div>
     );
 }

@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import Avatar from '@material-ui/core/Avatar';
 
 import styles from './HeaderStyle';
 import PostNewJob from './PostNewJob/PostNewJob';
@@ -43,14 +44,21 @@ const Header: React.FC<HeaderOwnProps> = (props): JSX.Element => {
     }
 
     const headerTitle = (): JSX.Element => {
+        const FIRST_NAME = 'נוי'; // TODO: Extract from mobx, the logged user's first name
+
         return (
-            <div>
-                <Typography>
-                    היי 
-                </Typography>
-                <Typography>
-                    הגעת לאזור האישי שלך בג'ובניק
-                </Typography>
+            <div className={classes.headerTitle}>
+                <Avatar className={classes.avatar}>
+                    א י
+                </Avatar>
+                <div>
+                    <Typography variant='h6' className={classes.headerTitleName}>
+                        היי {FIRST_NAME}!
+                    </Typography>
+                    <Typography variant='h6'>
+                        הגעת לאזור האישי שלך בג'ובניק
+                    </Typography>
+                </div>
             </div>
         );
     }
@@ -73,14 +81,21 @@ const Header: React.FC<HeaderOwnProps> = (props): JSX.Element => {
     }
 
     return (
-        <div className={classes.root}>           
-            {headerTitle()}
-            {addNewPostButton()}
-            { openAddDialog && allSelectOptions && <PostNewJob 
-                allSelectOptions={allSelectOptions}
-                fetchAllAdsAfterPost={fetchAllAdsAfterPost}
-                closeDialog={onCloseDialog} />}
-        </div>
+        <>
+            <div className={classes.root}>           
+                {headerTitle()}
+                {addNewPostButton()}
+                { openAddDialog && allSelectOptions && <PostNewJob 
+                    allSelectOptions={allSelectOptions}
+                    fetchAllAdsAfterPost={fetchAllAdsAfterPost}
+                    closeDialog={onCloseDialog} />}
+            </div>
+            <Typography 
+                variant='h4'
+                className={classes.jobsHeaderTitle}>
+                התעניינו בתפקידים שלך
+            </Typography>
+        </>
     );
 }
 

@@ -1,15 +1,17 @@
 import * as React from 'react';
+
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import EditRoundedIcon from '@material-ui/icons/EditRounded';
 import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
-import StarBorderOutlinedIcon from '@material-ui/icons/StarBorderOutlined';
-import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
+import CancelPresentationIcon from '@material-ui/icons/CancelPresentation';
+
 import styles from './jobsListStyle';
 
 import { Advertisement } from '../../../../types/Advertisements';
 
 interface JobsProps {
-    ad: Advertisement 
+    ad: Advertisement;
 }
 
 const Job: React.FC<JobsProps> = (props): JSX.Element => {
@@ -28,21 +30,55 @@ const Job: React.FC<JobsProps> = (props): JSX.Element => {
                         {ad.role.initials}
                     </Typography>
                 </div>
-                <div className={classes.jobSecondaryTitles}>
-                    <span> {`${ad.unit.name}/${ad.branch.name}/${ad.department.name}`}</span>
-                    <span className={classes.locationTitle}><LocationOnOutlinedIcon className={classes.jobsLocationIcon} /> {ad.location.name} </span>
+                <div className={classes.candidates}>
+                    <div className={classes.candidate}>
+                        <Typography variant='h6'>
+                            אדיר סיטון
+                        </Typography>
+                        <Typography variant='h6'>
+                            1234567
+                        </Typography>
+                        <Typography variant='h6'>
+                            052-1111111
+                        </Typography>
+                        <Button className={classes.viewJobBtn} startIcon={<VisibilityOutlinedIcon className={classes.btnIcon} />}>
+                            לצפייה ברזומה
+                        </Button>
+                    </div>
+                    <div className={classes.candidate}>
+                        <Typography variant='h6'>
+                            בן בביוף
+                        </Typography>
+                        <Typography variant='h6'>
+                            1234867
+                        </Typography>
+                        <Typography variant='h6'>
+                            052-2222222
+                        </Typography>
+                        <Button className={classes.viewJobBtn} startIcon={<VisibilityOutlinedIcon className={classes.btnIcon} />}>
+                            לצפייה ברזומה
+                        </Button>
+                    </div>
+                    <div className={classes.candidate}>
+                        <Typography variant='h6'>
+                            ישראל ישראלי
+                        </Typography>
+                        <Typography variant='h6'>
+                            7654321
+                        </Typography>
+                        <Typography variant='h6'>
+                            052-3333333
+                        </Typography>
+                        <Button className={classes.viewJobBtn} startIcon={<VisibilityOutlinedIcon className={classes.btnIcon} />}>
+                            לצפייה ברזומה
+                        </Button>
+                    </div>
                 </div>
             </div>
-            <div className={classes.jobContent}>
-                <span> {ad.description} </span>
-                <div className={classes.jobContentFooter}>
-                    <div> <span className={classes.jobContentTitle}> תקן:</span>  <span> {ad.standards.join('/')} </span></div>
-                    <div > <span className={classes.jobContentTitle}> כניסה לתפקיד:</span>  <span> {ad.entryDate ? ad.entryDate : 'מיידי'} </span></div>
-                </div>
-            </div>
+            <div className={classes.jobContent} />
             <div className={classes.jobFooter}>
-                <Button className={classes.jobBtn} startIcon={<VisibilityOutlinedIcon className={classes.btnIcon} />}> צפייה  </Button>
-                <Button className={classes.jobBtn} startIcon={<StarBorderOutlinedIcon className={classes.btnIcon} />}>  שמירה  </Button>
+                <Button className={classes.jobBtn} startIcon={<EditRoundedIcon className={classes.btnIcon} />}>עריכה</Button>
+                <Button className={classes.jobBtn} startIcon={<CancelPresentationIcon className={classes.btnIcon} />}>סגירת תפקיד</Button>
             </div>
         </div>
     );

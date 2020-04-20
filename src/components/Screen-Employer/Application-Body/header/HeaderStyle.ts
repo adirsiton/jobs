@@ -1,11 +1,30 @@
 import makeStyles from "@material-ui/core/styles/makeStyles";
-import { LIGHT_COLOR_TEXT, NEW_JOB_COLOR } from "../../../../assets/projectJSS/Colors";
+import { LIGHT_COLOR_TEXT, NEW_JOB_COLOR, AVATAR_COLOR } from "../../../../assets/projectJSS/Colors";
 
 const styles = makeStyles({
     root: {
         display: 'flex',
         justifyContent: 'space-between',
         height: '5vh'
+    },
+    headerTitleName: {
+        fontWeight: 'bolder'
+    },
+    headerTitle: {
+        display: 'flex',
+        flexDirection: 'row'
+    },
+    jobsHeaderTitle: {
+        fontWeight: 'bolder',
+        marginTop: '4vh',
+        marginRight: '5vw'
+    },
+    avatar: {
+        backgroundColor: AVATAR_COLOR,
+        margin: '0 1ch',
+        height: '6vh',
+        width: '6vh',
+        fontSize: '3vh'
     },
     addNewPostButton: {
         color: LIGHT_COLOR_TEXT,

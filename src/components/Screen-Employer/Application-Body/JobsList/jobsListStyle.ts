@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) =>
             '&::-webkit-scrollbar': {
                 display: "none"
             },
-            height: "76vh",
+            // maxHeight: "76vh",
             overflow: "scroll",
             padding: "34px",
             alignSelf: "center"
@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) =>
             marginBottom: "30px",
             display: "flex",
             flexDirection: "row",
-            height: '14vh',
+            height: 'auto',
             minHeight: '120px',
             width: "100%",
             minWidth: '1220px'
@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) =>
             display: "flex",
             flexDirection: "column",
             padding: "20px",
-            width: "24%"
+            width: "30%"
         },
         jobTitle: {
             fontWeight: "bold",
@@ -53,13 +53,25 @@ const useStyles = makeStyles((theme) =>
             alignItems: "center",
             justifyContent: "space-between"
         },
-        jobSecondaryTitles: {
+        candidates: {
             display: "flex",
             flexDirection: "column",
             color: "#a59e9e",
             fontSize: "medium",
             fontWeight: 400,
             lineHeight: 1.6
+        },
+        candidate: {
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between"
+        },
+        viewJobBtn: {
+            color: "#21BD90",
+            '&:hover': {
+                color: "#64e4bf",
+                backgroundColor: "transparent"
+            }
         },
         locationTitle: {
             display: "flex",
@@ -103,12 +115,6 @@ const useStyles = makeStyles((theme) =>
         btnIcon: {
             marginRight: "3px",
             marginLeft: "5px"
-        },
-        searchNotFound: {
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            marginTop: '28vh'
         },
         bigFont: {
             fontSize: '3em'

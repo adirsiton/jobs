@@ -9,7 +9,8 @@ import JobsAppEmployerBody from './components/Screen-Employer/Application-Body/J
 
 const App: React.FC<{}> = (): JSX.Element => {
   // Question, can both Publisher and Contact, see the posts?
-  const isEmployer: boolean = false; // TODO: Fix this with logic from DB + jobsStore who is connected
+  const isEmployer: boolean = true; // TODO: Fix this with logic from DB + jobsStore who is connected
+
   return (
     <Provider jobsStore={jobsStore}>
       <JobsAppBar user={{name: "אדיר סטיון", userInitials: "א י"}} />
