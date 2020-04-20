@@ -52,9 +52,8 @@ const JobsAppBody: React.FC<JobsAppBodyOwnProps> = (props): JSX.Element => {
         <div className={classes.appBodyContent}>
             <Header 
                 searchValue={searchValue} 
-                onSearchValueChange={onSearchValueChange}
-                fetchAllAdsAfterPost={jobsStore.loadAdvertisements} />
-            <JobsList ads={jobsStore.advertisements} isFiltered={searchValue !== '' && jobsStore.advertisements.length !== 0}/>
+                onSearchValueChange={onSearchValueChange} />
+            <JobsList ads={getFilteredAds()} isFiltered={searchValue !== '' && jobsStore.advertisements.length !== 0}/>
         </div>
     );
 }
