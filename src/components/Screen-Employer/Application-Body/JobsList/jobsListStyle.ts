@@ -44,14 +44,14 @@ const useStyles = makeStyles((theme) =>
         jobTitle: {
             fontWeight: "bold",
             fontSize: "24px",
-            marginBottom: "10px",
             color: "#595959"
         },
         jobMainTitles: {
             display: "flex",
             flexDirection: "row",
             alignItems: "center",
-            justifyContent: "space-between"
+            justifyContent: "space-between",
+            marginBottom: '10px'
         },
         candidates: {
             display: "flex",
