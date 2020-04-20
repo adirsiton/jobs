@@ -10,20 +10,17 @@ import Divider from '@material-ui/core/Divider';
 
 import { Advertisement } from '../../../types/Advertisements';
 import { RootStore } from '../../../store/RootStore';
-import { JobsStore } from '../../../store/JobsStore';
 import FavoriteItem from './FavoriteItem';
 import styles from './FavoriteListStyles';
 
 interface FavoriteListProps extends WithStyles<typeof styles> {
-    jobsStore?: JobsStore;
     rootStore?: RootStore;
 }
 
 const FavoriteList: React.FC<FavoriteListProps> = (props): JSX.Element => {
     const { classes } = props;
-    // const jobsStore: JobsStore = props.jobsStore!;
     const rootStore: RootStore = props.rootStore!;
-    const userFavoriteAdsIds: number[] = rootStore.userDetailsStore.getUserDetails.favoriteAds!;
+    const userFavoriteAdsIds: number[] = rootStore.userStore.getUser.favoriteAds!;
     const allAd: Advertisement[] = rootStore.jobsStore.advertisements;
 
 
@@ -39,12 +36,6 @@ const FavoriteList: React.FC<FavoriteListProps> = (props): JSX.Element => {
     };
 
     const getIconColor = (): string => {
-        // const user: User = rootStore.userDetailsStore.getUserDetails;
-        // if (user !== undefined) {
-        //     return user.favoriteAds!.length > 0 ? classes.starIconYellow : classes.starIconWhite;
-        // } else {
-        //     return classes.starIconWhite;
-        // }
         return userFavoriteAdsIds.length > 0 ? classes.starIconYellow : classes.starIconWhite;
     }
 

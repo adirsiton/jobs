@@ -3,16 +3,16 @@ import { User } from '../types/User';
 import { fetchUserDetails } from '../server/user';
 import { RootStore } from './RootStore';
 
-export class UserDetailsStore {
+export class UserStore {
     private rootStore: RootStore;
     constructor(rootStore: RootStore) {
         this.rootStore = rootStore
     }
-    private userDetails = observable.box<User>();
+    private user = observable.box<User>();
     private isLoadingUserDetails = observable.box<boolean>(false);
 
-    get getUserDetails() {
-        return this.userDetails.get();
+    get getUser() {
+        return this.user.get();
     }
 
     get isLoading () {
@@ -22,14 +22,14 @@ export class UserDetailsStore {
     loadUserDetails = async () => {
         // Fetch data from server
         this.isLoadingUserDetails.set(true);
-        const userDetails: User = await fetchUserDetails();
-        this.userDetails.set(userDetails);
+        const user: User = await fetchUserDetails();
+        this.user.set(user);
         this.isLoadingUserDetails.set(false);
     }
 }
 
-decorate(UserDetailsStore, {
-    getUserDetails: computed,
+decorate(UserStore, {
+    getUser: computed,
     isLoading: computed,
     loadUserDetails: action
 });

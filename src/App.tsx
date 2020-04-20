@@ -11,7 +11,7 @@ const App: React.FC<{}> = (): JSX.Element => {
       <Provider
           rootStore={rootStore}
           jobsStore={rootStore.jobsStore}
-          userDetailsStore={rootStore.userDetailsStore}
+          userStore={rootStore.userStore}
       >
           <JobsAppBar />
           <JobsAppBody />

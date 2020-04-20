@@ -12,22 +12,22 @@ import Tooltip from '@material-ui/core/Tooltip';
 
 import { User } from '../../types/User';
 import  jobsLogo from '../../assets/images/jobsLogo.png';
-import { UserDetailsStore } from '../../store/UserDetailsStore';
+import { UserStore } from '../../store/UserStore';
 import FavoriteList from './favorite-list/FavoriteList';
 import styles from './JobsAppBarStyle';
 
 interface AppBarDataProps extends WithStyles<typeof styles> {
-    userDetailsStore?: UserDetailsStore;
+    userStore?: UserStore;
 }
 
 const JobsAppBar: React.FC<AppBarDataProps> = (props): JSX.Element => {
     const { classes } = props;
 
-    const userDetailsStore: UserDetailsStore = props.userDetailsStore!;
-    const myUser: User = userDetailsStore.getUserDetails;
+    const userStore: UserStore = props.userStore!;
+    const myUser: User = userStore.getUser;
 
     useEffect(() => {
-        userDetailsStore.loadUserDetails();
+        userStore.loadUserDetails();
     }, []);
 
     const getUserInitials = (name: string): string => {
@@ -36,7 +36,7 @@ const JobsAppBar: React.FC<AppBarDataProps> = (props): JSX.Element => {
     }
 
     const getUserDetails = (): JSX.Element | void  => {
-        if (userDetailsStore.isLoading || myUser === undefined) {
+        if (userStore.isLoading || myUser === undefined) {
             return;
         }
         return (
@@ -76,4 +76,4 @@ const JobsAppBar: React.FC<AppBarDataProps> = (props): JSX.Element => {
     );
 }
 
-export default withStyles(styles)(inject('userDetailsStore')(observer(JobsAppBar)));
+export default withStyles(styles)(inject('userStore')(observer(JobsAppBar)));
