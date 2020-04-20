@@ -41,43 +41,41 @@ const JobNicknameInput: React.FC<JobNicknameInputProps> = (props): JSX.Element =
     }
 
     return (
-        <>
-            <div
-                className={classes.jobNickname}
+        <div
+            className={classes.jobNickname}
+        >
+            <InputLabel
+                required
+                error={isInError}
             >
-                <InputLabel
-                    required
+                שם התפקיד
+            </InputLabel>
+            <div
+                className={classes.jobRequirementsMargin}
+            >
+                <TextField 
+                    required                        
+                    // Disable the underline...
+                    className={classes.jobNicknameText}
+                    placeholder='למשל: מנהל מוצר שו"ב ל"א'
                     error={isInError}
-                >
-                    שם התפקיד
-                </InputLabel>
-                <div
-                    className={classes.jobRequirementsMargin}
-                >
-                    <TextField 
-                        required                        
-                        // Disable the underline...
-                        className={classes.jobNicknameText}
-                        placeholder='למשל: מנהל מוצר שו"ב ל"א'
-                        error={isInError}
-                        helperText={getHelperText()}
+                    helperText={getHelperText()}
 
-                        FormHelperTextProps={{
-                            hidden: !isInError,
-                        }}
-                        value={jobNickname}
-                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => 
-                            setJobNickname(event.target.value)
-                        }
-                        inputProps={{
-                            maxLength: JOB_NICKNAME_MAX_LENGTH,
-                        }}
-                        InputProps={{
-                            disableUnderline: true,
-                        }} />
-                </div>
+                    FormHelperTextProps={{
+                        hidden: !isInError,
+                    }}
+                    value={jobNickname}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => 
+                        setJobNickname(event.target.value)
+                    }
+                    inputProps={{
+                        maxLength: JOB_NICKNAME_MAX_LENGTH,
+                    }}
+                    InputProps={{
+                        disableUnderline: true,
+                    }} />
             </div>
-        </>
+        </div>
     );        
 }
 

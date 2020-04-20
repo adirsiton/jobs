@@ -9,6 +9,7 @@ const postPadding = "1vw";
 const TEXT_FIELD_HEIGHT = "48px";
 const ROW_TEXT_FIELD_HEIGHT_PADDING = "2.5vh";
 const HALF_ROW_TEXT_FIELD_HEIGHT_PADDING = "1.25vh";
+const MINIMAL_HEIGHT_PADDING = "1em";
 
 const styles = makeStyles({
     dialogPaper: {
@@ -24,12 +25,12 @@ const styles = makeStyles({
     dialogContent: {
         padding: "unset",
         paddingRight: postPadding,
+        overflowY: 'unset'
     },
     baseLocation: {
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
-        marginTop: '2vh'
     },
     baseLocationLabelText: {
         paddingRight: '0.5ch'
@@ -46,7 +47,7 @@ const styles = makeStyles({
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",
-        marginTop: ROW_TEXT_FIELD_HEIGHT_PADDING,
+        marginTop: MINIMAL_HEIGHT_PADDING,
         marginLeft: `calc(2 * ${postPadding})`
     },
     subtitlesMargin: {
@@ -55,7 +56,6 @@ const styles = makeStyles({
         marginRight: '2ch'
     },
     jobRequirementsHeader: {
-        marginTop: HALF_ROW_TEXT_FIELD_HEIGHT_PADDING,
         display: "flex",
     },
     jobRequirementsHeaderTitle: {
@@ -72,17 +72,17 @@ const styles = makeStyles({
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
-        marginTop: `calc(${ROW_TEXT_FIELD_HEIGHT_PADDING} + ${HALF_ROW_TEXT_FIELD_HEIGHT_PADDING})`,
+        marginTop: `calc(3 * ${HALF_ROW_TEXT_FIELD_HEIGHT_PADDING})`,
         marginBottom: ROW_TEXT_FIELD_HEIGHT_PADDING,
     },
     standardFields: {
         display: "flex",
         flexDirection: "row",
-        alignItems: "center",
-        marginTop: HALF_ROW_TEXT_FIELD_HEIGHT_PADDING,
+        alignItems: "center"
     },
     datePicker: {
         width: "11.5ch",
+        height: "4ch",
         backgroundColor: TEXT_AND_ICONS_ADS_BACKGROUND_COLOR
     },
     datePickerInput: {
@@ -95,17 +95,18 @@ const styles = makeStyles({
         paddingLeft: "3ch"
     },    
     jobEntryDateFields: {
-        height: `calc(${TEXT_FIELD_HEIGHT} + ${HALF_ROW_TEXT_FIELD_HEIGHT_PADDING})`,
+        marginTop: ROW_TEXT_FIELD_HEIGHT_PADDING,
         display: "flex",
         alignItems: "center"
     },
     jobSeniorityFields: {
-        height: `calc(${TEXT_FIELD_HEIGHT} + ${HALF_ROW_TEXT_FIELD_HEIGHT_PADDING})`,
+        marginTop: `calc(3 * ${HALF_ROW_TEXT_FIELD_HEIGHT_PADDING})`,
         display: "flex",
         alignItems: "center"
     },
     jobDamachFields: {
-        // height: "10vh",
+        marginTop: MINIMAL_HEIGHT_PADDING,
+        marginBottom: MINIMAL_HEIGHT_PADDING,
         display: "flex",
         alignItems: "center"
     },
@@ -122,6 +123,7 @@ const styles = makeStyles({
         marginRight: '12ch'
     },
     jobDescriptionArea: {
+        marginTop: '2px',
         width: `calc(100% - 3 * ${postPadding})`,
         backgroundColor: TEXT_AND_ICONS_ADS_BACKGROUND_COLOR,
         marginLeft: `calc(2 * ${postPadding})`,
@@ -147,6 +149,35 @@ const styles = makeStyles({
     jobNicknameText: {
         backgroundColor: TEXT_AND_ICONS_ADS_BACKGROUND_COLOR,
         width: "40ch"
+    },
+    contactInfo: {
+        display: "flex",
+        alignItems: "center",
+        marginTop: MINIMAL_HEIGHT_PADDING,
+        marginBottom: ROW_TEXT_FIELD_HEIGHT_PADDING
+    },
+    contactNicknameText: {
+        fontStyle: ITALIC_FONT,
+        backgroundColor: TEXT_AND_ICONS_ADS_BACKGROUND_COLOR,
+        width: "17ch"
+    },
+    // contactNicknameLabel: {
+    //     fontStyle: ITALIC_FONT,
+    //     '&:focus': {
+    //         transform: 'translate(0, 8px) scale(1)'
+    //     }
+    // },
+    contactPhoneSuffix: {
+        backgroundColor: TEXT_AND_ICONS_ADS_BACKGROUND_COLOR,
+        fontStyle: ITALIC_FONT,
+        marginLeft: '1ch',
+        marginRight: '2ch',
+        width: '6ch',
+        direction: 'ltr',
+        paddingLeft: '1ch'
+    },
+    contactPhonePrefix: {
+        marginRight: '1ch'
     },
     selectIcon: {
         direction: "rtl",
@@ -195,13 +226,18 @@ const styles = makeStyles({
     checkboxIcon: {
         fontSize: "24px", // Radio button size
     },
-    numberInput: { 
+    seniorityNumberInput: { 
+        height: "4ch",
         width: "11.5ch",
         marginRight: "1.25ch",
         backgroundColor: TEXT_AND_ICONS_ADS_BACKGROUND_COLOR
     },
-    numberInputLabel: {
-        alignSelf: "center",
+    seniorityNumberText: { 
+        padding: 'unset !important',
+        paddingBottom: '3px !important',
+        direction: 'ltr'
+    },
+    seniorityNumberInputLabel: {
         fontStyle: ITALIC_FONT
     },
 });

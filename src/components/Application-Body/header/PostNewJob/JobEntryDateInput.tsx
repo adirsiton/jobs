@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState } from 'react';
 
 import Tooltip from '@material-ui/core/Tooltip';
-import Typography from '@material-ui/core/Typography';
+import InputLabel from '@material-ui/core/InputLabel';
 import MuiPickersUtilsProvider from "@material-ui/pickers/MuiPickersUtilsProvider";
 import { KeyboardDatePicker } from "@material-ui/pickers/DatePicker/DatePicker";
 import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
@@ -108,9 +108,9 @@ const JobEntryDateInput: React.FC<JobEntryDateProps> = (props): JSX.Element => {
 
     return (
         <div className={classes.jobEntryDateFields}>
-            <Typography className={classes.jobEntryDateTitle}>
+            <InputLabel className={classes.jobEntryDateTitle}>
                 כניסה לתפקיד
-            </Typography>
+            </InputLabel>
             <div
                 className={classes.jobRequirementsMargin}
             >

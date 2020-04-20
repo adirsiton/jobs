@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import Typography from '@material-ui/core/Typography';
+import InputLabel from '@material-ui/core/InputLabel';
 
 import styles from './PostNewJobStyles';
 import SwitchInput from './SwitchInput';
@@ -17,9 +17,9 @@ const JobDamachInput: React.FC<JobDamachInputProps> = (props): JSX.Element => {
 
     return (
         <div className={classes.jobDamachFields}>
-            <Typography variant='body1'>
+            <InputLabel>
                 מוכר לדמ"ח?
-            </Typography>
+            </InputLabel>
             <div
                 className={classes.jobRequirementsMargin}
             >

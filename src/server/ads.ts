@@ -1,6 +1,7 @@
 
 import { Advertisement , sqlAd, AdvertisementInsertData } from '../types/Advertisements';
 import { AllSelectOptions } from '../types/AllSelectOptions';
+import { Branch, Department } from '../types/Departments';
 
 export async function getAllAds(): Promise<Advertisement []> {
     const ads: sqlAd[] = await fetch('/ads').then(response => {
@@ -22,6 +23,26 @@ export const getAllSelectOptions = async (): Promise<AllSelectOptions> => {
     return allSelectOptions;
 }
 
+export const getBranchesOfUnit = async (unitId: number): Promise<Branch[]> => {    
+    const response: Response = await fetch(`/ads/branches/${unitId}`, {
+        method: 'GET'
+    });
+
+    const branchesOfUnit = await response.json();
+
+    return branchesOfUnit;
+}
+
+export const getDepartmentsOfBranch = async (branchId: number): Promise<Department[]> => {    
+    const response: Response = await fetch(`/ads/departments/${branchId}`, {
+        method: 'GET'
+    });
+
+    const departmentsOfBranch = await response.json();
+
+    return departmentsOfBranch;
+}
+
 export const addNewAd = async (ad: AdvertisementInsertData): Promise<void> => {    
     await fetch('/ads', {
         headers: {
@@ -33,23 +54,21 @@ export const addNewAd = async (ad: AdvertisementInsertData): Promise<void> => {
     });
 }
 
-function parseAd(adJson: sqlAd): Advertisement  {
+function parseAd(adJson: sqlAd): Advertisement {
     return {
         id: adJson.id,
         name: adJson.job_title,
-        tag: {
-            name: adJson.tag,
-            color: adJson.tag_color
+        role: {
+            id: adJson.role_id,
+            name: adJson.role_name,
+            initials: adJson.role_initials,
+            color: adJson.role_color
         },
         description: adJson.job_description,
         entryDate: adJson.entry_date,
         seniority: adJson.seniority,
         isDamach: adJson.is_damach,
         standards: adJson.standards_array,
-        role: {
-            id: adJson.role_id,
-            name: adJson.role_name
-        },
         unit: {
             id: adJson.unit_id,
             name: adJson.unit_name
@@ -71,6 +90,5 @@ function parseAd(adJson: sqlAd): Advertisement  {
             displayName: adJson.advertiser,
             contact: adJson.contact
         }
-
     };
 }
