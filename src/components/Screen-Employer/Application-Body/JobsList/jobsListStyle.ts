@@ -39,18 +39,20 @@ const useStyles = makeStyles((theme) =>
             display: "flex",
             flexDirection: "column",
             padding: "20px",
-            width: "30%"
+            width: "40%"
         },
         jobTitle: {
             fontWeight: "bold",
-            fontSize: "24px",
-            color: "#595959"
+            width: '20ch',
+            whiteSpace: 'nowrap',
+            textOverflow: 'ellipsis',
+            overflow: 'hidden',
+            marginLeft: '6ch'
         },
         jobMainTitles: {
             display: "flex",
             flexDirection: "row",
             alignItems: "center",
-            justifyContent: "space-between",
             marginBottom: '10px'
         },
         candidates: {
@@ -65,6 +67,12 @@ const useStyles = makeStyles((theme) =>
             display: "flex",
             flexDirection: "row",
             justifyContent: "space-between"
+        },
+        candidateName: {
+            width: '15ch',
+            whiteSpace: 'nowrap',
+            textOverflow: 'ellipsis',
+            overflow: 'hidden'
         },
         viewJobBtn: {
             color: "#21BD90",

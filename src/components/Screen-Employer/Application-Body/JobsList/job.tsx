@@ -22,7 +22,13 @@ const Job: React.FC<JobsProps> = (props): JSX.Element => {
         <div className={classes.job}>
             <div className={classes.jobHeader}>
                 <div className={classes.jobMainTitles}>
-                    <span className={classes.jobTitle}> {ad.name}</span>
+                    <Typography 
+                        variant='h5'
+                        className={classes.jobTitle}
+                        title={ad.name}
+                    >
+                        {ad.name}
+                    </Typography>
                     <Typography 
                         className={classes.tag} 
                         style={{ backgroundColor: ad.role.color }}
@@ -32,7 +38,7 @@ const Job: React.FC<JobsProps> = (props): JSX.Element => {
                 </div>
                 <div className={classes.candidates}>
                     <div className={classes.candidate}>
-                        <Typography variant='h6'>
+                        <Typography className={classes.candidateName} variant='h6'>
                             אדיר סיטון
                         </Typography>
                         <Typography variant='h6'>
@@ -48,7 +54,7 @@ const Job: React.FC<JobsProps> = (props): JSX.Element => {
                         </Button>
                     </div>
                     <div className={classes.candidate}>
-                        <Typography variant='h6'>
+                        <Typography className={classes.candidateName} variant='h6'>
                             בן בביוף
                         </Typography>
                         <Typography variant='h6'>
@@ -64,8 +70,8 @@ const Job: React.FC<JobsProps> = (props): JSX.Element => {
                         </Button>
                     </div>
                     <div className={classes.candidate}>
-                        <Typography variant='h6'>
-                            ישראל ישראלי
+                        <Typography className={classes.candidateName} variant='h6' title='אאאאאבבבבבגגגגגדדדדד הההההווווו'>
+                            אאאאאבבבבבגגגגגדדדדד הההההווווו
                         </Typography>
                         <Typography variant='h6'>
                             7654321
