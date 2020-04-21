@@ -37,6 +37,7 @@ const Job: React.FC<JobsProps> = (props): JSX.Element => {
                     </Typography>
                 </div>
                 <div className={classes.candidates}>
+                    {ad.role.initials === 'PM' &&
                     <div className={classes.candidate}>
                         <Typography className={classes.candidateName} variant='h6'>
                             אדיר סיטון
@@ -52,7 +53,7 @@ const Job: React.FC<JobsProps> = (props): JSX.Element => {
                                 לצפייה ברזומה
                             </Typography>
                         </Button>
-                    </div>
+                    </div> }
                     <div className={classes.candidate}>
                         <Typography className={classes.candidateName} variant='h6'>
                             בן בביוף

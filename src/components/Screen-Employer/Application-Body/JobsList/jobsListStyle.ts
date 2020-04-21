@@ -20,8 +20,9 @@ const useStyles = makeStyles((theme) =>
             '&::-webkit-scrollbar': {
                 display: "none"
             },
-            // maxHeight: "76vh",
-            overflow: "scroll",
+            height: '60vh',
+            overflow: 'hidden',
+            overflowY: "scroll",
             padding: "34px",
             alignSelf: "center"
         },
@@ -31,7 +32,6 @@ const useStyles = makeStyles((theme) =>
             display: "flex",
             flexDirection: "row",
             height: 'auto',
-            minHeight: '120px',
             width: "100%",
             minWidth: '1220px'
         },
