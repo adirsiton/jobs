@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { useState, useEffect, useRef } from 'react';
 
+import { observer, inject } from 'mobx-react';
+
 import Button from '@material-ui/core/Button';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import Typography from '@material-ui/core/Typography';
@@ -15,16 +17,19 @@ import PostNewJob from './PostNewJob/PostNewJob';
 
 import { getAllSelectOptions } from '../../../server/ads';
 import { AllSelectOptions } from '../../../types/AllSelectOptions';
+import { UserStore } from '../../../store/UserStore';
 
 interface HeaderOwnProps {
     fetchAllAdsAfterPost: () => void;
     searchValue: string;
     onSearchValueChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    userStore?: UserStore;
 }
 
 const Header: React.FC<HeaderOwnProps> = (props): JSX.Element => {
     const { fetchAllAdsAfterPost, onSearchValueChange, searchValue } = props;
     const classes = styles({});
+    const userStore: UserStore = props.userStore!;
 
     const [allSelectOptions, setAllSelectOptions] = useState<AllSelectOptions | null>(null);
     const [openAddDialog, setOpenAddDialog] = useState<boolean>(false);
@@ -32,7 +37,7 @@ const Header: React.FC<HeaderOwnProps> = (props): JSX.Element => {
 
     // when closing dialog - blur the add button
     useEffect(() => {
-        if (!openAddDialog && addButtonRef) {
+        if (userStore.isRamad && !openAddDialog && addButtonRef) {
             // @ts-ignore
             addButtonRef.current.blur();
         }
@@ -63,25 +68,28 @@ const Header: React.FC<HeaderOwnProps> = (props): JSX.Element => {
                 onChange={onSearchValueChange}
                 value={searchValue}
             />
-                
-            <Button
-                className={classes.addNewPostButton}
-                variant="contained"
-                onClick={() => setOpenAddDialog(true)}
-                ref={addButtonRef}
-            >
-                <Typography
-                    variant='h6'
-                >
-                    + פרסום תפקיד חדש
-                </Typography>
-            </Button>
-            { openAddDialog && allSelectOptions && <PostNewJob 
-                allSelectOptions={allSelectOptions}
-                fetchAllAdsAfterPost={fetchAllAdsAfterPost}
-                closeDialog={onCloseDialog} />}
+            { userStore.isRamad &&
+                <>    
+                    <Button
+                        className={classes.addNewPostButton}
+                        variant="contained"
+                        onClick={() => setOpenAddDialog(true)}
+                        ref={addButtonRef}
+                    >
+                        <Typography
+                            variant='h6'
+                        >
+                            + פרסום תפקיד חדש
+                        </Typography>
+                    </Button>
+                    { openAddDialog && allSelectOptions && <PostNewJob 
+                        allSelectOptions={allSelectOptions}
+                        fetchAllAdsAfterPost={fetchAllAdsAfterPost}
+                        closeDialog={onCloseDialog} />}
+                </>
+            }
             </div>
     );
 }
 
-export default Header;
+export default inject('userStore')(observer(Header));

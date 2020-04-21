@@ -1,7 +1,8 @@
 INSERT INTO jobs.users(upn, display_name) VALUES 
     ('s8182384', 'מיכאל הופמן'),
     ('s8258065', 'דניאל דימנשטיין'),
-    ('s8222765', 'אדיר סטיון');
+    ('s8222765', 'אדיר סטיון'),
+    ('SteveVaknin', 'סטיב וקנין');
 
 INSERT INTO jobs.tags(name, color) VALUES 
     ('TL', '#00B0F0'),

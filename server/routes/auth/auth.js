@@ -10,24 +10,40 @@ router.get('/login', passport.authenticate('OAuth2', {scope: 'read:user'}, (req,
 
 const checkIsAdmin = async (id) => {
   const { rows } = await db.query(`
-    SELECT COUNT(user)
-    FROM jobs.department_head as ramads
-    WHERE ramads.user = $1
+  SELECT COUNT(user_id)
+  FROM jobs.department_head as ramads
+  WHERE ramads.user_id = $1
   `, [id]);
 
-  return (rows[0] > 0);
+  return (parseInt(rows[0]) > 0);
+}
+
+const getUserDetails = async (id, displayName) => {
+  const { rows } = await db.query(`
+    INSERT INTO jobs.users (upn, display_name)
+    VALUES ($1, $2)
+    ON CONFLICT (upn) DO UPDATE SET last_entrance = NOW()
+    RETURNING *
+  `, [id, displayName]);
+
+  return rows[0];
 }
 
 router.get('/auth/callback',
   passport.authenticate('OAuth2', { failureRedirect: '/bad' }),
-  function(req, res) {
+  async function(req, res) {
     // Successful authentication
+    const user = await getUserDetails(req.user, req.user); // On whiten we'll take the display take from ping
 
     // Check Ramad access
-    if (checkIsAdmin(req.user)) {
-      req.session.admin = true;
-      req.admin = true;
-    }
+    const isRamad = await checkIsAdmin(req.user);
+    req.session.admin = isRamad;
+
+    res.cookie('user', JSON.stringify({
+      upn: user.upn,
+      name: user.display_name,
+      ramad: isRamad
+    }));
 
     // redirect home
     res.redirect('/');

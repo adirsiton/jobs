@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import { inject } from 'mobx-react';
+
 import { withStyles, WithStyles } from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -11,13 +13,15 @@ import { User } from '../../types/userTypes';
 import  jobsLogo from '../../assets/images/jobsLogo.png';
 import FavoriteList from './favorite-list/FavoriteList';
 import styles from './JobsAppBarStyle';
+import { UserStore } from '../../store/UserStore';
 
 interface AppBarDataProps extends WithStyles<typeof styles> {
-    user: User;
+    userStore?: UserStore;
 }
 
 const JobsAppBar: React.FC<AppBarDataProps> = (props): JSX.Element => {
-    const { user, classes } = props;
+    const { classes } = props;
+    const userStore: UserStore = props.userStore!;
 
     // For now I used a stupid function, just to get a different color   
     const userHaveFavorites = (): boolean => {
@@ -31,7 +35,7 @@ const JobsAppBar: React.FC<AppBarDataProps> = (props): JSX.Element => {
                     <FavoriteList/>
                 </Tooltip>
                 <Avatar className={classes.avatar}>
-                    {user.userInitials}
+                    {userStore.displayName.substring(0,1)}
                 </Avatar>
             </div>
         );
@@ -62,4 +66,4 @@ const JobsAppBar: React.FC<AppBarDataProps> = (props): JSX.Element => {
     );
 }
 
-export default withStyles(styles)(JobsAppBar);
+export default inject('userStore')(withStyles(styles)(JobsAppBar));
