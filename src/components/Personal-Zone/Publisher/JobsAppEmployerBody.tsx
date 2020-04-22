@@ -8,6 +8,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import { JobsStore } from '../../../store/JobsStore';
 import JobsList from './JobsList/jobsList';
 import Header from './header/Header';
+import EmptyPublisherDisplay from './empty-display/EmptyDisplay';
 
 const styles = makeStyles({
     appBodyContent: {
@@ -26,6 +27,7 @@ interface JobsAppEmployerBodyOwnProps {
 const JobsAppEmployerBody: React.FC<JobsAppEmployerBodyOwnProps> = (props): JSX.Element => {
     const classes = styles({});
     const jobsStore: JobsStore = props.jobsStore!;
+    const hasResume = false; // later use from server
 
     useEffect(() => {
         jobsStore.loadAdvertisements();
@@ -35,7 +37,10 @@ const JobsAppEmployerBody: React.FC<JobsAppEmployerBodyOwnProps> = (props): JSX.
         <div className={classes.appBodyContent}>
             <Header 
                 fetchAllAdsAfterPost={jobsStore.loadAdvertisements} />
-            <JobsList ads={jobsStore.advertisements} />
+            { hasResume 
+                ? <JobsList ads={jobsStore.advertisements} />
+                : <EmptyPublisherDisplay />
+            }
         </div>
     );
 }
