@@ -6,7 +6,7 @@ import {
 } from 'react-router-dom';
 
 import JobsAppBar from './components/Application-Header/JobsAppBar';
-import JobsPage from './components/JobsManagement/JobsPage';
+import JobsPage from './components/Home-Page/JobsAppBody';
 import User from './components/UserManagement/UserResume';
 
 

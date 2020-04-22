@@ -16,11 +16,6 @@ CREATE TABLE jobs.roles(
 CREATE TABLE jobs.users(
 	upn text PRIMARY KEY,
 	display_name text
-	-- ,
-	-- rank_id int REFERENCES jobs.standards(id) ON DELETE CASCADE,
-	-- role_id int REFERENCES jobs.roles(id) ON DELETE CASCADE,
-	-- phone_number text,
-	-- UNIQUE (phone_number)
 );
 
 CREATE TABLE jobs.units(
