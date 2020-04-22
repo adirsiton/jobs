@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import { Link } from 'react-router-dom';
+
 import { withStyles, WithStyles } from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -30,9 +32,11 @@ const JobsAppBar: React.FC<AppBarDataProps> = (props): JSX.Element => {
                 <Tooltip placement="right" title="ג'ובים ששמרתי" aria-label="my favorites">
                     <FavoriteList/>
                 </Tooltip>
-                <Avatar className={classes.avatar}>
-                    {user.userInitials}
-                </Avatar>
+                <Link to='/personal'>
+                    <Avatar className={classes.avatar}>
+                        {user.userInitials}
+                    </Avatar>
+                </Link>
             </div>
         );
     }
@@ -40,7 +44,9 @@ const JobsAppBar: React.FC<AppBarDataProps> = (props): JSX.Element => {
     const getLogo = (): JSX.Element => {
         return (
             <div className={classes.logoContainer}>
-                <img src={jobsLogo} alt="jobs_logo"/>
+                <Link to='/'  >
+                    <img src={jobsLogo} alt="jobs_logo"/>
+                </Link>
                 <Typography variant="h3" className={classes.logoSystemName}>
                     ג'ובניק
                 </Typography>
@@ -50,7 +56,6 @@ const JobsAppBar: React.FC<AppBarDataProps> = (props): JSX.Element => {
             </div>
         );
     }
-    
     
     return (
         <AppBar className={classes.root} position="static">
