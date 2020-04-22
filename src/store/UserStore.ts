@@ -29,12 +29,20 @@ export class UserStore {
 
     unsetFavoriteAd = async (adId: number) => {
         await unsetFavoriteAd(adId);
-        this.loadUserDetails();
+        const newUser: User = {
+            ...this.getUser,
+            favoriteAds: this.getUser.favoriteAds.filter(favAd => favAd!==adId)
+        };
+        this.user.set(newUser);
     }
 
     setFavoriteAd = async (adId: number) => {
         await setFavoriteAd(adId);
-        this.loadUserDetails();
+        const newUser: User = {
+            ...this.getUser,
+            favoriteAds: this.getUser.favoriteAds.concat(adId)
+        };
+        this.user.set(newUser);
     }
 }
 
