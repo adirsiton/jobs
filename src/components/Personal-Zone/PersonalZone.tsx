@@ -1,15 +1,17 @@
 import * as React from 'react';
 
+import { observer, inject } from 'mobx-react';
+
 import JobsAppEmployerBody from './Publisher/JobsAppEmployerBody';
 import { UserStore } from '../../store/UserStore';
 
 interface PersonalZoneProps {
-    userStore?: UserStore;
+    userStore: UserStore;
 }
 
 const PersonalZone: React.FC<PersonalZoneProps> = (props): JSX.Element => {
-    const userStore: UserStore = props.userStore!;
-    
+    const userStore: UserStore = props.userStore;
+
     return (<>
         { userStore.user.isRamad 
             ? <JobsAppEmployerBody /> 
@@ -19,4 +21,4 @@ const PersonalZone: React.FC<PersonalZoneProps> = (props): JSX.Element => {
 
 }
 
-export default PersonalZone;
+export default inject('userStore')(observer(PersonalZone));
