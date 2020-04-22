@@ -9,10 +9,11 @@ export async function fetchUserDetails(): Promise<User> {
     });
 
     const { upn, name, favorite_ads } = user[0];
+    const favoriteAds: number[] = favorite_ads[0] === null? [] : favorite_ads;
     return {
         upn,
         name,
-        favoriteAds: favorite_ads
+        favoriteAds
     };
 };
 
