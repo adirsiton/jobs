@@ -44,7 +44,7 @@ const JobsAppBody: React.FC<JobsAppBodyOwnProps> = (props): JSX.Element => {
 
     useEffect(() => {
         jobsStore.loadAdvertisements();
-    }, []);
+    }, [jobsStore]);
 
     const onSearchValueChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
         setSearchValue(event.target.value);

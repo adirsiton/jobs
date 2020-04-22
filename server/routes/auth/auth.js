@@ -41,8 +41,8 @@ router.get('/auth/callback',
 
     res.cookie('user', JSON.stringify({
       upn: user.upn,
-      name: user.display_name,
-      ramad: isRamad
+      displayName: user.display_name,
+      isRamad
     }));
 
     // redirect home

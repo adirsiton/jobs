@@ -45,7 +45,8 @@ CREATE TABLE jobs.departments(
 CREATE TABLE jobs.department_head(
 	user_id text REFERENCES jobs.users(upn) ON DELETE CASCADE,
 	department_id int REFERENCES jobs.departments(id) ON DELETE CASCADE,
-	UNIQUE (user_id, department_id)
+	UNIQUE (user_id),
+	UNIQUE (department_id)
 );
 
 CREATE TABLE jobs.base_locations(

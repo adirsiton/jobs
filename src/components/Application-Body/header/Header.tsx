@@ -37,11 +37,11 @@ const Header: React.FC<HeaderOwnProps> = (props): JSX.Element => {
 
     // when closing dialog - blur the add button
     useEffect(() => {
-        if (userStore.isRamad && !openAddDialog && addButtonRef) {
+        if (userStore.user.isRamad && !openAddDialog && addButtonRef) {
             // @ts-ignore
             addButtonRef.current.blur();
         }
-    }, [openAddDialog]);
+    }, [openAddDialog, userStore.user.isRamad]);
 
     useEffect(() => {
         if (openAddDialog) {
@@ -68,7 +68,7 @@ const Header: React.FC<HeaderOwnProps> = (props): JSX.Element => {
                 onChange={onSearchValueChange}
                 value={searchValue}
             />
-            { userStore.isRamad &&
+            { userStore.user.isRamad &&
                 <>    
                     <Button
                         className={classes.addNewPostButton}

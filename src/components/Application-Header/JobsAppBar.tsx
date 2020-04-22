@@ -35,7 +35,7 @@ const JobsAppBar: React.FC<AppBarDataProps> = (props): JSX.Element => {
                     <FavoriteList/>
                 </Tooltip>
                 <Avatar className={classes.avatar}>
-                    {userStore.displayName.substring(0,1)}
+                    {userStore.user.displayName.substring(0, 2)/* TODO: Merge mobx Michael code*/} 
                 </Avatar>
             </div>
         );

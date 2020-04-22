@@ -1,19 +1,17 @@
 import CookieUtils from 'js-cookie';
 
+interface User {
+    upn: string;
+    displayName: string;
+    isRamad: boolean;
+}
+
 export class UserStore {
     // Get the user info via cookie
-    private user = JSON.parse(CookieUtils.get('user') || '{}');    
+    private loggedUser = JSON.parse(CookieUtils.get('user') || '{}');    
     
-    get upn():string {
-        return this.user.upn;
-    }
-
-    get displayName(): string {
-        return this.user.name
-    }
-
-    get isRamad(): boolean {
-        return this.user.ramad;
+    get user(): User {
+        return this.loggedUser;
     }
 }
 
