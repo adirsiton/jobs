@@ -16,8 +16,9 @@ import PersonalZone from './components/Personal-Zone/PersonalZone';
 import cookie from 'js-cookie';
 
 const App: React.FC<{}> = (): JSX.Element => {
-  const a = cookie.getJSON('user');
-  console.log(a);
+    const a = cookie.getJSON('user');
+    console.log(a);
+
     return (
         <Provider jobsStore={jobsStore} userStore={userStore}>
             <Router>
