@@ -8,7 +8,6 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import { JobsStore } from '../../../store/JobsStore';
 import JobsList from './JobsList/jobsList';
 import Header from './header/Header';
-// import { Advertisement } from '../../types/Advertisements';
 
 const styles = makeStyles({
     appBodyContent: {

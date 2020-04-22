@@ -11,13 +11,12 @@ import userStore from './store/UserStore';
 import cookie from 'js-cookie';
 
 const App: React.FC<{}> = (): JSX.Element => {
-  const isEmployer: boolean = true; // TODO: Take from env
   const a = cookie.getJSON('user');
   console.log(a);
   return (
     <Provider jobsStore={jobsStore} userStore={userStore}>
       <JobsAppBar />
-      { isEmployer ? <JobsAppEmployerBody /> : <JobsAppBody />}
+      { userStore.user.isRamad ? <JobsAppEmployerBody /> : <JobsAppBody />}
     </Provider>
   );
 }
