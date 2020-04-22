@@ -32,6 +32,7 @@ import { NEW_JOB_COLOR } from '../../../../assets/projectJSS/Colors';
 import { addNewAd } from '../../../../server/ads';
 import { format } from 'date-fns';
 import { AllSelectOptions } from '../../../../types/AllSelectOptions';
+import { NO_SELECTED_OPTION } from "../../../../types/ChooseOption";
 
 interface PostNewJobProps {
     allSelectOptions: AllSelectOptions;
@@ -114,10 +115,10 @@ const PostNewJob: React.FC<PostNewJobProps> = (props): JSX.Element => {
                     setDepartment={setDepartment}
                     allUnitOptions={allSelectOptions.unitOptions}
                     allBranchOptions={allSelectOptions.branchOptions.filter(branch => {
-                        return department.unit.id === -1 || branch.unit_id === department.unit.id
+                        return department.unit.id === NO_SELECTED_OPTION || branch.unit_id === department.unit.id
                     })}
                     allDepartmentOptions={allSelectOptions.departmentOptions.filter(dp => {
-                        return department.branch.id === -1 || dp.branch_id === department.branch.id
+                        return department.branch.id === NO_SELECTED_OPTION || dp.branch_id === department.branch.id
                     })} />
             </div>
         );
