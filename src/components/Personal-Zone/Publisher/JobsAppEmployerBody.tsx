@@ -27,7 +27,6 @@ interface JobsAppEmployerBodyOwnProps {
 const JobsAppEmployerBody: React.FC<JobsAppEmployerBodyOwnProps> = (props): JSX.Element => {
     const classes = styles({});
     const jobsStore: JobsStore = props.jobsStore!;
-    const hasResume = false; // later use from server
 
     useEffect(() => {
         jobsStore.loadAdvertisements();
@@ -35,9 +34,8 @@ const JobsAppEmployerBody: React.FC<JobsAppEmployerBodyOwnProps> = (props): JSX.
 
     return (
         <div className={classes.appBodyContent}>
-            <Header 
-                fetchAllAdsAfterPost={jobsStore.loadAdvertisements} />
-            { hasResume 
+            <Header />
+            { (false && jobsStore.advertisements.length > 0)
                 ? <JobsList ads={jobsStore.advertisements} />
                 : <EmptyPublisherDisplay />
             }
