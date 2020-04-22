@@ -6,14 +6,17 @@ import JobsAppBar from './components/Application-Header/JobsAppBar';
 import JobsAppBody from './components/Home-Page/JobsAppBody';
 import jobsStore from './store/JobsStore';
 import JobsAppEmployerBody from './components/Personal-Zone/Employer/JobsAppEmployerBody';
+import userStore from './store/UserStore';
+
+import cookie from 'js-cookie';
 
 const App: React.FC<{}> = (): JSX.Element => {
-  // Question, can both Publisher and Contact, see the posts?
-  const isEmployer: boolean = true; // TODO: Fix this with logic from DB + jobsStore who is connected
-
+  const isEmployer: boolean = true; // TODO: Take from env
+  const a = cookie.getJSON('user');
+  console.log(a);
   return (
-    <Provider jobsStore={jobsStore}>
-      <JobsAppBar user={{name: "אדיר סטיון", userInitials: "א י"}} />
+    <Provider jobsStore={jobsStore} userStore={userStore}>
+      <JobsAppBar />
       { isEmployer ? <JobsAppEmployerBody /> : <JobsAppBody />}
     </Provider>
   );

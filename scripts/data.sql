@@ -1,7 +1,8 @@
 INSERT INTO jobs.users(upn, display_name) VALUES 
     ('s8182384', 'מיכאל הופמן'),
     ('s8258065', 'דניאל דימנשטיין'),
-    ('s8222765', 'אדיר סטיון');
+    ('s8222765', 'אדיר סטיון'),
+    ('SteveVaknin', 'סטיב וקנין');
 
 INSERT INTO jobs.roles(name, initials, color) VALUES 
     ('תוכניתן', 'DEV', '#7030A0'),
@@ -43,6 +44,8 @@ INSERT INTO jobs.departments(branch_id, name) VALUES
     (5, 'רשתות'),
     (6, 'תומכי החלוה'),
     (6, 'שכר קבע');
+
+
 
 INSERT INTO jobs.base_locations(name) VALUES
     ('של"ר'),

@@ -2,7 +2,8 @@ CREATE SCHEMA jobs;
 
 CREATE TABLE jobs.users(
 	upn text PRIMARY KEY,
-	display_name text
+	display_name text,
+	last_entrance timestamp
 );
 
 CREATE TABLE jobs.roles(
@@ -34,6 +35,13 @@ CREATE TABLE jobs.departments(
 	name text,
 	branch_id int REFERENCES jobs.branches(id) ON DELETE CASCADE,
 	UNIQUE (id, branch_id)
+);
+
+CREATE TABLE jobs.department_head(
+	user_id text REFERENCES jobs.users(upn) ON DELETE CASCADE,
+	department_id int REFERENCES jobs.departments(id) ON DELETE CASCADE,
+	UNIQUE (user_id),
+	UNIQUE (department_id)
 );
 
 CREATE TABLE jobs.base_locations(
