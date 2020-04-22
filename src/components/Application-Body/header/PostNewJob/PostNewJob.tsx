@@ -12,6 +12,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import PostAddIcon from '@material-ui/icons/PostAdd';
 import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
 
+import Like from '../../../../assets/icons/Like.svg';
 import styles from './PostNewJobStyles';
 import JobBaseLocationInput from './JobBaseLocationInput';
 import { BaseLocation, NO_BASE_LOCATION } from '../../../../types/BaseLocation';
@@ -26,7 +27,7 @@ import JobEntryDateInput, { MONTH_DISPLAY_FORMAT } from './JobEntryDateInput';
 import JobSeniorityInput from './JobSeniorityInput';
 import JobDamachInput from './JobDamachInput';
 import JobDescriptionInput, { isJobDescriptionInValidLength } from './JobDescriptionInput';
-import JobContactInformationInput from './JobContactInformationInput';
+import JobContactInformationInput, { isContactInfoLegal } from './JobContactInformationInput';
 import { ContactInformation, EMPTY_CONTACT_INFORMATION } from '../../../../types/ContactInformation';
 import { NEW_JOB_COLOR } from '../../../../assets/projectJSS/Colors';
 import { addNewAd } from '../../../../server/ads';
@@ -66,11 +67,11 @@ const PostNewJob: React.FC<PostNewJobProps> = (props): JSX.Element => {
             DepartmentsManager.isDepartmentSelected(department) &&
             role.id !== NO_ROLE.id &&
             standards.length > 0 &&
-            (!shouldChooseDate || (!dateInError && entryDate !== null));
+            (!shouldChooseDate || (!dateInError && entryDate !== null)) &&
+            isContactInfoLegal(contactInformation);
 
             setIsPostButtonDisabled(!isInputFull);
-    }, [baseLocation, department, role, standards, 
-        shouldChooseDate, entryDate, dateInError]);
+    }, [baseLocation, department, role, standards, shouldChooseDate, entryDate, dateInError, contactInformation]);
 
     useEffect(() => {
         if (didValidate) {
@@ -112,9 +113,7 @@ const PostNewJob: React.FC<PostNewJobProps> = (props): JSX.Element => {
                 <DepartmentInput 
                     department={department} 
                     setDepartment={setDepartment} 
-                    allUnitOptions={allSelectOptions.unitOptions}
-                    allBranchOptions={allSelectOptions.branchOptions}
-                    allDepartmentOptions={allSelectOptions.departmentOptions} />
+                    allUnitOptions={allSelectOptions.unitOptions} />
             </div>
         );
     }
@@ -209,13 +208,18 @@ const PostNewJob: React.FC<PostNewJobProps> = (props): JSX.Element => {
                 });
                 fetchAllAdsAfterPost();
                 closeDialog();
+                const upperText = `פרסמנו את הג'וב ועכשיו אפשר יהיה למצוא אותו במסך הראשי,`;
+                const lowerText =  'ברגע שתהיה התעניינות כלשהי בתפקיד נדאג לעדכן אותך מי המועמדים.';
                 swal.fire({
-                   title: 'יש אישור!',
-                   icon: 'success',
-                   text: `פרסמנו את הג'וב ועכשיו אפשר יהיה למצוא אותו במסך הראשי, ברגע שתהיה התעניינות כלשהי בתפקיד נדאג לעדכן אותך מי המועמדים`,
-                   confirmButtonText: 'אחלה, תודה',
-                   confirmButtonColor: NEW_JOB_COLOR ,
-                });    
+                    title: 'יש אישור!',
+                    imageUrl: Like,
+                    imageHeight: 60,
+                    imageWidth: 60,
+                    html: `<Typography>${upperText}</Typography></br></br><Typography>${lowerText}</Typography>`,
+                    width: '68ch',
+                    confirmButtonText: '<Typography>אחלה, תודה</Typography>',
+                    confirmButtonColor: NEW_JOB_COLOR ,
+                });               
             }
             catch(error) {
                 swal.fire({

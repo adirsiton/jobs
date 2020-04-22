@@ -32,7 +32,7 @@ const Header: React.FC<HeaderOwnProps> = (props): JSX.Element => {
     const userStore: UserStore = props.userStore!;
 
     const [allSelectOptions, setAllSelectOptions] = useState<AllSelectOptions | null>(null);
-    const [openAddDialog, setOpenAddDialog] = useState<boolean>(false);
+    const [openAddDialog, setOpenAddDialog] = useState<boolean>(true/*TODO:false*/);
     const addButtonRef = useRef(null);
 
     // when closing dialog - blur the add button
@@ -60,6 +60,9 @@ const Header: React.FC<HeaderOwnProps> = (props): JSX.Element => {
             <OutlinedInput 
                 placeholder="תראו לי ג'ובים לפי...."
                 className={classes.searchBar}
+                classes={{
+                    input: classes.searchBarText
+                }}
                 startAdornment={
                     <InputAdornment position='start'>
                         <FontAwesomeIcon icon={faFilter}/>
@@ -77,7 +80,7 @@ const Header: React.FC<HeaderOwnProps> = (props): JSX.Element => {
                         ref={addButtonRef}
                     >
                         <Typography
-                            variant='h6'
+                            variant='h5'
                         >
                             + פרסום תפקיד חדש
                         </Typography>

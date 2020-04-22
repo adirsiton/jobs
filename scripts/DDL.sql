@@ -6,16 +6,11 @@ CREATE TABLE jobs.users(
 	last_entrance timestamp
 );
 
-CREATE TABLE jobs.tags(
-	id serial PRIMARY KEY,
-	name text,
-	color text,
-	UNIQUE (name)
-);
-
 CREATE TABLE jobs.roles(
 	id serial PRIMARY KEY,
-	name text
+	name text UNIQUE,
+	initials text UNIQUE,
+	color text
 );
 
 CREATE TABLE jobs.standards(
@@ -57,7 +52,6 @@ CREATE TABLE jobs.base_locations(
 CREATE TABLE jobs.advertisements(
 	id serial PRIMARY KEY,
 	role_id int REFERENCES jobs.roles(id) ON DELETE CASCADE,
-	tag_id int REFERENCES jobs.tags(id) ON DELETE CASCADE,
 	unit_id int,
 	branch_id int,
 	department_id int REFERENCES jobs.departments(id) ON DELETE CASCADE,

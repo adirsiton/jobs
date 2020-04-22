@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { withStyles, WithStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
 
 import { Advertisement } from '../../../types/Advertisements';
@@ -19,7 +20,9 @@ const FavoriteItem: React.SFC<FavoriteItemProps> = (props): JSX.Element => {
             <div className={classes.favoriteContent}>
                 <div className={classes.favoriteHeader}>
                     <span className={classes.favoriteTitle} title={"" + ad.name}>{ad.name}</span>
-                    <div className={classes.favoriteTag} style={{ backgroundColor: ad.tag.color }}> {ad.tag.name} </div>
+                    <Typography className={classes.favoriteTag} style={{ backgroundColor: ad.role.color }}>
+                        {ad.role.initials} 
+                    </Typography>
                 </div>
                 <div className={classes.favoriteSecondaryTitle}>
                     <span> {`${ad.unit.name}/${ad.branch.name}/${ad.department.name}`}</span>

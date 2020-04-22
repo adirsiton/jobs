@@ -187,6 +187,15 @@ class Departments {
         return updatedDepartment;
     }
 
+    isUnitSelected = (department: DepartmentData): boolean => {
+        return department.unit.id !== NO_UNIT.id;
+    }
+
+    
+    isBranchSelected = (department: DepartmentData): boolean => {
+        return department.branch.id !== NO_BRANCH.id;
+    }
+
     isDepartmentSelected = (department: DepartmentData): boolean => {
         // Most inner select check. So if it selected, then all outer selects are elected too.
         return department.department.id !== NO_DEPARTMENT.id;
