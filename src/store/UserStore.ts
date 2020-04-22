@@ -1,6 +1,6 @@
 import { observable, decorate, action, computed } from 'mobx';
 import { User } from '../types/User';
-import { fetchUserDetails } from '../server/user';
+import { fetchUserDetails, unsetFavoriteAd, setFavoriteAd } from '../server/user';
 import { RootStore } from './RootStore';
 
 export class UserStore {
@@ -26,10 +26,22 @@ export class UserStore {
         this.user.set(user);
         this.isLoadingUserDetails.set(false);
     }
+
+    unsetFavoriteAd = async (adId: number) => {
+        await unsetFavoriteAd(adId);
+        this.loadUserDetails();
+    }
+
+    setFavoriteAd = async (adId: number) => {
+        await setFavoriteAd(adId);
+        this.loadUserDetails();
+    }
 }
 
 decorate(UserStore, {
     getUser: computed,
     isLoading: computed,
-    loadUserDetails: action
+    loadUserDetails: action,
+    unsetFavoriteAd: action,
+    setFavoriteAd: action
 });

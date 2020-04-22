@@ -39,22 +39,20 @@ const FavoriteList: React.FC<FavoriteListProps> = (props): JSX.Element => {
     }
 
     const displayFavoriteItems = (): JSX.Element[] => {
-        return userFavoriteAdsIds.map(favorId => {
-            const favorAd = allAd.find(ad => ad.id === favorId);
-            if (typeof favorAd === "undefined") { return <></>; }
-            return (
+        return allAd.filter(ad => userFavoriteAdsIds.includes(ad.id))
+            .map(favorAd =>  
                 <div key={`${favorAd!.id}-favorite-div`}>
                     <FavoriteItem key={`${favorAd!.id}-favorite`} ad={favorAd}/>
                     <Divider key={`${favorAd.id}-favorite-divider`}/>
                 </div>
             );
-        })
     }
 
     return (
         <>
             <IconButton className={getIconColor()}
-                onClick={handleSavedJobsButtonClick} 
+                onClick={handleSavedJobsButtonClick}
+                 
                 aria-label="my favorites" component="span">
                 <StarIcon className={classes.starIcon} />
             </IconButton>

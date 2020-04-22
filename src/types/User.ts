@@ -1,7 +1,7 @@
 export interface User {
     upn: string;
     name: string;
-    favoriteAds?: number[];
+    favoriteAds: number[];
 }
 
 export interface UserSql { 
