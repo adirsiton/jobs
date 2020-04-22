@@ -7,7 +7,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 
 import styles from './PostNewJobStyles';
-import { ContactInformation } from '../../../../../../types/ContactInformation';
+import { ContactInformation } from '../../../../../types/ContactInformation';
 
 interface ContactInformationProps {
     contactInformation: ContactInformation;

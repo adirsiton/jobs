@@ -5,7 +5,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 
 import styles from './PostNewJobStyles';
-import { BaseLocation } from '../../../../../../types/BaseLocation';
+import { BaseLocation } from '../../../../../types/BaseLocation';
 
 interface JobBaseLocationInput {
     baseLocation: BaseLocation;

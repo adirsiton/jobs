@@ -7,11 +7,11 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import makeStyles from "@material-ui/core/styles/makeStyles";
 
-import { AllSelectOptions } from '../../../../../../types/AllSelectOptions';
-import { getAllSelectOptions } from '../../../../../../server/ads';
-import { LIGHT_COLOR_TEXT, NEW_JOB_COLOR } from '../../../../../../assets/projectJSS/Colors';
+import { AllSelectOptions } from '../../../../../types/AllSelectOptions';
+import { getAllSelectOptions } from '../../../../../server/ads';
+import { LIGHT_COLOR_TEXT, NEW_JOB_COLOR } from '../../../../../assets/projectJSS/Colors';
 import PostNewJob from '../new-job-form/PostNewJob';
-import { JobsStore } from '../../../../../../store/JobsStore';
+import { JobsStore } from '../../../../../store/JobsStore';
 
 const styles = makeStyles({
     addNewPostButton: {

@@ -5,7 +5,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 
 import styles from './PostNewJobStyles';
-import { Role } from '../../../../../../types/Role';
+import { Role } from '../../../../../types/Role';
 
 interface JobRoleInputProps {
     role: Role;
