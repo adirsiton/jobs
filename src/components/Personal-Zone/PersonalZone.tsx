@@ -1,12 +1,22 @@
 import * as React from 'react';
-// import JobsAppEmployerBody from './components/Personal-Zone/Publisher/JobsAppEmployerBody';
 
+import JobsAppEmployerBody from './Publisher/JobsAppEmployerBody';
+import { UserStore } from '../../store/UserStore';
 
-const PersonalZone: React.FC = (props) => {
-    // <JobsAppBar />
-    // { userStore.user.isRamad ? <JobsAppEmployerBody /> : <JobsAppBody />}
+interface PersonalZoneProps {
+    userStore?: UserStore;
+}
 
-    return <>אישי</>;
+const PersonalZone: React.FC<PersonalZoneProps> = (props): JSX.Element => {
+    const userStore: UserStore = props.userStore!;
+    
+    return (<>
+        { userStore.user.isRamad 
+            ? <JobsAppEmployerBody /> 
+            : <>אישי</> /* Todo: Illi, Instead of 'אישי', connect to your personal zone screen of candidate :)*/ 
+        }
+    </>);
+
 }
 
 export default PersonalZone;
