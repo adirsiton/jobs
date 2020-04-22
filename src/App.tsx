@@ -5,7 +5,7 @@ import { Provider } from 'mobx-react';
 import JobsAppBar from './components/Application-Header/JobsAppBar';
 import JobsAppBody from './components/Home-Page/JobsAppBody';
 import jobsStore from './store/JobsStore';
-import JobsAppEmployerBody from './components/Personal-Zone/Employer/JobsAppEmployerBody';
+import JobsAppEmployerBody from './components/Personal-Zone/Publisher/JobsAppEmployerBody';
 import userStore from './store/UserStore';
 
 import cookie from 'js-cookie';
