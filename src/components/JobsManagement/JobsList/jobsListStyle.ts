@@ -1,4 +1,5 @@
 import { makeStyles, createStyles } from '@material-ui/core/styles';
+import {  THEME_COLOR, THEME_HOVER_COLOR } from '../../../assets/projectJSS/Colors';
 
 const useStyles = makeStyles((theme) =>
     createStyles({
@@ -93,11 +94,11 @@ const useStyles = makeStyles((theme) =>
 
         },
         jobBtn: {
-            color: "#21BD90",
+            color: THEME_COLOR,
             fontSize: "22px",
             flexGrow: 1,
             '&:hover': {
-                color: "#64e4bf",
+                color: THEME_HOVER_COLOR,
                 backgroundColor: "transparent"
             }
         },

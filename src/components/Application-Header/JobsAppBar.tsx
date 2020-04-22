@@ -1,5 +1,5 @@
 import * as React from 'react';
-
+import { Link, NavLink } from 'react-router-dom';
 import { withStyles, WithStyles } from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -8,8 +8,7 @@ import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import StarIcon from '@material-ui/icons/Star';
 import Tooltip from '@material-ui/core/Tooltip';
-
-import  jobsLogo from '../../assets/images/jobsLogo.png';
+import jobsLogo from '../../assets/images/jobsLogo.png';
 import { User } from '../../types/userTypes';
 import styles from './JobsAppBarStyle';
 
@@ -35,7 +34,7 @@ const JobsAppBar: React.FC<AppBarDataProps> = (props): JSX.Element => {
                         <StarIcon className={classes.starIcon} />
                     </IconButton>
                 </Tooltip>
-                <Avatar className={classes.avatar}>
+                <Avatar className={classes.avatar} component={Link} to={'/user'}>
                     {user.userInitials}
                 </Avatar>
             </div>
@@ -44,25 +43,25 @@ const JobsAppBar: React.FC<AppBarDataProps> = (props): JSX.Element => {
 
     const getLogo = (): JSX.Element => {
         return (
-            <div className={classes.logoContainer}>
-                <img src={jobsLogo} alt="jobs_logo"/>
-                <Typography variant="h3" className={classes.logoSystemName}>
-                    ג'ובניק
+            <Link to='/' className={classes.logoContainer}>
+                    <img src={jobsLogo} alt="jobs_logo" />
+                    <Typography variant="h3" className={classes.logoSystemName}>
+                        ג'ובניק
                 </Typography>
-                <Typography variant="h6" className={classes.logoSubTitle}>
-                    מוצא לך את הג'וב הבא
+                    <Typography variant="h6" className={classes.logoSubTitle}>
+                        מוצא לך את הג'וב הבא
                 </Typography>
-            </div>
+            </Link>
         );
     }
-    
-    
+
+
     return (
         <AppBar className={classes.root} position="static">
             <Toolbar className={classes.toolbar}>
                 {getLogo()}
                 {getUserDetails()}
-            </Toolbar> 
+            </Toolbar>
         </AppBar>
     );
 }

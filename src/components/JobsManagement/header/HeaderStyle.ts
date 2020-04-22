@@ -1,4 +1,5 @@
 import makeStyles from "@material-ui/core/styles/makeStyles";
+import {  THEME_COLOR } from '../../../assets/projectJSS/Colors';
 
 const styles = makeStyles({
     root: {
@@ -8,7 +9,7 @@ const styles = makeStyles({
     },
     addNewPostButton: {
         color: "white",
-        backgroundColor: `#21bd90`,
+        backgroundColor: THEME_COLOR,
         "&:hover": {
             backgroundColor: `#00d699`,
         },

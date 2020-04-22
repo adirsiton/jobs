@@ -16,7 +16,7 @@ export interface Branch extends SelectChooseOption {
 export const NO_BRANCH: Branch = {
     id: NO_SELECTED_OPTION,
     name: '',
-    unit_id: -1
+    unit_id: NO_SELECTED_OPTION
 };
 
 export interface Department extends SelectChooseOption {
@@ -26,7 +26,7 @@ export interface Department extends SelectChooseOption {
 export const NO_DEPARTMENT: Department = {
     id: NO_SELECTED_OPTION,
     name: '',
-    branch_id: -1
+    branch_id: NO_SELECTED_OPTION
 };
 
 interface DepartmentsData {

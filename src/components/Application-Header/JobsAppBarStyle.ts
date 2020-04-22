@@ -13,7 +13,8 @@ const styles = () => createStyles({
     },
     avatar: {
         backgroundColor: AVATAR_COLOR,
-        margin: '0 5px'
+        margin: '0 5px',
+        textDecoration: 'none'
     },
     starIcon: {
         fontSize: '150%'
@@ -30,7 +31,8 @@ const styles = () => createStyles({
     },
     logoContainer: {
         display: 'flex',
-        alignItems: 'center'
+        alignItems: 'center',
+        textDecoration: 'none'
     },
     logoIcon: {
         margin: '0 5px',
