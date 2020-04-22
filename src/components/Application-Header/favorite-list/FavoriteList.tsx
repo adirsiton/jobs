@@ -26,7 +26,6 @@ const FavoriteList: React.FC<FavoriteListProps> = (props): JSX.Element => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const handleSavedJobsButtonClick = (event: React.MouseEvent<HTMLButtonElement>): void => {
         if (userFavoriteAdsIds.length > 0) {
-            console.log(userFavoriteAdsIds.length, userFavoriteAdsIds)
             setAnchorEl(event.currentTarget);
         }
     };

@@ -7,8 +7,8 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Tooltip from '@material-ui/core/Tooltip';
 
 import styles from './PostNewJobStyles';
-import { DepartmentData, DepartmentsManager, Unit, Branch, Department } from '../../../../types/Departments';
-import { getBranchesOfUnit, getDepartmentsOfBranch } from '../../../../server/ads';
+import { DepartmentData, DepartmentsManager, Unit, Branch, Department } from '../../../../../types/Departments';
+import { getBranchesOfUnit, getDepartmentsOfBranch } from '../../../../../server/ads';
 
 interface DepartmentInputProps {
     department: DepartmentData;

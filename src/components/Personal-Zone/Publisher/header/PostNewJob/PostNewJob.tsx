@@ -12,27 +12,27 @@ import Tooltip from '@material-ui/core/Tooltip';
 import PostAddIcon from '@material-ui/icons/PostAdd';
 import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
 
-import Like from '../../../../assets/icons/Like.svg';
+import Like from '../../../../../assets/icons/Like.svg';
 import styles from './PostNewJobStyles';
 import JobBaseLocationInput from './JobBaseLocationInput';
-import { BaseLocation, NO_BASE_LOCATION } from '../../../../types/BaseLocation';
+import { BaseLocation, NO_BASE_LOCATION } from '../../../../../types/BaseLocation';
 import DepartmentInput from './DepartmentInput';
-import { DepartmentData, DepartmentsManager, EMPTY_DEPARTMENT } from '../../../../types/Departments';
+import { DepartmentData, DepartmentsManager, EMPTY_DEPARTMENT } from '../../../../../types/Departments';
 import JobNicknameInput, { isJobNicknameInValidLength } from './JobNicknameInput';
 import JobRoleInput from './JobRoleInput';
-import { Role, NO_ROLE } from '../../../../types/Role';
+import { Role, NO_ROLE } from '../../../../../types/Role';
 import JobStandardsInput from './JobStandardsInput';
-import { Standard } from '../../../../types/Standard';
+import { Standard } from '../../../../../types/Standard';
 import JobEntryDateInput, { MONTH_DISPLAY_FORMAT } from './JobEntryDateInput';
 import JobSeniorityInput from './JobSeniorityInput';
 import JobDamachInput from './JobDamachInput';
 import JobDescriptionInput, { isJobDescriptionInValidLength } from './JobDescriptionInput';
 import JobContactInformationInput, { isContactInfoLegal } from './JobContactInformationInput';
-import { ContactInformation, EMPTY_CONTACT_INFORMATION } from '../../../../types/ContactInformation';
-import { NEW_JOB_COLOR } from '../../../../assets/projectJSS/Colors';
-import { addNewAd } from '../../../../server/ads';
+import { ContactInformation, EMPTY_CONTACT_INFORMATION } from '../../../../../types/ContactInformation';
+import { NEW_JOB_COLOR } from '../../../../../assets/projectJSS/Colors';
+import { addNewAd } from '../../../../../server/ads';
 import { format } from 'date-fns';
-import { AllSelectOptions } from '../../../../types/AllSelectOptions';
+import { AllSelectOptions } from '../../../../../types/AllSelectOptions';
 
 interface PostNewJobProps {
     allSelectOptions: AllSelectOptions;

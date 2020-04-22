@@ -17,7 +17,7 @@ export class JobsStore {
         return this.ads.get();
     }
 
-    get isLoading () {
+    get isLoading() {
         return this.isLoadingAds.get();
     }
 

@@ -2,8 +2,8 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import { NEW_JOB_COLOR,
          LIGHT_COLOR_TEXT,
          TEXT_AND_ICONS_ADS_BACKGROUND_COLOR, 
-         BOX_SHADOW} from '../../../../assets/projectJSS/Colors';
-import { ITALIC_FONT } from '../../../../assets/projectJSS/Fonts';
+         BOX_SHADOW} from '../../../../../assets/projectJSS/Colors';
+import { ITALIC_FONT } from '../../../../../assets/projectJSS/Fonts';
 
 const postPadding = "1vw";
 const TEXT_FIELD_HEIGHT = "48px";

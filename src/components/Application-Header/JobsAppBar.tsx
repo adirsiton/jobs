@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { useEffect } from 'react'
 
-import { observer, inject } from 'mobx-react';
+import { inject } from 'mobx-react';
+import { Link } from 'react-router-dom';
 
 import { withStyles, WithStyles } from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
@@ -26,17 +27,16 @@ const JobsAppBar: React.FC<AppBarDataProps> = (props): JSX.Element => {
     const userStore: UserStore = props.userStore!;
     const user: User = userStore.getUser;
 
-    useEffect(() => {
-        userStore.loadUserDetails();
-    }, []);
-
     const getUserInitials = (name: string): string => {
+        if (name === undefined) {
+            return '';
+        }
         const splitName: string[] = name.split(' ');
-        return splitName.map(n=> n[0]).join(' '); 
+        return splitName.map(n=> n[0]).join(' ');
     }
 
     const getUserDetails = (): JSX.Element | void  => {
-        if (userStore.isLoading || user === undefined) {
+        if (user ===  null) {
             return;
         }
         return (
@@ -44,9 +44,15 @@ const JobsAppBar: React.FC<AppBarDataProps> = (props): JSX.Element => {
                 <Tooltip placement="right" title="ג'ובים ששמרתי" aria-label="my favorites">
                     <FavoriteList/>
                 </Tooltip>
-                <Avatar className={classes.avatar}>
+                {/* <Avatar className={classes.avatar}>
                     {getUserInitials(user.name)}
-                </Avatar>
+                </Avatar> */}
+                <Link to='/personal'>
+                    <Avatar className={classes.avatar}>
+                        {getUserInitials(user.name)}
+                        {/*TODO: user.userInitials*/}
+                    </Avatar>
+                </Link>
             </div>
         );
     }
@@ -54,7 +60,9 @@ const JobsAppBar: React.FC<AppBarDataProps> = (props): JSX.Element => {
     const getLogo = (): JSX.Element => {
         return (
             <div className={classes.logoContainer}>
-                <img src={jobsLogo} alt="jobs_logo"/>
+                <Link to='/'  >
+                    <img src={jobsLogo} alt="jobs_logo"/>
+                </Link>
                 <Typography variant="h3" className={classes.logoSystemName}>
                     ג'ובניק
                 </Typography>
@@ -64,7 +72,6 @@ const JobsAppBar: React.FC<AppBarDataProps> = (props): JSX.Element => {
             </div>
         );
     }
-    
     
     return (
         <AppBar className={classes.root} position="static">
@@ -76,4 +83,4 @@ const JobsAppBar: React.FC<AppBarDataProps> = (props): JSX.Element => {
     );
 }
 
-export default withStyles(styles)(inject('userStore')(observer(JobsAppBar)));
+export default inject('userStore')(withStyles(styles)(JobsAppBar));

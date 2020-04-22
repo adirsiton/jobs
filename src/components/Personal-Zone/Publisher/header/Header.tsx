@@ -2,28 +2,21 @@ import * as React from 'react';
 import { useState, useEffect, useRef } from 'react';
 
 import Button from '@material-ui/core/Button';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
 import Typography from '@material-ui/core/Typography';
-import InputAdornment from '@material-ui/core/InputAdornment';
-
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFilter } from '@fortawesome/free-solid-svg-icons';
+import Avatar from '@material-ui/core/Avatar';
 
 import styles from './HeaderStyle';
 import PostNewJob from './PostNewJob/PostNewJob';
 
-import { getAllSelectOptions } from '../../../server/ads';
-import { AllSelectOptions } from '../../../types/AllSelectOptions';
+import { getAllSelectOptions } from '../../../../server/ads';
+import { AllSelectOptions } from '../../../../types/AllSelectOptions';
 
 interface HeaderOwnProps {
     fetchAllAdsAfterPost: () => void;
-    searchValue: string;
-    onSearchValueChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const Header: React.FC<HeaderOwnProps> = (props): JSX.Element => {
-    const { fetchAllAdsAfterPost, onSearchValueChange, searchValue } = props;
+    const { fetchAllAdsAfterPost } = props;
     const classes = styles({});
 
     const [allSelectOptions, setAllSelectOptions] = useState<AllSelectOptions | null>(null);
@@ -50,23 +43,28 @@ const Header: React.FC<HeaderOwnProps> = (props): JSX.Element => {
         setOpenAddDialog(false);
     }
 
-    return (
-        <div className={classes.root}>
-            <OutlinedInput 
-                placeholder="תראו לי ג'ובים לפי...."
-                className={classes.searchBar}
-                classes={{
-                    input: classes.searchBarText
-                }}
-                startAdornment={
-                    <InputAdornment position='start'>
-                        <FontAwesomeIcon icon={faFilter}/>
-                    </InputAdornment>
-                }
-                onChange={onSearchValueChange}
-                value={searchValue}
-            />
-                
+    const headerTitle = (): JSX.Element => {
+        const FIRST_NAME = 'נוי'; // TODO: Extract from mobx, the logged user's first name
+
+        return (
+            <div className={classes.headerTitle}>
+                <Avatar className={classes.avatar}>
+                    א י
+                </Avatar>
+                <div>
+                    <Typography variant='h6' className={classes.headerTitleName}>
+                        היי {FIRST_NAME}!
+                    </Typography>
+                    <Typography variant='h6'>
+                        הגעת לאזור האישי שלך בג'ובניק
+                    </Typography>
+                </div>
+            </div>
+        );
+    }
+
+    const addNewPostButton = (): JSX.Element => {
+        return (
             <Button
                 className={classes.addNewPostButton}
                 variant="contained"
@@ -79,11 +77,25 @@ const Header: React.FC<HeaderOwnProps> = (props): JSX.Element => {
                     + פרסום תפקיד חדש
                 </Typography>
             </Button>
-            { openAddDialog && allSelectOptions && <PostNewJob 
-                allSelectOptions={allSelectOptions}
-                fetchAllAdsAfterPost={fetchAllAdsAfterPost}
-                closeDialog={onCloseDialog} />}
+        );
+    }
+
+    return (
+        <>
+            <div className={classes.root}>           
+                {headerTitle()}
+                {addNewPostButton()}
+                { openAddDialog && allSelectOptions && <PostNewJob 
+                    allSelectOptions={allSelectOptions}
+                    fetchAllAdsAfterPost={fetchAllAdsAfterPost}
+                    closeDialog={onCloseDialog} />}
             </div>
+            <Typography 
+                variant='h4'
+                className={classes.jobsHeaderTitle}>
+                התעניינו בתפקידים שלך
+            </Typography>
+        </>
     );
 }
 
