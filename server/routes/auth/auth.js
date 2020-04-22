@@ -42,7 +42,7 @@ router.get('/auth/callback',
     res.cookie('user', JSON.stringify({
       upn: user.upn,
       displayName: user.display_name,
-      isRamad
+      isRamad: true /*When done, isRamad equals isRamad. For quick developing... you can do: false/true */
     }));
 
     // redirect home

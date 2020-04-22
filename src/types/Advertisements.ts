@@ -6,7 +6,7 @@ import { Role } from "./Role";
 
 export interface Advertisement  {
     id: number;
-    name: String;
+    name: string;
     description: string;
     entryDate: string;
     seniority: number;

@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { inject } from 'mobx-react';
+import { Link } from 'react-router-dom';
 
 import { withStyles, WithStyles } from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
@@ -9,7 +10,6 @@ import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import Tooltip from '@material-ui/core/Tooltip';
 
-import { User } from '../../types/userTypes';
 import  jobsLogo from '../../assets/images/jobsLogo.png';
 import FavoriteList from './favorite-list/FavoriteList';
 import styles from './JobsAppBarStyle';
@@ -34,9 +34,11 @@ const JobsAppBar: React.FC<AppBarDataProps> = (props): JSX.Element => {
                 <Tooltip placement="right" title="ג'ובים ששמרתי" aria-label="my favorites">
                     <FavoriteList/>
                 </Tooltip>
-                <Avatar className={classes.avatar}>
-                    {userStore.user.displayName.substring(0, 2)/* TODO: Merge mobx Michael code*/} 
-                </Avatar>
+                <Link to='/personal'>
+                    <Avatar className={classes.avatar}>
+                        לל{/*TODO: user.userInitials*/}
+                    </Avatar>
+                </Link>
             </div>
         );
     }
@@ -44,7 +46,9 @@ const JobsAppBar: React.FC<AppBarDataProps> = (props): JSX.Element => {
     const getLogo = (): JSX.Element => {
         return (
             <div className={classes.logoContainer}>
-                <img src={jobsLogo} alt="jobs_logo"/>
+                <Link to='/'  >
+                    <img src={jobsLogo} alt="jobs_logo"/>
+                </Link>
                 <Typography variant="h3" className={classes.logoSystemName}>
                     ג'ובניק
                 </Typography>
@@ -54,7 +58,6 @@ const JobsAppBar: React.FC<AppBarDataProps> = (props): JSX.Element => {
             </div>
         );
     }
-    
     
     return (
         <AppBar className={classes.root} position="static">
