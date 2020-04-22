@@ -3,9 +3,9 @@ import * as React from 'react';
 import { Provider } from 'mobx-react';
 
 import JobsAppBar from './components/Application-Header/JobsAppBar';
-import JobsAppBody from './components/Application-Body/JobsAppBody';
+import JobsAppBody from './components/Home-Page/JobsAppBody';
 import jobsStore from './store/JobsStore';
-import JobsAppEmployerBody from './components/Screen-Employer/Application-Body/JobsAppEmployerBody';
+import JobsAppEmployerBody from './components/Personal-Zone/Employer/JobsAppEmployerBody';
 
 const App: React.FC<{}> = (): JSX.Element => {
   // Question, can both Publisher and Contact, see the posts?
