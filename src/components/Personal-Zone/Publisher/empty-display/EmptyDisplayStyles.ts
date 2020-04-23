@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) =>
             alignItems: 'center'
         },
         messageTitle: {
+            fontFamily: 'Assistant',
             fontSize: 'xx-large',
             fontWeight: 'bolder',
             color: DARK_TEXT_COLOR,
