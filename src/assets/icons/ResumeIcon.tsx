@@ -1,7 +1,12 @@
 import * as React from 'react';
 import SvgIcon from '@material-ui/core/SvgIcon';
+import { DefaultComponentProps } from '@material-ui/core/OverridableComponent';
 
-const ResumeIcon: React.FC = (props) => {
+interface ResumeIconOwnProps {
+    className?: string;
+}
+
+const ResumeIcon: React.FC<ResumeIconOwnProps> = (props) => {
     return <SvgIcon {...props}>
         <path style={{stroke:"none",fillRule:"nonzero",fill:"#F1BC19", fillOpacity:1}} d="M 18.71875 3.121094 C 18.71875 3.253906 18.613281 3.359375 18.480469 3.359375 C 18.347656 3.359375 18.238281 3.253906 18.238281 3.121094 C 18.238281 2.988281 18.347656 2.878906 18.480469 2.878906 C 18.613281 2.878906 18.71875 2.988281 18.71875 3.121094 Z "/>
         <path style={{stroke:"none",fillRule:"nonzero",fill:"#cfe7e0",fillOpacity:1}} d="M 20.878906 12 C 20.878906 16.902344 16.902344 20.878906 12 20.878906 C 7.097656 20.878906 3.121094 16.902344 3.121094 12 C 3.121094 7.097656 7.097656 3.121094 12 3.121094 C 16.902344 3.121094 20.878906 7.097656 20.878906 12 Z "/>
