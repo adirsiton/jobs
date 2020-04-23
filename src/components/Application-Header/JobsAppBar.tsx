@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useEffect } from 'react'
 
 import { inject } from 'mobx-react';
 import { Link } from 'react-router-dom';
@@ -27,6 +26,7 @@ const JobsAppBar: React.FC<AppBarDataProps> = (props): JSX.Element => {
     const userStore: UserStore = props.userStore!;
     const user: User = userStore.getUser;
 
+    console.log('user at the appbar;',user);
     const getUserInitials = (name: string): string => {
         if (name === undefined) {
             return '';

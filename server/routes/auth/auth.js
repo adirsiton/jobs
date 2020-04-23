@@ -46,15 +46,16 @@ router.get('/auth/callback',
     const { favorite_ads } = user;
     const favoriteAds = favorite_ads[0] === null? [] : favorite_ads;
 
+    const MAXAGE = 10 * 1000;
     /* todo detrmine isRamad acording to WITH_RAMAD_ACCESS from '.env'
     giving priority to the .env variable, need to convert string to boolean to*/
     console.log('in auth/callback')
     res.cookie('user', JSON.stringify({
         upn: user.upn,
         name: user.name,
-        isRamad: user.is_ramad,
+        isRamad: true,//user.is_ramad,
         favoriteAds
-    }));
+    }), { maxAge: MAXAGE });
 
     // redirect home
     res.redirect('/');

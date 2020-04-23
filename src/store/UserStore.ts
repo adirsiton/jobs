@@ -1,7 +1,6 @@
 import CookieUtils from 'js-cookie';
-// import cookie from 'js-cookie';
 
-import { decorate, action, computed } from 'mobx';
+import { observable, decorate, action, computed } from 'mobx';
 
 import { unsetFavoriteAd, setFavoriteAd } from '../server/user';
 import { User } from '../types/User';
@@ -12,36 +11,45 @@ export class UserStore {
     constructor(rootStore: RootStore) {
         this.rootStore = rootStore
     }
-    private loggedUser: User = JSON.parse(CookieUtils.get('user') || '{}');    
+
+    private loggedUser = observable.box<User>(JSON.parse(CookieUtils.get('user') || '{}'));
 
     get getUser() {
-        console.log(this.loggedUser)
-        return this.loggedUser;
+        return this.loggedUser.get();
     }
 
     unsetFavoriteAd = async (adId: number) => {
-        await unsetFavoriteAd(adId);
-        const newUser: User = {
-            ...this.getUser,
-            favoriteAds: this.getUser.favoriteAds.filter(favAd => favAd!==adId)
-        };
-        this.loggedUser = newUser;
+        try {
+            const boolAnswer: boolean = await unsetFavoriteAd(adId);
+            const newUser: User = {
+                ...this.getUser,
+                favoriteAds: this.getUser.favoriteAds.filter(favAd => favAd!==adId)
+            };
+            console.log('new user, unset', newUser, boolAnswer);
+            this.loggedUser.set(newUser);
+        } catch (error) {
+            console.log('got error, unset function', error);
+        }
     }
 
     setFavoriteAd = async (adId: number) => {
-        await setFavoriteAd(adId);
-        const newUser: User = {
-            ...this.getUser,
-            favoriteAds: this.getUser.favoriteAds.concat(adId)
-        };
-        this.loggedUser = newUser;
+        try {
+            const boolAnswer: boolean = await setFavoriteAd(adId);
+            const newUser: User = {
+                ...this.getUser,
+                favoriteAds: this.getUser.favoriteAds.concat(adId)
+            };
+            console.log('new user, set', newUser, boolAnswer);
+            this.loggedUser.set(newUser);
+        } catch (error) {
+            console.log('got error, set function', error);
+        }
+        
     }
 }
 
 decorate(UserStore, {
     getUser: computed,
-    // isLoading: computed,
-    // loadUserDetails: action,
     unsetFavoriteAd: action,
     setFavoriteAd: action
 });
