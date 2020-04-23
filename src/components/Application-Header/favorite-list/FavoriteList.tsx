@@ -20,7 +20,7 @@ interface FavoriteListProps extends WithStyles<typeof styles> {
 const FavoriteList: React.FC<FavoriteListProps> = (props): JSX.Element => {
     const { classes } = props;
     const rootStore: RootStore = props.rootStore!;
-    const userFavoriteAdsIds: number[] = rootStore.userStore.getUser.favoriteAds;
+    const userFavoriteAdsIds: number[] = rootStore.userStore.getFavoriteAds;
     const allAd: Advertisement[] = rootStore.jobsStore.advertisements;
 
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);

@@ -15,10 +15,9 @@ const getUserDetails = async (id, displayName) => {
       VALUES ($1, $2)
       ON CONFLICT (upn) DO UPDATE SET display_name=$2,last_entrance=NOW()
   )
-  SELECT users.upn, display_name as name, array_agg(favorite_ads_of_users.advertisement_id) as favorite_ads,
-    (CASE WHEN ramads.user_id IS null THEN false ELSE true END) as is_ramad
+  SELECT users.upn, display_name as name,
+      (CASE WHEN ramads.user_id IS null THEN false ELSE true END) as is_ramad
   FROM jobs.users users
-  LEFT JOIN jobs.favorite_ads_of_users favorite_ads_of_users ON favorite_ads_of_users.upn=$1  
   LEFT JOIN jobs.department_head as ramads ON ramads.user_id=$1
   WHERE users.upn=$1
   GROUP BY users.upn, display_name, ramads.user_id
@@ -33,11 +32,6 @@ router.get('/auth/callback',
     // Successful authentication
     const user = await getUserDetails(req.user, req.user); // On whiten we'll take the display take from ping
 
-    const { favorite_ads } = user;
-    const favoriteAds = favorite_ads[0] === null? [] : favorite_ads;
-
-    const MAX_AGE = 60 * 1000 * 2; // That didnt help me
-
     /* todo detrmine isRamad acording to WITH_RAMAD_ACCESS from '.env'
     giving priority to the .env variable, need to convert string to boolean to*/
     
@@ -45,8 +39,7 @@ router.get('/auth/callback',
         upn: user.upn,
         name: user.name,
         isRamad: user.is_ramad,
-        favoriteAds
-    }), { maxAge: MAX_AGE });
+    }));
 
     // redirect home
     res.redirect('/');

@@ -2,29 +2,38 @@ import CookieUtils from 'js-cookie';
 
 import { observable, decorate, action, computed } from 'mobx';
 
-import { unsetFavoriteAd, setFavoriteAd } from '../server/user';
+import { getFavoriteAds, unsetFavoriteAd, setFavoriteAd } from '../server/user';
 import { User } from '../types/User';
 
 export class UserStore {
-    private loggedUser = observable.box<User>(JSON.parse(CookieUtils.get('user') || '{}'));
+
+
+    private loggedUser: User = JSON.parse(CookieUtils.get('user') || '{}');
+    private favoriteAds = observable.box<number[]>([]);
 
     get getUser() {
-        return this.loggedUser.get();
+        return this.loggedUser;
+    }
+
+    get getFavoriteAds () {
+        return this.favoriteAds.get()
     }
 
     get getUserInitials () {
-        const splitName: string[] = this.loggedUser.get().name.split(' ');
+        const splitName: string[] = this.loggedUser.name.split(' ');
         return splitName.map(n=> n[0]).join(' ');
+    }
+
+    loadfavoriteAds = async () => {
+        // Fetch data from server
+        const newFavoriteAds: number[] = await getFavoriteAds();
+        this.favoriteAds.set(newFavoriteAds);
     }
 
     unsetFavoriteAd = async (adId: number) => {
         try {
             await unsetFavoriteAd(adId);
-            const newUser: User = {
-                ...this.getUser,
-                favoriteAds: this.getUser.favoriteAds.filter(favAd => favAd!==adId)
-            };
-            this.loggedUser.set(newUser);
+            this.loadfavoriteAds();
         } catch (error) {
             console.log('got error, unset function', error);
         }
@@ -33,11 +42,7 @@ export class UserStore {
     setFavoriteAd = async (adId: number) => {
         try {
             await setFavoriteAd(adId);
-            const newUser: User = {
-                ...this.getUser,
-                favoriteAds: this.getUser.favoriteAds.concat(adId)
-            };
-            this.loggedUser.set(newUser);
+            this.loadfavoriteAds();
         } catch (error) {
             console.log('got error, set function', error);
         }
@@ -47,6 +52,7 @@ export class UserStore {
 decorate(UserStore, {
     getUser: computed,
     getUserInitials: computed,
+    loadfavoriteAds: action,
     unsetFavoriteAd: action,
     setFavoriteAd: action
 });

@@ -1,3 +1,13 @@
+export async function getFavoriteAds(): Promise<number[]> {
+    const favoriteAds: number[] = await fetch(`/user/favorite`).then(response => {
+        return response.json();
+    }).then(data => {
+        return data;
+    });
+
+    return favoriteAds;
+};
+
 export async function unsetFavoriteAd(adId: number): Promise<boolean> {
     const answer = await fetch(`/user/favorite/${adId}`, {
         method: 'DELETE'
