@@ -32,10 +32,11 @@ const JobsAppEmployerBody: React.FC<JobsAppEmployerBodyOwnProps> = (props): JSX.
         jobsStore.loadAdvertisements();
     }, [jobsStore]);
 
+    const showEmptyDisplay = false && jobsStore.advertisements.length > 0; 
     return (
         <div className={classes.appBodyContent}>
-            <Header />
-            { (false && jobsStore.advertisements.length > 0)
+            <Header withAddButton={showEmptyDisplay}/>
+            { showEmptyDisplay
                 ? <JobsList ads={jobsStore.advertisements} />
                 : <EmptyPublisherDisplay />
             }

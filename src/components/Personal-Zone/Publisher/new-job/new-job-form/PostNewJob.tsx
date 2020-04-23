@@ -12,7 +12,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import PostAddIcon from '@material-ui/icons/PostAdd';
 import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
 
-import Like from '../../../../../../assets/icons/Like.svg';
+import Like from '../../../../../assets/icons/Like.svg';
 import styles from './PostNewJobStyles';
 import JobBaseLocationInput from './JobBaseLocationInput';
 import { BaseLocation, NO_BASE_LOCATION } from '../../../../../types/BaseLocation';

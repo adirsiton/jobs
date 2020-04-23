@@ -3,6 +3,7 @@ import * as React from 'react';
 import Typography from '@material-ui/core/Typography';
 
 import styles from './EmptyDisplayStyles';
+import NewJobButton from '../new-job/new-job-button/NewJobButton';
 
 const EmptyPublisherDisplay: React.FC= () => {
     const classes = styles();
@@ -21,6 +22,9 @@ const EmptyPublisherDisplay: React.FC= () => {
                 כל תפקיד שתפרסם יופיע בג'ובניק ואנחנו נוכל להפנות
                 אותך לכל מי שהתעניין בו
             </Typography>
+            <div className={classes.buttonWrapper}>
+                <NewJobButton />
+            </div>
         </div>
     );
 }

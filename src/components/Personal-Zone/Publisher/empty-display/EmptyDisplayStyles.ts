@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme) =>
             display: 'flex',
             flexDirection: 'column',
             width: '26vw',
-            height: '30vh',
+            height: '67vh',
             margin: 'auto',
             marginTop: '7vh',
             justifyContent: 'center',
@@ -23,6 +23,9 @@ const useStyles = makeStyles((theme) =>
             fontSize: 'x-large',
             fontWeight: 600,
             marginBottom: '1vh'
+        },
+        buttonWrapper: {
+            marginTop: '3vh'
         }
     })
 );
