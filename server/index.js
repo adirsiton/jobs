@@ -19,6 +19,7 @@ const sessionSecret = process.env.SESSION_SECRET || "secret_session_shhh";
 const webappUrl= process.env.WEBAPP_URL || "http://localhost:3000"; // For development
 const staticFilesLocation = process.env.STATIC_FILES_LOCATION || "../build";
 const staticCalculatedLocation = path.join(__dirname, staticFilesLocation);
+const MAX_AGE = 60 * 60 * 1000 // 1 hou1
 
 const app = express();
 app.use(cors());
@@ -28,7 +29,7 @@ app.use(pino);
 app.use(
   session({
     secret: sessionSecret,
-    cookie: { maxAge: 60000 },
+    cookie: { maxAge: MAX_AGE },
     resave: false,
     saveUninitialized: false
   })
