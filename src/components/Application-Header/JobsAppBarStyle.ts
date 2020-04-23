@@ -1,6 +1,6 @@
 import { createStyles } from '@material-ui/core';
 import { LIGHT_COLOR_TEXT, AVATAR_COLOR, 
-         NAV_BAR_COLOR, YELLOW_STAR_COLOR } from '../../assets/projectJSS/Colors';
+         NAV_BAR_COLOR } from '../../assets/projectJSS/Colors';
 
 const styles = () => createStyles({
     root: {

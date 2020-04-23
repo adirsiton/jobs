@@ -1,4 +1,5 @@
 export interface User {
+    upn: string;
     name: string;
-    userInitials: string;
+    isRamad: boolean;
 }

@@ -5,7 +5,7 @@ import { observer, inject } from 'mobx-react';
 
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
-import { JobsStore } from '../../store/JobsStore';
+import { RootStore } from '../../store/RootStore';
 import JobsList from './JobsList/jobsList';
 import Header from './header/Header';
 import { Advertisement } from '../../types/Advertisements';
@@ -21,25 +21,26 @@ const styles = makeStyles({
 });
 
 interface JobsAppBodyOwnProps {
-    jobsStore?: JobsStore;
+    rootStore?: RootStore;
 }
 
 const JobsAppBody: React.FC<JobsAppBodyOwnProps> = (props): JSX.Element => {
     const classes = styles({});
-    const jobsStore: JobsStore = props.jobsStore!;
+    const rootStore: RootStore = props.rootStore!;
 
     const [searchValue, setSearchValue] = useState<string>('');
 
     useEffect(() => {
-        jobsStore.loadAdvertisements();
-    }, [jobsStore]);
+        rootStore.jobsStore.loadAdvertisements();
+        rootStore.userStore.loadfavoriteAds();
+    }, [rootStore]);
 
     const onSearchValueChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
         setSearchValue(event.target.value);
     }
 
     const getFilteredAds = (): Advertisement[] => {
-        const ads: Advertisement[] = jobsStore.advertisements;
+        const ads: Advertisement[] = rootStore.jobsStore.advertisements;
 
         return ads.filter(ad => (
                 ad.name.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1 ||
@@ -53,9 +54,9 @@ const JobsAppBody: React.FC<JobsAppBodyOwnProps> = (props): JSX.Element => {
             <Header 
                 searchValue={searchValue} 
                 onSearchValueChange={onSearchValueChange} />
-            <JobsList ads={getFilteredAds()} isFiltered={searchValue !== '' && jobsStore.advertisements.length !== 0}/>
+            <JobsList ads={getFilteredAds()} isFiltered={searchValue !== '' && rootStore.jobsStore.advertisements.length !== 0}/>
         </div>
     );
 }
 
-export default inject('jobsStore')(observer(JobsAppBody));
+export default inject('rootStore')(observer(JobsAppBody));

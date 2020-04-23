@@ -1,20 +1,26 @@
 import * as React from 'react';
+
+import { observer, inject } from 'mobx-react';
+
 import ListIcon from '@material-ui/icons/List';
 import BlockIcon from '@material-ui/icons/Block';
 
+import { Advertisement  } from '../../../types/Advertisements';
+import { UserStore } from '../../../store/UserStore';
 import styles from './jobsListStyle';
 import Job from './job';
-import { Advertisement  } from '../../../types/Advertisements';
 
 
 interface JobsListProps {
     ads: Advertisement[];
     isFiltered: boolean;
+    userStore?: UserStore;
 }
 
 const JobsList: React.FC<JobsListProps> = (props): JSX.Element => {
     const { ads, isFiltered } = props;
     const classes = styles();
+    const userStore: UserStore = props.userStore!;
 
     const renderJobs = (): JSX.Element => {
         if (ads.length === 0) {
@@ -34,7 +40,15 @@ const JobsList: React.FC<JobsListProps> = (props): JSX.Element => {
                 );
             }
         } else {
-            return <>{ads.map(ad => <Job key={ad.id} ad={ad} />)}</>;
+            return <>{ads.map(ad => (
+                <Job
+                    key={ad.id}
+                    ad={ad} 
+                    isFavorite={userStore.getFavoriteAds.includes(ad.id)} 
+                    unsetFavoriteAd={() => userStore.unsetFavoriteAd(ad.id)}
+                    setFavoriteAd={() => userStore.setFavoriteAd(ad.id)}
+                />
+            ))}</>;
         }
     }
 
@@ -45,4 +59,4 @@ const JobsList: React.FC<JobsListProps> = (props): JSX.Element => {
     );
 }
 
-export default JobsList;
+export default inject('userStore')(observer(JobsList));
