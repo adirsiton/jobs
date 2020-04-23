@@ -10,7 +10,6 @@ import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import Tooltip from '@material-ui/core/Tooltip';
 
-import { User } from '../../types/User';
 import  jobsLogo from '../../assets/images/jobsLogo.png';
 import { UserStore } from '../../store/UserStore';
 import FavoriteList from './favorite-list/FavoriteList';
@@ -24,33 +23,17 @@ const JobsAppBar: React.FC<AppBarDataProps> = (props): JSX.Element => {
     const { classes } = props;
 
     const userStore: UserStore = props.userStore!;
-    const user: User = userStore.getUser;
 
-    console.log('user at the appbar;',user);
-    const getUserInitials = (name: string): string => {
-        if (name === undefined) {
-            return '';
-        }
-        const splitName: string[] = name.split(' ');
-        return splitName.map(n=> n[0]).join(' ');
-    }
-
-    const getUserDetails = (): JSX.Element | void  => {
-        if (user ===  null) {
-            return;
-        }
+    const getUserDetails = (): JSX.Element => {
         return (
             <div className={classes.userDetails}>
+                {/* Todo tooltip dosnt work, fix it */}
                 <Tooltip placement="right" title="ג'ובים ששמרתי" aria-label="my favorites">
                     <FavoriteList/>
                 </Tooltip>
-                {/* <Avatar className={classes.avatar}>
-                    {getUserInitials(user.name)}
-                </Avatar> */}
                 <Link to='/personal'>
                     <Avatar className={classes.avatar}>
-                        {getUserInitials(user.name)}
-                        {/*TODO: user.userInitials*/}
+                        {userStore.getUserInitials}
                     </Avatar>
                 </Link>
             </div>

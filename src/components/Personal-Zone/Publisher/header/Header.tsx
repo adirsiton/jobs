@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { useState, useEffect, useRef } from 'react';
 
+import { inject } from 'mobx-react';
+
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
@@ -8,16 +10,19 @@ import Avatar from '@material-ui/core/Avatar';
 import styles from './HeaderStyle';
 import PostNewJob from './PostNewJob/PostNewJob';
 
+import { UserStore } from '../../../../store/UserStore';
 import { getAllSelectOptions } from '../../../../server/ads';
 import { AllSelectOptions } from '../../../../types/AllSelectOptions';
 
 interface HeaderOwnProps {
+    userStore?: UserStore;
     fetchAllAdsAfterPost: () => void;
 }
 
 const Header: React.FC<HeaderOwnProps> = (props): JSX.Element => {
     const { fetchAllAdsAfterPost } = props;
     const classes = styles({});
+    const userStore: UserStore = props.userStore!;
 
     const [allSelectOptions, setAllSelectOptions] = useState<AllSelectOptions | null>(null);
     const [openAddDialog, setOpenAddDialog] = useState<boolean>(true/*TODO:false*/);
@@ -44,12 +49,12 @@ const Header: React.FC<HeaderOwnProps> = (props): JSX.Element => {
     }
 
     const headerTitle = (): JSX.Element => {
-        const FIRST_NAME = 'נוי'; // TODO: Extract from mobx, the logged user's first name
+        const FIRST_NAME = userStore.getUser.name;
 
         return (
             <div className={classes.headerTitle}>
                 <Avatar className={classes.avatar}>
-                    א י
+                    {userStore.getUserInitials}
                 </Avatar>
                 <div>
                     <Typography variant='h6' className={classes.headerTitleName}>
@@ -99,4 +104,4 @@ const Header: React.FC<HeaderOwnProps> = (props): JSX.Element => {
     );
 }
 
-export default Header;
+export default inject('userStore')(Header);

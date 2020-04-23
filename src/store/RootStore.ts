@@ -5,8 +5,8 @@ export class RootStore {
     jobsStore: JobsStore;
     userStore: UserStore;
     constructor() {
-        this.jobsStore = new JobsStore(this)
-        this.userStore = new UserStore(this)
+        this.jobsStore = new JobsStore()
+        this.userStore = new UserStore()
     }
 }
 

@@ -7,7 +7,7 @@ const router = express.Router();
 router.post('/favorite/:id', async (req, res) => {
     const { id } = req.params;
 
-    const userId = req.session.passport.user; // req.user
+    const userId = req.user;
     
     const { rows } = await db.query(`
     INSERT INTO jobs.favorite_ads_of_users(upn, advertisement_id)
@@ -19,12 +19,11 @@ router.post('/favorite/:id', async (req, res) => {
 router.delete('/favorite/:id', async (req, res) => {
     const { id } = req.params;
 
-    const userId = req.session.passport.user;
+    const userId = req.user;
     const { rows } = await db.query(`
     DELETE FROM jobs.favorite_ads_of_users
     WHERE upn=$1 AND advertisement_id=$2;`,
     [userId, id]);
-
     res.json(rows);
 });
 
