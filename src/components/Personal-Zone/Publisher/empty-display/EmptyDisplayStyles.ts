@@ -11,7 +11,8 @@ const useStyles = makeStyles((theme) =>
             margin: 'auto',
             marginTop: '7vh',
             justifyContent: 'center',
-            textAlign: 'center'
+            textAlign: 'center',
+            alignItems: 'center'
         },
         messageTitle: {
             fontSize: 'xx-large',
@@ -26,6 +27,9 @@ const useStyles = makeStyles((theme) =>
         },
         buttonWrapper: {
             marginTop: '3vh'
+        },
+        resumeIcon: {
+            fontSize: '10.5rem'
         }
     })
 );

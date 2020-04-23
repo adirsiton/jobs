@@ -4,12 +4,14 @@ import Typography from '@material-ui/core/Typography';
 
 import styles from './EmptyDisplayStyles';
 import NewJobButton from '../new-job/new-job-button/NewJobButton';
+import ResumeIcon from '../../../../assets/icons/ResumeIcon';
 
 const EmptyPublisherDisplay: React.FC= () => {
     const classes = styles();
 
     return (
         <div className={classes.root}>
+            <ResumeIcon className={classes.resumeIcon}/>
             <span className={classes.messageTitle}>
                 פרסמת? מצאת!
             </span>
