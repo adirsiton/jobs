@@ -3,11 +3,25 @@ const db = require('../../db');
 
 const router = express.Router();
 
+router.get('/', async (req, res) => {
+    const { upn } = req.params;
+
+    const { rows } = await db.query(`
+        SELECT  upn, display_name,last_entrance, phone_number,
+            roles.name as role_name, ranks.name as rank_name
+        FROM jobs.users users
+        LEFT JOIN jobs.standards ranks on users.rank_id = ranks.id
+        LEFT JOIN jobs.roles roles on users.role_id = roles.id
+        WHERE upn =  $1`,
+        [upn]);
+
+    res.json(rows);
+});
+
 router.post('/', async (req, res) => {
-    console.log(req.body);
     const userDetails = req.body;
 
-    const {upn, rankId, job, phone_number, jobs} = userDetails
+    const { upn, rankId, job, phone_number, jobs } = userDetails
 
     try {
         await db.query('BEGIN');
@@ -19,8 +33,7 @@ router.post('/', async (req, res) => {
             WHERE upn = $1
             RETURNING upn
         `, values).then(result => result.rows[0].upn);
-        
-      
+
         for (const job of jobs) {
             // const {jobName, unitId, branchId, departmentId, startDate, endDate} /// job ????
             await db.query(`
@@ -32,7 +45,7 @@ router.post('/', async (req, res) => {
 
         await db.query('COMMIT');
         res.sendStatus(200);
-    } catch(error) {
+    } catch (error) {
         console.log("Error is " + error);
         await db.query('ROLLBACK');
         res.sendStatus(500);

@@ -4,7 +4,7 @@ import {  THEME_COLOR, THEME_HOVER_COLOR } from '../../../../assets/projectJSS/C
 const useStyles = makeStyles((theme) =>
     createStyles({
         root: {
-            width: "90%"
+            width: "96%"
         },
         button: {
             marginTop: 3,
@@ -29,10 +29,14 @@ const useStyles = makeStyles((theme) =>
             paddingRight: '20px',
             paddingLeft: '8px',
             borderLeft: 'none',
-            margin: '0 18px 0 0'
+            margin: '0 18px 0 0',
+            width: '100%'
         },
         specificStepContet: {
-            padding: '2px'
+            padding: '2px',
+            maxHeight: '350px',
+            overflowY: 'auto',
+            overflowX: 'hidden'
         },
         stepper: {
             padding: 0,

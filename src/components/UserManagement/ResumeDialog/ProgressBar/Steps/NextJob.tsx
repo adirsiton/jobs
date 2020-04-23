@@ -15,18 +15,23 @@ import { TextField } from '@material-ui/core';
 
 interface PersonalDetailsStepProps {
     roles: Role[];
+    nextRoles: number[];
+    setNextRoles: (nextRoles: number[]) => void
+    aboutMe: string;
+    setAboutMe: (aboutMe: string) => void
 }
 
 const NextJob: React.FC<PersonalDetailsStepProps> = (props): JSX.Element => {
     const classes = styles();
-    const { roles } = props;
-    const [nextRoles, setNextRoles] = useState<number[]>([]);
+    const { roles, nextRoles, setNextRoles, aboutMe, setAboutMe } = props;
+
 
     const rolesCheckBoxGroup = <FormGroup row>
         {roles.map(role =>
             <FormControlLabel
                 control={
                     <Checkbox
+                        checked={nextRoles.includes(role.id)}
                         disabled={nextRoles.length >= 3 && !nextRoles.includes(role.id)}
                         icon={<CircleUnchecked />}
                         checkedIcon={<CircleCheckedFilled />}
@@ -56,7 +61,11 @@ const NextJob: React.FC<PersonalDetailsStepProps> = (props): JSX.Element => {
                 }}
                 classes={{ root: classes.multiLineText }}
                 multiline
-                rows={4}>
+                rows={4}
+                value={aboutMe}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                    setAboutMe(event.target.value)
+                }>
             </TextField>
         </div>
     );

@@ -34,13 +34,13 @@ const JobsAppBar: React.FC<AppBarDataProps> = (props): JSX.Element => {
                 <Tooltip placement="right" title="ג'ובים ששמרתי" aria-label="my favorites">
                     <FavoriteList />
                 </Tooltip>
-                {/* <Avatar className={classes.avatar} component={Link} to={'/user'}>
-                    {user.userInitials}
-                </Avatar> */}
-
-                <Avatar className={classes.avatar} component={Link} to={'/personal'}>
-                    לל{/*TODO: user.userInitials*/}
+                <Avatar className={classes.avatar} component={Link} to={'/user'}>
+                   אא
                 </Avatar>
+
+                {/* <Avatar className={classes.avatar} component={Link} to={'/personal'}>
+                    לל
+                </Avatar> */}
 
             </div>
         );

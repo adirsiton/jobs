@@ -20,7 +20,7 @@ interface AddResumeDialogProps {
 const AddResumeDialog: React.FC<AddResumeDialogProps> = (props): JSX.Element => {
     const { isOpen, closeDialog } = props;
     const [allSelectOptions, setAllSelectOptions] = useState<AllSelectOptions | null>(null);
- 
+
     const classes = styles();
 
     useEffect(() => {
@@ -30,10 +30,11 @@ const AddResumeDialog: React.FC<AddResumeDialogProps> = (props): JSX.Element => 
 
     return (
         <Dialog
+            classes={{ paperFullWidth: classes.dialog }}
             fullWidth={true}
             open={isOpen}
             onClose={closeDialog} >
-            <DialogTitle classes={{root: classes.title}}>
+            <DialogTitle classes={{ root: classes.title }}>
                 הוספת הרזומה שלך
                 </DialogTitle>
             <DialogContent>

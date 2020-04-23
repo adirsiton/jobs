@@ -45,11 +45,23 @@ router.get('/options', async (req, res) => {
         FROM jobs.units
     `).then(result => result.rows);
 
+    const branchOptions = await db.query(`
+        SELECT id, name, unit_id
+        FROM jobs.branches
+    `).then(result => result.rows);
+
+    const departmentOptions = await db.query(`
+        SELECT id, name, branch_id
+        FROM jobs.departments
+    `).then(result => result.rows);
+
     const allSelectOptions = {
         roleOptions,
         standardOptions,
         baseLocationOptions,
-        unitOptions
+        unitOptions,
+        branchOptions,
+        departmentOptions
     };
 
     res.json(allSelectOptions);
@@ -83,8 +95,8 @@ router.post('/', async (req, res) => {
     console.log(req.body);
     const ads = req.body;
     const { baseLocation, departmentData, jobNickname, role,
-            standards, entryDate, yearsInSeniority, shouldHaveDamach, 
-            jobDescription, contactInformation} = ads;
+        standards, entryDate, yearsInSeniority, shouldHaveDamach,
+        jobDescription, contactInformation } = ads;
 
     const baseLocationId = baseLocation.id;
     const roleId = role.id;
@@ -104,7 +116,7 @@ router.post('/', async (req, res) => {
             ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) 
             RETURNING id
         `, values).then(result => result.rows[0].id);
-        
+
         for (const standardId of standardIds) {
             await db.query(`
                 INSERT INTO jobs.standards_of_ads (
@@ -115,7 +127,7 @@ router.post('/', async (req, res) => {
 
         await db.query('COMMIT');
         res.sendStatus(200);
-    } catch(error) {
+    } catch (error) {
         console.log("Error is " + error);
         await db.query('ROLLBACK');
         res.sendStatus(500);

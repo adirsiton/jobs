@@ -1,5 +1,4 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
 
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -10,17 +9,21 @@ import { Role } from '../../../../../types/Role';
 import { Standard } from '../../../../../types/Standard';
 import styles from './StepsStyle';
 
-
 interface PersonalDetailsStepProps {
     roles: Role[];
     ranks: Standard[];
+    selectedRoleId: number;
+    setSelectedRoleId: (roleId: number) => void;
+    selectedRankId: number;
+    setSelectedRankId: (rankId: number) => void;
+    phoneNumber: string;
+    setPhoneNumber: (phoneNumber: string) => void;
 }
 
 const PersonalDetailsStep: React.FC<PersonalDetailsStepProps> = (props): JSX.Element => {
     const classes = styles();
-    const { roles, ranks } = props;
-    const [selectedRole, setSelectedRole] = useState<number>(roles[0].id);
-    const [selectedRank, setSelectedRank] = useState<number>(ranks[0].id);
+    const { roles, ranks, selectedRoleId, setSelectedRoleId, selectedRankId,
+        setSelectedRankId, phoneNumber, setPhoneNumber } = props;
 
     const rolesMenuItems = roles.map(role =>
         <MenuItem
@@ -33,7 +36,7 @@ const PersonalDetailsStep: React.FC<PersonalDetailsStepProps> = (props): JSX.Ele
     const rolesSelect = <Select
         classes={{ root: classes.inputfield }}
         disableUnderline
-        value={selectedRole}
+        value={selectedRoleId}
         MenuProps={{
             anchorOrigin: {
                 vertical: "bottom",
@@ -47,7 +50,7 @@ const PersonalDetailsStep: React.FC<PersonalDetailsStepProps> = (props): JSX.Ele
         }}
         onChange={
             (event: React.ChangeEvent<{ value: any }>) =>
-                setSelectedRole(event.target.value)
+                setSelectedRoleId(event.target.value)
         }
     >
         {rolesMenuItems}
@@ -64,7 +67,7 @@ const PersonalDetailsStep: React.FC<PersonalDetailsStepProps> = (props): JSX.Ele
     const ranksSelect = <Select
         classes={{ root: classes.inputfield }}
         disableUnderline
-        value={selectedRank}
+        value={selectedRankId}
         MenuProps={{
             anchorOrigin: {
                 vertical: "bottom",
@@ -78,7 +81,7 @@ const PersonalDetailsStep: React.FC<PersonalDetailsStepProps> = (props): JSX.Ele
         }}
         onChange={
             (event: React.ChangeEvent<{ value: any }>) =>
-                setSelectedRank(event.target.value)
+                setSelectedRankId(event.target.value)
         }
     >
         {ranksMenuItems}
@@ -99,6 +102,29 @@ const PersonalDetailsStep: React.FC<PersonalDetailsStepProps> = (props): JSX.Ele
             </div>
         )
     }
+    
+    const phoneInput = (): JSX.Element => {
+        return (
+            <div className={classes.inputDiv}>
+                <InputLabel classes={{ asterisk: classes.asterisk }} required={true}>
+                    טלפון ליצירת קשר
+            </InputLabel>
+                <TextField
+                    InputProps={{
+                        disableUnderline: true
+                    }}
+                    value={phoneNumber}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                        setPhoneNumber(event.target.value)
+                    }
+                    className={`${classes.inputfield} ${classes.phoneInput} ${classes.longInput}`}
+                />
+            </div>
+        )
+    }
+
+
+
 
     return (
         <div className={classes.personalDetailsContainer}>
@@ -106,19 +132,7 @@ const PersonalDetailsStep: React.FC<PersonalDetailsStepProps> = (props): JSX.Ele
             {inputDiv("מ.א", textInput(true, "8485303", ""))}
             {inputDiv("תפקיד", rolesSelect)}
             {inputDiv("דרגה", ranksSelect)}
-            <div className={classes.inputDiv}>
-                <InputLabel classes={{ asterisk: classes.asterisk }} required={true}>
-                    טלפון ליצירת קשר
-                </InputLabel>
-                <TextField
-                    InputProps={{
-                        disableUnderline: true
-                    }}
-                    className={`${classes.inputfield} ${classes.phoneInput}`}
-                    // classes={{ root: [, ] }} 
-                    />
-            </div>
-
+            {phoneInput()}
         </div>
     );
 }
