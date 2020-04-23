@@ -5,17 +5,17 @@ CREATE TABLE jobs.standards(
 	name text
 );
 
-CREATE TABLE jobs.roles(
-	id serial PRIMARY KEY,
-	name text,
-	tag text,
-	color text,
-	UNIQUE (tag)
-);
-
 CREATE TABLE jobs.users(
 	upn text PRIMARY KEY,
-	display_name text
+	display_name text,
+	last_entrance timestamp
+);
+
+CREATE TABLE jobs.roles(
+	id serial PRIMARY KEY,
+	name text UNIQUE,
+	initials text UNIQUE,
+	color text
 );
 
 CREATE TABLE jobs.units(
@@ -35,6 +35,13 @@ CREATE TABLE jobs.departments(
 	name text,
 	branch_id int REFERENCES jobs.branches(id) ON DELETE CASCADE,
 	UNIQUE (id, branch_id)
+);
+
+CREATE TABLE jobs.department_head(
+	user_id text REFERENCES jobs.users(upn) ON DELETE CASCADE,
+	department_id int REFERENCES jobs.departments(id) ON DELETE CASCADE,
+	UNIQUE (user_id),
+	UNIQUE (department_id)
 );
 
 CREATE TABLE jobs.base_locations(

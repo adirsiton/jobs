@@ -4,9 +4,9 @@
 
 export const NAV_BAR_COLOR = 'rgb(40,54,67)';
 export const LIGHT_COLOR_TEXT = '#FFFFFF';
-export const DARK_TEST_COLOR = '#595959'; // For advertisments mostly
+export const DARK_TEXT_COLOR = '#595959'; // For advertisments mostly
 export const AVATAR_COLOR = 'rgb(73,90,114)';
-export const TOOLTIP_OR_SCROLLER_COLOR = 'rgb(127, 140, 156)';
+export const TOOLTIP_OR_SCROLLER_COLOR = 'rgb(127, 141, 156, 30)';
 export const TEXT_AND_ICONS_ADS_COLOR = 'rgb(46, 188, 145)'; // Advertisements
 export const TEXT_AND_ICONS_ADS_BACKGROUND_COLOR = '#F8F9FC'; // Advertisements
 export const THEME_COLOR = '#21BD90';

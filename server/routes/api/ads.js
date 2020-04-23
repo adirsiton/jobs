@@ -5,8 +5,8 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
     const { rows } = await db.query(`
-        SELECT ads.*, roles.name as role_name, units.name as unit_name, departments.name  as department_name, 
-		branches.name as branch_name, locations.name as location, users.display_name advertiser, roles.tag tag, roles.color tag_color,
+        SELECT ads.*, roles.name as role_name, roles.initials as role_initials, roles.color as role_color, units.name as unit_name, departments.name  as department_name, 
+		branches.name as branch_name, locations.name as location, users.display_name advertiser,
 		(SELECT ARRAY(SELECT st.name  
 		            FROM jobs.standards_of_ads standardsOfAds
 		            JOIN jobs.standards st on standardsOfAds.standard_id = st.id
@@ -45,26 +45,38 @@ router.get('/options', async (req, res) => {
         FROM jobs.units
     `).then(result => result.rows);
 
-    const branchOptions = await db.query(`
-        SELECT id, name, unit_id
-        FROM jobs.branches
-    `).then(result => result.rows);
-
-    const departmentOptions = await db.query(`
-        SELECT id, name, branch_id
-        FROM jobs.departments
-    `).then(result => result.rows);
-
     const allSelectOptions = {
         roleOptions,
         standardOptions,
         baseLocationOptions,
-        unitOptions,
-        branchOptions,
-        departmentOptions
+        unitOptions
     };
 
     res.json(allSelectOptions);
+});
+
+router.get('/branches/:unitId', async (req, res) => {
+    const { unitId } = req.params;
+
+    const branchesOfUnit = await db.query(`
+        SELECT id, name
+        FROM jobs.branches
+        WHERE unit_id = $1
+    `, [unitId]).then(result => result.rows);
+
+    res.json(branchesOfUnit);
+});
+
+router.get('/departments/:branchId', async (req, res) => {
+    const { branchId } = req.params;
+
+    const departmentsOfBranch = await db.query(`
+        SELECT id, name
+        FROM jobs.departments
+        WHERE branch_id = $1
+    `, [branchId]).then(result => result.rows);
+
+    res.json(departmentsOfBranch);
 });
 
 router.post('/', async (req, res) => {
@@ -82,18 +94,14 @@ router.post('/', async (req, res) => {
     const departmentId = department.id;
     const standardIds = standards.map(standard => standard.id);
     const advertiser_upn = 's8258065'; // TODO: load from req.body
-    const contactName = contactInformation.fullName;
 
     try {
         await db.query('BEGIN');
-        const values = [roleId, unitId, branchId, departmentId, jobNickname, jobDescription, 
-                entryDate, yearsInSeniority, shouldHaveDamach, advertiser_upn, contactName, 
-                baseLocationId];
+        const values = [roleId, unitId, branchId, departmentId, jobNickname, jobDescription, entryDate, yearsInSeniority, shouldHaveDamach, advertiser_upn, `${contactInformation.fullName} ${contactInformation.phoneNumber}`, baseLocationId];
         const advertisementId = await db.query(`
             INSERT INTO jobs.advertisements (
-                role_id, unit_id, branch_id, department_id, job_title, job_description, entry_date, 
-                seniority, is_damach, advertiser_upn, contact, base_location_id) 
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) 
+                role_id, unit_id, branch_id, department_id, job_title, job_description, entry_date, seniority, is_damach, advertiser_upn, contact, base_location_id
+            ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) 
             RETURNING id
         `, values).then(result => result.rows[0].id);
         

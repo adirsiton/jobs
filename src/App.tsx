@@ -4,21 +4,32 @@ import {
   Route,
   Link
 } from 'react-router-dom';
+import cookie from 'js-cookie';
+import { Provider } from 'mobx-react';
+
 
 import JobsAppBar from './components/Application-Header/JobsAppBar';
-import JobsPage from './components/Home-Page/JobsAppBody';
+import JobsAppBody from './components/Home-Page/JobsAppBody';
+import jobsStore from './store/JobsStore';
+import userStore from './store/UserStore';
+import PersonalZone from './components/Personal-Zone/PersonalZone';
 import User from './components/UserManagement/UserResume';
 
-
 const App: React.FC<{}> = (): JSX.Element => {
+  const a = cookie.getJSON('user');
+  console.log(a);
+
   return (
-    <Router>
-      <JobsAppBar user={{ name: "אדיר סטיון", userInitials: "א י" }} />
-      <Switch>
-        <Route exact path="/user" component={User} />
-        <Route exact path="/" component={JobsPage} />
-      </Switch>
-    </Router>
+    <Provider jobsStore={jobsStore} userStore={userStore}>
+      <Router>
+        <JobsAppBar />
+        <Switch>
+          <Route exact path="/user" component={User} />
+          <Route path='/personal' component={PersonalZone} />
+          <Route exact path="/" component={JobsAppBody} />
+        </Switch>
+      </Router>
+    </Provider>
   );
 }
 export default App;

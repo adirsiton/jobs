@@ -16,15 +16,6 @@ const styles = () => createStyles({
         margin: '0 5px',
         textDecoration: 'none'
     },
-    starIcon: {
-        fontSize: '150%'
-    },
-    starIconYellow: {
-        color: YELLOW_STAR_COLOR,
-    },
-    starIconWhite: {
-        color: LIGHT_COLOR_TEXT,
-    },
     userDetails: {
         display: 'flex',
         alignItems: 'center'

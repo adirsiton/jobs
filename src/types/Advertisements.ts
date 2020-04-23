@@ -6,22 +6,18 @@ import { Role } from "./Role";
 
 export interface Advertisement  {
     id: number;
-    name: String;
+    name: string;
     description: string;
     entryDate: string;
     seniority: number;
     isDamach: boolean;
     standards: string[];
-    role: AdPropertiesData;
+    role: RoleAdPropertiesData;
     unit: AdPropertiesData;
     branch: AdPropertiesData;
     department: AdPropertiesData;
     location: AdPropertiesData;
     advertiser: Advertiser ;
-    tag: {
-        name: string;
-        color: string;
-    };
 }
 
 export interface AdvertisementInsertData {
@@ -42,6 +38,11 @@ export interface AdPropertiesData {
     name: string
 }
 
+interface RoleAdPropertiesData extends AdPropertiesData {
+    initials: string;
+    color: string;
+}
+
 export interface Advertiser {
     upn: string;
     displayName: string;
@@ -51,6 +52,9 @@ export interface Advertiser {
 export interface sqlAd {
     id: number;
     role_id: number;
+    role_name: string;
+    role_initials: string;
+    role_color: string;
     unit_id: number;
     branch_id: number;
     department_id: number;
@@ -62,13 +66,10 @@ export interface sqlAd {
     advertiser_upn: string;
     contact: string;
     base_location_id: number;
-    role_name: string;
     unit_name: string;
     department_name: string;
     branch_name: string;
     location: string;
     advertiser: string;
-    tag: string;
-    tag_color: string;
     standards_array: string[];
 }

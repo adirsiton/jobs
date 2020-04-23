@@ -6,7 +6,7 @@ import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles'; //
 import { heIL } from '@material-ui/core/locale';
 
 import App from './App';
-import { THEME_COLOR, DARK_TEST_COLOR, BOX_SHADOW, TEXT_AND_ICONS_ADS_BACKGROUND_COLOR, TOOLTIP_OR_SCROLLER_COLOR } from './assets/projectJSS/Colors';
+import { THEME_COLOR, DARK_TEXT_COLOR, BOX_SHADOW, TEXT_AND_ICONS_ADS_BACKGROUND_COLOR, TOOLTIP_OR_SCROLLER_COLOR } from './assets/projectJSS/Colors';
 import { ASSISTANT_FONT, ITALIC_FONT } from './assets/projectJSS/Fonts';
 
 import './index.css';
@@ -24,13 +24,14 @@ const projectGlobalTheme = createMuiTheme({
     fontFamily: ASSISTANT_FONT,
     body1: {
       fontWeight: "900",
-      color: DARK_TEST_COLOR
+      color: DARK_TEXT_COLOR
     }
   },
   overrides: {
     MuiTooltip: {
-      backgroundColor: TOOLTIP_OR_SCROLLER_COLOR,
       tooltip: {
+        backgroundColor: TOOLTIP_OR_SCROLLER_COLOR,
+        color: 'white',
         fontSize: "100%"
       }
     },
@@ -58,6 +59,11 @@ const projectGlobalTheme = createMuiTheme({
       input: {
         "&::placeholder": {
           fontStyle: ITALIC_FONT
+        },
+      },
+      formControl: {        
+        "label + &": {
+          marginTop: 'auto'
         }
       }
     },
@@ -68,8 +74,14 @@ const projectGlobalTheme = createMuiTheme({
     },
     MuiInputLabel: {
       formControl: {
-        left: "unset",
+        left: "unset"
       },
+      root: {
+        fontWeight: "bold"
+      },
+      shrink: {
+        transformOrigin: 'top right'
+      }
     },
     MuiButton: {
       contained: {
@@ -80,16 +92,6 @@ const projectGlobalTheme = createMuiTheme({
         '&:focus': {
           ...BOX_SHADOW
         }
-      }
-    },
-    MuiTooltip:{
-      tooltip: { 
-        backgroundColor: 'rgb(72,90,115,30)',
-        color: 'white',
-        fontSize: '1.3erm'
-      },
-      popper:{
-        marginLeft: '-10px',
       }
     },
     MuiRadio: {
