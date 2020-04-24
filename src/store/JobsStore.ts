@@ -28,6 +28,3 @@ decorate(JobsStore, {
     isLoading: computed,
     loadAdvertisements: action
 });
-
-const jobsStore = new JobsStore();
-export default jobsStore;

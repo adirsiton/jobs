@@ -9,11 +9,10 @@ import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import Tooltip from '@material-ui/core/Tooltip';
 
+import  jobsLogo from '../../assets/images/jobsLogo.png';
 import { UserStore } from '../../store/UserStore';
-import jobsLogo from '../../assets/images/jobsLogo.png';
-import { User } from '../../types/userTypes';
-import styles from './JobsAppBarStyle';
 import FavoriteList from './favorite-list/FavoriteList';
+import styles from './JobsAppBarStyle';
 
 interface AppBarDataProps extends WithStyles<typeof styles> {
     userStore?: UserStore;
@@ -21,27 +20,19 @@ interface AppBarDataProps extends WithStyles<typeof styles> {
 
 const JobsAppBar: React.FC<AppBarDataProps> = (props): JSX.Element => {
     const { classes } = props;
-    const userStore: UserStore = props.userStore!;
 
-    // For now I used a stupid function, just to get a different color   
-    const userHaveFavorites = (): boolean => {
-        return Math.random() >= 0.5;
-    }
+    const userStore: UserStore = props.userStore!;
 
     const getUserDetails = (): JSX.Element => {
         return (
             <div className={classes.userDetails}>
-                <Tooltip placement="right" title="ג'ובים ששמרתי" aria-label="my favorites">
-                    <FavoriteList />
-                </Tooltip>
-                <Avatar className={classes.avatar} component={Link} to={'/user'}>
-                   אא
-                </Avatar>
 
-                {/* <Avatar className={classes.avatar} component={Link} to={'/personal'}>
-                    לל
-                </Avatar> */}
 
+                <Link to='/personal'>
+                    <Avatar className={classes.avatar}>
+                        {userStore.getUserInitials}
+                    </Avatar>
+                </Link>
             </div>
         );
     }

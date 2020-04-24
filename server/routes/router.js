@@ -1,10 +1,10 @@
 const express = require('express');
 const adsRouter = require('./api/ads');
-const usersRouter = require('./api/users');
+const userRouter = require('./api/user');
 
 const router = express.Router();
 
 router.use("/ads" , adsRouter);
-router.use("/users" , usersRouter);
+router.use("/user" , userRouter);
 
 module.exports = router;

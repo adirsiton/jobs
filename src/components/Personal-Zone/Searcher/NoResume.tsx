@@ -6,7 +6,7 @@ import AddIcon from '@material-ui/icons/Add';
 import StarIcon from '@material-ui/icons/Star';
 
 import styles from './UserResumeStyle';
-import AddResumeDialog from './ResumeDialog/AddResumeDialog';
+import AddResumeDialog from './AddResumeDialog/AddResumeDialog';
 
 
 const NoResume: React.FC<{}> = (): JSX.Element => {

@@ -7,9 +7,9 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 
-import { getAllSelectOptions } from '../../../server/ads';
-import { AllSelectOptions } from '../../../types/AllSelectOptions';
-import ProgressBar from './ProgressBar/ProgressBar';
+import { getAllSelectOptions } from '../../../../server/ads';
+import { AllSelectOptions } from '../../../../types/AllSelectOptions';
+import ProgressBar from '../../../UserManagement/ResumeDialog/ProgressBar/ProgressBar';
 import styles from './ResumeDialogStyle';
 
 interface AddResumeDialogProps {

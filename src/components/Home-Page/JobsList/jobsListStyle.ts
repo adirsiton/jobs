@@ -112,6 +112,9 @@ const useStyles = makeStyles((theme) =>
         },
         bigFont: {
             fontSize: '3em'
+        },
+        boldText: {
+            fontWeight: 600
         }
     }),
 );

@@ -1,8 +1,10 @@
 import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
 
 export interface User {
+    upn: string;
     name: string;
     userInitials: string;
+    isRamad: boolean;
 }
 
 export interface Job {
@@ -14,7 +16,6 @@ export interface Job {
     departmentId: number;
     jobName: string;
 }
-
 
 export const defaultJob: Job = {
     id: 0,
