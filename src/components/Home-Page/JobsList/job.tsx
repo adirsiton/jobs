@@ -3,18 +3,34 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
 import StarBorderOutlinedIcon from '@material-ui/icons/StarBorderOutlined';
+import FullStarIcon from '@material-ui/icons/Star';
 import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
 import styles from './jobsListStyle';
 
 import { Advertisement  } from '../../../types/Advertisements';
 
 interface JobsProps {
-    ad: Advertisement 
+    ad: Advertisement;
+    isFavorite: boolean;
+    unsetFavoriteAd: () => void;
+    setFavoriteAd: () => void;
 }
 
 const Job: React.FC<JobsProps> = (props): JSX.Element => {
     const classes = styles();
-    const { ad } = props;
+    const { ad , isFavorite, unsetFavoriteAd, setFavoriteAd} = props;
+
+    const saveButtonText = isFavorite
+    ? 'נשמר' 
+    : 'שמירה';
+
+    const getStarIcon = (): JSX.Element => {
+        return isFavorite
+        ? <FullStarIcon className={classes.btnIcon} />
+        : <StarBorderOutlinedIcon className={classes.btnIcon} />
+    }
+
+    const handleOnClickSaveButton = () => {isFavorite? unsetFavoriteAd() : setFavoriteAd()}
 
     return (
         <div className={classes.job}>
@@ -42,7 +58,13 @@ const Job: React.FC<JobsProps> = (props): JSX.Element => {
             </div>
             <div className={classes.jobFooter}>
                 <Button className={classes.jobBtn} startIcon={<VisibilityOutlinedIcon className={classes.btnIcon} />}> צפייה  </Button>
-                <Button className={classes.jobBtn} startIcon={<StarBorderOutlinedIcon className={classes.btnIcon} />}>  שמירה  </Button>
+                <Button 
+                    className={`${classes.jobBtn} ${isFavorite && classes.boldText}`}
+                    onClick={handleOnClickSaveButton}
+                    startIcon={getStarIcon()}
+                >
+                    {saveButtonText} 
+                </Button>
             </div>
         </div>
     );

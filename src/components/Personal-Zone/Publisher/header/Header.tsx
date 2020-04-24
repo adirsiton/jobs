@@ -1,27 +1,34 @@
 import * as React from 'react';
 import { useState, useEffect, useRef } from 'react';
 
+import { inject } from 'mobx-react';
+
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 
-import styles from './HeaderStyle';
+import { UserStore } from '../../../../store/UserStore';
 import NewJobButton from '../new-job/new-job-button/NewJobButton';
+
+import styles from './HeaderStyle';
 
 interface HeaderOwnProps {
     withAddButton: boolean;
+    userStore?: UserStore;
+
 }
 
 const Header: React.FC<HeaderOwnProps> = (props): JSX.Element => {
     const classes = styles({});
     const { withAddButton } = props;
-
+    const userStore = props.userStore!;
+    
     const headerTitle = (): JSX.Element => {
-        const FIRST_NAME = 'נוי'; // TODO: Extract from mobx, the logged user's first name
+        const FIRST_NAME = userStore.getUser.name;
 
         return (
             <div className={classes.headerTitle}>
                 <Avatar className={classes.avatar}>
-                    א י
+                    {userStore.getUserInitials}
                 </Avatar>
                 <div>
                     <Typography variant='h6' className={classes.headerTitleName}>
@@ -43,4 +50,4 @@ const Header: React.FC<HeaderOwnProps> = (props): JSX.Element => {
     );
 }
 
-export default Header;
+export default inject('userStore')(Header);

@@ -13,7 +13,7 @@ const PersonalZone: React.FC<PersonalZoneProps> = (props): JSX.Element => {
     const userStore: UserStore = props.userStore;
 
     return (<>
-        { userStore.user.isRamad 
+        { userStore.getUser.isRamad 
             ? <JobsAppEmployerBody /> 
             : <>אישי</> /* Todo: Illi, Instead of 'אישי', connect to your personal zone screen of candidate :)*/ 
         }

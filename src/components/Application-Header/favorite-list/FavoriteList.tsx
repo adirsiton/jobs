@@ -8,31 +8,51 @@ import StarIcon from '@material-ui/icons/Star';
 import Popover from '@material-ui/core/Popover';
 import Divider from '@material-ui/core/Divider';
 
+import { Advertisement } from '../../../types/Advertisements';
+import { RootStore } from '../../../store/RootStore';
 import FavoriteItem from './FavoriteItem';
-import { JobsStore } from '../../../store/JobsStore';
 import styles from './FavoriteListStyles';
 
 interface FavoriteListProps extends WithStyles<typeof styles> {
-    jobsStore?: JobsStore;
+    rootStore?: RootStore;
 }
 
 const FavoriteList: React.FC<FavoriteListProps> = (props): JSX.Element => {
     const { classes } = props;
-    const jobsStore: JobsStore = props.jobsStore!;
+    const rootStore: RootStore = props.rootStore!;
+    const userFavoriteAdsIds: number[] = rootStore.userStore.getFavoriteAds;
+    const allAd: Advertisement[] = rootStore.jobsStore.advertisements;
 
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-    const handleSavedJobsButtonClick = (event: React.MouseEvent<HTMLButtonElement>): void => {
-        setAnchorEl(event.currentTarget);
-      };
     
-      const handleClose = (): void => {
+    const handleSavedJobsButtonClick = (event: React.MouseEvent<HTMLButtonElement>): void => {
+        if (userFavoriteAdsIds.length > 0) {
+            setAnchorEl(event.currentTarget);
+        }
+    };
+    
+    const handleClose = (): void => {
         setAnchorEl(null);
-      };
+    };
+
+    const getIconColor = (): string => {
+        return userFavoriteAdsIds.length > 0 ? classes.starIconYellow : classes.starIconWhite;
+    }
+
+    const displayFavoriteItems = (): JSX.Element[] => {
+        return allAd.filter(ad => userFavoriteAdsIds.includes(ad.id))
+            .map(favorAd =>  
+                <div key={`${favorAd!.id}-favorite-div`}>
+                    <FavoriteItem key={`${favorAd!.id}-favorite`} ad={favorAd}/>
+                    <Divider key={`${favorAd.id}-favorite-divider`}/>
+                </div>
+            );
+    }
 
     return (
         <>
-            <IconButton className={jobsStore.advertisements.length === 0 ? classes.starIconWhite : classes.starIconYellow}
-                onClick={handleSavedJobsButtonClick} 
+            <IconButton className={getIconColor()}
+                onClick={handleSavedJobsButtonClick}
                 aria-label="my favorites" component="span">
                 <StarIcon className={classes.starIcon} />
             </IconButton>
@@ -49,16 +69,10 @@ const FavoriteList: React.FC<FavoriteListProps> = (props): JSX.Element => {
                   }}
                 onClose={handleClose}
             >
-                {jobsStore.advertisements.slice(0,2).map((ad) => (
-                    <>
-                        <FavoriteItem key={`${ad.id}-favorite`} ad={ad}/>
-                        <Divider key={`${ad.id}-favorite-divider`}/>
-                    </>
-                    )
-                )}
+                {displayFavoriteItems()}
             </Popover>
         </>
     );
 }
 
-export default withStyles(styles)(inject('jobsStore')(observer(FavoriteList))); 
+export default withStyles(styles)(inject('rootStore')(observer(FavoriteList))); 

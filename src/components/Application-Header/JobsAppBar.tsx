@@ -11,9 +11,9 @@ import Avatar from '@material-ui/core/Avatar';
 import Tooltip from '@material-ui/core/Tooltip';
 
 import  jobsLogo from '../../assets/images/jobsLogo.png';
+import { UserStore } from '../../store/UserStore';
 import FavoriteList from './favorite-list/FavoriteList';
 import styles from './JobsAppBarStyle';
-import { UserStore } from '../../store/UserStore';
 
 interface AppBarDataProps extends WithStyles<typeof styles> {
     userStore?: UserStore;
@@ -21,22 +21,19 @@ interface AppBarDataProps extends WithStyles<typeof styles> {
 
 const JobsAppBar: React.FC<AppBarDataProps> = (props): JSX.Element => {
     const { classes } = props;
-    const userStore: UserStore = props.userStore!;
 
-    // For now I used a stupid function, just to get a different color   
-    const userHaveFavorites = (): boolean => {
-        return Math.random() >= 0.5;
-    }
+    const userStore: UserStore = props.userStore!;
 
     const getUserDetails = (): JSX.Element => {
         return (
             <div className={classes.userDetails}>
+                {/* Todo tooltip dosnt work, fix it */}
                 <Tooltip placement="right" title="ג'ובים ששמרתי" aria-label="my favorites">
                     <FavoriteList/>
                 </Tooltip>
                 <Link to='/personal'>
                     <Avatar className={classes.avatar}>
-                        לל{/*TODO: user.userInitials*/}
+                        {userStore.getUserInitials}
                     </Avatar>
                 </Link>
             </div>

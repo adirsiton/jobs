@@ -8,22 +8,19 @@ router.get('/login', passport.authenticate('OAuth2', {scope: 'read:user'}, (req,
     res.redirect(redirectURI);
 }));
 
-const checkIsAdmin = async (id) => {
-  const { rows } = await db.query(`
-  SELECT COUNT(user_id)
-  FROM jobs.department_head as ramads
-  WHERE ramads.user_id = $1
-  `, [id]);
-
-  return (parseInt(rows[0]) > 0);
-}
-
 const getUserDetails = async (id, displayName) => {
   const { rows } = await db.query(`
-    INSERT INTO jobs.users (upn, display_name)
-    VALUES ($1, $2)
-    ON CONFLICT (upn) DO UPDATE SET last_entrance = NOW()
-    RETURNING *
+  WITH inserted AS (
+      INSERT INTO jobs.users (upn, display_name)
+      VALUES ($1, $2)
+      ON CONFLICT (upn) DO UPDATE SET display_name=$2,last_entrance=NOW()
+  )
+  SELECT users.upn, display_name as name,
+      (CASE WHEN ramads.user_id IS null THEN false ELSE true END) as is_ramad
+  FROM jobs.users users
+  LEFT JOIN jobs.department_head as ramads ON ramads.user_id=$1
+  WHERE users.upn=$1
+  GROUP BY users.upn, display_name, ramads.user_id
   `, [id, displayName]);
 
   return rows[0];
@@ -35,14 +32,13 @@ router.get('/auth/callback',
     // Successful authentication
     const user = await getUserDetails(req.user, req.user); // On whiten we'll take the display take from ping
 
-    // Check Ramad access
-    const isRamad = await checkIsAdmin(req.user);
-    req.session.admin = isRamad;
-
+    /* todo detrmine isRamad acording to WITH_RAMAD_ACCESS from '.env'
+    giving priority to the .env variable, need to convert string to boolean to*/
+    
     res.cookie('user', JSON.stringify({
-      upn: user.upn,
-      displayName: user.display_name,
-      isRamad: true /*When done, isRamad equals isRamad. For quick developing... you can do: false/true */
+        upn: user.upn,
+        name: user.name,
+        isRamad: user.is_ramad,
     }));
 
     // redirect home

@@ -10,7 +10,7 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 import { AllSelectOptions } from '../../../../../types/AllSelectOptions';
 import { getAllSelectOptions } from '../../../../../server/ads';
 import { LIGHT_COLOR_TEXT, NEW_JOB_COLOR } from '../../../../../assets/projectJSS/Colors';
-import PostNewJob from '../new-job-form/PostNewJob';
+import PostNewJobDialog from '../new-job-form/PostNewJob';
 import { JobsStore } from '../../../../../store/JobsStore';
 
 const styles = makeStyles({
@@ -75,7 +75,7 @@ const NewJobButton: React.FC<NewJobButtonOwnProps> = (props) => {
                 </Typography>
             </Button>
             { (openAddDialog && allSelectOptions) && 
-                <PostNewJob 
+                <PostNewJobDialog 
                     allSelectOptions={allSelectOptions}
                     fetchAllAdsAfterPost={jobsStore.loadAdvertisements}
                     closeDialog={onCloseDialog} 
