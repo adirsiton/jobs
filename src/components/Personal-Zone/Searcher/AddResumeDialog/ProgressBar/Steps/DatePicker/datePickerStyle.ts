@@ -1,6 +1,6 @@
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-import { TEXT_AND_ICONS_ADS_BACKGROUND_COLOR, } from '../../../../../../assets/projectJSS/Colors';
-import { ITALIC_FONT } from '../../../../../../assets/projectJSS/Fonts';
+import { TEXT_AND_ICONS_ADS_BACKGROUND_COLOR, } from '../../../../../../../assets/projectJSS/Colors';
+import { ITALIC_FONT } from '../../../../../../../assets/projectJSS/Fonts';
 
 const useStyles = makeStyles((theme) =>
     createStyles({

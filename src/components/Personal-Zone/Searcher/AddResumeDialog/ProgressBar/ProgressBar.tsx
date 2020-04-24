@@ -35,7 +35,6 @@ const ProgressBar: React.FC<ProgressBarProps> = (props): JSX.Element => {
     const [nextRoles, setNextRoles] = useState<number[]>([]);
     const [aboutMe, setAboutMe] = useState<string>("");
     const steps = ["פרטים אישיים", "ג'ובים קודמים", "הג'וב הבא"];
-    const user = userStore.getUser;
 
 
     const getStepContent = (step: number) => {
@@ -47,7 +46,7 @@ const ProgressBar: React.FC<ProgressBarProps> = (props): JSX.Element => {
                     selectedRoleId={selectedRoleId} setSelectedRoleId={setSelectedRoleId}
                     selectedRankId={selectedRankId} setSelectedRankId={setSelectedRankId}
                     phoneNumber={phoneNumber} setPhoneNumber={setPhoneNumber}
-                    user={user} />;
+                    user={userStore.getUser} />;
             case 1:
                 return <PreviousJobsStep
                     units={allSelectOptions?.unitOptions || []}

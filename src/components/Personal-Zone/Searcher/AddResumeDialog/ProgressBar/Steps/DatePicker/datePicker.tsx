@@ -6,7 +6,6 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MuiPickersUtilsProvider from "@material-ui/pickers/MuiPickersUtilsProvider";
 import { KeyboardDatePicker } from "@material-ui/pickers/DatePicker/DatePicker";
 import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
-// import { ParsableDate } from '@material-ui/pickers/constants/prop-types';
 
 import DateFnsUtils from '@date-io/date-fns';
 import heLocale from "date-fns/locale/he";

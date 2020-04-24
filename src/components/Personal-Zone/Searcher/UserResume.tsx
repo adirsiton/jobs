@@ -1,5 +1,7 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+
+import { inject } from 'mobx-react';
+
 import Avatar from '@material-ui/core/Avatar';
 
 import styles from './UserResumeStyle';
@@ -29,5 +31,4 @@ const UserResume: React.FC<UserResumeProps> = (props): JSX.Element => {
         </div>
     );
 }
-
-export default UserResume;
+export default inject('userStore')(UserResume);
