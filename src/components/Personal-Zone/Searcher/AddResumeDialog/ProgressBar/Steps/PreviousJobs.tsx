@@ -8,8 +8,8 @@ import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
 
 import SelectInput from './Select/select';
 import DatePicker from './DatePicker/datePicker';
-import { Job, defaultJob } from '../../../../../types/User';
-import { Unit, Branch, Department } from '../../../../../types/Departments';
+import { Job, defaultJob } from '../../../../../../types/User';
+import { Unit, Branch, Department } from '../../../../../../types/Departments';
 import styles from './StepsStyle';
 
 interface PreviousJobsStepProps {

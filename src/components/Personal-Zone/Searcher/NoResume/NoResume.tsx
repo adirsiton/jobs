@@ -5,8 +5,8 @@ import AssignmentIndOutlinedIcon from '@material-ui/icons/AssignmentIndOutlined'
 import AddIcon from '@material-ui/icons/Add';
 import StarIcon from '@material-ui/icons/Star';
 
-import styles from './UserResumeStyle';
-import AddResumeDialog from './AddResumeDialog/AddResumeDialog';
+import styles from './NoResumeStyle';
+import AddResumeDialog from '../AddResumeDialog/AddResumeDialog';
 
 
 const NoResume: React.FC<{}> = (): JSX.Element => {

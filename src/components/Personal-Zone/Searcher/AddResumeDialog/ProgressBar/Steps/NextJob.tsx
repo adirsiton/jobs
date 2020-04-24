@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import CircleCheckedFilled from '@material-ui/icons/CheckCircleOutline';
 import CircleUnchecked from '@material-ui/icons/RadioButtonUnchecked';
 
-import { Role } from '../../../../../types/Role';
+import { Role } from '../../../../../../types/Role';
 import styles from './StepsStyle';
 import { TextField } from '@material-ui/core';
 

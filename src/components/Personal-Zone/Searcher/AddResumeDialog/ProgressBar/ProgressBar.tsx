@@ -7,19 +7,23 @@ import StepLabel from '@material-ui/core/StepLabel';
 import StepContent from '@material-ui/core/StepContent';
 import Button from '@material-ui/core/Button';
 
-import { AllSelectOptions } from '../../../../types/AllSelectOptions';
-import { Job, defaultJob } from '../../../../types/User';
+import { AllSelectOptions } from '../../../../../types/AllSelectOptions';
+import { Job, defaultJob } from '../../../../../types/User';
 import PersonalDetails from './Steps/PersonalDetails';
 import PreviousJobsStep from './Steps/PreviousJobs';
 import NextJob from './Steps/NextJob';
 import styles from './ProgressBarStyle';
+import { UserStore } from '../../../../../store/UserStore';
 
 interface ProgressBarProps {
     allSelectOptions: AllSelectOptions | null;
+    userStore?: UserStore;
 }
 
 const ProgressBar: React.FC<ProgressBarProps> = (props): JSX.Element => {
     const classes = styles();
+    const userStore: UserStore = props.userStore!;
+
     const { allSelectOptions } = props;
     const [activeStep, setActiveStep] = React.useState(0);
     const [selectedRoleId, setSelectedRoleId] = useState<number>(allSelectOptions?.roleOptions[0].id || 0);
@@ -31,6 +35,8 @@ const ProgressBar: React.FC<ProgressBarProps> = (props): JSX.Element => {
     const [nextRoles, setNextRoles] = useState<number[]>([]);
     const [aboutMe, setAboutMe] = useState<string>("");
     const steps = ["פרטים אישיים", "ג'ובים קודמים", "הג'וב הבא"];
+    const user = userStore.getUser;
+
 
     const getStepContent = (step: number) => {
         switch (step) {
@@ -40,7 +46,8 @@ const ProgressBar: React.FC<ProgressBarProps> = (props): JSX.Element => {
                     ranks={allSelectOptions?.standardOptions || []}
                     selectedRoleId={selectedRoleId} setSelectedRoleId={setSelectedRoleId}
                     selectedRankId={selectedRankId} setSelectedRankId={setSelectedRankId}
-                    phoneNumber={phoneNumber} setPhoneNumber={setPhoneNumber} />;
+                    phoneNumber={phoneNumber} setPhoneNumber={setPhoneNumber}
+                    user={user} />;
             case 1:
                 return <PreviousJobsStep
                     units={allSelectOptions?.unitOptions || []}

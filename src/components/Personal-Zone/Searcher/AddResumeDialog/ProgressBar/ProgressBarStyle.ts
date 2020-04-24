@@ -1,5 +1,5 @@
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-import {  THEME_COLOR, THEME_HOVER_COLOR } from '../../../../assets/projectJSS/Colors';
+import {  THEME_COLOR, THEME_HOVER_COLOR } from '../../../../../assets/projectJSS/Colors';
 
 const useStyles = makeStyles((theme) =>
     createStyles({

@@ -5,11 +5,10 @@ import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import TextField from '@material-ui/core/TextField';
 
-// import PhoneInput from 'react-phone-number-input/input'
-
-import { Role } from '../../../../../types/Role';
-import { Standard } from '../../../../../types/Standard';
+import { Role } from '../../../../../../types/Role';
+import { Standard } from '../../../../../../types/Standard';
 import styles from './StepsStyle';
+import { User } from '../../../../../../types/User';
 
 interface PersonalDetailsStepProps {
     roles: Role[];
@@ -20,12 +19,13 @@ interface PersonalDetailsStepProps {
     setSelectedRankId: (rankId: number) => void;
     phoneNumber: string;
     setPhoneNumber: (phoneNumber: string) => void;
+    user: User;
 }
 
 const PersonalDetailsStep: React.FC<PersonalDetailsStepProps> = (props): JSX.Element => {
     const classes = styles();
     const { roles, ranks, selectedRoleId, setSelectedRoleId, selectedRankId,
-        setSelectedRankId, phoneNumber, setPhoneNumber } = props;
+        setSelectedRankId, phoneNumber, setPhoneNumber, user} = props;
 
     const rolesMenuItems = roles.map(role =>
         <MenuItem
@@ -131,8 +131,8 @@ const PersonalDetailsStep: React.FC<PersonalDetailsStepProps> = (props): JSX.Ele
 
     return (
         <div className={classes.personalDetailsContainer}>
-            {inputDiv("שם", textInput(true, "אילי מלאכי", ""))}
-            {inputDiv("מ.א", textInput(true, "8485303", ""))}
+            {inputDiv("שם", textInput(true, user.name, ""))}
+            {inputDiv("מ.א", textInput(true, user.upn, ""))}
             {inputDiv("תפקיד", rolesSelect)}
             {inputDiv("דרגה", ranksSelect)}
             {phoneInput()}
