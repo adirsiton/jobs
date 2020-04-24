@@ -8,6 +8,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import { JobsStore } from '../../../store/JobsStore';
 import JobsList from './JobsList/jobsList';
 import Header from './header/Header';
+import EmptyPublisherDisplay from './empty-display/EmptyDisplay';
 
 const styles = makeStyles({
     appBodyContent: {
@@ -31,11 +32,14 @@ const JobsAppEmployerBody: React.FC<JobsAppEmployerBodyOwnProps> = (props): JSX.
         jobsStore.loadAdvertisements();
     }, [jobsStore]);
 
+    const showEmptyDisplay = false && jobsStore.advertisements.length > 0; 
     return (
         <div className={classes.appBodyContent}>
-            <Header 
-                fetchAllAdsAfterPost={jobsStore.loadAdvertisements} />
-            <JobsList ads={jobsStore.advertisements} />
+            <Header withAddButton={showEmptyDisplay}/>
+            { showEmptyDisplay
+                ? <JobsList ads={jobsStore.advertisements} />
+                : <EmptyPublisherDisplay />
+            }
         </div>
     );
 }

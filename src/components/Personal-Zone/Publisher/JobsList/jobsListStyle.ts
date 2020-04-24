@@ -41,6 +41,11 @@ const useStyles = makeStyles((theme) =>
             padding: "20px",
             width: "40%"
         },
+        jobsHeaderTitle: {
+            fontWeight: 'bolder',
+            marginTop: '4vh',
+            marginRight: '5vw'
+        },
         jobTitle: {
             fontWeight: "bold",
             width: '20ch',

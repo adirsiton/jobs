@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import Typography from '@material-ui/core/Typography';
+
 import styles from './jobsListStyle';
 import Job from './job';
 import { Advertisement } from '../../../../types/Advertisements';
@@ -22,9 +24,16 @@ const JobsList: React.FC<JobsListProps> = (props): JSX.Element => {
     }
 
     return (
-        <div className={classes.jobsList}>
-            {renderJobs()}
-        </div>
+        <>
+            <Typography 
+                    variant='h4'
+                    className={classes.jobsHeaderTitle}>
+                    התעניינו בתפקידים שלך
+            </Typography>
+            <div className={classes.jobsList}>
+                {renderJobs()}
+            </div>
+        </>
     );
 }
 
