@@ -45,11 +45,23 @@ router.get('/options', async (req, res) => {
         FROM jobs.units
     `).then(result => result.rows);
 
+    const branchOptions = await db.query(`
+        SELECT id, name, unit_id
+        FROM jobs.branches
+    `).then(result => result.rows);
+
+    const departmentOptions = await db.query(`
+        SELECT id, name, branch_id
+        FROM jobs.departments
+    `).then(result => result.rows);
+
     const allSelectOptions = {
         roleOptions,
         standardOptions,
         baseLocationOptions,
-        unitOptions
+        unitOptions,
+        branchOptions,
+        departmentOptions
     };
 
     res.json(allSelectOptions);
@@ -83,8 +95,8 @@ router.post('/', async (req, res) => {
     console.log(req.body);
     const ads = req.body;
     const { baseLocation, departmentData, jobNickname, role,
-            standards, entryDate, yearsInSeniority, shouldHaveDamach, 
-            jobDescription, contactInformation} = ads;
+        standards, entryDate, yearsInSeniority, shouldHaveDamach,
+        jobDescription, contactInformation } = ads;
 
     const baseLocationId = baseLocation.id;
     const roleId = role.id;
@@ -95,10 +107,7 @@ router.post('/', async (req, res) => {
     const standardIds = standards.map(standard => standard.id);
     try {
         await db.query('BEGIN');
-        // await db.query(`
-        // INSERT INTO jobs.advertisements(role_id, unit_id, branch_id, department_id, job_title,job_description, entry_date, seniority, is_damach, advertiser_upn, contact, base_location_id) VALUES
-        // (1, 4, 1, 1, 1,'מנהל מוצר מעגל האש', 'מנהל מוצר האש, אחראי על כלל ייצוג תהליך מעגל האש במערכת ועבודה רב"ז.', '09/20', 2, true, 's8182384', 'פלאפון 0527777780', 1)        
-        // `);
+        
         const values = [roleId, unitId, branchId, departmentId, jobNickname, jobDescription, entryDate, yearsInSeniority, shouldHaveDamach, req.user, `${contactInformation.fullName} ${contactInformation.phoneNumber}`, baseLocationId];
         const advertisementId = await db.query(`
             INSERT INTO jobs.advertisements (
@@ -106,7 +115,7 @@ router.post('/', async (req, res) => {
             ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) 
             RETURNING id
         `, values).then(result => result.rows[0].id);
-        
+
         for (const standardId of standardIds) {
             await db.query(`
                 INSERT INTO jobs.standards_of_ads (
@@ -115,16 +124,9 @@ router.post('/', async (req, res) => {
             `, [advertisementId, standardId]);
         }
 
-        // TODO: Use unnest($2::integer[]), pq-function-unnestunknown-is-not-unique
-        // await db.query(`
-        //     INSERT INTO jobs.standards_of_ads (
-        //         advertisement_id, standard_id 
-        //     ) VALUES ($1, ${standardIds})
-        // `, [advertisementId]);
-
         await db.query('COMMIT');
         res.sendStatus(200);
-    } catch(error) {
+    } catch (error) {
         console.log("Error is " + error);
         await db.query('ROLLBACK');
         res.sendStatus(500);

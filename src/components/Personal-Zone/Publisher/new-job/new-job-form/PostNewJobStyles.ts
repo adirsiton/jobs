@@ -1,5 +1,5 @@
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import { NEW_JOB_COLOR,
+import { THEME_COLOR,
          LIGHT_COLOR_TEXT,
          TEXT_AND_ICONS_ADS_BACKGROUND_COLOR, 
          BOX_SHADOW} from '../../../../../assets/projectJSS/Colors';
@@ -186,12 +186,12 @@ const styles = makeStyles({
         width: "12ch",
         display: "flex",
         color: LIGHT_COLOR_TEXT,
-        backgroundColor: NEW_JOB_COLOR,
+        backgroundColor: THEME_COLOR,
         "&:hover": {
-            backgroundColor: NEW_JOB_COLOR,
+            backgroundColor: THEME_COLOR,
         },
         "&:focus": {
-            backgroundColor: NEW_JOB_COLOR,
+            backgroundColor: THEME_COLOR,
         },
         '&:disabled': {
             backgroundColor: 'gray'

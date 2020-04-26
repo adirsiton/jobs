@@ -6,7 +6,7 @@ import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles'; //
 import { heIL } from '@material-ui/core/locale';
 
 import App from './App';
-import { NEW_JOB_COLOR, DARK_TEXT_COLOR, BOX_SHADOW, TEXT_AND_ICONS_ADS_BACKGROUND_COLOR, TOOLTIP_OR_SCROLLER_COLOR } from './assets/projectJSS/Colors';
+import { THEME_COLOR, DARK_TEXT_COLOR, BOX_SHADOW, TEXT_AND_ICONS_ADS_BACKGROUND_COLOR, TOOLTIP_OR_SCROLLER_COLOR } from './assets/projectJSS/Colors';
 import { ASSISTANT_FONT, ITALIC_FONT } from './assets/projectJSS/Fonts';
 
 import './index.css';
@@ -14,6 +14,7 @@ import './index.css';
 const MINI_TEXT_INPUT_PADDING = '1ch';
 
 const projectGlobalTheme = createMuiTheme({
+  direction: 'rtl',
   textArea: {
     "&::placeholder": {
       fontStyle: ITALIC_FONT
@@ -36,22 +37,22 @@ const projectGlobalTheme = createMuiTheme({
     },
     MuiPickersYear: {
       yearSelected: {
-        color: NEW_JOB_COLOR,
+        color: THEME_COLOR,
       },
     },
     MuiPickersToolbar: {
       toolbar: {
-        backgroundColor: NEW_JOB_COLOR
+        backgroundColor: THEME_COLOR
       },
     },
     MuiPickersCalendarHeader: {
       switchHeader: {
-        backgroundColor: NEW_JOB_COLOR
+        backgroundColor: THEME_COLOR
       }
     },
     MuiPickersMonth: {
       monthSelected: {
-        color: NEW_JOB_COLOR,
+        color: THEME_COLOR,
       },
     },
     MuiInput: {
@@ -96,7 +97,7 @@ const projectGlobalTheme = createMuiTheme({
     MuiRadio: {
       colorSecondary: {
         '&$checked': {
-          color: NEW_JOB_COLOR
+          color: THEME_COLOR
         }
       },
       root: {
@@ -106,18 +107,18 @@ const projectGlobalTheme = createMuiTheme({
     MuiCheckbox: {
       colorSecondary: {
           '&$checked': {
-            color: NEW_JOB_COLOR
+            color: THEME_COLOR
           }
       }
     },
     MuiSwitch: {
-      color: NEW_JOB_COLOR,
+      color: THEME_COLOR,
       colorSecondary: {
         '&$checked': {
-          color: NEW_JOB_COLOR,
+          color: THEME_COLOR,
         },
         '&$checked + $track': {
-          backgroundColor: NEW_JOB_COLOR
+          backgroundColor: THEME_COLOR
         }        
       }
     },

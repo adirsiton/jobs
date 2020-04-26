@@ -9,7 +9,8 @@ export const AVATAR_COLOR = 'rgb(73,90,114)';
 export const TOOLTIP_OR_SCROLLER_COLOR = 'rgb(127, 141, 156, 30)';
 export const TEXT_AND_ICONS_ADS_COLOR = 'rgb(46, 188, 145)'; // Advertisements
 export const TEXT_AND_ICONS_ADS_BACKGROUND_COLOR = '#F8F9FC'; // Advertisements
-export const NEW_JOB_COLOR = '#21BD90';
+export const THEME_COLOR = '#21BD90';
+export const THEME_HOVER_COLOR = '#3cf0bc';
 export const YELLOW_STAR_COLOR = 'rgb(254,201,62)'; // Same as in PowerPoint
 
 // Shadow similar to PowerPoint

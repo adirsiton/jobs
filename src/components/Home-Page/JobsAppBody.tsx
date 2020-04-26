@@ -16,7 +16,8 @@ const styles = makeStyles({
         paddingRight: '2vw',
         paddingTop: '2vh',
         display: "flex",
-        flexDirection: "column"
+        flexDirection: "column",
+        height: '82vh'
     }
 });
 
