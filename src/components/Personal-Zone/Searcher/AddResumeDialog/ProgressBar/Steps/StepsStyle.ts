@@ -18,7 +18,10 @@ const useStyles = makeStyles((theme) =>
             flexDirection: 'column',
             borderRight: '2px solid #d6d6d6',
             paddingRight: '5px',
-            marginBottom: '10px'
+            marginBottom: '60px',
+            '&:last-child': {
+                marginBottom: '0px'
+            }
         },
         previousJobsRow: {
             display: 'flex',
@@ -34,7 +37,8 @@ const useStyles = makeStyles((theme) =>
             padding: '10px',
             display: 'flex',
             flexDirection: 'row',
-            flexGrow: 1
+            flexGrow: 1,
+            alignItems: 'center'
         },
         asterisk: {
             color: 'red'
@@ -42,16 +46,22 @@ const useStyles = makeStyles((theme) =>
         inputfield: {
             width: '125px',
             boxSizing: 'border-box',
-            boxShadow: 'inset 0 1px 2px rgba(0,0,0,.39), 0 -1px 1px #fff, 0 1px 0 #fff'
+            paddingRight: 0,
+            '& .MuiInputBase-root': {
+                height: '34px'
+            },
+            borderRadius: '4px'
         },
         longInput: {
             marginRight: '10px',
-            width: '65%'
+            width: '65%',
         },
         phoneInput: {
             '& .MuiInputBase-input': {
-                textAlign: 'center'
-            }
+                textAlign: 'center',
+            },
+            marginRight: '10px',
+            width: '65%',
         },
         headline: {
             fontWeight: 'bold',
@@ -73,6 +83,13 @@ const useStyles = makeStyles((theme) =>
         },
         perviousJobsDiv: {
             // overflowY: "scroll"
+        },
+        selectIconOutlined: {
+            right: 'unset'
+        },
+        selectRoot: {
+            borderRadius: '4px',
+            padding: '9px'
         }
     }),
 );
