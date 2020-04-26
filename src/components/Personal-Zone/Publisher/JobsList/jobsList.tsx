@@ -2,13 +2,13 @@ import * as React from 'react';
 
 import Typography from '@material-ui/core/Typography';
 
+import { RamadAds } from '../../../../types/User';
 import styles from './jobsListStyle';
 import Job from './job';
-import { Advertisement } from '../../../../types/Advertisements';
 
 
 interface JobsListProps {
-    ads: Advertisement[];
+    ads: RamadAds[];
 }
 
 const JobsList: React.FC<JobsListProps> = (props): JSX.Element => {
@@ -25,7 +25,7 @@ const JobsList: React.FC<JobsListProps> = (props): JSX.Element => {
 
     return (
         <>
-            <Typography 
+            <Typography
                     variant='h4'
                     className={classes.jobsHeaderTitle}>
                     התעניינו בתפקידים שלך

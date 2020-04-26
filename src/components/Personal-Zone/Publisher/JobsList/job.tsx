@@ -6,86 +6,72 @@ import EditRoundedIcon from '@material-ui/icons/EditRounded';
 import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
 import CancelPresentationIcon from '@material-ui/icons/CancelPresentation';
 
+import { RamadAds } from '../../../../types/User';
 import styles from './jobsListStyle';
 
-import { Advertisement } from '../../../../types/Advertisements';
-
 interface JobsProps {
-    ad: Advertisement;
+    ad: RamadAds;
 }
 
 const Job: React.FC<JobsProps> = (props): JSX.Element => {
     const classes = styles();
     const { ad } = props;
 
+    const getJobName = (): JSX.Element => {
+        return (
+            <Typography 
+                variant='h5'
+                className={classes.jobTitle}
+                title={ad.name}
+            >
+                {ad.name}
+            </Typography>
+        );
+    };
+
+    const getJobTag = (): JSX.Element => {
+        return (
+            <Typography 
+                className={classes.tag} 
+                style={{ backgroundColor: ad.role.color }}
+                >
+                {ad.role.initials}
+            </Typography>
+        );
+    };
+
+    const getJobCandidates = () => {
+        return ad.candidate.map(candidate => (
+            <div key={ad.id} className={classes.candidate}>
+                <Typography className={classes.candidateName} variant='h6'>
+                    {candidate.name}
+                </Typography>
+                <Typography variant='h6'>
+                    {candidate.upn}
+                </Typography>
+                <Typography variant='h6'>
+                    {candidate.phoneNumber}
+                </Typography>
+                <Button 
+                    className={classes.viewJobBtn} 
+                    startIcon={<VisibilityOutlinedIcon className={classes.btnIcon} />}>
+                    <Typography variant='h6'>
+                        לצפייה ברזומה
+                    </Typography>
+                </Button>
+            </div>
+        ));
+    }
+
     return (
         <div className={classes.job}>
             <div className={classes.jobHeader}>
                 <div className={classes.jobMainTitles}>
-                    <Typography 
-                        variant='h5'
-                        className={classes.jobTitle}
-                        title={ad.name}
-                    >
-                        {ad.name}
-                    </Typography>
-                    <Typography 
-                        className={classes.tag} 
-                        style={{ backgroundColor: ad.role.color }}
-                        >
-                        {ad.role.initials}
-                    </Typography>
+                    {getJobName()}
+                    {getJobTag()}
                 </div>
                 <div className={classes.candidates}>
-                    {ad.role.initials === 'PM' &&
-                    <div className={classes.candidate}>
-                        <Typography className={classes.candidateName} variant='h6'>
-                            אדיר סיטון
-                        </Typography>
-                        <Typography variant='h6'>
-                            1234567
-                        </Typography>
-                        <Typography variant='h6'>
-                            052-1111111
-                        </Typography>
-                        <Button className={classes.viewJobBtn} startIcon={<VisibilityOutlinedIcon className={classes.btnIcon} />}>
-                            <Typography variant='h6'>
-                                לצפייה ברזומה
-                            </Typography>
-                        </Button>
-                    </div> }
-                    <div className={classes.candidate}>
-                        <Typography className={classes.candidateName} variant='h6'>
-                            בן בביוף
-                        </Typography>
-                        <Typography variant='h6'>
-                            1234867
-                        </Typography>
-                        <Typography variant='h6'>
-                            052-2222222
-                        </Typography>
-                        <Button className={classes.viewJobBtn} startIcon={<VisibilityOutlinedIcon className={classes.btnIcon} />}>
-                            <Typography variant='h6'>
-                                לצפייה ברזומה
-                            </Typography>
-                        </Button>
-                    </div>
-                    <div className={classes.candidate}>
-                        <Typography className={classes.candidateName} variant='h6' title='אאאאאבבבבבגגגגגדדדדד הההההווווו'>
-                            אאאאאבבבבבגגגגגדדדדד הההההווווו
-                        </Typography>
-                        <Typography variant='h6'>
-                            7654321
-                        </Typography>
-                        <Typography variant='h6'>
-                            052-3333333
-                        </Typography>
-                        <Button className={classes.viewJobBtn} startIcon={<VisibilityOutlinedIcon className={classes.btnIcon} />}>
-                            <Typography variant='h6'>
-                                לצפייה ברזומה
-                            </Typography>
-                        </Button>
-                    </div>
+                    {getJobCandidates()}
                 </div>
             </div>
             <div className={classes.jobContent} />

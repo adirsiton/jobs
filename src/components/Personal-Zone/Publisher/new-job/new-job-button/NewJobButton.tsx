@@ -34,7 +34,7 @@ interface NewJobButtonOwnProps {
 
 const NewJobButton: React.FC<NewJobButtonOwnProps> = (props) => {
     const [allSelectOptions, setAllSelectOptions] = useState<AllSelectOptions | null>(null);
-    const [openAddDialog, setOpenAddDialog] = useState<boolean>(true/*TODO:false*/);
+    const [openAddDialog, setOpenAddDialog] = useState<boolean>(false);
     const addButtonRef = useRef(null);
     const jobsStore: JobsStore = props.jobsStore!;
 
