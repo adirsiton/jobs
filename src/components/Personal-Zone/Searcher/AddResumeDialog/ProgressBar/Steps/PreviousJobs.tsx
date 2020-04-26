@@ -172,7 +172,8 @@ const PreviousJobsStep: React.FC<PreviousJobsStepProps> = (props): JSX.Element =
                     previousJobs.map(Job => JobComponent(Job, false))
                 }
                 {previousJobs.length !== 3 && JobComponent(enteredPrevJob, true)}
-                <Button
+            </div>
+            <Button
                     className={classes.nextJobBtn}
                     onClick={() => {
                         setPreviousJobs([...previousJobs,
@@ -186,7 +187,6 @@ const PreviousJobsStep: React.FC<PreviousJobsStepProps> = (props): JSX.Element =
                     disabled={previousJobs.length === 3}>
                     + הוספת ג'וב
                 </Button>
-            </div>
         </div>
     );
 }
