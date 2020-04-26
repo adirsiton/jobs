@@ -29,7 +29,7 @@ import JobDamachInput from './JobDamachInput';
 import JobDescriptionInput, { isJobDescriptionInValidLength } from './JobDescriptionInput';
 import JobContactInformationInput, { isContactInfoLegal } from './JobContactInformationInput';
 import { ContactInformation, EMPTY_CONTACT_INFORMATION } from '../../../../../types/ContactInformation';
-import { NEW_JOB_COLOR } from '../../../../../assets/projectJSS/Colors';
+import { THEME_COLOR } from '../../../../../assets/projectJSS/Colors';
 import { addNewAd } from '../../../../../server/ads';
 import { format } from 'date-fns';
 import { AllSelectOptions } from '../../../../../types/AllSelectOptions';
@@ -218,7 +218,7 @@ const PostNewJob: React.FC<PostNewJobProps> = (props): JSX.Element => {
                     html: `<Typography>${upperText}</Typography></br></br><Typography>${lowerText}</Typography>`,
                     width: '68ch',
                     confirmButtonText: '<Typography>אחלה, תודה</Typography>',
-                    confirmButtonColor: NEW_JOB_COLOR ,
+                    confirmButtonColor: THEME_COLOR ,
                 });               
             }
             catch(error) {

@@ -9,14 +9,14 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 
 import { AllSelectOptions } from '../../../../../types/AllSelectOptions';
 import { getAllSelectOptions } from '../../../../../server/ads';
-import { LIGHT_COLOR_TEXT, NEW_JOB_COLOR } from '../../../../../assets/projectJSS/Colors';
+import { LIGHT_COLOR_TEXT, THEME_COLOR } from '../../../../../assets/projectJSS/Colors';
 import PostNewJobDialog from '../new-job-form/PostNewJob';
 import { JobsStore } from '../../../../../store/JobsStore';
 
 const styles = makeStyles({
     addNewPostButton: {
         color: LIGHT_COLOR_TEXT,
-        backgroundColor: NEW_JOB_COLOR,
+        backgroundColor: THEME_COLOR,
         "&:hover": {
             backgroundColor: `#00d699`,
         },
@@ -71,7 +71,7 @@ const NewJobButton: React.FC<NewJobButtonOwnProps> = (props) => {
                 <Typography
                     variant='h5'
                 >
-                    + פרסום תפקיד חדש
+                    + פרסום תפקיד חדש גגגג
                 </Typography>
             </Button>
             { (openAddDialog && allSelectOptions) && 

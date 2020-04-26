@@ -3,6 +3,7 @@ import * as React from 'react';
 import { observer, inject } from 'mobx-react';
 
 import JobsAppEmployerBody from './Publisher/JobsAppEmployerBody';
+import SearcherPage from './Searcher/UserResume';
 import { UserStore } from '../../store/UserStore';
 
 interface PersonalZoneProps {
@@ -15,7 +16,7 @@ const PersonalZone: React.FC<PersonalZoneProps> = (props): JSX.Element => {
     return (<>
         { userStore.getUser.isRamad 
             ? <JobsAppEmployerBody /> 
-            : <>אישי</> /* Todo: Illi, Instead of 'אישי', connect to your personal zone screen of candidate :)*/ 
+            : <SearcherPage />
         }
     </>);
 

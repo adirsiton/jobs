@@ -1,5 +1,5 @@
 import makeStyles from "@material-ui/core/styles/makeStyles";
-import { LIGHT_COLOR_TEXT, NEW_JOB_COLOR, AVATAR_COLOR } from "../../../../assets/projectJSS/Colors";
+import { LIGHT_COLOR_TEXT, THEME_COLOR, AVATAR_COLOR } from "../../../../assets/projectJSS/Colors";
 
 const styles = makeStyles({
     root: {
@@ -21,7 +21,6 @@ const styles = makeStyles({
         width: '6vh',
         fontSize: '3vh'
     },
-
     searchBar: {
         width: '50vw',
         fontSize: '1.3em',
