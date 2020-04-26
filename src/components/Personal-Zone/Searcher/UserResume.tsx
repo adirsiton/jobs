@@ -23,7 +23,7 @@ const UserResume: React.FC<UserResumeProps> = (props): JSX.Element => {
                     {userStore.getUserInitials}
                 </Avatar>
                 <div className={classes.introductionContent}>
-                    <span className={classes.headline}> היי יובל!</span>
+            <span className={classes.headline}> היי {userStore.getUser.name}!</span>
                     <span> הגעת לאזור האישי שלך בג'ובניק</span>
                 </div>
             </div>

@@ -14,6 +14,7 @@ import PreviousJobsStep from './Steps/PreviousJobs';
 import NextJob from './Steps/NextJob';
 import styles from './ProgressBarStyle';
 import { UserStore } from '../../../../../store/UserStore';
+import { observer, inject } from 'mobx-react';
 
 interface ProgressBarProps {
     allSelectOptions: AllSelectOptions | null;
@@ -120,4 +121,4 @@ const ProgressBar: React.FC<ProgressBarProps> = (props): JSX.Element => {
     );
 }
 
-export default ProgressBar;
+export default inject('userStore')(observer(ProgressBar));
