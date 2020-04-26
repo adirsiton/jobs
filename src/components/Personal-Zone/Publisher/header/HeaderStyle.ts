@@ -14,29 +14,12 @@ const styles = makeStyles({
         display: 'flex',
         flexDirection: 'row'
     },
-    jobsHeaderTitle: {
-        fontWeight: 'bolder',
-        marginTop: '4vh',
-        marginRight: '5vw'
-    },
     avatar: {
         backgroundColor: AVATAR_COLOR,
         margin: '0 1ch',
         height: '6vh',
         width: '6vh',
         fontSize: '3vh'
-    },
-    addNewPostButton: {
-        color: LIGHT_COLOR_TEXT,
-        backgroundColor: THEME_COLOR,
-        "&:hover": {
-            backgroundColor: `#00d699`,
-        },
-        "&:focus": {
-            backgroundColor: `#00eba8`,
-        },
-        minWidth: '10ch',
-        auto: 'left'
     },
     searchBar: {
         width: '50vw',

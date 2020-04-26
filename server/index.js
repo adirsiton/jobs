@@ -65,7 +65,8 @@ app.use((req, res, next) => {
     next();
   } else {
     console.log('Unauthenticated request, redirecting to login');
-    res.redirect('/login?redirect='+req.originalUrl)
+    const returnTo = req.originalUrl.startsWith('/login') ? '/' : req.originalUrl;
+    res.redirect('/login?redirect=' + returnTo);
   }
 });
 
