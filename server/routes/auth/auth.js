@@ -34,8 +34,6 @@ router.get('/auth/callback',
     // Successful authentication
     const user = await getUserDetails(req.user, req.user); // On whiten we'll take the display take from ping
 
-    /* todo detrmine isRamad acording to WITH_RAMAD_ACCESS from '.env'
-    giving priority to the .env variable, need to convert string to boolean to*/
     const isRamad = checkIsRamad(WITH_RAMAD_ACCESS, user.is_ramad);
     
     res.cookie('user', JSON.stringify({
