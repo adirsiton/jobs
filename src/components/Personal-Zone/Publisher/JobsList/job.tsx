@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -8,6 +9,7 @@ import CancelPresentationIcon from '@material-ui/icons/CancelPresentation';
 
 import { RamadAds } from '../../../../types/User';
 import styles from './jobsListStyle';
+import CloseJobDialog from './Close-Job-Dialog/closeJobDialog';
 
 interface JobsProps {
     ad: RamadAds;
@@ -16,6 +18,7 @@ interface JobsProps {
 const Job: React.FC<JobsProps> = (props): JSX.Element => {
     const classes = styles();
     const { ad } = props;
+  const [isOpenCloseAdDialog, setIsOpenCloseAdDialog] = useState(false);
 
     const getJobName = (): JSX.Element => {
         return (
@@ -61,7 +64,34 @@ const Job: React.FC<JobsProps> = (props): JSX.Element => {
                 </Button>
             </div>
         ));
-    }
+    };
+
+    const getJobButtons = () => {
+        return ad.isClosed
+        ? ( 
+            <Button 
+                className={classes.jobBtn}
+                // TODO onClick open ad
+            >
+                פתיחה מחדש
+            </Button>
+        )
+        : (<>
+            <Button 
+                className={classes.jobBtn} 
+                startIcon={<EditRoundedIcon className={classes.btnIcon} />}
+            >
+                עריכה
+            </Button>
+            <Button 
+                className={classes.jobBtn} 
+                startIcon={<CancelPresentationIcon className={classes.btnIcon} />}
+                onClick={() => setIsOpenCloseAdDialog(true)}
+            >
+                סגירת תפקיד
+            </Button>
+        </>);    
+        }
 
     return (
         <div className={classes.job}>
@@ -76,9 +106,13 @@ const Job: React.FC<JobsProps> = (props): JSX.Element => {
             </div>
             <div className={classes.jobContent} />
             <div className={classes.jobFooter}>
-                <Button className={classes.jobBtn} startIcon={<EditRoundedIcon className={classes.btnIcon} />}>עריכה</Button>
-                <Button className={classes.jobBtn} startIcon={<CancelPresentationIcon className={classes.btnIcon} />}>סגירת תפקיד</Button>
+                {getJobButtons()}
             </div>
+            {isOpenCloseAdDialog && 
+                <CloseJobDialog 
+                    closeDialog={() => setIsOpenCloseAdDialog(false)}
+                />
+            }
         </div>
     );
 }
