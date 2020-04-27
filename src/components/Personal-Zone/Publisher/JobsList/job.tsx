@@ -84,14 +84,18 @@ const Job: React.FC<JobsProps> = (props): JSX.Element => {
                 עריכה
             </Button>
             <Button 
-                className={classes.jobBtn} 
+                className={`${classes.jobBtn} ${classes.closeAdButton}`} 
                 startIcon={<CancelPresentationIcon className={classes.btnIcon} />}
                 onClick={() => setIsOpenCloseAdDialog(true)}
             >
                 סגירת תפקיד
             </Button>
         </>);    
-        }
+    }
+
+    const getClosedLabel = () => {
+        return <div className={classes.closedAdLabel}>תפקיד סגור </div>
+    }
 
     return (
         <div className={classes.job}>
@@ -104,7 +108,9 @@ const Job: React.FC<JobsProps> = (props): JSX.Element => {
                     {getJobCandidates()}
                 </div>
             </div>
-            <div className={classes.jobContent} />
+            <div className={classes.jobContent}>
+                {ad.isClosed && getClosedLabel()}
+            </div>
             <div className={classes.jobFooter}>
                 {getJobButtons()}
             </div>

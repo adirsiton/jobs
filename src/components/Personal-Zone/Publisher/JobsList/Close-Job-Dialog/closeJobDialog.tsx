@@ -17,7 +17,6 @@ const CloseJobDialog: React.FC<CloseJobDialog> = (props): JSX.Element => {
     const { closeDialog } = props;
     const classes = styles();
 
-
     return (
         <div>
         <Dialog
