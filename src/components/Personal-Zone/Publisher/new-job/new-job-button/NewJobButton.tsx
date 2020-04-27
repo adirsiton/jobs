@@ -71,7 +71,7 @@ const NewJobButton: React.FC<NewJobButtonOwnProps> = (props) => {
                 <Typography
                     variant='h5'
                 >
-                    + פרסום תפקיד חדש גגגג
+                    + פרסום תפקיד חדש 
                 </Typography>
             </Button>
             { (openAddDialog && allSelectOptions) && 

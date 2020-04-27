@@ -32,7 +32,7 @@ const JobsAppEmployerBody: React.FC<JobsAppEmployerBodyOwnProps> = (props): JSX.
         userStore.loadRamadAds();
     }, [userStore]);
 
-    const showEmptyDisplay = userStore.getRamadAds.length === 0
+    const showEmptyDisplay: boolean = userStore.getRamadAds.length === 0;
     return (
         <div className={classes.appBodyContent}>
             <Header withAddButton={!showEmptyDisplay}/> {/*There are ads, show the addButton*/}

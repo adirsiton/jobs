@@ -33,12 +33,13 @@ export async function setFavoriteAd(adId: number): Promise<boolean> {
 };
 
 export async function fetchRamadAds(): Promise<RamadAds[]> {
+    // TODO: insert DDL
     const ramadAds: RamadAds[] = [
         {
             id: 1,
             name: 'דרוש רשץ דחוף',
             role: {id:1, name: 'רש"צ', color: 'red', initials: 'TL'},
-            candidate: [ {
+            candidates: [ {
                 name: 'אדיר סיטון',
                 phoneNumber: '052-4231561',
                 upn: 's8232392' 
@@ -51,7 +52,7 @@ export async function fetchRamadAds(): Promise<RamadAds[]> {
             id: 2,
             name: 'מנהל מוצר תותח',
             role: {id:1, name: 'מנהל מוצר', color: 'red', initials: 'TL'},
-            candidate: [ {
+            candidates: [ {
                 name: 'אדיר סיטון',
                 phoneNumber: '052-4231561',
                 upn: 's8232392' 

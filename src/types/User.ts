@@ -12,14 +12,15 @@ export interface RamadAds {
     id: number;
     name: string;
     role: RoleAdPropertiesData;
-    candidate: Condidate[];
+    candidates: Candidate[];
 }
 
-export interface Condidate {
+export interface Candidate {
     upn: string;
     name: string;
     phoneNumber: string;
 }
+
 export interface Job {
     id: number;
     startDate: MaterialUiPickersDate;

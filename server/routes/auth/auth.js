@@ -2,7 +2,6 @@ const express = require('express');
 const router  = express.Router();
 const passport = require('passport');
 const db = require('../../db');
-require('dotenv').config();
 const WITH_RAMAD_ACCESS = process.env.WITH_RAMAD_ACCESS;
 
 router.get('/login', passport.authenticate('OAuth2', {scope: 'read:user'}, (req, res) => {
@@ -39,7 +38,7 @@ router.get('/auth/callback',
     res.cookie('user', JSON.stringify({
         upn: user.upn,
         name: user.name,
-        isRamad: isRamad,
+        isRamad
     }));
 
     // redirect home
