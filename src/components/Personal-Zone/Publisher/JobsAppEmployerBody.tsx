@@ -5,7 +5,7 @@ import { observer, inject } from 'mobx-react';
 
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
-import { JobsStore } from '../../../store/JobsStore';
+import { UserStore } from '../../../store/UserStore';
 import JobsList from './JobsList/jobsList';
 import Header from './header/Header';
 import EmptyPublisherDisplay from './empty-display/EmptyDisplay';
@@ -21,27 +21,27 @@ const styles = makeStyles({
 });
 
 interface JobsAppEmployerBodyOwnProps {
-    jobsStore?: JobsStore;
+    userStore?: UserStore;
 }
 
 const JobsAppEmployerBody: React.FC<JobsAppEmployerBodyOwnProps> = (props): JSX.Element => {
     const classes = styles({});
-    const jobsStore: JobsStore = props.jobsStore!;
+    const userStore: UserStore = props.userStore!;
 
     useEffect(() => {
-        jobsStore.loadAdvertisements();
-    }, [jobsStore]);
+        userStore.loadRamadAds();
+    }, [userStore]);
 
-    const showEmptyDisplay = false && jobsStore.advertisements.length > 0; 
+    const showEmptyDisplay: boolean = userStore.getRamadAds.length === 0;
     return (
         <div className={classes.appBodyContent}>
-            <Header withAddButton={showEmptyDisplay}/>
+            <Header withAddButton={!showEmptyDisplay}/> {/*There are ads, show the addButton*/}
             { showEmptyDisplay
-                ? <JobsList ads={jobsStore.advertisements} />
-                : <EmptyPublisherDisplay />
+                ? <EmptyPublisherDisplay />
+                : <JobsList ads={userStore.getRamadAds} />
             }
         </div>
     );
 }
 
-export default inject('jobsStore')(observer(JobsAppEmployerBody));
+export default inject('userStore')(observer(JobsAppEmployerBody));

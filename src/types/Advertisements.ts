@@ -38,7 +38,7 @@ export interface AdPropertiesData {
     name: string
 }
 
-interface RoleAdPropertiesData extends AdPropertiesData {
+export interface RoleAdPropertiesData extends AdPropertiesData {
     initials: string;
     color: string;
 }

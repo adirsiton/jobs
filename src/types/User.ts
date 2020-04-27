@@ -1,3 +1,4 @@
+import { RoleAdPropertiesData } from './Advertisements';
 import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
 
 export interface User {
@@ -5,6 +6,19 @@ export interface User {
     name: string;
     userInitials: string;
     isRamad: boolean;
+}
+
+export interface RamadAds {
+    id: number;
+    name: string;
+    role: RoleAdPropertiesData;
+    candidates: Candidate[];
+}
+
+export interface Candidate {
+    upn: string;
+    name: string;
+    phoneNumber: string;
 }
 
 export interface Job {
