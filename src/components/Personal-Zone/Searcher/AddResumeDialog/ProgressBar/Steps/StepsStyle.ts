@@ -46,11 +46,9 @@ const useStyles = makeStyles((theme) =>
         inputfield: {
             width: '125px',
             boxSizing: 'border-box',
-            paddingRight: 0,
             '& .MuiInputBase-root': {
                 height: '34px'
             },
-            borderRadius: '4px'
         },
         longInput: {
             marginRight: '10px',
@@ -90,6 +88,9 @@ const useStyles = makeStyles((theme) =>
         selectRoot: {
             borderRadius: '4px',
             padding: '9px'
+        },
+        errorText: {
+            color: 'red'
         }
     }),
 );

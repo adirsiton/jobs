@@ -49,7 +49,7 @@ const PreviousJobsStep: React.FC<PreviousJobsStepProps> = (props): JSX.Element =
     const inputDiv = (title: string, input: JSX.Element): JSX.Element => {
         return (
             <div className={classes.inputDiv}>
-                <InputLabel classes={{ root: classes.label, asterisk: classes.asterisk }} required={true}> {title} </InputLabel>
+                <InputLabel classes={{ root: classes.label }}> {title} </InputLabel>
                 {input}
             </div>
         )
@@ -121,7 +121,7 @@ const PreviousJobsStep: React.FC<PreviousJobsStepProps> = (props): JSX.Element =
 
     const JobNameInput = (job: Job, isNew: boolean): JSX.Element => {
         return (<div className={classes.inputDiv}>
-            <InputLabel classes={{ asterisk: classes.asterisk }} required={true}>
+            <InputLabel>
                 שם התפקיד
             </InputLabel>
             <TextField

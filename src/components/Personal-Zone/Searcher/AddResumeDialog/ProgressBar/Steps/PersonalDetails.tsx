@@ -9,6 +9,7 @@ import { Role } from '../../../../../../types/Role';
 import { Standard } from '../../../../../../types/Standard';
 import styles from './StepsStyle';
 import { User } from '../../../../../../types/User';
+import { InputErrors } from './Step';
 
 interface PersonalDetailsStepProps {
     roles: Role[];
@@ -20,12 +21,13 @@ interface PersonalDetailsStepProps {
     phoneNumber: string;
     setPhoneNumber: (phoneNumber: string) => void;
     user: User;
+    inputErrors: InputErrors;
 }
 
 const PersonalDetailsStep: React.FC<PersonalDetailsStepProps> = (props): JSX.Element => {
     const classes = styles();
     const { roles, ranks, selectedRoleId, setSelectedRoleId, selectedRankId,
-        setSelectedRankId, phoneNumber, setPhoneNumber, user} = props;
+        setSelectedRankId, phoneNumber, setPhoneNumber, user, inputErrors} = props;
 
     const rolesMenuItems = roles.map(role =>
         <MenuItem
@@ -41,13 +43,23 @@ const PersonalDetailsStep: React.FC<PersonalDetailsStepProps> = (props): JSX.Ele
             root: classes.selectRoot,
             iconOutlined: classes.selectIconOutlined,
         }}
-        disableUnderline
         value={selectedRoleId}
         variant="outlined"
         onChange={
             (event: React.ChangeEvent<{ value: any }>) =>
                 setSelectedRoleId(event.target.value)
         }
+        MenuProps={{
+            anchorOrigin: {
+                vertical: "bottom",
+                horizontal: "center"
+            },
+            transformOrigin: {
+                vertical: "top",
+                horizontal: "center"
+            },
+            getContentAnchorEl: null
+        }}
     >
         {rolesMenuItems}
     </Select>
@@ -66,8 +78,18 @@ const PersonalDetailsStep: React.FC<PersonalDetailsStepProps> = (props): JSX.Ele
             root: classes.selectRoot,
             iconOutlined: classes.selectIconOutlined,
         }}
-        disableUnderline
         value={selectedRankId}
+        MenuProps={{
+            anchorOrigin: {
+                vertical: "bottom",
+                horizontal: "center"
+            },
+            transformOrigin: {
+                vertical: "top",
+                horizontal: "center"
+            },
+            getContentAnchorEl: null
+        }}
         variant="outlined"
         onChange={
             (event: React.ChangeEvent<{ value: any }>) =>
@@ -105,7 +127,8 @@ const PersonalDetailsStep: React.FC<PersonalDetailsStepProps> = (props): JSX.Ele
                     טלפון ליצירת קשר
                 </InputLabel>
                 <TextField
-                    inputProps={{ pattern: "[0-9]{3}-[0-9]{2}-[0-9]{3}" }}
+                    error={!!inputErrors.phoneError}
+                    helperText={inputErrors.phoneError}
                     value={phoneNumber}
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                         setPhoneNumber(event.target.value)
