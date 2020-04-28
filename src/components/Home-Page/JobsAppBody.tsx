@@ -33,7 +33,7 @@ const JobsAppBody: React.FC<JobsAppBodyOwnProps> = (props): JSX.Element => {
 
     useEffect(() => {
         rootStore.jobsStore.loadAdvertisements();
-        rootStore.userStore.loadfavoriteAds();
+        rootStore.userStore.loadFavoriteAds();
     }, [rootStore]);
 
     const onSearchValueChange = (event: React.ChangeEvent<HTMLInputElement>): void => {

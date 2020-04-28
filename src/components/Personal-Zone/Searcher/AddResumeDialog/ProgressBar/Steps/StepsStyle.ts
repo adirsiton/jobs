@@ -88,9 +88,6 @@ const useStyles = makeStyles((theme) =>
         selectRoot: {
             borderRadius: '4px',
             padding: '9px'
-        },
-        errorText: {
-            color: 'red'
         }
     }),
 );

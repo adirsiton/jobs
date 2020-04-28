@@ -27,6 +27,7 @@ const ProgressBar: React.FC<ProgressBarProps> = (props): JSX.Element => {
     const userStore: UserStore = props.userStore!;
 
     const { allSelectOptions } = props;
+
     const [activeStep, setActiveStep] = React.useState<ResumeStep>(ResumeStep.PERSONAL_DETAILS);
     const [selectedRoleId, setSelectedRoleId] = useState<number>(allSelectOptions?.roleOptions[0].id || 0);
     const [selectedRankId, setSelectedRankId] = useState<number>(allSelectOptions?.standardOptions[0].id || 0);
@@ -92,11 +93,11 @@ const ProgressBar: React.FC<ProgressBarProps> = (props): JSX.Element => {
                 const alteredSteps: StepInfo[] = steps.slice();
                 alteredSteps[ResumeStep.PERSONAL_DETAILS].errors = {};
 
-                if (!(/^\d{4,10}$/.test(phoneNumber))) {
+                if (!(/^\d{10}$/.test(phoneNumber))) {
                     if (phoneNumber === '') {
                         alteredSteps[ResumeStep.PERSONAL_DETAILS].errors.phoneError = 'מספר טלפון לא יכול להיות ריק';
                     } else {
-                        alteredSteps[ResumeStep.PERSONAL_DETAILS].errors.phoneError = 'מספר טלפון חייב להכיל ספרות בלבד';
+                        alteredSteps[ResumeStep.PERSONAL_DETAILS].errors.phoneError = 'מספר טלפון חייב להכיל 10 ספרות בלבד';
                     }
 
                     setSteps(alteredSteps);

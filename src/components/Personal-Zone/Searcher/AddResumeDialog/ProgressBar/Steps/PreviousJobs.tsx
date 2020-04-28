@@ -25,10 +25,13 @@ interface PreviousJobsStepProps {
 }
 
 const PreviousJobsStep: React.FC<PreviousJobsStepProps> = (props): JSX.Element => {
-    const classes = styles();
     const { units, branches, deparments,
         previousJobs, setPreviousJobs, enteredPrevJob, setEnteredPrevJob } = props;
+
     const [currentId, setCurrentId] = useState<number>(1);
+
+    const classes = styles();
+    const MAX_NUM_PREVIOUS_JOBS_EXPERIENCE: number = 3;
 
     const updateJob = (job: Job, isNew: boolean): void => {
         if (isNew) {
@@ -171,7 +174,7 @@ const PreviousJobsStep: React.FC<PreviousJobsStepProps> = (props): JSX.Element =
                 {
                     previousJobs.map(Job => JobComponent(Job, false))
                 }
-                {previousJobs.length !== 3 && JobComponent(enteredPrevJob, true)}
+                {previousJobs.length !== MAX_NUM_PREVIOUS_JOBS_EXPERIENCE && JobComponent(enteredPrevJob, true)}
             </div>
             <Button
                     className={classes.nextJobBtn}
@@ -184,7 +187,7 @@ const PreviousJobsStep: React.FC<PreviousJobsStepProps> = (props): JSX.Element =
                         setCurrentId((prevCurrentId) => prevCurrentId + 1);
                         setEnteredPrevJob(defaultJob);
                     }}
-                    disabled={previousJobs.length === 3}>
+                    disabled={previousJobs.length === MAX_NUM_PREVIOUS_JOBS_EXPERIENCE - 1}>
                     + הוספת ג'וב
                 </Button>
         </div>

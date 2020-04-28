@@ -2,6 +2,7 @@ const express = require('express');
 const router  = express.Router();
 const passport = require('passport');
 const db = require('../../db');
+const WITH_RAMAD_ACCESS = process.env.WITH_RAMAD_ACCESS;
 
 router.get('/login', passport.authenticate('OAuth2', {scope: 'read:user'}, (req, res) => {
     const redirectURI = req.query.redirect || '/';
@@ -32,13 +33,12 @@ router.get('/auth/callback',
     // Successful authentication
     const user = await getUserDetails(req.user, req.user); // On whiten we'll take the display take from ping
 
-    /* todo detrmine isRamad acording to WITH_RAMAD_ACCESS from '.env'
-    giving priority to the .env variable, need to convert string to boolean to*/
+    const isRamad = checkIsRamad(WITH_RAMAD_ACCESS, user.is_ramad);
     
     res.cookie('user', JSON.stringify({
         upn: user.upn,
         name: user.name,
-        isRamad: user.is_ramad,
+        isRamad
     }));
 
     // redirect home
@@ -46,3 +46,15 @@ router.get('/auth/callback',
   });
 
 module.exports = router;
+
+const checkIsRamad = (envIsRamad, userIsRamad) => {
+    // Giving a priority to the env variable if given,
+    // otherwise returning the answer from the DB.
+    if (envIsRamad === 'true') {
+        return true;
+    } else if (envIsRamad === 'false') {
+        return false;  
+    } else {
+      return userIsRamad;
+    }
+} 

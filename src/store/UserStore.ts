@@ -2,14 +2,15 @@ import CookieUtils from 'js-cookie';
 
 import { observable, decorate, action, computed } from 'mobx';
 
-import { getFavoriteAds, unsetFavoriteAd, setFavoriteAd } from '../server/user';
-import { User } from '../types/User';
+import { fetchFavoriteAds, unsetFavoriteAd, setFavoriteAd, fetchRamadAds } from '../server/user';
+import { User, RamadAds } from '../types/User';
 
 export class UserStore {
 
 
     private loggedUser: User = JSON.parse(CookieUtils.get('user') || '{}');
     private favoriteAds = observable.box<number[]>([]);
+    private ramadAds = observable.box<RamadAds[]>([]);
 
     get getUser() {
         return this.loggedUser;
@@ -19,21 +20,31 @@ export class UserStore {
         return this.favoriteAds.get()
     }
 
+    get getRamadAds () {
+        return this.ramadAds.get();
+    }
+
     get getUserInitials () {
         const splitName: string[] = this.loggedUser.name.split(' ');
         return splitName.map(n=> n[0]).join(' ');
     }
 
-    loadfavoriteAds = async () => {
+    loadFavoriteAds = async () => {
         // Fetch data from server
-        const newFavoriteAds: number[] = await getFavoriteAds();
+        const newFavoriteAds: number[] = await fetchFavoriteAds();
         this.favoriteAds.set(newFavoriteAds);
+    }
+
+    loadRamadAds = async () => {
+        // Fetch data from server
+        const newRamadAds: RamadAds[] = await fetchRamadAds();
+        this.ramadAds.set(newRamadAds);
     }
 
     unsetFavoriteAd = async (adId: number) => {
         try {
             await unsetFavoriteAd(adId);
-            this.loadfavoriteAds();
+            this.loadFavoriteAds();
         } catch (error) {
             console.log('got error, unset function', error);
         }
@@ -42,7 +53,7 @@ export class UserStore {
     setFavoriteAd = async (adId: number) => {
         try {
             await setFavoriteAd(adId);
-            this.loadfavoriteAds();
+            this.loadFavoriteAds();
         } catch (error) {
             console.log('got error, set function', error);
         }
@@ -52,7 +63,9 @@ export class UserStore {
 decorate(UserStore, {
     getUser: computed,
     getUserInitials: computed,
-    loadfavoriteAds: action,
+    getRamadAds: computed,
+    loadRamadAds: action,
+    loadFavoriteAds: action,
     unsetFavoriteAd: action,
     setFavoriteAd: action
 });
