@@ -1,20 +1,23 @@
 import * as React from 'react';
-
+import { Route, RouteComponentProps, withRouter } from 'react-router-dom';
 import { inject } from 'mobx-react';
-
 import Avatar from '@material-ui/core/Avatar';
 
 import styles from './UserResumeStyle';
 import NoResume from './NoResume/NoResume'
 import { UserStore } from '../../../store/UserStore';
+import FavoriteJobs from './FavoriteJobs/FavoriteJobs';
 
-interface UserResumeProps {
+interface UserResumeOwnProps {
     userStore?: UserStore;
 }
+
+type UserResumeProps = UserResumeOwnProps & RouteComponentProps;
 
 const UserResume: React.FC<UserResumeProps> = (props): JSX.Element => {
     const classes = styles();
     const userStore: UserStore = props.userStore!;
+    const { match } = props;
 
     return (
         <div className={classes.container}>
@@ -27,8 +30,9 @@ const UserResume: React.FC<UserResumeProps> = (props): JSX.Element => {
                     <span> הגעת לאזור האישי שלך בג'ובניק</span>
                 </div>
             </div>
-            <NoResume />
+            <Route path={`${match.path}/favorites`} render={() => <FavoriteJobs/>} />
+            <Route exact path={match.path} render={() => <NoResume/>} />
         </div>
     );
 }
-export default inject('userStore')(UserResume);
+export default inject('userStore')(withRouter(UserResume));
