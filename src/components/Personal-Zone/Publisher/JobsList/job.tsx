@@ -43,7 +43,7 @@ const Job: React.FC<JobsProps> = (props): JSX.Element => {
         );
     };
 
-    const getJobCandidates = () => {
+    const getJobCandidates = (): JSX.Element[] => {
         return ad.candidates.map(candidate => (
             <div key={ad.id} className={classes.candidate}>
                 <Typography className={classes.candidateName} variant='h6'>
@@ -66,7 +66,7 @@ const Job: React.FC<JobsProps> = (props): JSX.Element => {
         ));
     };
 
-    const getJobButtons = () => {
+    const getJobButtons = (): JSX.Element => {
         return ad.isClosed
         ? ( 
             <Button 
@@ -93,8 +93,8 @@ const Job: React.FC<JobsProps> = (props): JSX.Element => {
         </>);    
     }
 
-    const getClosedLabel = () => {
-        return <div className={classes.closedAdLabel}>תפקיד סגור </div>
+    const getClosedLabel = (): JSX.Element => {
+        return <div className={classes.closedAdLabel}>תפקיד סגור</div>
     }
 
     return (
