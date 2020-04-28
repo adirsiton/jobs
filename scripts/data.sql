@@ -88,35 +88,3 @@ INSERT INTO  jobs.favorite_ads_of_users(upn, advertisement_id) VALUES
     ('SteveVaknin', 1),
     ('SteveVaknin', 2),
     ('SteveVaknin', 3);
-
-
--- users.upn, users.display_name, users.phone_number
-
--- //maybe 
--- SELECT ads.id, job_title, is_close, roles.*,
--- 	array_agg('upn: ' || users.upn || ', name: ' ||  users.display_name || ', phone: ' || 
---    (CASE WHEN users.phone_number IS null THEN '""' ELSE users.phone_number END)) as candidates
--- 	FROM jobs.advertisements ads
--- 	JOIN jobs.roles roles ON ads.role_id=roles.id
--- 	LEFT JOIN jobs.favorite_ads_of_users favorite ON favorite.advertisement_id=ads.id
--- 	LEFT JOIN jobs.users users ON users.upn=favorite.upn
--- 	WHERE ads.advertiser_upn='michael-hoffman-26'
--- 	GROUP BY ads.id, job_title, is_close, roles.id, roles.name, roles.color, roles.initials;
-
--- SELECT ads.id, job_title, is_close, 
--- 	json_build_object(
--- 		'id', roles.id,
--- 		'name', roles.name,
--- 		'color', roles.color,
--- 		'initials', roles.initials) as role
--- 	,json_agg(json_build_object(
--- 		'upn', users.upn,
--- 		'name', users.display_name,
--- 		'phoneNumber', 
---    		(CASE WHEN users.phone_number IS null THEN '' ELSE users.phone_number END))) as candidates
--- FROM jobs.advertisements ads
--- JOIN jobs.roles roles ON ads.role_id=roles.id
--- LEFT JOIN jobs.favorite_ads_of_users favorite ON favorite.advertisement_id=ads.id
--- LEFT JOIN jobs.users users ON users.upn=favorite.upn
--- WHERE ads.advertiser_upn='michael-hoffman-26'
--- GROUP BY ads.id, job_title, is_close, roles.id, roles.name, roles.color, roles.initials;
