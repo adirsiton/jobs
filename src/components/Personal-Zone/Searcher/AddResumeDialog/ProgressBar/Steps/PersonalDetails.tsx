@@ -36,7 +36,11 @@ const PersonalDetailsStep: React.FC<PersonalDetailsStepProps> = (props): JSX.Ele
         </MenuItem>
     )
     const rolesSelect = <Select
-        classes={{ root: classes.inputfield }}
+        className={classes.inputfield}
+        classes={{
+            root: classes.selectRoot,
+            iconOutlined: classes.selectIconOutlined,
+        }}
         disableUnderline
         value={selectedRoleId}
         MenuProps={{
@@ -50,6 +54,7 @@ const PersonalDetailsStep: React.FC<PersonalDetailsStepProps> = (props): JSX.Ele
             },
             getContentAnchorEl: null
         }}
+        variant="outlined"
         onChange={
             (event: React.ChangeEvent<{ value: any }>) =>
                 setSelectedRoleId(event.target.value)
@@ -67,7 +72,11 @@ const PersonalDetailsStep: React.FC<PersonalDetailsStepProps> = (props): JSX.Ele
         </MenuItem>
     )
     const ranksSelect = <Select
-        classes={{ root: classes.inputfield }}
+        className={classes.inputfield}
+        classes={{
+            root: classes.selectRoot,
+            iconOutlined: classes.selectIconOutlined,
+        }}
         disableUnderline
         value={selectedRankId}
         MenuProps={{
@@ -81,6 +90,7 @@ const PersonalDetailsStep: React.FC<PersonalDetailsStepProps> = (props): JSX.Ele
             },
             getContentAnchorEl: null
         }}
+        variant="outlined"
         onChange={
             (event: React.ChangeEvent<{ value: any }>) =>
                 setSelectedRankId(event.target.value)
@@ -91,9 +101,14 @@ const PersonalDetailsStep: React.FC<PersonalDetailsStepProps> = (props): JSX.Ele
 
 
     const textInput = (disabled: boolean, text = "", placeHolder = ""): JSX.Element => {
-        return <TextField classes={{ root: classes.inputfield }}
-            disabled={disabled}
-            value={text} />
+        return (
+            <TextField 
+                className={classes.inputfield}
+                variant="outlined"
+                disabled={disabled}
+                value={text} 
+            />
+        );
     }
 
     const inputDiv = (title: string, input: JSX.Element): JSX.Element => {
@@ -110,17 +125,15 @@ const PersonalDetailsStep: React.FC<PersonalDetailsStepProps> = (props): JSX.Ele
             <div className={classes.inputDiv}>
                 <InputLabel classes={{ asterisk: classes.asterisk }} required={true}>
                     טלפון ליצירת קשר
-            </InputLabel>
+                </InputLabel>
                 <TextField
-                    InputProps={{
-                        disableUnderline: true
-                    }}
                     inputProps={{ pattern: "[0-9]{3}-[0-9]{2}-[0-9]{3}" }}
                     value={phoneNumber}
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                         setPhoneNumber(event.target.value)
                     }
-                    className={`${classes.inputfield} ${classes.phoneInput} ${classes.longInput}`}
+                    variant="outlined"
+                    className={`${classes.inputfield} ${classes.phoneInput}`}
                 />
             </div>
         )

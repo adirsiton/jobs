@@ -1,17 +1,14 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
 
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox/Checkbox';
-import Typography from '@material-ui/core/Typography';
 import CircleCheckedFilled from '@material-ui/icons/CheckCircleOutline';
 import CircleUnchecked from '@material-ui/icons/RadioButtonUnchecked';
 
 import { Role } from '../../../../../../types/Role';
 import styles from './StepsStyle';
 import { TextField } from '@material-ui/core';
-
 
 interface PersonalDetailsStepProps {
     roles: Role[];
@@ -24,7 +21,6 @@ interface PersonalDetailsStepProps {
 const NextJob: React.FC<PersonalDetailsStepProps> = (props): JSX.Element => {
     const classes = styles();
     const { roles, nextRoles, setNextRoles, aboutMe, setAboutMe } = props;
-
 
     const rolesCheckBoxGroup = <FormGroup row>
         {roles.map(role =>
