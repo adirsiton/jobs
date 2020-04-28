@@ -7,12 +7,12 @@ import EditRoundedIcon from '@material-ui/icons/EditRounded';
 import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
 import CancelPresentationIcon from '@material-ui/icons/CancelPresentation';
 
-import { RamadAds } from '../../../../types/User';
+import { RamadAd } from '../../../../types/User';
 import styles from './jobsListStyle';
 import CloseJobDialog from './Close-Job-Dialog/closeJobDialog';
 
 interface JobsProps {
-    ad: RamadAds;
+    ad: RamadAd;
 }
 
 const Job: React.FC<JobsProps> = (props): JSX.Element => {

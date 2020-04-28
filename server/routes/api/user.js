@@ -93,4 +93,34 @@ router.delete('/favorite/:id', async (req, res) => {
     res.json(rows);
 });
 
+router.get('/ramad-ads', async (req, res) => {
+    const userUpn = req.user
+
+    const { rows } = await db.query(`
+    SELECT json_build_object(
+        'id', ads.id,
+        'name', job_title,
+        'isClosed',is_close,
+        'role', json_build_object(
+            'id', roles.id,
+            'name', roles.name,
+            'color', roles.color,
+            'initials', roles.initials
+        ),
+        'candidates', json_agg(json_build_object(
+            'upn', users.upn,
+            'name', users.display_name,
+            'phoneNumber', users.phone_number
+        )))  as ramad_ad
+    FROM jobs.advertisements ads
+    JOIN jobs.roles roles ON ads.role_id=roles.id
+    LEFT JOIN jobs.favorite_ads_of_users favorite ON favorite.advertisement_id=ads.id
+    LEFT JOIN jobs.users users ON users.upn=favorite.upn
+    WHERE ads.advertiser_upn=$1
+    GROUP BY ads.id, job_title, is_close, roles.id, roles.name, roles.color, roles.initials;`,
+    [userUpn]);
+
+    res.json(rows);
+});
+
 module.exports = router;

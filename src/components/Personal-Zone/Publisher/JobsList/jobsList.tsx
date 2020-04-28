@@ -2,13 +2,13 @@ import * as React from 'react';
 
 import Typography from '@material-ui/core/Typography';
 
-import { RamadAds } from '../../../../types/User';
+import { RamadAd } from '../../../../types/User';
 import styles from './jobsListStyle';
 import Job from './job';
 
 
 interface JobsListProps {
-    ads: RamadAds[];
+    ads: RamadAd[];
 }
 
 const JobsList: React.FC<JobsListProps> = (props): JSX.Element => {
