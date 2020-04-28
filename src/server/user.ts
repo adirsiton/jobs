@@ -1,4 +1,4 @@
-import { RamadAd, RamadAdsSQL } from "../types/User";
+import { RamadAd, RamadAdSQL  } from "../types/User";
 
 export async function fetchFavoriteAds(): Promise<number[]> {
     const favoriteAds: number[] = await fetch(`/user/favorite`).then(response => {
@@ -31,12 +31,12 @@ export async function setFavoriteAd(adId: number): Promise<boolean> {
 };
 
 export async function fetchRamadAds(): Promise<RamadAd[]> {
-    const ramadAdsSQL: RamadAdsSQL[] = await fetch('/user/ramad-ads', {
+    const ramadAdsSQL: RamadAdSQL [] = await fetch('/user/ramad-ads', {
         method: 'GET'
     }).then(response => {
         return response.json();
     });
-    const allRamadAds = ramadAdsSQL.map((ad: RamadAdsSQL) => ad.ramad_ad);
+    const allRamadAds = ramadAdsSQL.map((ad: RamadAdSQL ) => ad.ramad_ad);
 
     return allRamadAds;
 };

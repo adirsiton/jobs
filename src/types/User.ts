@@ -22,7 +22,7 @@ export interface Candidate {
     phoneNumber: string;
 }
 
-export interface RamadAdsSQL {
+export interface RamadAdSQL  {
     ramad_ad: RamadAd
 }
 
