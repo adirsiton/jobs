@@ -18,7 +18,6 @@ const CloseJobDialog: React.FC<CloseJobDialog> = (props): JSX.Element => {
     const classes = styles();
 
     return (
-        <div>
         <Dialog
             open={true}
             onClose={closeDialog}
@@ -47,7 +46,6 @@ const CloseJobDialog: React.FC<CloseJobDialog> = (props): JSX.Element => {
                 </Button>
             </DialogActions>
         </Dialog>
-        </div>
     );
 }
 
