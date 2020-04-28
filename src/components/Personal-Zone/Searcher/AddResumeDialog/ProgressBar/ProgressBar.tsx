@@ -27,7 +27,8 @@ const ProgressBar: React.FC<ProgressBarProps> = (props): JSX.Element => {
 
     const { allSelectOptions } = props;
     const [activeStep, setActiveStep] = React.useState(0);
-    const [selectedRoleId, setSelectedRoleId] = useState<number>(allSelectOptions?.roleOptions[0].id || 0);
+    const [selectedQualificationId, setSelectedQualificationId] =
+        useState<number>(allSelectOptions?.qualificationOptions[0].id || 0);
     const [selectedRankId, setSelectedRankId] = useState<number>(allSelectOptions?.standardOptions[0].id || 0);
     const [phoneNumber, setPhoneNumber] = useState<string>("");
     const [enteredPrevJob, setEnteredPrevJob] = useState<Job>(defaultJob);
@@ -42,9 +43,10 @@ const ProgressBar: React.FC<ProgressBarProps> = (props): JSX.Element => {
         switch (step) {
             case 0:
                 return <PersonalDetails
-                    roles={allSelectOptions?.roleOptions || []}
+                    qualifications={allSelectOptions?.qualificationOptions || []}
                     ranks={allSelectOptions?.standardOptions || []}
-                    selectedRoleId={selectedRoleId} setSelectedRoleId={setSelectedRoleId}
+                    selectedQualificationId={selectedQualificationId}
+                    setSelectedQualificationId={setSelectedQualificationId}
                     selectedRankId={selectedRankId} setSelectedRankId={setSelectedRankId}
                     phoneNumber={phoneNumber} setPhoneNumber={setPhoneNumber}
                     user={userStore.getUser} />;

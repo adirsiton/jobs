@@ -5,16 +5,16 @@ import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import TextField from '@material-ui/core/TextField';
 
-import { Role } from '../../../../../../types/Role';
 import { Standard } from '../../../../../../types/Standard';
 import styles from './StepsStyle';
 import { User } from '../../../../../../types/User';
+import { Qualification } from '../../../../../../types/Qualification';
 
 interface PersonalDetailsStepProps {
-    roles: Role[];
+    qualifications: Qualification[];
     ranks: Standard[];
-    selectedRoleId: number;
-    setSelectedRoleId: (roleId: number) => void;
+    selectedQualificationId: number;
+    setSelectedQualificationId: (qualificationId: number) => void;
     selectedRankId: number;
     setSelectedRankId: (rankId: number) => void;
     phoneNumber: string;
@@ -24,25 +24,25 @@ interface PersonalDetailsStepProps {
 
 const PersonalDetailsStep: React.FC<PersonalDetailsStepProps> = (props): JSX.Element => {
     const classes = styles();
-    const { roles, ranks, selectedRoleId, setSelectedRoleId, selectedRankId,
+    const { qualifications, ranks, selectedQualificationId, setSelectedQualificationId, selectedRankId,
         setSelectedRankId, phoneNumber, setPhoneNumber, user} = props;
 
-    const rolesMenuItems = roles.map(role =>
+    const qualificationsMenuItems = qualifications.map(qualification =>
         <MenuItem
-            key={role.id}
-            value={role.id}
+            key={qualification.id}
+            value={qualification.id}
         >
-            {role.name}
+            {qualification.name}
         </MenuItem>
     )
-    const rolesSelect = <Select
+    const qualificationsSelect = <Select
         className={classes.inputfield}
         classes={{
             root: classes.selectRoot,
             iconOutlined: classes.selectIconOutlined,
         }}
         disableUnderline
-        value={selectedRoleId}
+        value={selectedQualificationId}
         MenuProps={{
             anchorOrigin: {
                 vertical: "bottom",
@@ -57,10 +57,10 @@ const PersonalDetailsStep: React.FC<PersonalDetailsStepProps> = (props): JSX.Ele
         variant="outlined"
         onChange={
             (event: React.ChangeEvent<{ value: any }>) =>
-                setSelectedRoleId(event.target.value)
+                setSelectedQualificationId(event.target.value)
         }
     >
-        {rolesMenuItems}
+        {qualificationsMenuItems}
     </Select>
 
     const ranksMenuItems = ranks.map(rank =>
@@ -146,7 +146,7 @@ const PersonalDetailsStep: React.FC<PersonalDetailsStepProps> = (props): JSX.Ele
         <div className={classes.personalDetailsContainer}>
             {inputDiv("שם", textInput(true, user.name, ""))}
             {inputDiv("מ.א", textInput(true, user.upn, ""))}
-            {inputDiv("תפקיד", rolesSelect)}
+            {inputDiv("הכשרה", qualificationsSelect)}
             {inputDiv("דרגה", ranksSelect)}
             {phoneInput()}
         </div>
