@@ -6,6 +6,7 @@ import { withStyles, WithStyles } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import StarIcon from '@material-ui/icons/Star';
 import Popover from '@material-ui/core/Popover';
+import Tooltip from '@material-ui/core/Tooltip';
 import Divider from '@material-ui/core/Divider';
 
 import { Advertisement } from '../../../types/Advertisements';
@@ -51,11 +52,13 @@ const FavoriteList: React.FC<FavoriteListProps> = (props): JSX.Element => {
 
     return (
         <>
-            <IconButton className={getIconColor()}
-                onClick={handleSavedJobsButtonClick}
-                aria-label="my favorites" component="span">
-                <StarIcon className={classes.starIcon} />
-            </IconButton>
+            <Tooltip placement="right" title="ג'ובים ששמרתי" aria-label="my favorites">
+                <IconButton className={getIconColor()}
+                    onClick={handleSavedJobsButtonClick}
+                    aria-label="my favorites" component="span">
+                    <StarIcon className={classes.starIcon} />
+                </IconButton>
+            </Tooltip>
             <Popover
                 open={Boolean(anchorEl)}
                 anchorEl={anchorEl}
