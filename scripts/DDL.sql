@@ -49,8 +49,7 @@ CREATE TABLE jobs.user_resume(
 	desired_role_id int REFERENCES jobs.roles(id) ON DELETE CASCADE,
 	free_text text,
 	phone_number text,
-	UNIQUE (phone_number),
-	CONSTRAINT CK_unique_roles CHECK (current_role_id != desired_role_id)
+	UNIQUE (phone_number)
 );
 
 CREATE TABLE jobs.department_head(
