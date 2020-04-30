@@ -1,11 +1,18 @@
 import { observable, decorate, action, computed } from 'mobx';
+
 import { Advertisement } from '../types/Advertisements';
 import { getAllAds, closeAd, openAd } from '../server/ads';
+import { RootStore } from './RootStore';
 
 export class JobsStore {
+    private rootStore: RootStore;
     private ads = observable.box<Advertisement[]>([]);
     private isLoadingAds = observable.box<boolean>(false);
-
+    
+    constructor (rootStore: RootStore) {
+        this.rootStore= rootStore;
+    }
+    
     get advertisements() {
         return this.ads.get();
     }
@@ -27,8 +34,7 @@ export class JobsStore {
             await closeAd(adId);
             const newAds = this.ads.get().filter(ad => ad.id !== adId); // rather then load this.loadAdvertisements
             this.ads.set(newAds);
-            // todo load ramad ads or update
-
+            await this.rootStore.userStore.loadRamadAds();
         } catch (error) {
             console.log('got error, closeAd function ', error);
         }
@@ -38,7 +44,7 @@ export class JobsStore {
         try {
             await openAd(adId);
             await this.loadAdvertisements();
-            // todo load ramad ads or update
+            await this.rootStore.userStore.loadRamadAds();
         } catch (error) {
             console.log('got error, openAd function ', error);
         }

@@ -1,5 +1,5 @@
 
-import { Advertisement , sqlAd, AdvertisementInsertData } from '../types/Advertisements';
+import { Advertisement , sqlAd, AdvertisementInsertData, CloseOpenAdSQL } from '../types/Advertisements';
 import { AllSelectOptions } from '../types/AllSelectOptions';
 import { Branch, Department } from '../types/Departments';
 
@@ -94,25 +94,21 @@ function parseAd(adJson: sqlAd): Advertisement {
 }
 
 export async function closeAd(adId: number): Promise<boolean> {
-    const answer = await fetch(`/ads/close/${adId}`, {
+    const answer: CloseOpenAdSQL = await fetch(`/ads/close/${adId}`, {
         method: 'POST'
     }).then(response => {
         return response.json();
     });
 
-    console.log(answer)
-
-    return true; // //is_close: true
+    return answer.is_close;
 };
 
 export async function openAd(adId: number): Promise<boolean> {
-    const answer = await fetch(`/ads/open/${adId}`, {
+    const answer: CloseOpenAdSQL = await fetch(`/ads/open/${adId}`, {
         method: 'POST'
     }).then(response => {
         return response.json();
     });
 
-    console.log(answer)
-
-    return false; //is_close: false
+    return answer.is_close;
 };

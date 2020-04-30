@@ -4,14 +4,18 @@ import { observable, decorate, action, computed } from 'mobx';
 
 import { fetchFavoriteAds, unsetFavoriteAd, setFavoriteAd, fetchRamadAds } from '../server/user';
 import { User, RamadAd } from '../types/User';
+import { RootStore } from './RootStore';
 
 export class UserStore {
-
-
+    private rootStore: RootStore;
     private loggedUser: User = JSON.parse(CookieUtils.get('user') || '{}');
     private favoriteAds = observable.box<number[]>([]);
     private ramadAds = observable.box<RamadAd[]>([]);
 
+    constructor (rootStore: RootStore) {
+        this.rootStore= rootStore;
+    }
+    
     get getUser() {
         return this.loggedUser;
     }

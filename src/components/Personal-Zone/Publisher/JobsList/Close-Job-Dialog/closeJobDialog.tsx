@@ -18,6 +18,11 @@ const CloseJobDialog: React.FC<CloseJobDialog> = (props): JSX.Element => {
     const { closeDialog, closeAd } = props;
     const classes = styles();
 
+    const handleCloseAdClick = () => { 
+        closeAd();
+        closeDialog(); 
+    };
+
     return (
         <Dialog
             open={true}
@@ -40,8 +45,7 @@ const CloseJobDialog: React.FC<CloseJobDialog> = (props): JSX.Element => {
                 <Button 
                     className={classes.confirmButton}
                     variant='outlined' 
-                    // onClick={closeDialog} //TODO call thecloseAd function
-                    onClick={closeAd} //TODO call thecloseAd function
+                    onClick={handleCloseAdClick}
                     autoFocus
                 >
                     אחלה, סגרו לי

@@ -73,3 +73,7 @@ export interface sqlAd {
     advertiser: string;
     standards_array: string[];
 }
+
+export interface CloseOpenAdSQL{
+    is_close: boolean;
+}

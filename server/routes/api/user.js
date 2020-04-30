@@ -26,13 +26,13 @@ router.get('/favorite', async (req, res) => {
     SELECT array_agg(fav.advertisement_id) as favorite_ads
     FROM jobs.users users
     LEFT JOIN jobs.favorite_ads_of_users fav ON fav.upn=$1
-    JOIN jobs.advertisements ads ON ads.id=fav.advertisement_id
+    LEFT JOIN jobs.advertisements ads ON ads.id=fav.advertisement_id
     where users.upn=$1 AND ads.is_close=false;`,
         [userId]);
 
     // removing null
     const { favorite_ads } = rows[0];
-    const favoriteAds = favorite_ads[0] === null ? [] : favorite_ads;
+    const favoriteAds = favorite_ads === null ? [] : favorite_ads;
 
     res.json(favoriteAds);
 });

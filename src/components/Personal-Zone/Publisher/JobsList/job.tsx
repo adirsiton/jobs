@@ -47,7 +47,7 @@ const Job: React.FC<JobsProps> = (props): JSX.Element => {
 
     const getJobCandidates = (): JSX.Element[] => {
         return ad.candidates.map(candidate => (
-            <div key={ad.id} className={classes.candidate}>
+            <div key={candidate.upn} className={classes.candidate}>
                 <Typography className={classes.candidateName} variant='h6'>
                     {candidate.name}
                 </Typography>
