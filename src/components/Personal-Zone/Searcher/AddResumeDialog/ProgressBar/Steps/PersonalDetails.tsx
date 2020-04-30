@@ -9,6 +9,7 @@ import { Standard } from '../../../../../../types/Standard';
 import styles from './StepsStyle';
 import { User } from '../../../../../../types/User';
 import { Qualification } from '../../../../../../types/Qualification';
+import { InputErrors } from './Step';
 
 interface PersonalDetailsStepProps {
     qualifications: Qualification[];
@@ -20,12 +21,13 @@ interface PersonalDetailsStepProps {
     phoneNumber: string;
     setPhoneNumber: (phoneNumber: string) => void;
     user: User;
+    inputErrors: InputErrors;
 }
 
 const PersonalDetailsStep: React.FC<PersonalDetailsStepProps> = (props): JSX.Element => {
     const classes = styles();
     const { qualifications, ranks, selectedQualificationId, setSelectedQualificationId, selectedRankId,
-        setSelectedRankId, phoneNumber, setPhoneNumber, user} = props;
+        setSelectedRankId, phoneNumber, setPhoneNumber, user, inputErrors} = props;
 
     const qualificationsMenuItems = qualifications.map(qualification =>
         <MenuItem
@@ -41,7 +43,6 @@ const PersonalDetailsStep: React.FC<PersonalDetailsStepProps> = (props): JSX.Ele
             root: classes.selectRoot,
             iconOutlined: classes.selectIconOutlined,
         }}
-        disableUnderline
         value={selectedQualificationId}
         MenuProps={{
             anchorOrigin: {
@@ -77,7 +78,6 @@ const PersonalDetailsStep: React.FC<PersonalDetailsStepProps> = (props): JSX.Ele
             root: classes.selectRoot,
             iconOutlined: classes.selectIconOutlined,
         }}
-        disableUnderline
         value={selectedRankId}
         MenuProps={{
             anchorOrigin: {
@@ -127,7 +127,8 @@ const PersonalDetailsStep: React.FC<PersonalDetailsStepProps> = (props): JSX.Ele
                     טלפון ליצירת קשר
                 </InputLabel>
                 <TextField
-                    inputProps={{ pattern: "[0-9]{3}-[0-9]{2}-[0-9]{3}" }}
+                    error={!!inputErrors.phoneError}
+                    helperText={inputErrors.phoneError}
                     value={phoneNumber}
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                         setPhoneNumber(event.target.value)

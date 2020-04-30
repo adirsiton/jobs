@@ -110,7 +110,7 @@ const useStyles = makeStyles((theme) =>
             color: "#595959",
         },
         jobFooter: {
-            width: "18%",
+            width: "20%",
             display: "flex",
             flexDirection: "row",
             backgroundColor: "#F8F9FC",
@@ -132,6 +132,21 @@ const useStyles = makeStyles((theme) =>
         },
         bigFont: {
             fontSize: '3em'
+        },
+        closedAdLabel: {
+            transform: 'rotate(-20deg)',
+            color: 'rgb(238, 0, 0)',
+            backgroundColor: 'rgb(255, 200, 200)',
+            textAlign: 'center',
+            width: '110px',
+            fontWeight: 700,
+            float: 'left',
+            marginLeft: '25px',
+            marginTop: '-20px',
+            lineHeight: 2
+        },
+        closeAdButton: {
+            whiteSpace: 'nowrap'
         }
     }),
 );

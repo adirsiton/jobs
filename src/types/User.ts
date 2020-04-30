@@ -13,6 +13,7 @@ export interface RamadAds {
     name: string;
     role: RoleAdPropertiesData;
     candidates: Candidate[];
+    isClosed: boolean;
 }
 
 export interface Candidate {

@@ -15,6 +15,7 @@ import NextJob from './Steps/NextJob';
 import styles from './ProgressBarStyle';
 import { UserStore } from '../../../../../store/UserStore';
 import { observer, inject } from 'mobx-react';
+import { StepInfo, ResumeStep, initStepsValues } from './Steps/Step';
 
 interface ProgressBarProps {
     allSelectOptions: AllSelectOptions | null;
@@ -26,7 +27,8 @@ const ProgressBar: React.FC<ProgressBarProps> = (props): JSX.Element => {
     const userStore: UserStore = props.userStore!;
 
     const { allSelectOptions } = props;
-    const [activeStep, setActiveStep] = React.useState(0);
+
+    const [activeStep, setActiveStep] = React.useState<ResumeStep>(ResumeStep.PERSONAL_DETAILS);
     const [selectedQualificationId, setSelectedQualificationId] =
         useState<number>(allSelectOptions?.qualificationOptions[0].id || 0);
     const [selectedRankId, setSelectedRankId] = useState<number>(allSelectOptions?.standardOptions[0].id || 0);
@@ -36,12 +38,11 @@ const ProgressBar: React.FC<ProgressBarProps> = (props): JSX.Element => {
     const [jobName, setJobName] = useState<string>("");
     const [nextRoles, setNextRoles] = useState<number[]>([]);
     const [aboutMe, setAboutMe] = useState<string>("");
-    const steps = ["פרטים אישיים", "ג'ובים קודמים", "הג'וב הבא"];
+    const [steps, setSteps] = useState<StepInfo[]>(initStepsValues);
 
-
-    const getStepContent = (step: number) => {
+    const getStepContent = (step: ResumeStep): JSX.Element => {
         switch (step) {
-            case 0:
+            case ResumeStep.PERSONAL_DETAILS:
                 return <PersonalDetails
                     qualifications={allSelectOptions?.qualificationOptions || []}
                     ranks={allSelectOptions?.standardOptions || []}
@@ -49,8 +50,9 @@ const ProgressBar: React.FC<ProgressBarProps> = (props): JSX.Element => {
                     setSelectedQualificationId={setSelectedQualificationId}
                     selectedRankId={selectedRankId} setSelectedRankId={setSelectedRankId}
                     phoneNumber={phoneNumber} setPhoneNumber={setPhoneNumber}
-                    user={userStore.getUser} />;
-            case 1:
+                    user={userStore.getUser}
+                    inputErrors={steps[ResumeStep.PERSONAL_DETAILS].errors}/>;
+            case ResumeStep.PREVIOUS_JOBS:
                 return <PreviousJobsStep
                     units={allSelectOptions?.unitOptions || []}
                     branches={allSelectOptions?.branchOptions || []}
@@ -61,34 +63,68 @@ const ProgressBar: React.FC<ProgressBarProps> = (props): JSX.Element => {
                     setPreviousJobs={setPreviousJobs}
                     jobName={jobName}
                     setJobName={setJobName} />;
-            case 2:
+            case ResumeStep.NEXT_JOB:
                 return <NextJob
                     roles={allSelectOptions?.roleOptions || []}
                     nextRoles={nextRoles}
                     setNextRoles={setNextRoles}
                     aboutMe={aboutMe}
-                    setAboutMe={setAboutMe} />;
+                    setAboutMe={setAboutMe}/>;
             default:
-                return 'Unknown step';
+                return <></>;
         }
     }
 
-    const handleNext = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    const handleNext = (): void => {
+        if (validateStep()) {
+            if (activeStep + 1 < steps.length) {
+                setActiveStep((prevActiveStep) => prevActiveStep + 1);
+            } else {
+                submitResume();
+            }
+        }
     };
 
-    const handleBack = () => {
+    const handleBack = (): void => {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
+
+    const validateStep = (): boolean => {
+        switch (activeStep) {
+            case ResumeStep.PERSONAL_DETAILS: {
+                const alteredSteps: StepInfo[] = steps.slice();
+                alteredSteps[ResumeStep.PERSONAL_DETAILS].errors = {};
+
+                if (!(/^\d{10}$/.test(phoneNumber))) {
+                    if (phoneNumber === '') {
+                        alteredSteps[ResumeStep.PERSONAL_DETAILS].errors.phoneError = 'מספר טלפון לא יכול להיות ריק';
+                    } else {
+                        alteredSteps[ResumeStep.PERSONAL_DETAILS].errors.phoneError = 'מספר טלפון חייב להכיל 10 ספרות בלבד';
+                    }
+
+                    setSteps(alteredSteps);
+                    return false;
+                }
+                return true;
+            }
+            default: {
+                return true;
+            }
+        }
+    }
+
+    const submitResume = (): void => {
+        // TODO: write function
+    }
 
     return (
         <div className={classes.root}>
             <Stepper activeStep={activeStep} orientation="vertical"
                 classes={{ root: classes.stepper }}>
                 {steps.map((label, index) => (
-                    <Step key={label}>
+                    <Step key={label.title}>
                         <StepLabel classes={{ root: classes.stepLabel, iconContainer: classes.iconContainer, label: classes.label }}>
-                            {label}
+                            {label.title}
                         </StepLabel>
                         <StepContent classes={{ root: classes.stepContent }}>
                             <div className={classes.specificStepContet}>
@@ -109,7 +145,7 @@ const ProgressBar: React.FC<ProgressBarProps> = (props): JSX.Element => {
                                             הבא
                                         </Button> :
                                         <Button
-                                            onClick={() => { }}
+                                            onClick={handleNext}
                                             className={classes.button}>
                                             שמור
                                         </Button>

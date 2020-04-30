@@ -5,13 +5,13 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 import styles from '../StepsStyle';
 
-interface PersonalDetailsStepProps {
+interface SelectInputProps {
     dataItems: { id: number, name: string }[];
     selectedValue: number;
     setValue: (id: number) => void;
 }
 
-const PersonalDetailsStep: React.FC<PersonalDetailsStepProps> = (props): JSX.Element => {
+const SelectInput: React.FC<SelectInputProps> = (props): JSX.Element => {
     const classes = styles();
     const { dataItems, selectedValue, setValue } = props;
 
@@ -23,7 +23,6 @@ const PersonalDetailsStep: React.FC<PersonalDetailsStepProps> = (props): JSX.Ele
             {item.name}
         </MenuItem>
     )
-
 
     return (
         <Select
@@ -54,4 +53,4 @@ const PersonalDetailsStep: React.FC<PersonalDetailsStepProps> = (props): JSX.Ele
     );
 }
 
-export default PersonalDetailsStep;
+export default SelectInput;
