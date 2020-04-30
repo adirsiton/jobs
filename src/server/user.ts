@@ -46,8 +46,9 @@ export async function fetchRamadAds(): Promise<RamadAd[]> {
 }
 
 export async function saveUserResume(resume: string): Promise<string> {
-  const answer = await fetch(`/user/favorite/${resume}`, {
+  const answer = await fetch(`/resume`, {
     method: "POST",
+    body: resume,
   }).then((response) => {
     return response.json();
   });
