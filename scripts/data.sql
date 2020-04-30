@@ -84,9 +84,9 @@ INSERT INTO jobs.standards_of_ads(standard_id, advertisement_id) VALUES
 	(3, 7);
 
 INSERT INTO jobs.favorite_ads_of_users(upn, advertisement_id) VALUES
-    ('s8182384', 1),
-    ('s8182384', 2),
-    ('s8182384', 6),
+    ('michael-hoffman-26', 1),
+    ('michael-hoffman-26', 2),
+    ('michael-hoffman-26', 6),
     ('s8258065', 2),
     ('s8258065', 3),
     ('s8258065', 5),
