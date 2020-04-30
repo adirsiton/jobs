@@ -3,14 +3,14 @@ import CookieUtils from 'js-cookie';
 import { observable, decorate, action, computed } from 'mobx';
 
 import { fetchFavoriteAds, unsetFavoriteAd, setFavoriteAd, fetchRamadAds } from '../server/user';
-import { User, RamadAds } from '../types/User';
+import { User, RamadAd } from '../types/User';
 
 export class UserStore {
 
 
     private loggedUser: User = JSON.parse(CookieUtils.get('user') || '{}');
     private favoriteAds = observable.box<number[]>([]);
-    private ramadAds = observable.box<RamadAds[]>([]);
+    private ramadAds = observable.box<RamadAd[]>([]);
 
     get getUser() {
         return this.loggedUser;
@@ -37,7 +37,7 @@ export class UserStore {
 
     loadRamadAds = async () => {
         // Fetch data from server
-        const newRamadAds: RamadAds[] = await fetchRamadAds();
+        const newRamadAds: RamadAd[] = await fetchRamadAds();
         this.ramadAds.set(newRamadAds);
     }
 
