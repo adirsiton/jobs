@@ -32,7 +32,7 @@ export class JobsStore {
     closeAd = async (adId: number) => {
         try {
             await closeAd(adId);
-            const newAds = this.ads.get().filter(ad => ad.id !== adId); // rather then load this.loadAdvertisements
+            const newAds = this.ads.get().filter(ad => ad.id !== adId); // rather than load this.loadAdvertisements
             this.ads.set(newAds);
             await this.rootStore.userStore.loadRamadAds();
         } catch (error) {

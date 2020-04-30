@@ -26,7 +26,7 @@ const JobsAppBar: React.FC<AppBarDataProps> = (props): JSX.Element => {
     const getUserDetails = (): JSX.Element => {
         return (
             <div className={classes.userDetails}>
-                <FavoriteList/>
+                {!userStore.getUser.isRamad && <FavoriteList/>}
                 <Link to='/personal'>
                     <Avatar className={classes.avatar}>
                         {userStore.getUserInitials}

@@ -74,7 +74,6 @@ const Job: React.FC<JobsProps> = (props): JSX.Element => {
             <Button 
                 className={classes.jobBtn}
                 onClick={openAd}
-                // TODO onClick open ad
             >
                 פתיחה מחדש
             </Button>
