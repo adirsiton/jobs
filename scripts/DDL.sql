@@ -46,10 +46,15 @@ CREATE TABLE jobs.user_resume(
 	upn text PRIMARY KEY,
 	rank_id int REFERENCES jobs.standards(id) ON DELETE CASCADE,
 	current_role_id int REFERENCES jobs.roles(id) ON DELETE CASCADE,
-	desired_role_id int REFERENCES jobs.roles(id) ON DELETE CASCADE,
 	free_text text,
 	phone_number text,
 	UNIQUE (phone_number)
+);
+
+CREATE TABLE jobs.user_desired_roles(
+	upn text,
+	desired_role_id int REFERENCES jobs.roles(id) ON DELETE CASCADE,
+	PRIMARY KEY (upn, desired_role_id)
 );
 
 CREATE TABLE jobs.department_head(
