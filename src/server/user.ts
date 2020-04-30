@@ -47,7 +47,8 @@ export async function fetchRamadAds(): Promise<RamadAds[]> {
                 name: 'מיכאל הופמן',
                 phoneNumber: '052-4243361',
                 upn: 's8189435'                 
-            } ] 
+            } ],
+            isClosed: true
         }, {
             id: 2,
             name: 'מנהל מוצר תותח',
@@ -64,7 +65,8 @@ export async function fetchRamadAds(): Promise<RamadAds[]> {
                 name: 'אאאאאבבבבבגגגגגדדדדד הההההווווו',
                 phoneNumber: '054-3592234',
                 upn: 's7464334'                 
-            } ] 
+            } ],
+            isClosed: false
         }
     ]
 

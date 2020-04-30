@@ -9,8 +9,6 @@ import { Link } from 'react-router-dom';
 import styles from './NoResumeStyle';
 import AddResumeDialog from '../AddResumeDialog/AddResumeDialog';
 
-
-
 const NoResume: React.FC<{}> = (): JSX.Element => {
     const classes = styles();
     const [openResumeDialog, setOpenResumeDialog] = useState<boolean>(false);

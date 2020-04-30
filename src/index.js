@@ -122,21 +122,22 @@ const projectGlobalTheme = createMuiTheme({
         }        
       }
     },
-    MuiTextField: {
+    MuiInputBase: {
       root: {
         paddingRight: MINI_TEXT_INPUT_PADDING,
         "&::placeholder": {
           fontStyle: ITALIC_FONT
         },
+        borderRadius: '4px',
         ...BOX_SHADOW
       },
     },
     MuiSelect: {
       select: {
-        ...BOX_SHADOW,
         '&$disabled': {
           boxShadow: 'unset'
         },
+        borderRadius: '4px',
         paddingLeft: "24px", // Reverse to Hebrew
         paddingRight: "1ch !important",
         backgroundColor: TEXT_AND_ICONS_ADS_BACKGROUND_COLOR

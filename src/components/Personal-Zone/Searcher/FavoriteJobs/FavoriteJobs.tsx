@@ -1,10 +1,9 @@
 import * as React from 'react';
 import AssignmentIndOutlinedIcon from '@material-ui/icons/AssignmentIndOutlined';
 import Button from '@material-ui/core/Button';
-
-import styles from './FavoriteJobsStyle';
 import { Link } from 'react-router-dom';
 
+import styles from './FavoriteJobsStyle';
 
 const FavoriteJobs: React.FC<{}> = (): JSX.Element => {
     const classes = styles();
@@ -18,7 +17,7 @@ const FavoriteJobs: React.FC<{}> = (): JSX.Element => {
             </span>
             <Link to='/'>
                 <Button 
-                    className={`${classes.userBtn} ${classes.addResumeBtn}`}
+                    className={classes.jobsBtn}
                 >
                     תראו לי את רשימת התפקידים
                 </Button>

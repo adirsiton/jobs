@@ -20,21 +20,19 @@ const useStyles = makeStyles((theme) =>
             color: '#686868',
             marginBottom: '15px'
         },
-        userBtn: {
+        jobsBtn: {
             width: '14vw',
             height: '7vh',
             fontSize: '14pt',
             borderRadius: 0,
             margin: '8px',
-            boxShadow: 'rgb(153, 153, 153) 0px 0px 4px 1px'
-        },
-        addResumeBtn: {
+            boxShadow: 'rgb(153, 153, 153) 0px 0px 4px 1px',
             backgroundColor: THEME_COLOR,
             color: '#FFFFFF',
             '&:hover': {
                 backgroundColor: THEME_HOVER_COLOR
             }
-        }
+        },
     }),
 );
 
