@@ -17,7 +17,8 @@ router.get('/', async (req, res) => {
         JOIN jobs.branches branches ON (ads.branch_id=branches.id AND ads.unit_id=branches.unit_id)
         JOIN jobs.departments departments ON (ads.department_id=departments.id AND ads.branch_id=departments.branch_id)
         JOIN jobs.base_locations locations ON ads.base_location_id=locations.id
-        JOIN jobs.users users ON ads.advertiser_upn=users.upn`);
+        JOIN jobs.users users ON ads.advertiser_upn=users.upn
+        WHERE ads.is_close=false`);
     res.json(rows);
 });
 

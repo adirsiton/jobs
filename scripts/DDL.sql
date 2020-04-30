@@ -74,6 +74,7 @@ CREATE TABLE jobs.advertisements(
 	advertiser_upn text REFERENCES jobs.users(upn) ON DELETE CASCADE,
 	contact text,
 	base_location_id int REFERENCES jobs.base_locations(id) ON DELETE CASCADE,
+	is_close boolean DEFAULT false,
 	FOREIGN KEY (branch_id, unit_id) REFERENCES jobs.branches(id, unit_id),
 	FOREIGN KEY (department_id, branch_id) REFERENCES jobs.departments(id, branch_id)
 );
