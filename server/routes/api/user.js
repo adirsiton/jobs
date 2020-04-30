@@ -23,10 +23,11 @@ router.get('/favorite', async (req, res) => {
     const userId = req.user;
 
     const { rows } = await db.query(`
-    SELECT array_agg(favorite_ads_of_users.advertisement_id) as favorite_ads
+    SELECT array_agg(fav.advertisement_id) as favorite_ads
     FROM jobs.users users
-    LEFT JOIN jobs.favorite_ads_of_users favorite_ads_of_users ON favorite_ads_of_users.upn=$1
-    where users.upn=$1;`,
+    LEFT JOIN jobs.favorite_ads_of_users fav ON fav.upn=$1
+    JOIN jobs.advertisements ads ON ads.id=fav.advertisement_id
+    where users.upn=$1 AND ads.is_close=false;`,
         [userId]);
 
     // removing null
