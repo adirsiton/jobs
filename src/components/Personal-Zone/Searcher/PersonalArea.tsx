@@ -6,6 +6,7 @@ import Avatar from "@material-ui/core/Avatar";
 
 import styles from "./PersonalAreaStyle";
 import NoResume from "./NoResume/NoResume";
+import PersonalResume from "./personal-resume/PersonalResume";
 import { UserStore } from "../../../store/UserStore";
 
 interface UserResumeProps {
@@ -28,7 +29,7 @@ const UserResume: React.FC<UserResumeProps> = (props): JSX.Element => {
           <span> הגעת לאזור האישי שלך בג'ובניק</span>
         </div>
       </div>
-      <NoResume />
+      {true ? <PersonalResume /> : <NoResume />}
     </div>
   );
 };

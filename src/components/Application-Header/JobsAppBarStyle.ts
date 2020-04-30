@@ -40,6 +40,7 @@ const styles = () =>
       color: "white",
       marginLeft: "20px",
       fontWeight: "bold",
+      fontSize: "2.6rem",
     },
     logoSubTitle: {
       marginTop: "20px",
