@@ -134,4 +134,28 @@ router.post('/', async (req, res) => {
     }
 });
 
+router.post('/close/:id', async (req, res) => {
+    const { id } = req.params;
+
+    const { rows } = await db.query(`
+    UPDATE jobs.advertisements ads
+	    SET is_close=true
+        WHERE ads.id=$1
+        RETURNING is_close;`,
+    [id]);
+    res.json(rows[0]);
+});
+
+router.post('/open/:id', async (req, res) => {
+    const { id } = req.params;
+
+    const { rows } = await db.query(`
+    UPDATE jobs.advertisements ads
+	    SET is_close=false
+        WHERE ads.id=$1
+        RETURNING is_close;`,
+    [id]);
+    res.json(rows[0]);
+});
+
 module.exports = router;

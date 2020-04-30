@@ -11,10 +11,11 @@ import styles from './closeJobDialogStyle';
 
 interface CloseJobDialog {
     closeDialog: () => void;
+    closeAd: () => void;
 }
 
 const CloseJobDialog: React.FC<CloseJobDialog> = (props): JSX.Element => {
-    const { closeDialog } = props;
+    const { closeDialog, closeAd } = props;
     const classes = styles();
 
     return (
@@ -39,7 +40,8 @@ const CloseJobDialog: React.FC<CloseJobDialog> = (props): JSX.Element => {
                 <Button 
                     className={classes.confirmButton}
                     variant='outlined' 
-                    onClick={closeDialog} //TODO call thecloseAd function
+                    // onClick={closeDialog} //TODO call thecloseAd function
+                    onClick={closeAd} //TODO call thecloseAd function
                     autoFocus
                 >
                     אחלה, סגרו לי

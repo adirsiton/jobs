@@ -92,3 +92,27 @@ function parseAd(adJson: sqlAd): Advertisement {
         }
     };
 }
+
+export async function closeAd(adId: number): Promise<boolean> {
+    const answer = await fetch(`/ads/close/${adId}`, {
+        method: 'POST'
+    }).then(response => {
+        return response.json();
+    });
+
+    console.log(answer)
+
+    return true; // //is_close: true
+};
+
+export async function openAd(adId: number): Promise<boolean> {
+    const answer = await fetch(`/ads/open/${adId}`, {
+        method: 'POST'
+    }).then(response => {
+        return response.json();
+    });
+
+    console.log(answer)
+
+    return false; //is_close: false
+};
