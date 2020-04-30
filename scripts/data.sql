@@ -2,7 +2,12 @@ INSERT INTO jobs.users(upn, display_name) VALUES
     ('s8182384', 'מיכאל הופמן'),
     ('s8258065', 'דניאל דימנשטיין'),
     ('s8222765', 'אדיר סטיון'),
+    ('IlliMalachi', 'אילי מלאכי'),
+    ('GuyShany', 'גיא שני'),
+    ('StavBitanski', 'סתיו ביטנסקי'),
+    ('ShaharAnti', 'שחר ענתי'),
     ('SteveVaknin', 'סטיב וקנין');
+
 
 INSERT INTO jobs.roles(name, initials, color) VALUES 
     ('תוכניתן', 'DEV', '#7030A0'),
@@ -14,6 +19,11 @@ INSERT INTO jobs.standards(name) VALUES
     ('סרן'),
     ('רס"ן'),
     ('רס"ל');
+
+INSERT INTO jobs.user_resume(upn, rank_id, current_role_id, 
+                             desired_role_id, free_text, phone_number) VALUES
+('IlliMalachi', 1, 2, 3, 'hey, this is my resume', '053333533'), 
+('GuyShany', 1, 1, 2, 'hey, this is my resume', '0545421454');
 
 INSERT INTO jobs.units(name) VALUES
     ('מצפ"ן'),
@@ -74,7 +84,7 @@ INSERT INTO jobs.standards_of_ads(standard_id, advertisement_id) VALUES
 	(2, 6),
 	(3, 7);
 
-INSERT INTO  jobs.favorite_ads_of_users(upn, advertisement_id) VALUES
+INSERT INTO jobs.favorite_ads_of_users(upn, advertisement_id) VALUES
     ('s8182384', 1),
     ('s8182384', 3),
     ('s8182384', 5),
@@ -84,3 +94,9 @@ INSERT INTO  jobs.favorite_ads_of_users(upn, advertisement_id) VALUES
     ('s8222765', 4),
     ('s8222765', 5),
     ('s8222765', 3);
+
+
+INSERT INTO jobs.users_previous_jobs(job_name, upn, unit_id, branch_id,
+                                     department_id, start_date, end_date) VALUES
+('מפתח מיראז forever', 'IlliMalachi', 1, 1, 1, '2019-11-27', '2023-12-23'),
+('מפתח מיראז forever', 'GuyShany', 1, 1, 1, '2016-10-20', '2021-11-21');

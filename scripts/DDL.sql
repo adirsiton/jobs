@@ -49,7 +49,8 @@ CREATE TABLE jobs.user_resume(
 	desired_role_id int REFERENCES jobs.roles(id) ON DELETE CASCADE,
 	free_text text,
 	phone_number text,
-	UNIQUE (phone_number)
+	UNIQUE (phone_number),
+	CONSTRAINT CK_unique_roles CHECK (current_role_id != desired_role_id)
 );
 
 CREATE TABLE jobs.department_head(
@@ -93,10 +94,10 @@ CREATE TABLE jobs.users_previous_jobs(
 	job_name text NOT NULL,
 	upn text REFERENCES jobs.users(upn) ON DELETE CASCADE,
 	unit_id int REFERENCES jobs.units(id) ON DELETE CASCADE,
-	branch_id int,
-	department_id int,
-	start_date text,
-	end_date text,
+	branch_id int REFERENCES jobs.branches(id) ON DELETE CASCADE,
+	department_id int REFERENCES jobs.departments(id) ON DELETE CASCADE,
+	start_date date,
+	end_date date,
 	PRIMARY KEY(upn, job_name),
 	FOREIGN KEY (branch_id, unit_id) REFERENCES jobs.branches(id, unit_id),
 	FOREIGN KEY (department_id, branch_id) REFERENCES jobs.departments(id, branch_id)
