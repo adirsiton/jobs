@@ -39,9 +39,15 @@ CREATE TABLE jobs.base_locations(
 CREATE TABLE jobs.users(
 	upn text PRIMARY KEY,
 	display_name text,
-	last_entrance timestamp,
+	last_entrance timestamp
+);
+
+CREATE TABLE jobs.user_resume(
+	upn text PRIMARY KEY,
 	rank_id int REFERENCES jobs.standards(id) ON DELETE CASCADE,
-	role_id int REFERENCES jobs.roles(id) ON DELETE CASCADE,
+	current_role_id int REFERENCES jobs.roles(id) ON DELETE CASCADE,
+	desired_role_id int REFERENCES jobs.roles(id) ON DELETE CASCADE,
+	free_text text,
 	phone_number text,
 	UNIQUE (phone_number)
 );
