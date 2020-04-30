@@ -9,13 +9,14 @@ import CircleUnchecked from '@material-ui/icons/RadioButtonUnchecked';
 import { Role } from '../../../../../../types/Role';
 import styles from './StepsStyle';
 import { TextField } from '@material-ui/core';
+import { InputErrors } from './Step';
 
 interface PersonalDetailsStepProps {
     roles: Role[];
     nextRoles: number[];
     setNextRoles: (nextRoles: number[]) => void
     aboutMe: string;
-    setAboutMe: (aboutMe: string) => void
+    setAboutMe: (aboutMe: string) => void;
 }
 
 const NextJob: React.FC<PersonalDetailsStepProps> = (props): JSX.Element => {
@@ -25,6 +26,7 @@ const NextJob: React.FC<PersonalDetailsStepProps> = (props): JSX.Element => {
     const rolesCheckBoxGroup = <FormGroup row>
         {roles.map(role =>
             <FormControlLabel
+                key={role.id}
                 control={
                     <Checkbox
                         checked={nextRoles.includes(role.id)}
@@ -50,6 +52,7 @@ const NextJob: React.FC<PersonalDetailsStepProps> = (props): JSX.Element => {
         <div className={classes.nextJobContainer}>
             <span className={classes.headline}> הייתי רוצה תפקיד של...</span>
             {rolesCheckBoxGroup}
+            
             <span className={classes.headline}> יש עוד משהו שכדאי לדעת עליי</span>
             <TextField
                 InputProps={{
