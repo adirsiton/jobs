@@ -94,7 +94,7 @@ router.delete('/favorite/:id', async (req, res) => {
 });
 
 router.get('/ramad-ads', async (req, res) => {
-    const userUpn = req.user
+    const userUpn = req.user;
 
     const { rows } = await db.query(`
     SELECT json_build_object(
