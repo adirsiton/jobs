@@ -29,7 +29,7 @@ const UserResume: React.FC<UserResumeProps> = (props): JSX.Element => {
           <span> הגעת לאזור האישי שלך בג'ובניק</span>
         </div>
       </div>
-      {true ? <PersonalResume /> : <NoResume />}
+      {false ? <PersonalResume /> : <NoResume />}
     </div>
   );
 };

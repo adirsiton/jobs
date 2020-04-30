@@ -8,6 +8,43 @@ import PermIdentity from "@material-ui/icons/PermIdentity";
 const PersonalResume: React.FC<{}> = (): JSX.Element => {
   const classes = styles();
 
+  const previousJob = (previousJobDetails: string) => {
+    return (
+      <div className={classes.previousJob}>
+        <div className={classes.row}>
+          <div className={classes.jobSection}>
+            <Typograpy variant='body1'>מ- </Typograpy>
+            <span>05/19</span>
+          </div>
+          <div className={classes.jobSection}>
+            <Typograpy variant='body1'>עד- </Typograpy>
+            <span>היום</span>
+          </div>
+        </div>
+        <div className={classes.row}>
+          <div className={classes.jobSection}>
+            <Typograpy variant='body1'>יחידה:</Typograpy>
+            <span className={classes.sectionValue}>מצפ"ן</span>
+          </div>
+          <div className={classes.jobSection}>
+            <Typograpy variant='body1'>ענף: </Typograpy>
+            <span className={classes.sectionValue}>פסגות</span>
+          </div>
+          <div className={classes.jobSection}>
+            <Typograpy variant='body1'>מדור: </Typograpy>
+            <span className={classes.sectionValue}>ל"א</span>
+          </div>
+        </div>
+        <div className={classes.row}>
+          <div className={classes.jobSection}>
+            <Typograpy variant='body1'>תפקיד: </Typograpy>
+            <span className={classes.sectionValue}>מנהלת תכנון מוצר</span>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className={classes.resumeContainer}>
       <Typograpy className={classes.resumeHeader}>הרזומה שלך</Typograpy>
@@ -28,48 +65,13 @@ const PersonalResume: React.FC<{}> = (): JSX.Element => {
               <div className={classes.resumeSearcherJobAndLocation}>
                 <Typograpy variant='body1'>מקצוע: </Typograpy>
                 <span className={classes.sectionText}>אחר</span>
-                <Typograpy variant='body1'>טלפון: </Typograpy>
+                <Typograpy variant='body1'>טלפון:</Typograpy>
                 <span className={classes.sectionText}>052-1111111</span>
               </div>
             </div>
           </div>
           <div className={classes.bottomSection}>
-            <div className={classes.previousJobs}>
-              <div className={classes.previousJob}>
-                <div className={classes.row}>
-                  <div className={classes.jobSection}>
-                    <Typograpy variant='body1'>מ- </Typograpy>
-                    <span>05/19</span>
-                  </div>
-                  <div className={classes.jobSection}>
-                    <Typograpy variant='body1'>עד- </Typograpy>
-                    <span>היום</span>
-                  </div>
-                </div>
-                <div className={classes.row}>
-                  <div className={classes.jobSection}>
-                    <Typograpy variant='body1'>יחידה:</Typograpy>
-                    <span className={classes.sectionValue}>מצפ"ן</span>
-                  </div>
-                  <div className={classes.jobSection}>
-                    <Typograpy variant='body1'>ענף: </Typograpy>
-                    <span className={classes.sectionValue}>פסגות</span>
-                  </div>
-                  <div className={classes.jobSection}>
-                    <Typograpy variant='body1'>מדור: </Typograpy>
-                    <span className={classes.sectionValue}>ל"א</span>
-                  </div>
-                </div>
-                <div className={classes.row}>
-                  <div className={classes.jobSection}>
-                    <Typograpy variant='body1'>תפקיד: </Typograpy>
-                    <span className={classes.sectionValue}>
-                      מנהלת תכנון מוצר
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <div className={classes.previousJobs}>{previousJob("")}</div>
           </div>
           <div className={classes.resumeFreeText}>
             בוגרת תואר ראשון במערכות מידע, עברתי קורס ניהול מוצר וניתוח מערכות
