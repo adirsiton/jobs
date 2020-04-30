@@ -52,7 +52,7 @@ const PreviousJobsStep: React.FC<PreviousJobsStepProps> = (props): JSX.Element =
     const inputDiv = (title: string, input: JSX.Element): JSX.Element => {
         return (
             <div className={classes.inputDiv}>
-                <InputLabel classes={{ root: classes.label, asterisk: classes.asterisk }} required={true}> {title} </InputLabel>
+                <InputLabel classes={{ root: classes.label }}> {title} </InputLabel>
                 {input}
             </div>
         )
@@ -124,7 +124,7 @@ const PreviousJobsStep: React.FC<PreviousJobsStepProps> = (props): JSX.Element =
 
     const JobNameInput = (job: Job, isNew: boolean): JSX.Element => {
         return (<div className={classes.inputDiv}>
-            <InputLabel classes={{ asterisk: classes.asterisk }} required={true}>
+            <InputLabel>
                 שם התפקיד
             </InputLabel>
             <TextField
@@ -187,7 +187,7 @@ const PreviousJobsStep: React.FC<PreviousJobsStepProps> = (props): JSX.Element =
                         setCurrentId((prevCurrentId) => prevCurrentId + 1);
                         setEnteredPrevJob(defaultJob);
                     }}
-                    disabled={previousJobs.length === MAX_NUM_PREVIOUS_JOBS_EXPERIENCE}>
+                    disabled={previousJobs.length === MAX_NUM_PREVIOUS_JOBS_EXPERIENCE - 1}>
                     + הוספת ג'וב
                 </Button>
         </div>
