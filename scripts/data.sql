@@ -1,5 +1,5 @@
 INSERT INTO jobs.users(upn, display_name) VALUES 
-    ('s8182384', 'מיכאל הופמן'),
+    ('michael-hoffman-26', 'מיכאל הופמן'),
     ('s8258065', 'דניאל דימנשטיין'),
     ('s8222765', 'אדיר סטיון'),
     ('IlliMalachi', 'אילי מלאכי'),
