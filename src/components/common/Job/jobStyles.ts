@@ -1,4 +1,5 @@
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { TEXT_AND_ICONS_ADS_COLOR } from '../../../assets/projectJSS/Colors';
 
 const styles = (theme: Theme) => createStyles({
     root: {
@@ -64,11 +65,12 @@ const styles = (theme: Theme) => createStyles({
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",
-        width: "48%"
+        width: "22vw"
     },
     jobContentTitle: {
         fontWeight: "bold",
         color: "#595959",
+        marginLeft: "0.5vw"
     },
     jobFooter: {
         width: "18%",
@@ -86,6 +88,15 @@ const styles = (theme: Theme) => createStyles({
             color: "#64e4bf",
             backgroundColor: "transparent"
         }
+    },
+    jobDetail: {
+        marginBottom: "1vh",
+        display: "flex",
+        flexDirection: "row"
+    },
+    jobDetailData: {
+        display: "flex",
+        alignItems: "center"
     },
     btnIcon: {
         marginRight: "3px",
@@ -106,6 +117,29 @@ const styles = (theme: Theme) => createStyles({
     },
     dialogActions: {
         marginLeft: "1.5vw"
+    },
+    dialogContentText: {
+        paddingBottom: "20px"
+    },
+    dialogDetailColumn: {
+        display: "flex",
+        flexDirection: "column",
+        justifyItems: "space-between"
+    },
+    dialogDetails: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        marginBottom: "2vh",
+        width: "55%"
+    },
+    isDamachIcon: {
+        color: TEXT_AND_ICONS_ADS_COLOR,
+        maxHeight: "18px"
+    },
+    isntDamachIcon: {
+        color: "#a59e9e",
+        maxHeight: "18px"
     }
 });
 

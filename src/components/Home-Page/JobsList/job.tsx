@@ -1,11 +1,14 @@
 import * as React from 'react';
+
 import Button from '@material-ui/core/Button';
 import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
 import { WithStyles, withStyles } from '@material-ui/core/styles';
+
 import styles from '../../common/Job/jobStyles';
 import JobTitle from '../../common/Job/jobTitle';
 import JobFullDetails from '../../common/Job-Full-Details/jobFullDetails';
 import SaveJobButton from '../../common/Job/saveJobButton';
+import JobDetail from '../../common/Job/jobDetail';
 import { Advertisement  } from '../../../types/Advertisements';
 
 interface JobData {
@@ -32,8 +35,8 @@ const Job: React.FC<JobProps> = (props): JSX.Element => {
             <div className={classes.jobContent}>
                 <span> {ad.description} </span>
                 <div className={classes.jobContentFooter}>
-                    <div> <span className={classes.jobContentTitle}> תקן:</span>  <span> {ad.standards.join('/')} </span></div>
-                    <div > <span className={classes.jobContentTitle}> כניסה לתפקיד:</span>  <span> {ad.entryDate ? ad.entryDate : 'מיידי'} </span></div>
+                    <JobDetail title="תקן" data={ad.standards.join('/')} />
+                    <JobDetail title="כניסה לתפקיד" data={ad.entryDate ? ad.entryDate : 'מיידי'} />
                 </div>
             </div>
             <div className={classes.jobFooter}>

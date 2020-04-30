@@ -1,7 +1,9 @@
 import * as React from 'react';
+
 import { WithStyles, withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
+
 import styles from './jobStyles';
 import { Advertisement } from '../../../types/Advertisements';
 

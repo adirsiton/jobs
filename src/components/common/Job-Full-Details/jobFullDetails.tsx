@@ -1,13 +1,18 @@
 import * as React from 'react';
+
 import Dialog from '@material-ui/core/Dialog';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import MuiDialogContent from '@material-ui/core/DialogContent';
+import MuiDialogContentText from '@material-ui/core/DialogContentText';
 import MuiDialogActions from '@material-ui/core/DialogActions';
-import Typography from '@material-ui/core/Typography';
 import { WithStyles, withStyles } from '@material-ui/core/styles';
+import CheckIcon from '@material-ui/icons/Check';
+import CloseIcon from '@material-ui/icons/Close';
+
 import { Advertisement } from '../../../types/Advertisements';
 import SaveJobButton from '../Job/saveJobButton';
 import JobTitle from '../Job/jobTitle';
+import JobDetail from '../Job/jobDetail';
 import styles from '../Job/jobStyles';
 
 
@@ -40,7 +45,26 @@ const JobFullDetails: React.FC<JobFullDetailsProps> = (props): JSX.Element => {
     const renderDialogContent = (): JSX.Element => {
         return (
             <MuiDialogContent>
-                <span>{ad.description}</span>
+                <MuiDialogContentText>
+                    <span className={classes.dialogContentText}>{ad.description}</span>
+                </MuiDialogContentText>
+                <div className={classes.dialogDetails}>
+                    <div className={classes.dialogDetailColumn}>
+                        <JobDetail title="תקן" data={ad.standards.join('/')} />
+                        <JobDetail title="כניסה לתפקיד" data={ad.entryDate ? ad.entryDate : 'מיידי'} />
+                    </div>
+                    <div className={classes.dialogDetailColumn}>
+                        <JobDetail title="ותק דרוש" data={ad.seniority} />
+                        <JobDetail 
+                            title={`מוכר לדמ"ח`} 
+                            data={
+                                ad.isDamach 
+                                    ? <CheckIcon className={classes.isDamachIcon} /> 
+                                    : <CloseIcon className={classes.isntDamachIcon} />}
+                        />
+                    </div>
+                </div>
+                <JobDetail title="מפרסם" data={`${ad.advertiser.displayName} - ${ad.advertiser.contact}`} />
             </MuiDialogContent>
         );
     }

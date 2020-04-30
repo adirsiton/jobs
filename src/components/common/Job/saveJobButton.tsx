@@ -1,8 +1,10 @@
 import * as React from 'react';
+
 import { WithStyles, withStyles } from '@material-ui/core/styles';
 import StarBorderOutlinedIcon from '@material-ui/icons/StarBorderOutlined';
 import FullStarIcon from '@material-ui/icons/Star'
 import Button from '@material-ui/core/Button';
+
 import styles from './jobStyles';
 
 interface SaveJobData {
