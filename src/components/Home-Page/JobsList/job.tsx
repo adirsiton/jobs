@@ -1,73 +1,66 @@
 import * as React from 'react';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
-import StarBorderOutlinedIcon from '@material-ui/icons/StarBorderOutlined';
-import FullStarIcon from '@material-ui/icons/Star';
-import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
-import styles from './jobsListStyle';
 
+import Button from '@material-ui/core/Button';
+import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
+import { WithStyles, withStyles } from '@material-ui/core/styles';
+
+import styles from '../../common/Job/jobStyles';
+import JobTitle from '../../common/Job/jobTitle';
+import JobFullDetails from '../../common/Job-Full-Details/jobFullDetails';
+import SaveJobButton from '../../common/Job/saveJobButton';
+import JobDetail from '../../common/Job/jobDetail';
 import { Advertisement  } from '../../../types/Advertisements';
 
-interface JobsProps {
+interface JobData {
     ad: Advertisement;
     isFavorite: boolean;
     unsetFavoriteAd: () => void;
     setFavoriteAd: () => void;
 }
 
-const Job: React.FC<JobsProps> = (props): JSX.Element => {
-    const classes = styles();
-    const { ad , isFavorite, unsetFavoriteAd, setFavoriteAd} = props;
+type JobProps = JobData & WithStyles<typeof styles>;
 
-    const saveButtonText = isFavorite
-    ? 'נשמר' 
-    : 'שמירה';
+const Job: React.FC<JobProps> = (props): JSX.Element => {
+    const { ad , isFavorite, unsetFavoriteAd, setFavoriteAd, classes} = props;
 
-    const getStarIcon = (): JSX.Element => {
-        return isFavorite
-        ? <FullStarIcon className={classes.btnIcon} />
-        : <StarBorderOutlinedIcon className={classes.btnIcon} />
-    }
+    const [areFullDetailsShown, setAreFullDetailsShown] = React.useState<boolean>(false);
 
-    const handleOnClickSaveButton = () => {isFavorite? unsetFavoriteAd() : setFavoriteAd()}
+    const handleOnClickSaveButton = () => {isFavorite ? unsetFavoriteAd() : setFavoriteAd()}
 
     return (
         <div className={classes.job}>
             <div className={classes.jobHeader}>
-                <div className={classes.jobMainTitles}>
-                    <span className={classes.jobTitle}> {ad.name}</span>
-                    <Typography 
-                        className={classes.tag} 
-                        style={{ backgroundColor: ad.role.color }}
-                        >
-                        {ad.role.initials}
-                    </Typography>
-                </div>
-                <div className={classes.jobSecondaryTitles}>
-                    <span> {`${ad.unit.name}/${ad.branch.name}/${ad.department.name}`}</span>
-                    <span className={classes.locationTitle}><LocationOnOutlinedIcon className={classes.jobsLocationIcon} /> {ad.location.name} </span>
-                </div>
+                <JobTitle ad={ad} showLocation={true} />    
             </div>
             <div className={classes.jobContent}>
                 <span> {ad.description} </span>
                 <div className={classes.jobContentFooter}>
-                    <div> <span className={classes.jobContentTitle}> תקן:</span>  <span> {ad.standards.join('/')} </span></div>
-                    <div > <span className={classes.jobContentTitle}> כניסה לתפקיד:</span>  <span> {ad.entryDate ? ad.entryDate : 'מיידי'} </span></div>
+                    <JobDetail title="תקן" data={ad.standards.join('/')} />
+                    <JobDetail title="כניסה לתפקיד" data={ad.entryDate ||  'מיידי'} />
                 </div>
             </div>
             <div className={classes.jobFooter}>
-                <Button className={classes.jobBtn} startIcon={<VisibilityOutlinedIcon className={classes.btnIcon} />}> צפייה  </Button>
-                <Button 
-                    className={`${classes.jobBtn} ${isFavorite && classes.boldText}`}
-                    onClick={handleOnClickSaveButton}
-                    startIcon={getStarIcon()}
+                <Button
+                    className={classes.jobBtn} 
+                    startIcon={<VisibilityOutlinedIcon className={classes.btnIcon} />}
+                    onClick={() => setAreFullDetailsShown(true)}    
                 >
-                    {saveButtonText} 
+                    צפייה  
                 </Button>
+                <SaveJobButton isFavorite={isFavorite} handleClick={handleOnClickSaveButton} />
             </div>
+
+            <JobFullDetails
+                isOpen={areFullDetailsShown}
+                setIsOpen={setAreFullDetailsShown}
+                ad={ad}
+                isFavorite={isFavorite}
+                isRamadView={false}
+                onSave={handleOnClickSaveButton}
+            />
+
         </div>
     );
 }
 
-export default Job;
+export default withStyles(styles)(Job);
