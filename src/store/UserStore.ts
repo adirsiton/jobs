@@ -1,7 +1,7 @@
-import CookieUtils from "js-cookie";
+import CookieUtils from 'js-cookie';
 
-import Swal from "sweetalert2";
-import { observable, decorate, action, computed } from "mobx";
+import Swal from 'sweetalert2';
+import { observable, decorate, action, computed } from 'mobx';
 
 import {
     fetchFavoriteAds,
@@ -9,11 +9,11 @@ import {
     setFavoriteAd,
     fetchRamadAds,
     saveUserResume,
-} from "../server/user";
-import { User, RamadAd, UserResume } from "../types/User";
+} from '../server/user';
+import { User, RamadAd, UserResume } from '../types/User';
 
 export class UserStore {
-    private loggedUser: User = JSON.parse(CookieUtils.get("user") || "{}");
+    private loggedUser: User = JSON.parse(CookieUtils.get('user') || '{}');
     private favoriteAds = observable.box<number[]>([]);
     private ramadAds = observable.box<RamadAd[]>([]);
 
@@ -30,8 +30,8 @@ export class UserStore {
     }
 
     get getUserInitials() {
-        const splitName: string[] = this.loggedUser.name.split(" ");
-        return splitName.map((n) => n[0]).join(" ");
+        const splitName: string[] = this.loggedUser.name.split(' ');
+        return splitName.map((n) => n[0]).join(' ');
     }
 
     loadFavoriteAds = async () => {
@@ -51,7 +51,7 @@ export class UserStore {
             await unsetFavoriteAd(adId);
             this.loadFavoriteAds();
         } catch (error) {
-            console.log("got error, unset function", error);
+            console.log('got error, unset function', error);
         }
     };
 
@@ -60,7 +60,7 @@ export class UserStore {
             await setFavoriteAd(adId);
             this.loadFavoriteAds();
         } catch (error) {
-            console.log("got error, set function", error);
+            console.log('got error, set function', error);
         }
     };
 
@@ -68,8 +68,8 @@ export class UserStore {
         const response: Response = await saveUserResume(resume);
 
         response.status === 200
-            ? Swal.fire("מעולה!", "הרזומה שלך נשמר בהצלחה", "success")
-            : Swal.fire("אופס...", "לא הצלחנו לשמור את הרזומה שלך", "error");
+            ? Swal.fire('מעולה!', 'הרזומה שלך נשמר בהצלחה', 'success')
+            : Swal.fire('אופס...', 'לא הצלחנו לשמור את הרזומה שלך', 'error');
     };
 }
 

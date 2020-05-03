@@ -1,10 +1,10 @@
 // require('dotenv').config();
-const express = require("express");
-const db = require("../../db");
+const express = require('express');
+const db = require('../../db');
 
 const router = express.Router();
 
-router.get("/", async (req, res) => {
+router.get('/', async (req, res) => {
     const { upn } = req.params;
 
     const { rows } = await db.query(
@@ -21,7 +21,7 @@ router.get("/", async (req, res) => {
     res.json(rows);
 });
 
-router.get("/favorite", async (req, res) => {
+router.get('/favorite', async (req, res) => {
     const userId = req.user;
 
     const { rows } = await db.query(
@@ -40,7 +40,7 @@ router.get("/favorite", async (req, res) => {
     res.json(favoriteAds);
 });
 
-router.post("/favorite/:id", async (req, res) => {
+router.post('/favorite/:id', async (req, res) => {
     const { id } = req.params;
 
     const userId = req.user;
@@ -54,7 +54,7 @@ router.post("/favorite/:id", async (req, res) => {
     res.json(rows);
 });
 
-router.post("/resume", async (req, res) => {
+router.post('/resume', async (req, res) => {
     const userDetails = req.body;
 
     const {
@@ -67,7 +67,7 @@ router.post("/resume", async (req, res) => {
         previousJobs,
     } = userDetails;
     try {
-        await db.query("BEGIN");
+        await db.query('BEGIN');
         await db.query(
             `
                 INSERT INTO jobs.users_resume (upn, rank_id, current_role_id, free_text, phone_number) 
@@ -115,7 +115,7 @@ router.post("/resume", async (req, res) => {
             );
         }
 
-        await db.query("COMMIT");
+        await db.query('COMMIT');
         console.log(`successfully added resume for user: ${upn}`);
         res.sendStatus(200);
     } catch (error) {
@@ -123,12 +123,12 @@ router.post("/resume", async (req, res) => {
             `An error occured while trying to add resume to user: ${upn}`,
             error
         );
-        await db.query("ROLLBACK");
+        await db.query('ROLLBACK');
         res.sendStatus(500);
     }
 });
 
-router.delete("/favorite/:id", async (req, res) => {
+router.delete('/favorite/:id', async (req, res) => {
     const { id } = req.params;
 
     const userId = req.user;
@@ -141,7 +141,7 @@ router.delete("/favorite/:id", async (req, res) => {
     res.json(rows);
 });
 
-router.get("/ramad-ads", async (req, res) => {
+router.get('/ramad-ads', async (req, res) => {
     const userUpn = req.user;
 
     const { rows } = await db.query(

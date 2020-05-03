@@ -1,4 +1,4 @@
-import { RamadAd, RamadAdSQL, UserResume } from "../types/User";
+import { RamadAd, RamadAdSQL, UserResume } from '../types/User';
 
 export async function fetchFavoriteAds(): Promise<number[]> {
     const favoriteAds: number[] = await fetch(`/user/favorite`).then(
@@ -12,7 +12,7 @@ export async function fetchFavoriteAds(): Promise<number[]> {
 
 export async function unsetFavoriteAd(adId: number): Promise<boolean> {
     const answer = await fetch(`/user/favorite/${adId}`, {
-        method: "DELETE",
+        method: 'DELETE',
     }).then((response) => {
         // Need to think how to determine if the action succeeded
         return response.status === 200;
@@ -23,7 +23,7 @@ export async function unsetFavoriteAd(adId: number): Promise<boolean> {
 
 export async function setFavoriteAd(adId: number): Promise<boolean> {
     const answer = await fetch(`/user/favorite/${adId}`, {
-        method: "POST",
+        method: 'POST',
     }).then((response) => {
         // Need to think how to determine if the action succeeded
         return response.status === 200;
@@ -33,8 +33,8 @@ export async function setFavoriteAd(adId: number): Promise<boolean> {
 }
 
 export async function fetchRamadAds(): Promise<RamadAd[]> {
-    const ramadAdsSQL: RamadAdSQL[] = await fetch("/user/ramad-ads", {
-        method: "GET",
+    const ramadAdsSQL: RamadAdSQL[] = await fetch('/user/ramad-ads', {
+        method: 'GET',
     }).then((response) => {
         return response.json();
     });
@@ -47,10 +47,10 @@ export async function fetchRamadAds(): Promise<RamadAd[]> {
 
 export async function saveUserResume(resume: UserResume): Promise<Response> {
     const response = await fetch(`/user/resume`, {
-        method: "POST",
+        method: 'POST',
         body: JSON.stringify(resume),
         headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
         },
     });
 

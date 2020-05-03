@@ -1,13 +1,13 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import Dialog from "@material-ui/core/Dialog";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
+import React from 'react';
+import { useState, useEffect } from 'react';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
-import { getAllSelectOptions } from "../../../../server/ads";
-import { AllSelectOptions } from "../../../../types/AllSelectOptions";
-import ProgressBar from "./ProgressBar/ProgressBar";
-import styles from "./ResumeDialogStyle";
+import { getAllSelectOptions } from '../../../../server/ads';
+import { AllSelectOptions } from '../../../../types/AllSelectOptions';
+import ProgressBar from './ProgressBar/ProgressBar';
+import styles from './ResumeDialogStyle';
 
 interface AddResumeDialogProps {
     isOpen: boolean;

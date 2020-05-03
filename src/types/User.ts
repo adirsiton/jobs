@@ -1,5 +1,5 @@
-import { RoleAdPropertiesData } from "./Advertisements";
-import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
+import { RoleAdPropertiesData } from './Advertisements';
+import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
 
 export interface User {
     upn: string;
@@ -43,7 +43,7 @@ export const defaultJob: Job = {
     unitId: -1,
     branchId: -1,
     departmentId: -1,
-    jobName: "",
+    jobName: '',
 };
 
 export interface UserResume {
