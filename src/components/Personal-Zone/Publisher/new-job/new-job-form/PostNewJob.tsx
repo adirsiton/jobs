@@ -204,7 +204,9 @@ const PostNewJob: React.FC<PostNewJobProps> = (props): JSX.Element => {
                     yearsInSeniority: shouldHaveSeniority ? yearsInSeniority : 0,
                     shouldHaveDamach,
                     jobDescription,
-                    contactInformation
+                    contactInformation,
+                    advertismentDate: Date.now(),
+                    lastReferenceDate: Date.now()
                 });
                 fetchAllAdsAfterPost();
                 closeDialog();

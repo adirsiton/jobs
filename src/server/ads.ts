@@ -89,6 +89,9 @@ function parseAd(adJson: sqlAd): Advertisement {
             upn: adJson.advertiser_upn,
             displayName: adJson.advertiser,
             contact: adJson.contact
-        }
+        },
+        advertismentDate: adJson.advertisment_date,
+        closingDate: adJson.closing_date,
+        lastReferenceDate: adJson.last_reference_date
     };
 }

@@ -17,7 +17,10 @@ export interface Advertisement  {
     branch: AdPropertiesData;
     department: AdPropertiesData;
     location: AdPropertiesData;
-    advertiser: Advertiser ;
+    advertiser: Advertiser;
+    advertismentDate: number;
+    closingDate: number;
+    lastReferenceDate: number;
 }
 
 export interface AdvertisementInsertData {
@@ -31,6 +34,8 @@ export interface AdvertisementInsertData {
     shouldHaveDamach: boolean;
     jobDescription: string;
     contactInformation: ContactInformation;
+    advertismentDate: number;
+    lastReferenceDate: number;
 }
 
 export interface AdPropertiesData {
@@ -72,4 +77,7 @@ export interface sqlAd {
     location: string;
     advertiser: string;
     standards_array: string[];
+    advertisment_date: number;
+    closing_date: number;
+    last_reference_date: number;
 }

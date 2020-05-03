@@ -68,6 +68,9 @@ CREATE TABLE jobs.advertisements(
 	contact text,
 	base_location_id int REFERENCES jobs.base_locations(id) ON DELETE CASCADE,
 	is_close boolean DEFAULT false,
+	advertisment_date bigint,
+	closing_date bigint,
+	last_reference_date bigint,
 	FOREIGN KEY (branch_id, unit_id) REFERENCES jobs.branches(id, unit_id),
 	FOREIGN KEY (department_id, branch_id) REFERENCES jobs.departments(id, branch_id)
 );
