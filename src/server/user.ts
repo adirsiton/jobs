@@ -45,12 +45,14 @@ export async function fetchRamadAds(): Promise<RamadAd[]> {
     return allRamadAds;
 }
 
-export async function saveUserResume(resume: UserResume): Promise<void> {
-    await fetch(`/user/resume`, {
+export async function saveUserResume(resume: UserResume): Promise<Response> {
+    const response = await fetch(`/user/resume`, {
         method: "POST",
         body: JSON.stringify(resume),
         headers: {
             "Content-Type": "application/json",
         },
     });
+
+    return response;
 }

@@ -116,9 +116,13 @@ router.post("/resume", async (req, res) => {
         }
 
         await db.query("COMMIT");
+        console.log(`successfully added resume for user: ${upn}`);
         res.sendStatus(200);
     } catch (error) {
-        console.error("An error occured", error);
+        console.error(
+            `An error occured while trying to add resume to user: ${upn}`,
+            error
+        );
         await db.query("ROLLBACK");
         res.sendStatus(500);
     }

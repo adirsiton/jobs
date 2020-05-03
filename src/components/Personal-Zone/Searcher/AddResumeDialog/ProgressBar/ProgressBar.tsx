@@ -135,7 +135,7 @@ const ProgressBar: React.FC<ProgressBarProps> = (props): JSX.Element => {
         }
     };
 
-    const submitResume = (): void => {
+    const submitResume = async (): Promise<void> => {
         const resumeDetails: UserResume = {
             upn: userStore.getUser.upn,
             selectedRoleId,
@@ -143,9 +143,9 @@ const ProgressBar: React.FC<ProgressBarProps> = (props): JSX.Element => {
             phoneNumber,
             aboutMe,
             nextRoles,
-            previousJobs: previousJobs.concat(enteredPrevJob),
+            previousJobs: previousJobs,
         };
-        userStore.saveUserResume(resumeDetails);
+        await userStore.saveUserResume(resumeDetails);
         closeDialog();
     };
 

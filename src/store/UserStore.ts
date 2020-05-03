@@ -65,16 +65,11 @@ export class UserStore {
     };
 
     saveUserResume = async (resume: UserResume) => {
-        try {
-            await saveUserResume(resume);
-            Swal.fire("מעולה!", "הרזומה שלך נשמר בהצלחה", "success");
-        } catch (error) {
-            console.error(
-                `error while trying to save user: ${resume.upn} resume`,
-                error
-            );
-            Swal.fire("אופס...", "לא הצלחנו לשמור את הרזומה שלך", "error");
-        }
+        const response: Response = await saveUserResume(resume);
+
+        response.status === 200
+            ? Swal.fire("מעולה!", "הרזומה שלך נשמר בהצלחה", "success")
+            : Swal.fire("אופס...", "לא הצלחנו לשמור את הרזומה שלך", "error");
     };
 }
 
