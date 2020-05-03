@@ -20,13 +20,14 @@ import { StepInfo, ResumeStep, initStepsValues } from "./Steps/Step";
 interface ProgressBarProps {
     allSelectOptions: AllSelectOptions | null;
     userStore?: UserStore;
+    closeDialog: () => void;
 }
 
 const ProgressBar: React.FC<ProgressBarProps> = (props): JSX.Element => {
     const classes = styles();
     const userStore: UserStore = props.userStore!;
 
-    const { allSelectOptions } = props;
+    const { allSelectOptions, closeDialog } = props;
 
     const [activeStep, setActiveStep] = React.useState<ResumeStep>(
         ResumeStep.PERSONAL_DETAILS
@@ -145,6 +146,7 @@ const ProgressBar: React.FC<ProgressBarProps> = (props): JSX.Element => {
             previousJobs: previousJobs.concat(enteredPrevJob),
         };
         userStore.saveUserResume(resumeDetails);
+        closeDialog();
     };
 
     return (
