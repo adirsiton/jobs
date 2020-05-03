@@ -19,11 +19,11 @@ INSERT INTO jobs.standards(name) VALUES
     ('רס"ן'),
     ('רס"ל');
 
-INSERT INTO jobs.user_resume(upn, rank_id, current_role_id, free_text, phone_number) VALUES
+INSERT INTO jobs.users_resume(upn, rank_id, current_role_id, free_text, phone_number) VALUES
 ('IlliMalachi', 1, 2, 'hey, this is my resume', '053333533'), 
 ('guyshany', 1, 1, 'hey, this is my resume', '0545421454');
 
-INSERT INTO jobs.user_desired_roles(upn, desired_role_id) VALUES
+INSERT INTO jobs.users_desired_roles(upn, desired_role_id) VALUES
 ('guyshany', 1),
 ('guyshany', 2),
 ('IlliMalachi', 1);

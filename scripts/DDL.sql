@@ -42,7 +42,7 @@ CREATE TABLE jobs.users(
 	last_entrance timestamp
 );
 
-CREATE TABLE jobs.user_resume(
+CREATE TABLE jobs.users_resume(
 	upn text PRIMARY KEY,
 	rank_id int REFERENCES jobs.standards(id) ON DELETE CASCADE,
 	current_role_id int REFERENCES jobs.roles(id) ON DELETE CASCADE,
@@ -51,7 +51,7 @@ CREATE TABLE jobs.user_resume(
 	UNIQUE (phone_number)
 );
 
-CREATE TABLE jobs.user_desired_roles(
+CREATE TABLE jobs.users_desired_roles(
 	upn text,
 	desired_role_id int REFERENCES jobs.roles(id) ON DELETE CASCADE,
 	PRIMARY KEY (upn, desired_role_id)
