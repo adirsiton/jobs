@@ -60,7 +60,8 @@ const JobFullDetails: React.FC<JobFullDetailsProps> = (props): JSX.Element => {
                             data={
                                 ad.isDamach 
                                     ? <CheckIcon className={classes.isDamachIcon} /> 
-                                    : <CloseIcon className={classes.isntDamachIcon} />}
+                                    : <CloseIcon className={classes.isntDamachIcon} />
+                                }
                         />
                     </div>
                 </div>
