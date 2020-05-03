@@ -10,7 +10,7 @@ const FavoriteJobs: React.FC<{}> = (): JSX.Element => {
 
     return (
         <div className={classes.root}>
-            <AssignmentIndOutlinedIcon style={{ fontSize: 100 }} />
+            <AssignmentIndOutlinedIcon className={classes.jobsIcon} />
             <span className={classes.content}>
                 עדיין לא התעניינת באף תפקיד,<br/>
                 אנחנו חושבים שזה הזמן לעבור שוב על התפקידים

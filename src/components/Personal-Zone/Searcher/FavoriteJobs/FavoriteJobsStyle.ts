@@ -33,6 +33,9 @@ const useStyles = makeStyles((theme) =>
                 backgroundColor: THEME_HOVER_COLOR
             }
         },
+        jobsIcon: {
+            fontSize: 100
+        }
     }),
 );
 
