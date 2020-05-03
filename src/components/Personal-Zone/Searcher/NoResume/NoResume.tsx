@@ -1,13 +1,13 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import AssignmentIndOutlinedIcon from '@material-ui/icons/AssignmentIndOutlined';
 import AddIcon from '@material-ui/icons/Add';
 import StarIcon from '@material-ui/icons/Star';
+import { Link } from 'react-router-dom';
 
 import styles from './NoResumeStyle';
 import AddResumeDialog from '../AddResumeDialog/AddResumeDialog';
-
 
 const NoResume: React.FC<{}> = (): JSX.Element => {
     const classes = styles();
@@ -32,9 +32,11 @@ const NoResume: React.FC<{}> = (): JSX.Element => {
                 onClick={()=> {setOpenResumeDialog(true)}}>
                 הוספת הרזומה שלך
             </Button>
-            <Button className={`${classes.userBtn} ${classes.savedJobsBtn}`} startIcon={<StarIcon className={classes.btnIcon} />}>
-                צפייה בג'ובים ששמרת
-            </Button>
+            <Link to='/personal/favorites'>
+                <Button className={`${classes.userBtn} ${classes.savedJobsBtn}`} startIcon={<StarIcon className={classes.btnIcon} />}>
+                    צפייה בג'ובים ששמרת
+                </Button>
+            </Link>
 
             <AddResumeDialog isOpen={openResumeDialog} closeDialog={()=> {setOpenResumeDialog(false)}}/>
         </div>
