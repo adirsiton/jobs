@@ -3,7 +3,7 @@ INSERT INTO jobs.users(upn, display_name) VALUES
     ('s8258065', 'דניאל דימנשטיין'),
     ('s8222765', 'אדיר סטיון'),
     ('IlliMalachi', 'אילי מלאכי'),
-    ('GuyShany', 'גיא שני'),
+    ('guyshany', 'גיא שני'),
     ('StavBitanski', 'סתיו ביטנסקי'),
     ('ShaharAnti', 'שחר ענתי'),
     ('SteveVaknin', 'סטיב וקנין');
@@ -21,11 +21,11 @@ INSERT INTO jobs.standards(name) VALUES
 
 INSERT INTO jobs.user_resume(upn, rank_id, current_role_id, free_text, phone_number) VALUES
 ('IlliMalachi', 1, 2, 'hey, this is my resume', '053333533'), 
-('GuyShany', 1, 1, 'hey, this is my resume', '0545421454');
+('guyshany', 1, 1, 'hey, this is my resume', '0545421454');
 
 INSERT INTO jobs.user_desired_roles(upn, desired_role_id) VALUES
-('GuyShany', 1),
-('GuyShany', 2),
+('guyshany', 1),
+('guyshany', 2),
 ('IlliMalachi', 1);
 
 INSERT INTO jobs.units(name) VALUES
@@ -104,5 +104,5 @@ INSERT INTO jobs.favorite_ads_of_users(upn, advertisement_id) VALUES
 INSERT INTO jobs.users_previous_jobs(job_name, upn, unit_id, branch_id,
                                      department_id, start_date, end_date) VALUES
 ('מפתח מיראז forever', 'IlliMalachi', 1, 1, 1, '2019-11-27', '2023-12-23'),
-('מפתח מיראז forever', 'GuyShany', 1, 1, 1, '2016-10-20', '2021-11-21');
+('מפתח מיראז forever', 'guyshany', 1, 1, 1, '2016-10-20', '2021-11-21');
 
