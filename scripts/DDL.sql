@@ -12,6 +12,11 @@ CREATE TABLE jobs.roles(
 	color text
 );
 
+CREATE TABLE jobs.qualifications(
+	id serial PRIMARY KEY,
+	name text UNIQUE
+);
+
 CREATE TABLE jobs.units(
 	id serial PRIMARY KEY,
 	name text UNIQUE -- assuming all unit names in army are unique
@@ -41,7 +46,7 @@ CREATE TABLE jobs.users(
 	display_name text,
 	last_entrance timestamp,
 	rank_id int REFERENCES jobs.standards(id) ON DELETE CASCADE,
-	role_id int REFERENCES jobs.roles(id) ON DELETE CASCADE,
+	qualification_id int REFERENCES jobs.qualifications(id) ON DELETE CASCADE,
 	phone_number text,
 	UNIQUE (phone_number)
 );
@@ -67,6 +72,7 @@ CREATE TABLE jobs.advertisements(
 	advertiser_upn text REFERENCES jobs.users(upn) ON DELETE CASCADE,
 	contact text,
 	base_location_id int REFERENCES jobs.base_locations(id) ON DELETE CASCADE,
+	is_close boolean DEFAULT false,
 	FOREIGN KEY (branch_id, unit_id) REFERENCES jobs.branches(id, unit_id),
 	FOREIGN KEY (department_id, branch_id) REFERENCES jobs.departments(id, branch_id)
 );

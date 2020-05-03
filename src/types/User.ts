@@ -8,7 +8,7 @@ export interface User {
     isRamad: boolean;
 }
 
-export interface RamadAds {
+export interface RamadAd {
     id: number;
     name: string;
     role: RoleAdPropertiesData;
@@ -20,6 +20,10 @@ export interface Candidate {
     upn: string;
     name: string;
     phoneNumber: string;
+}
+
+export interface RamadAdSQL  {
+    ramad_ad: RamadAd
 }
 
 export interface Job {
