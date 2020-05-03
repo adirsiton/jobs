@@ -142,7 +142,7 @@ const ProgressBar: React.FC<ProgressBarProps> = (props): JSX.Element => {
             phoneNumber,
             aboutMe,
             nextRoles,
-            previousJobs,
+            previousJobs: previousJobs.concat(enteredPrevJob),
         };
         userStore.saveUserResume(resumeDetails);
     };

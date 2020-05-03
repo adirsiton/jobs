@@ -68,39 +68,57 @@ router.post("/resume", async (req, res) => {
     } = userDetails;
     try {
         await db.query("BEGIN");
-        const values = [upn, rankId, currentRoleId, freeText, phoneNumber];
-        const userUpn = await db
-            .query(
-                `
-            INSERT INTO jobs.user_resume (upn, rank_id, current_role_id, free_text, phone_number) 
-            VALUES ($1, $2, $3, $4, $5) 
-            ON CONFLICT (upn) DO UPDATE
-            SET rank_id = $2,
-                current_role_id = $3,
-                free_text = $4,
-                phone_number = $5;
-
-        `,
-                values
-            )
-            .then((result) => result.rows[0].upn);
+        await db.query(
+            `
+                INSERT INTO jobs.users_resume (upn, rank_id, current_role_id, free_text, phone_number) 
+                VALUES ($1, $2, $3, $4, $5) 
+            `,
+            [upn, rankId, currentRoleId, freeText, phoneNumber]
+        );
 
         for (const job of previousJobs) {
-            // const {jobName, unitId, branchId, departmentId, startDate, endDate} /// job ????
+            const {
+                jobName,
+                unitId,
+                branchId,
+                departmentId,
+                startDate,
+                endDate,
+            } = job;
             await db.query(
                 `
-            INSERT INTO jobs.users_previous_jobs(
-                 upn, job_name, unit_id, branch_id, department_id, start_date, end_date)  
-             VALUES ($1, $2, $3, $4, $5) 
-            `,
-                [userUpn, ...job]
+                    INSERT INTO jobs.users_previous_jobs(upn, job_name, unit_id, branch_id,
+                                                        department_id, start_date, end_date)  
+                    VALUES ($1, $2, $3, $4, $5, $6, $7) 
+                `,
+                [
+                    upn,
+                    jobName,
+                    unitId,
+                    branchId,
+                    departmentId,
+                    startDate,
+                    endDate,
+                ]
+            );
+        }
+
+        for (const desiredRoleId of desiredRoleIds) {
+            await db.query(
+                `
+                    INSERT INTO jobs.users_desired_roles(upn, desired_role_id)  
+                    VALUES ($1, $2) 
+                    ON CONFLICT (upn, desired_role_id) DO UPDATE
+                    SET desired_role_id = $2
+                `,
+                [upn, desiredRoleId]
             );
         }
 
         await db.query("COMMIT");
         res.sendStatus(200);
     } catch (error) {
-        console.log("Error is " + error);
+        console.error("An error occured", error);
         await db.query("ROLLBACK");
         res.sendStatus(500);
     }
