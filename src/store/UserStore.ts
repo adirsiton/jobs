@@ -41,21 +41,12 @@ export class UserStore {
         this.ramadAds.set(newRamadAds);
     }
 
-    unsetFavoriteAd = async (adId: number) => {
+    toggleFavoriteAd = async (adId: number, isFavorite: boolean) => {
         try {
-            await unsetFavoriteAd(adId);
+            isFavorite ? await setFavoriteAd(adId) : await unsetFavoriteAd(adId); // TODO: merge these 2 functions
             this.loadFavoriteAds();
         } catch (error) {
-            console.log('got error, unset function', error);
-        }
-    }
-
-    setFavoriteAd = async (adId: number) => {
-        try {
-            await setFavoriteAd(adId);
-            this.loadFavoriteAds();
-        } catch (error) {
-            console.log('got error, set function', error);
+            console.log('an error occured while trying to toggle favorite ad', error);
         }
     }
 }
@@ -66,6 +57,5 @@ decorate(UserStore, {
     getRamadAds: computed,
     loadRamadAds: action,
     loadFavoriteAds: action,
-    unsetFavoriteAd: action,
-    setFavoriteAd: action
+    toggleFavoriteAd: action
 });

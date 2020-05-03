@@ -32,7 +32,7 @@ const JobsAppBody: React.FC<JobsAppBodyOwnProps> = (props): JSX.Element => {
     const [searchValue, setSearchValue] = useState<string>('');
 
     useEffect(() => {
-        rootStore.jobsStore.loadAdvertisements();
+        rootStore.adsStore.loadAdvertisements();
         rootStore.userStore.loadFavoriteAds();
     }, [rootStore]);
 
@@ -41,7 +41,7 @@ const JobsAppBody: React.FC<JobsAppBodyOwnProps> = (props): JSX.Element => {
     }
 
     const getFilteredAds = (): Advertisement[] => {
-        const ads: Advertisement[] = rootStore.jobsStore.advertisements;
+        const ads: Advertisement[] = rootStore.adsStore.advertisements;
 
         return ads.filter(ad => (
                 ad.name.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1 ||
@@ -55,7 +55,7 @@ const JobsAppBody: React.FC<JobsAppBodyOwnProps> = (props): JSX.Element => {
             <Header 
                 searchValue={searchValue} 
                 onSearchValueChange={onSearchValueChange} />
-            <JobsList ads={getFilteredAds()} isFiltered={searchValue !== '' && rootStore.jobsStore.advertisements.length !== 0}/>
+            <JobsList ads={getFilteredAds()} isFiltered={searchValue !== '' && rootStore.adsStore.advertisements.length !== 0}/>
         </div>
     );
 }

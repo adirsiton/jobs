@@ -3,9 +3,9 @@ import AssignmentIndOutlinedIcon from '@material-ui/icons/AssignmentIndOutlined'
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 
-import styles from './FavoriteJobsStyle';
+import styles from './NoFavoriteAdsStyle';
 
-const FavoriteJobs: React.FC<{}> = (): JSX.Element => {
+const NoFavoriteAds: React.FC<{}> = (): JSX.Element => {
     const classes = styles();
 
     return (
@@ -26,4 +26,4 @@ const FavoriteJobs: React.FC<{}> = (): JSX.Element => {
     );
 }
 
-export default FavoriteJobs;
+export default NoFavoriteAds;
