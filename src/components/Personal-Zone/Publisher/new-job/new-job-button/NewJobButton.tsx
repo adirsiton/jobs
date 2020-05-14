@@ -11,7 +11,7 @@ import { AllSelectOptions } from '../../../../../types/AllSelectOptions';
 import { getAllSelectOptions } from '../../../../../server/ads';
 import { LIGHT_COLOR_TEXT, THEME_COLOR } from '../../../../../assets/projectJSS/Colors';
 import PostNewJobDialog from '../new-job-form/PostNewJob';
-import { JobsStore } from '../../../../../store/JobsStore';
+import { AdsStore } from '../../../../../store/AdvertisementStore';
 
 const styles = makeStyles({
     addNewPostButton: {
@@ -29,14 +29,14 @@ const styles = makeStyles({
 });
 
 interface NewJobButtonOwnProps {
-    jobsStore?: JobsStore
+    adsStore?: AdsStore;
 };
 
 const NewJobButton: React.FC<NewJobButtonOwnProps> = (props) => {
     const [allSelectOptions, setAllSelectOptions] = useState<AllSelectOptions | null>(null);
     const [openAddDialog, setOpenAddDialog] = useState<boolean>(false);
     const addButtonRef = useRef(null);
-    const jobsStore: JobsStore = props.jobsStore!;
+    const adsStore: AdsStore = props.adsStore!;
 
     const classes = styles();
     
@@ -77,7 +77,7 @@ const NewJobButton: React.FC<NewJobButtonOwnProps> = (props) => {
             { (openAddDialog && allSelectOptions) && 
                 <PostNewJobDialog 
                     allSelectOptions={allSelectOptions}
-                    fetchAllAdsAfterPost={jobsStore.loadAdvertisements}
+                    fetchAllAdsAfterPost={adsStore.loadAdvertisements}
                     closeDialog={onCloseDialog} 
                 />
             }
@@ -85,4 +85,4 @@ const NewJobButton: React.FC<NewJobButtonOwnProps> = (props) => {
     );
 }
 
-export default inject('jobsStore')(observer(NewJobButton));
+export default inject('adsStore')(observer(NewJobButton));

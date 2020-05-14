@@ -28,17 +28,12 @@ const ProgressBar: React.FC<ProgressBarProps> = (props): JSX.Element => {
     const userStore: UserStore = props.userStore!;
 
     const { allSelectOptions, closeDialog } = props;
-
-    const [activeStep, setActiveStep] = React.useState<ResumeStep>(
-        ResumeStep.PERSONAL_DETAILS
-    );
-    const [selectedRoleId, setSelectedRoleId] = useState<number>(
-        allSelectOptions?.roleOptions[0].id || 0
-    );
-    const [selectedRankId, setSelectedRankId] = useState<number>(
-        allSelectOptions?.standardOptions[0].id || 0
-    );
-    const [phoneNumber, setPhoneNumber] = useState<string>('');
+  
+    const [activeStep, setActiveStep] = React.useState<ResumeStep>(ResumeStep.PERSONAL_DETAILS);
+    const [selectedQualificationId, setSelectedQualificationId] =
+        useState<number>(allSelectOptions?.qualificationOptions[0].id || 0);
+    const [selectedRankId, setSelectedRankId] = useState<number>(allSelectOptions?.standardOptions[0].id || 0);
+    const [phoneNumber, setPhoneNumber] = useState<string>("");
     const [enteredPrevJob, setEnteredPrevJob] = useState<Job>(defaultJob);
     const [previousJobs, setPreviousJobs] = useState<Job[]>([]);
     const [jobName, setJobName] = useState<string>('');

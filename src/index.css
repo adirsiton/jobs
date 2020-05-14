@@ -16,6 +16,10 @@ textarea {
   padding-right: 0.75ch; /* TODO: Future task: Override this in MuiTheme */
 }
 
+a {
+  text-decoration: none;
+}
+
 @font-face {
   font-family: 'Assistant';
   font-style: normal;

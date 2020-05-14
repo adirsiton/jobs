@@ -12,7 +12,16 @@ INSERT INTO jobs.roles(name, initials, color) VALUES
     ('תוכניתן', 'DEV', '#7030A0'),
     ('רש"צ', 'TL', '#00B0F0'),
     ('מנהל מוצר', 'PM', '#FF0066'),
-    ('קצין פרויקט', 'PO', '#FFC000');
+    ('קצין פרויקט', 'PO', '#FFC000'),
+    ('ארכיטקט', 'ARCH', '#FFC000');
+
+INSERT INTO jobs.qualifications(name) VALUES 
+    ('תוכניתן'),
+    ('בודק תוכנה'),
+    ('כותב לומדה'),
+    ('מיישם'),
+    ('אנליסט'),
+    ('אחר');
 
 INSERT INTO jobs.standards(name) VALUES 
     ('סרן'),

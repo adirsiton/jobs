@@ -1,8 +1,9 @@
 import { observable, decorate, action, computed } from 'mobx';
+
 import { Advertisement } from '../types/Advertisements';
 import { getAllAds } from '../server/ads';
 
-export class JobsStore {
+export class AdsStore {
     private ads = observable.box<Advertisement[]>([]);
     private isLoadingAds = observable.box<boolean>(false);
 
@@ -23,7 +24,7 @@ export class JobsStore {
     }
 }
 
-decorate(JobsStore, {
+decorate(AdsStore, {
     advertisements: computed,
     isLoading: computed,
     loadAdvertisements: action

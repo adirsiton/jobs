@@ -12,6 +12,11 @@ CREATE TABLE jobs.roles(
 	color text
 );
 
+CREATE TABLE jobs.qualifications(
+	id serial PRIMARY KEY,
+	name text UNIQUE
+);
+
 CREATE TABLE jobs.units(
 	id serial PRIMARY KEY,
 	name text UNIQUE -- assuming all unit names in army are unique
@@ -45,8 +50,7 @@ CREATE TABLE jobs.users(
 CREATE TABLE jobs.users_resume(
 	upn text PRIMARY KEY REFERENCES jobs.users(upn) ON DELETE CASCADE,
 	rank_id int REFERENCES jobs.standards(id) ON DELETE CASCADE,
-	current_role_id int REFERENCES jobs.roles(id) ON DELETE CASCADE,
-	free_text text,
+	qualification_id int REFERENCES jobs.qualifications(id) ON DELETE CASCADE,
 	phone_number text,
 	UNIQUE (phone_number)
 );
