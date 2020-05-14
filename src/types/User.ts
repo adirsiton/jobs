@@ -48,7 +48,7 @@ export const defaultJob: Job = {
 
 export interface UserResume {
     upn: string;
-    selectedRoleId: number;
+    selectedQualificationId: number;
     selectedRankId: number;
     phoneNumber: string;
     aboutMe: string;

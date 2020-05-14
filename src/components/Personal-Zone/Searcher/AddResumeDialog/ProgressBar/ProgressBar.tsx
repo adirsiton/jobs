@@ -46,10 +46,10 @@ const ProgressBar: React.FC<ProgressBarProps> = (props): JSX.Element => {
             case ResumeStep.PERSONAL_DETAILS:
                 return (
                     <PersonalDetails
-                        roles={allSelectOptions?.roleOptions || []}
+                        qualifications={allSelectOptions?.qualificationOptions  || []}
                         ranks={allSelectOptions?.standardOptions || []}
-                        selectedRoleId={selectedRoleId}
-                        setSelectedRoleId={setSelectedRoleId}
+                        selectedQualificationId={selectedQualificationId}
+                        setSelectedQualificationId={setSelectedQualificationId}
                         selectedRankId={selectedRankId}
                         setSelectedRankId={setSelectedRankId}
                         phoneNumber={phoneNumber}
@@ -133,7 +133,7 @@ const ProgressBar: React.FC<ProgressBarProps> = (props): JSX.Element => {
     const submitResume = async (): Promise<void> => {
         const resumeDetails: UserResume = {
             upn: userStore.getUser.upn,
-            selectedRoleId,
+            selectedQualificationId,
             selectedRankId,
             phoneNumber,
             aboutMe,
