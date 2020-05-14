@@ -43,7 +43,7 @@ CREATE TABLE jobs.users(
 );
 
 CREATE TABLE jobs.users_resume(
-	upn text PRIMARY KEY,
+	upn text PRIMARY KEY REFERENCES jobs.users(upn) ON DELETE CASCADE,
 	rank_id int REFERENCES jobs.standards(id) ON DELETE CASCADE,
 	current_role_id int REFERENCES jobs.roles(id) ON DELETE CASCADE,
 	free_text text,
