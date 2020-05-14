@@ -2,27 +2,24 @@ import { makeStyles, createStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) =>
     createStyles({
-        jobsList: {
+        adList: {
             display: "flex",
             flexDirection: "column",
             width: "85%",
             '&::-webkit-scrollbar': {
                 display: "none"
             },
-            height: "76vh",
-            overflow: "scroll",
+            height: '72vh',
+            overflowY: "scroll",
             padding: "34px",
             alignSelf: "center"
         },
-        searchNotFound: {
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            marginTop: '28vh'
-        },
-        bigFont: {
-            fontSize: '3em'
-        },
+        favoriteTitle: {
+            color: '#595959',
+            fontSize: '30px',
+            fontWeight: 'bold',
+            margin: '33px 79px 0px 0px'
+        }
     }),
 );
 

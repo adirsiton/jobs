@@ -1,4 +1,4 @@
-import { JobsStore } from './JobsStore';
+import { JobsStore } from './AdvertisementStore';
 import { UserStore } from './UserStore';
 
 export class RootStore {

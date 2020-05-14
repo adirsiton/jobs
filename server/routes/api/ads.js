@@ -25,36 +25,41 @@ router.get('/', async (req, res) => {
 router.get('/options', async (req, res) => {
     // TODO: Refactor into loop of tables, rather than 1 by 1 
 
-    const standardOptions = await db.query(`
+    const standardOptions = (await db.query(`
         SELECT id, name
         FROM jobs.standards
-    `).then(result => result.rows);
+    `)).rows;
 
-    const roleOptions = await db.query(`
+    const roleOptions = (await db.query(`
         SELECT id, name
         FROM jobs.roles
-    `).then(result => result.rows);
+    `)).rows;
 
-    const baseLocationOptions = await db.query(`
+    const baseLocationOptions = (await db.query(`
         SELECT id, name
         FROM jobs.base_locations
-    `).then(result => result.rows);
+    `)).rows;
 
     // TODO: Unit-Branch-Department, load necessary in future... 
-    const unitOptions = await db.query(`
+    const unitOptions = (await db.query(`
         SELECT id, name
         FROM jobs.units
-    `).then(result => result.rows);
+    `)).rows;
 
-    const branchOptions = await db.query(`
+    const branchOptions = (await db.query(`
         SELECT id, name, unit_id
         FROM jobs.branches
-    `).then(result => result.rows);
+    `)).rows;
 
-    const departmentOptions = await db.query(`
+    const departmentOptions = (await db.query(`
         SELECT id, name, branch_id
         FROM jobs.departments
-    `).then(result => result.rows);
+    `)).rows;
+
+    const qualificationOptions = (await db.query(`
+        SELECT id, name
+        FROM jobs.qualifications
+    `)).rows;
 
     const allSelectOptions = {
         roleOptions,
@@ -62,7 +67,8 @@ router.get('/options', async (req, res) => {
         baseLocationOptions,
         unitOptions,
         branchOptions,
-        departmentOptions
+        departmentOptions,
+        qualificationOptions
     };
 
     res.json(allSelectOptions);
