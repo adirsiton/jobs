@@ -1,11 +1,11 @@
-import { JobsStore } from './JobsStore';
+import { AdsStore } from './AdvertisementStore';
 import { UserStore } from './UserStore';
 
 export class RootStore {
-    jobsStore: JobsStore;
+    adsStore: AdsStore;
     userStore: UserStore;
     constructor() {
-        this.jobsStore = new JobsStore()
+        this.adsStore = new AdsStore()
         this.userStore = new UserStore()
     }
 }

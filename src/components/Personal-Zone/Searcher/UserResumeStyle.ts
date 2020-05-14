@@ -4,7 +4,10 @@ import {  THEME_COLOR, THEME_HOVER_COLOR } from '../../../assets/projectJSS/Colo
 const useStyles = makeStyles((theme) =>
     createStyles({
         root: {
-            padding: '2vh 2vw'
+            padding: '2vh 2vw',
+            display: 'flex',
+            flexDirection: 'column',
+            height: '82vh'
         },
         header: {
             display: 'flex',

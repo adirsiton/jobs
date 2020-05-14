@@ -45,8 +45,7 @@ const JobsList: React.FC<JobsListProps> = (props): JSX.Element => {
                     key={ad.id}
                     ad={ad} 
                     isFavorite={userStore.getFavoriteAds.includes(ad.id)} 
-                    unsetFavoriteAd={() => userStore.unsetFavoriteAd(ad.id)}
-                    setFavoriteAd={() => userStore.setFavoriteAd(ad.id)}
+                    toggleFavoriteAd={(isFavorite) => userStore.toggleFavoriteAd(ad.id, isFavorite)}
                 />
             ))}</>;
         }

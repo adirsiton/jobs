@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Route, RouteComponentProps, withRouter, Switch } from 'react-router-dom';
-import { inject } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import styles from './UserResumeStyle';
 import NoResume from './NoResume/NoResume'
 import { UserStore } from '../../../store/UserStore';
-import FavoriteJobs from './FavoriteJobs/FavoriteJobs';
+import FavoriteAdsScreen from './FavoriteAds/FavoriteAdsScreen';
 
 interface UserResumeOwnProps {
     userStore?: UserStore;
@@ -43,9 +43,9 @@ const UserResume: React.FC<UserResumeProps> = (props): JSX.Element => {
                     </Link>
                 )}/>
             </div>
-            <Route path={`${match.path}/favorites`} render={() => <FavoriteJobs/>} />
+            <Route path={`${match.path}/favorites`} render={() => <FavoriteAdsScreen/>} />
             <Route exact path={match.path} render={() => <NoResume/>} />
         </div>
     );
 }
-export default inject('userStore')(withRouter(UserResume));
+export default inject('userStore')(observer(withRouter(UserResume)));
