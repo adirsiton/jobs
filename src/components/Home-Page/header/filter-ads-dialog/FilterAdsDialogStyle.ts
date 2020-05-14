@@ -24,9 +24,6 @@ const styles = makeStyles({
     icon: {
         fontSize: 'xxx-large',
     },
-    dialogContent: {
-        // textAlign: 'center',
-    },
     dialogTitleText: {
         fontWeight: 'bold',
     },
