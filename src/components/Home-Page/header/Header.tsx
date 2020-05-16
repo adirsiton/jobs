@@ -71,8 +71,8 @@ const Header: React.FC<HeaderOwnProps> = (props): JSX.Element => {
                                     <span
                                         className={classes.activeFilterRole}
                                         style={{
-                                            backgroundColor: adsStore?.getAllRoles.find((role) => role.initials === filter)
-                                                .color,
+                                            backgroundColor: adsStore.getAllRoles.find((role) => role.initials === filter)
+                                                ?.color,
                                         }}
                                     >
                                         {filter}

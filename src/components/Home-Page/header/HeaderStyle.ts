@@ -34,8 +34,8 @@ const styles = makeStyles({
     activeFilterRole: {
         color: 'white',
         borderRadius: '5px',
-        marginLeft: '7px',
-        padding: '2px 8px',
+        marginLeft: '11px',
+        padding: '2px 15px',
     },
 });
 
