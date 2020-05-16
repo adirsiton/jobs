@@ -7,7 +7,7 @@ import { Role } from '../types/Role';
 export class AdsStore {
     private ads = observable.box<Advertisement[]>([]);
     private isLoadingAds = observable.box<boolean>(false);
-    private activeFilterRolesIds = observable.box<number[]>([]);
+    private activeFilterRoles = observable.box<string[]>([]);
     private allRoles = observable.box<Role[]>([]);
 
     get advertisements() {
@@ -18,8 +18,8 @@ export class AdsStore {
         return this.isLoadingAds.get();
     }
 
-    get getActiveFilterRolesIds() {
-        return this.activeFilterRolesIds.get();
+    get getActiveFilterRoles() {
+        return this.activeFilterRoles.get();
     }
 
     get getAllRoles() {
@@ -39,8 +39,8 @@ export class AdsStore {
         this.allRoles.set(allRoles);
     };
 
-    setActiveFilerRolesIds = (activeFilterRolesIds: number[]) => {
-        this.activeFilterRolesIds.set(activeFilterRolesIds);
+    setActiveFilerRoles = (activeFilterRoles: string[]) => {
+        this.activeFilterRoles.set(activeFilterRoles);
     };
 }
 
@@ -48,5 +48,5 @@ decorate(AdsStore, {
     advertisements: computed,
     isLoading: computed,
     loadAdvertisements: action,
-    setActiveFilerRolesIds: action,
+    setActiveFilerRoles: action,
 });

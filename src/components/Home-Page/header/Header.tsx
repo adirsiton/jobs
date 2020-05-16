@@ -26,7 +26,7 @@ const Header: React.FC<HeaderOwnProps> = (props): JSX.Element => {
     const classes = styles({});
 
     const [openFilterAdDialog, setOpenFilterAdDialog] = useState<boolean>(false);
-    const [activeFilterRolesIds, setActiveFilterRolesIds] = useState<number[]>([]);
+    const [activeFilterRoles, setActiveFilterRoles] = useState<string[]>([]);
 
     const adsStore: AdsStore = props.adsStore!;
 
@@ -35,14 +35,13 @@ const Header: React.FC<HeaderOwnProps> = (props): JSX.Element => {
     }, []);
 
     useEffect(() => {
-        adsStore.setActiveFilerRolesIds(activeFilterRolesIds);
-    }, [activeFilterRolesIds]);
+        adsStore.setActiveFilerRoles(activeFilterRoles);
+    }, [activeFilterRoles]);
 
     const toggleFilter = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const targetId = parseInt(event.target.id);
         event.target.checked
-            ? setActiveFilterRolesIds([...activeFilterRolesIds, targetId])
-            : setActiveFilterRolesIds(activeFilterRolesIds.filter((roleId) => roleId !== targetId));
+            ? setActiveFilterRoles([...activeFilterRoles, event.target.name])
+            : setActiveFilterRoles(activeFilterRoles.filter((role) => role !== event.target.name));
     };
 
     return (
@@ -55,29 +54,28 @@ const Header: React.FC<HeaderOwnProps> = (props): JSX.Element => {
                 }}
                 startAdornment={
                     <InputAdornment position="start">
-                        <IconButton onClick={() => setOpenFilterAdDialog(true)}>
-                            <FontAwesomeIcon icon={faFilter} />
+                        <IconButton>
+                            <FontAwesomeIcon icon={faFilter} onClick={() => setOpenFilterAdDialog(true)} />
                             {openFilterAdDialog && (
                                 <FilterAdsDialog
                                     setOpenFilterAdDialog={setOpenFilterAdDialog}
                                     toggleFilter={toggleFilter}
-                                    activeFilterRolesIds={activeFilterRolesIds}
+                                    activeFilterRoles={activeFilterRoles}
                                     allRoles={adsStore.getAllRoles}
                                 />
                             )}
                         </IconButton>
                         <div className={classes.activeFilterRolesContainer}>
-                            {activeFilterRolesIds.map((filterId) => {
+                            {activeFilterRoles.map((filter) => {
                                 return (
                                     <span
-                                        key={filterId}
                                         className={classes.activeFilterRole}
                                         style={{
-                                            backgroundColor: adsStore.getAllRoles.find((role) => role.id === filterId)
+                                            backgroundColor: adsStore.getAllRoles.find((role) => role.initials === filter)
                                                 ?.color,
                                         }}
                                     >
-                                        {adsStore.getAllRoles.find((role) => role.id === filterId)?.initials}
+                                        {filter}
                                     </span>
                                 );
                             })}
