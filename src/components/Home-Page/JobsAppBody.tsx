@@ -42,13 +42,13 @@ const JobsAppBody: React.FC<JobsAppBodyOwnProps> = (props): JSX.Element => {
 
     const getFilteredAds = (): Advertisement[] => {
         const ads: Advertisement[] = rootStore.adsStore.advertisements;
-        const activeFilterRoles = rootStore.adsStore.getActiveFilterRoles;
+        const activeFilterRolesIds = rootStore.adsStore.getActiveFilterRolesIds;
 
         return ads.filter(
             (ad) =>
                 (ad.name.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1 ||
                     ad.role.initials.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1) &&
-                (activeFilterRoles.indexOf(ad.role.initials) !== -1 || activeFilterRoles.length === 0)
+                (activeFilterRolesIds.indexOf(ad.role.id) !== -1 || activeFilterRolesIds.length === 0)
         );
     };
 
