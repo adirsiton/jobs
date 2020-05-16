@@ -50,6 +50,7 @@ const styles = makeStyles({
         color: 'white',
         width: '120px',
         margin: '0 10px',
+        fontSize: '0.9em',
     },
 });
 

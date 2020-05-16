@@ -59,6 +59,11 @@ const Header: React.FC<HeaderOwnProps> = (props): JSX.Element => {
                                 />
                             )}
                         </IconButton>
+                        <div className={classes.activeFilterRolesContainer}>
+                            {activeFilterRoles.map((filter) => {
+                                return <span className={classes.activeFilterRole}>{filter}</span>;
+                            })}
+                        </div>
                     </InputAdornment>
                 }
                 onChange={onSearchValueChange}
