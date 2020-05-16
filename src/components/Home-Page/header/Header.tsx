@@ -29,14 +29,14 @@ const Header: React.FC<HeaderOwnProps> = (props): JSX.Element => {
 
     const adsStore: AdsStore = props.adsStore!;
 
-    useEffect(() => {}, [openFilterAdDialog]);
+    useEffect(() => {
+        adsStore.setActiveFilerRoles(activeFilterRoles);
+    }, [activeFilterRoles]);
 
     const toggleFilter = (event: React.ChangeEvent<HTMLInputElement>) => {
         event.target.checked
             ? setActiveFilterRoles([...activeFilterRoles, event.target.name])
             : setActiveFilterRoles(activeFilterRoles.filter((role) => role !== event.target.name));
-
-        adsStore.setActiveFilerRoles(activeFilterRoles);
     };
 
     return (
