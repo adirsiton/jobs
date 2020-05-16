@@ -21,15 +21,15 @@ interface FilterAdsDialog {
     setOpenFilterAdDialog: (openFilterAadDialog: boolean) => void;
     toggleFilter: (e: React.ChangeEvent<HTMLInputElement>) => void;
     adsStore?: AdsStore;
-    activeFilterRolesIds: number[];
+    activeFilterRoles: string[];
     allRoles: Role[];
 }
 
 const FilterAdsDialog: React.FC<FilterAdsDialog> = (props): JSX.Element => {
-    const { setOpenFilterAdDialog, toggleFilter, activeFilterRolesIds, allRoles } = props;
+    const { setOpenFilterAdDialog, toggleFilter, activeFilterRoles, allRoles } = props;
     const classes = styles();
 
-    const isChecked = (roleId: number) => activeFilterRolesIds.lastIndexOf(roleId) !== -1;
+    const isChecked = (roleInitials: string) => activeFilterRoles.lastIndexOf(roleInitials) !== -1;
 
     return (
         <Dialog
@@ -57,13 +57,11 @@ const FilterAdsDialog: React.FC<FilterAdsDialog> = (props): JSX.Element => {
                                 control={
                                     <Checkbox
                                         onChange={toggleFilter}
-                                        checked={isChecked(role.id)}
+                                        checked={isChecked(role.initials || '')}
                                         classes={{ root: classes.checkBox }}
-                                        id={role.id.toString()}
                                     />
                                 }
                                 key={role.id}
-                                id={role.id.toString()}
                                 label={role.name}
                                 name={role.initials}
                             />
