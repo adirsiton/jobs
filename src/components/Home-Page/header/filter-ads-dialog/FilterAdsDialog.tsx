@@ -15,16 +15,18 @@ import { faFilter } from '@fortawesome/free-solid-svg-icons';
 
 import styles from './FilterAdsDialogStyle';
 import { AdsStore } from '../../../../store/AdvertisementStore';
+import { Role } from '../../../../types/Role';
 
 interface FilterAdsDialog {
     setOpenFilterAdDialog: (openFilterAadDialog: boolean) => void;
     toggleFilter: (e: React.ChangeEvent<HTMLInputElement>) => void;
     adsStore?: AdsStore;
     activeFilterRoles: string[];
+    allRoles: Role[];
 }
 
 const FilterAdsDialog: React.FC<FilterAdsDialog> = (props): JSX.Element => {
-    const { setOpenFilterAdDialog, toggleFilter, activeFilterRoles } = props;
+    const { setOpenFilterAdDialog, toggleFilter, activeFilterRoles, allRoles } = props;
     const classes = styles();
 
     const isChecked = (roleInitials: string) => activeFilterRoles.lastIndexOf(roleInitials) !== -1;
@@ -49,61 +51,22 @@ const FilterAdsDialog: React.FC<FilterAdsDialog> = (props): JSX.Element => {
             </DialogContent>
             <DialogActions className={classes.dialogActions}>
                 <FormGroup row className={classes.filterIconsRow}>
-                    <FormControlLabel
-                        control={
-                            <Checkbox
-                                onChange={toggleFilter}
-                                checked={isChecked('DEV')}
-                                classes={{ root: classes.checkBox }}
+                    {allRoles.map((role) => {
+                        return (
+                            <FormControlLabel
+                                control={
+                                    <Checkbox
+                                        onChange={toggleFilter}
+                                        checked={isChecked(role.initials || '')}
+                                        classes={{ root: classes.checkBox }}
+                                    />
+                                }
+                                key={role.id}
+                                label={role.name}
+                                name={role.initials}
                             />
-                        }
-                        label="תוכניתן"
-                        name="DEV"
-                    />
-                    <FormControlLabel
-                        control={
-                            <Checkbox
-                                onChange={toggleFilter}
-                                checked={isChecked('TL')}
-                                classes={{ root: classes.checkBox }}
-                            />
-                        }
-                        label="ראש צוות"
-                        name="TL"
-                    />
-                    <FormControlLabel
-                        control={
-                            <Checkbox
-                                onChange={toggleFilter}
-                                checked={isChecked('PM')}
-                                classes={{ root: classes.checkBox }}
-                            />
-                        }
-                        label="מנהל מוצר"
-                        name="PM"
-                    />
-                    <FormControlLabel
-                        control={
-                            <Checkbox
-                                onChange={toggleFilter}
-                                checked={isChecked('PO')}
-                                classes={{ root: classes.checkBox }}
-                            />
-                        }
-                        label="מנהל פרוייקט"
-                        name="PO"
-                    />
-                    <FormControlLabel
-                        control={
-                            <Checkbox
-                                onChange={toggleFilter}
-                                checked={isChecked('ARCH')}
-                                classes={{ root: classes.checkBox }}
-                            />
-                        }
-                        label="ארכיטקט"
-                        name="ARCH"
-                    />
+                        );
+                    })}
                 </FormGroup>
             </DialogActions>
         </Dialog>

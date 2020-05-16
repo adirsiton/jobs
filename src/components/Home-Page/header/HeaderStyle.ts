@@ -32,7 +32,6 @@ const styles = makeStyles({
         display: 'flex',
     },
     activeFilterRole: {
-        backgroundColor: THEME_COLOR,
         color: 'white',
         borderRadius: '5px',
         marginLeft: '7px',

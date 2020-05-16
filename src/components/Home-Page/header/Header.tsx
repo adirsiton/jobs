@@ -12,6 +12,7 @@ import { faFilter } from '@fortawesome/free-solid-svg-icons';
 import FilterAdsDialog from './filter-ads-dialog/FilterAdsDialog';
 import styles from './HeaderStyle';
 import { AdsStore } from '../../../store/AdvertisementStore';
+import { Role } from '../../../types/Role';
 
 interface HeaderOwnProps {
     searchValue: string;
@@ -28,6 +29,10 @@ const Header: React.FC<HeaderOwnProps> = (props): JSX.Element => {
     const [activeFilterRoles, setActiveFilterRoles] = useState<string[]>([]);
 
     const adsStore: AdsStore = props.adsStore!;
+
+    useEffect(() => {
+        adsStore.loadAllRoles();
+    }, []);
 
     useEffect(() => {
         adsStore.setActiveFilerRoles(activeFilterRoles);
@@ -56,12 +61,23 @@ const Header: React.FC<HeaderOwnProps> = (props): JSX.Element => {
                                     setOpenFilterAdDialog={setOpenFilterAdDialog}
                                     toggleFilter={toggleFilter}
                                     activeFilterRoles={activeFilterRoles}
+                                    allRoles={adsStore.getAllRoles}
                                 />
                             )}
                         </IconButton>
                         <div className={classes.activeFilterRolesContainer}>
                             {activeFilterRoles.map((filter) => {
-                                return <span className={classes.activeFilterRole}>{filter}</span>;
+                                return (
+                                    <span
+                                        className={classes.activeFilterRole}
+                                        style={{
+                                            backgroundColor: adsStore?.getAllRoles.find((role) => role.initials === filter)
+                                                .color,
+                                        }}
+                                    >
+                                        {filter}
+                                    </span>
+                                );
                             })}
                         </div>
                     </InputAdornment>
