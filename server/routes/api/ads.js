@@ -23,43 +23,57 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/options', async (req, res) => {
-    // TODO: Refactor into loop of tables, rather than 1 by 1 
+    // TODO: Refactor into loop of tables, rather than 1 by 1
 
-    const standardOptions = (await db.query(`
+    const standardOptions = (
+        await db.query(`
         SELECT id, name
         FROM jobs.standards
-    `)).rows;
+    `)
+    ).rows;
 
-    const roleOptions = (await db.query(`
+    const roleOptions = (
+        await db.query(`
         SELECT id, name
         FROM jobs.roles
-    `)).rows;
+    `)
+    ).rows;
 
-    const baseLocationOptions = (await db.query(`
+    const baseLocationOptions = (
+        await db.query(`
         SELECT id, name
         FROM jobs.base_locations
-    `)).rows;
+    `)
+    ).rows;
 
-    // TODO: Unit-Branch-Department, load necessary in future... 
-    const unitOptions = (await db.query(`
+    // TODO: Unit-Branch-Department, load necessary in future...
+    const unitOptions = (
+        await db.query(`
         SELECT id, name
         FROM jobs.units
-    `)).rows;
+    `)
+    ).rows;
 
-    const branchOptions = (await db.query(`
+    const branchOptions = (
+        await db.query(`
         SELECT id, name, unit_id
         FROM jobs.branches
-    `)).rows;
+    `)
+    ).rows;
 
-    const departmentOptions = (await db.query(`
+    const departmentOptions = (
+        await db.query(`
         SELECT id, name, branch_id
         FROM jobs.departments
-    `)).rows;
+    `)
+    ).rows;
 
-    const qualificationOptions = (await db.query(`
+    const qualificationOptions = (
+        await db.query(`
         SELECT id, name
         FROM jobs.qualifications
-    `)).rows;
+    `)
+    ).rows;
 
     const allSelectOptions = {
         roleOptions,
@@ -68,7 +82,7 @@ router.get('/options', async (req, res) => {
         unitOptions,
         branchOptions,
         departmentOptions,
-        qualificationOptions
+        qualificationOptions,
     };
 
     res.json(allSelectOptions);
@@ -77,11 +91,16 @@ router.get('/options', async (req, res) => {
 router.get('/branches/:unitId', async (req, res) => {
     const { unitId } = req.params;
 
-    const branchesOfUnit = await db.query(`
+    const branchesOfUnit = await db
+        .query(
+            `
         SELECT id, name
         FROM jobs.branches
         WHERE unit_id = $1
-    `, [unitId]).then(result => result.rows);
+    `,
+            [unitId]
+        )
+        .then((result) => result.rows);
 
     res.json(branchesOfUnit);
 });
@@ -89,11 +108,16 @@ router.get('/branches/:unitId', async (req, res) => {
 router.get('/departments/:branchId', async (req, res) => {
     const { branchId } = req.params;
 
-    const departmentsOfBranch = await db.query(`
+    const departmentsOfBranch = await db
+        .query(
+            `
         SELECT id, name
         FROM jobs.departments
         WHERE branch_id = $1
-    `, [branchId]).then(result => result.rows);
+    `,
+            [branchId]
+        )
+        .then((result) => result.rows);
 
     res.json(departmentsOfBranch);
 });
@@ -101,9 +125,18 @@ router.get('/departments/:branchId', async (req, res) => {
 router.post('/', async (req, res) => {
     console.log(req.body);
     const ads = req.body;
-    const { baseLocation, departmentData, jobNickname, role,
-        standards, entryDate, yearsInSeniority, shouldHaveDamach,
-        jobDescription, contactInformation } = ads;
+    const {
+        baseLocation,
+        departmentData,
+        jobNickname,
+        role,
+        standards,
+        entryDate,
+        yearsInSeniority,
+        shouldHaveDamach,
+        jobDescription,
+        contactInformation,
+    } = ads;
 
     const baseLocationId = baseLocation.id;
     const roleId = role.id;
@@ -111,32 +144,71 @@ router.post('/', async (req, res) => {
     const unitId = unit.id;
     const branchId = branch.id;
     const departmentId = department.id;
-    const standardIds = standards.map(standard => standard.id);
+    const standardIds = standards.map((standard) => standard.id);
     try {
         await db.query('BEGIN');
-        
-        const values = [roleId, unitId, branchId, departmentId, jobNickname, jobDescription, entryDate, yearsInSeniority, shouldHaveDamach, req.user, `${contactInformation.fullName} ${contactInformation.phoneNumber}`, baseLocationId];
-        const advertisementId = await db.query(`
+
+        const values = [
+            roleId,
+            unitId,
+            branchId,
+            departmentId,
+            jobNickname,
+            jobDescription,
+            entryDate,
+            yearsInSeniority,
+            shouldHaveDamach,
+            req.user,
+            `${contactInformation.fullName} ${contactInformation.phoneNumber}`,
+            baseLocationId,
+        ];
+        const advertisementId = await db
+            .query(
+                `
             INSERT INTO jobs.advertisements (
                 role_id, unit_id, branch_id, department_id, job_title, job_description, entry_date, seniority, is_damach, advertiser_upn, contact, base_location_id
             ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) 
             RETURNING id
-        `, values).then(result => result.rows[0].id);
+        `,
+                values
+            )
+            .then((result) => result.rows[0].id);
 
         for (const standardId of standardIds) {
-            await db.query(`
+            await db.query(
+                `
                 INSERT INTO jobs.standards_of_ads (
                     advertisement_id, standard_id 
                 ) VALUES ($1, $2)
-            `, [advertisementId, standardId]);
+            `,
+                [advertisementId, standardId]
+            );
         }
 
         await db.query('COMMIT');
         res.sendStatus(200);
     } catch (error) {
-        console.log("Error is " + error);
+        console.log('Error is ' + error);
         await db.query('ROLLBACK');
         res.sendStatus(500);
+    }
+});
+
+router.get('/roles', async (req, res) => {
+    try {
+        const { rows } = await db.query(
+            `
+                SELECT *
+                FROM jobs.roles
+            `
+        );
+
+        console.log(`all roles were successfully queried`);
+        res.status(200);
+        res.json(rows);
+    } catch (error) {
+        console.error(`an error occured when trying to query all application roles`, error);
+        res.status(500);
     }
 });
 

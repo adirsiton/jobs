@@ -15,10 +15,10 @@ const styles = makeStyles({
         paddingLeft: '3vw',
         paddingRight: '2vw',
         paddingTop: '2vh',
-        display: "flex",
-        flexDirection: "column",
-        height: '82vh'
-    }
+        display: 'flex',
+        flexDirection: 'column',
+        height: '82vh',
+    },
 });
 
 interface JobsAppBodyOwnProps {
@@ -38,26 +38,29 @@ const JobsAppBody: React.FC<JobsAppBodyOwnProps> = (props): JSX.Element => {
 
     const onSearchValueChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
         setSearchValue(event.target.value);
-    }
+    };
 
     const getFilteredAds = (): Advertisement[] => {
         const ads: Advertisement[] = rootStore.adsStore.advertisements;
+        const activeFilterRoles = rootStore.adsStore.getActiveFilterRoles;
 
-        return ads.filter(ad => (
-                ad.name.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1 ||
-                ad.role.initials.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1
-            )
+        return ads.filter(
+            (ad) =>
+                (ad.name.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1 ||
+                    ad.role.initials.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1) &&
+                (activeFilterRoles.indexOf(ad.role.initials) !== -1 || activeFilterRoles.length === 0)
         );
-    }
+    };
 
     return (
         <div className={classes.appBodyContent}>
-            <Header 
-                searchValue={searchValue} 
-                onSearchValueChange={onSearchValueChange} />
-            <JobsList ads={getFilteredAds()} isFiltered={searchValue !== '' && rootStore.adsStore.advertisements.length !== 0}/>
+            <Header searchValue={searchValue} onSearchValueChange={onSearchValueChange} />
+            <JobsList
+                ads={getFilteredAds()}
+                isFiltered={searchValue !== '' && rootStore.adsStore.advertisements.length !== 0}
+            />
         </div>
     );
-}
+};
 
 export default inject('rootStore')(observer(JobsAppBody));
