@@ -122,7 +122,7 @@ router.post('/resume', async (req, res) => {
         res.sendStatus(200);
     } catch (error) {
         console.error(
-            `current_role_id: ${upn}`,
+            `An error occured while trying to add resume to user: ${upn}`,
             error
         );
         await db.query('ROLLBACK');
