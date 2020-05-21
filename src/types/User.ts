@@ -22,8 +22,8 @@ export interface Candidate {
     phoneNumber: string;
 }
 
-export interface RamadAdSQL  {
-    ramad_ad: RamadAd
+export interface RamadAdSQL {
+    ramad_ad: RamadAd;
 }
 
 export interface Job {
@@ -43,5 +43,15 @@ export const defaultJob: Job = {
     unitId: -1,
     branchId: -1,
     departmentId: -1,
-    jobName: ""
+    jobName: '',
+};
+
+export interface UserResume {
+    upn: string;
+    selectedQualificationId: number;
+    selectedRankId: number;
+    phoneNumber: string;
+    aboutMe: string;
+    nextRoles: Array<number>;
+    previousJobs: Array<Job>;
 }

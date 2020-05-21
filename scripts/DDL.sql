@@ -12,6 +12,11 @@ CREATE TABLE jobs.roles(
 	color text
 );
 
+CREATE TABLE jobs.qualifications(
+	id serial PRIMARY KEY,
+	name text UNIQUE
+);
+
 CREATE TABLE jobs.units(
 	id serial PRIMARY KEY,
 	name text UNIQUE -- assuming all unit names in army are unique
@@ -39,11 +44,22 @@ CREATE TABLE jobs.base_locations(
 CREATE TABLE jobs.users(
 	upn text PRIMARY KEY,
 	display_name text,
-	last_entrance timestamp,
+	last_entrance timestamp
+);
+
+CREATE TABLE jobs.users_resume(
+	upn text PRIMARY KEY REFERENCES jobs.users(upn) ON DELETE CASCADE,
 	rank_id int REFERENCES jobs.standards(id) ON DELETE CASCADE,
-	role_id int REFERENCES jobs.roles(id) ON DELETE CASCADE,
+	qualification_id int REFERENCES jobs.qualifications(id) ON DELETE CASCADE,
 	phone_number text,
+	free_text text,
 	UNIQUE (phone_number)
+);
+
+CREATE TABLE jobs.users_desired_roles(
+	upn text,
+	desired_role_id int REFERENCES jobs.roles(id) ON DELETE CASCADE,
+	PRIMARY KEY (upn, desired_role_id)
 );
 
 CREATE TABLE jobs.department_head(
@@ -91,10 +107,10 @@ CREATE TABLE jobs.users_previous_jobs(
 	job_name text NOT NULL,
 	upn text REFERENCES jobs.users(upn) ON DELETE CASCADE,
 	unit_id int REFERENCES jobs.units(id) ON DELETE CASCADE,
-	branch_id int,
-	department_id int,
-	start_date text,
-	end_date text,
+	branch_id int REFERENCES jobs.branches(id) ON DELETE CASCADE,
+	department_id int REFERENCES jobs.departments(id) ON DELETE CASCADE,
+	start_date date,
+	end_date date,
 	PRIMARY KEY(upn, job_name),
 	FOREIGN KEY (branch_id, unit_id) REFERENCES jobs.branches(id, unit_id),
 	FOREIGN KEY (department_id, branch_id) REFERENCES jobs.departments(id, branch_id)

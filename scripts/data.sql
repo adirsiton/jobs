@@ -1,20 +1,42 @@
-INSERT INTO jobs.users(phone_number, upn, display_name) VALUES 
-    ('0542556850', 's8182384', 'מיכאל הופמן'),
-    ('0538659922', 'michael-hoffman-26', 'michael-hoffman-26'),
-    ('0558653277', 's8258065', 'דניאל דימנשטיין'),
-    ('0584323455', 's8222765', 'אדיר סטיון'),
-    ('0557567352', 'SteveVaknin', 'סטיב וקנין');
+INSERT INTO jobs.users(upn, display_name) VALUES 
+    ('michael-hoffman-26', 'מיכאל הופמן'),
+    ('s8258065', 'דניאל דימנשטיין'),
+    ('s8222765', 'אדיר סטיון'),
+    ('IlliMalachi', 'אילי מלאכי'),
+    ('guyshany', 'גיא שני'),
+    ('StavBitanski', 'סתיו ביטנסקי'),
+    ('ShaharAnti', 'שחר ענתי'),
+    ('SteveVaknin', 'סטיב וקנין');
 
 INSERT INTO jobs.roles(name, initials, color) VALUES 
     ('תוכניתן', 'DEV', '#7030A0'),
     ('רש"צ', 'TL', '#00B0F0'),
     ('מנהל מוצר', 'PM', '#FF0066'),
-    ('קצין פרויקט', 'PO', '#FFC000');
+    ('קצין פרויקט', 'PO', '#FFC000'),
+    ('ארכיטקט', 'ARCH', '#FFC000');
+
+INSERT INTO jobs.qualifications(name) VALUES 
+    ('תוכניתן'),
+    ('בודק תוכנה'),
+    ('כותב לומדה'),
+    ('מיישם'),
+    ('אנליסט'),
+    ('אחר');
 
 INSERT INTO jobs.standards(name) VALUES 
     ('סרן'),
     ('רס"ן'),
+    ('קמ"א'),
     ('רס"ל');
+
+INSERT INTO jobs.users_resume(upn, rank_id, qualification_id, free_text, phone_number) VALUES
+('IlliMalachi', 1, 2, 'hey, this is my resume', '053333533'), 
+('guyshany', 1, 1, 'hey, this is my resume', '0545421454');
+
+INSERT INTO jobs.users_desired_roles(upn, desired_role_id) VALUES
+('guyshany', 1),
+('guyshany', 2),
+('IlliMalachi', 1);
 
 INSERT INTO jobs.units(name) VALUES
     ('מצפ"ן'),
@@ -75,10 +97,10 @@ INSERT INTO jobs.standards_of_ads(standard_id, advertisement_id) VALUES
 	(2, 6),
 	(3, 7);
 
-INSERT INTO  jobs.favorite_ads_of_users(upn, advertisement_id) VALUES
-    ('s8182384', 1),
-    ('s8182384', 2),
-    ('s8182384', 6),
+INSERT INTO jobs.favorite_ads_of_users(upn, advertisement_id) VALUES
+    ('michael-hoffman-26', 1),
+    ('michael-hoffman-26', 2),
+    ('michael-hoffman-26', 6),
     ('s8258065', 2),
     ('s8258065', 3),
     ('s8258065', 5),
@@ -88,3 +110,9 @@ INSERT INTO  jobs.favorite_ads_of_users(upn, advertisement_id) VALUES
     ('SteveVaknin', 1),
     ('SteveVaknin', 2),
     ('SteveVaknin', 3);
+
+INSERT INTO jobs.users_previous_jobs(job_name, upn, unit_id, branch_id,
+                                     department_id, start_date, end_date) VALUES
+('מפתח מיראז forever', 'IlliMalachi', 1, 1, 1, '2019-11-27', '2023-12-23'),
+('מפתח מיראז forever', 'guyshany', 1, 1, 1, '2016-10-20', '2021-11-21');
+

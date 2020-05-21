@@ -3,8 +3,15 @@ import {  THEME_COLOR, THEME_HOVER_COLOR } from '../../../assets/projectJSS/Colo
 
 const useStyles = makeStyles((theme) =>
     createStyles({
-        container: {
-            padding: '2vh 2vw'
+        root: {
+            padding: '2vh 2vw',
+            display: 'flex',
+            flexDirection: 'column',
+            height: '82vh'
+        },
+        header: {
+            display: 'flex',
+            justifyContent: 'space-between'
         },
         introduction: {
             display: 'flex',
@@ -31,6 +38,20 @@ const useStyles = makeStyles((theme) =>
             color: '#595959',
             fontSize: '24pt',
             fontWeight: 'bold'
+        },
+        resumeLink: {
+            backgroundColor: '#FFFFFF',
+            color: THEME_COLOR,
+            '&:hover': {
+                backgroundColor: '#fffefe',
+                color: THEME_HOVER_COLOR
+            },
+            width: '12vw',
+            height: '5vh',
+            fontSize: '17pt',
+            borderRadius: 0,
+            margin: '8px',
+            boxShadow: 'rgb(153, 153, 153) 0px 0px 4px 1px'
         }
     }),
 );

@@ -17,7 +17,7 @@ const App: React.FC<{}> = (): JSX.Element => {
   return (
     <Provider
       rootStore={rootStore}
-      jobsStore={rootStore.jobsStore}
+      adsStore={rootStore.adsStore}
       userStore={rootStore.userStore}
     >
       <Router>

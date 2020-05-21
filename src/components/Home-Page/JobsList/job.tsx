@@ -14,18 +14,19 @@ import { Advertisement  } from '../../../types/Advertisements';
 interface JobData {
     ad: Advertisement;
     isFavorite: boolean;
-    unsetFavoriteAd: () => void;
-    setFavoriteAd: () => void;
+    toggleFavoriteAd: (isFavorite: boolean) => void;
 }
 
 type JobProps = JobData & WithStyles<typeof styles>;
 
 const Job: React.FC<JobProps> = (props): JSX.Element => {
-    const { ad , isFavorite, unsetFavoriteAd, setFavoriteAd, classes} = props;
+    const { ad , isFavorite, toggleFavoriteAd, classes} = props;
 
     const [areFullDetailsShown, setAreFullDetailsShown] = React.useState<boolean>(false);
 
-    const handleOnClickSaveButton = () => {isFavorite ? unsetFavoriteAd() : setFavoriteAd()}
+    const handleOnClickSaveButton = (): void => {
+        isFavorite ? toggleFavoriteAd(false) : toggleFavoriteAd(true) 
+    }
 
     return (
         <div className={classes.job}>
