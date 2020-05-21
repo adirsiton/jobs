@@ -127,7 +127,8 @@ router.post('/', async (req, res) => {
     const ads = req.body;
     const { baseLocation, departmentData, jobNickname, role,
         standards, entryDate, yearsInSeniority, shouldHaveDamach,
-        jobDescription, contactInformation, advertismentDate, lastReferenceDate } = ads;
+        jobDescription, contactInformation
+    } = ads;
 
     const baseLocationId = baseLocation.id;
     const roleId = role.id;
@@ -151,8 +152,6 @@ router.post('/', async (req, res) => {
             req.user,
             `${contactInformation.fullName} ${contactInformation.phoneNumber}`, 
             baseLocationId, 
-            advertismentDate, 
-            lastReferenceDate
         ];
         const advertisementId = await db.query(`
             INSERT INTO jobs.advertisements (
@@ -167,10 +166,8 @@ router.post('/', async (req, res) => {
                 is_damach,
                 advertiser_upn,
                 contact,
-                base_location_id,
-                advertisment_date,
-                last_reference_date
-            ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) 
+                base_location_id
+            ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) 
             RETURNING id
         `,
                 values

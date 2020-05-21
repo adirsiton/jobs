@@ -205,8 +205,6 @@ const PostNewJob: React.FC<PostNewJobProps> = (props): JSX.Element => {
                     shouldHaveDamach,
                     jobDescription,
                     contactInformation,
-                    advertismentDate: Date.now(),
-                    lastReferenceDate: Date.now()
                 });
                 fetchAllAdsAfterPost();
                 closeDialog();
