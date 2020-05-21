@@ -52,6 +52,7 @@ CREATE TABLE jobs.users_resume(
 	rank_id int REFERENCES jobs.standards(id) ON DELETE CASCADE,
 	qualification_id int REFERENCES jobs.qualifications(id) ON DELETE CASCADE,
 	phone_number text,
+	free_text text,
 	UNIQUE (phone_number)
 );
 
