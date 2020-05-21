@@ -59,11 +59,10 @@ router.post('/favorite/:id', async (req, res) => {
 
 router.post('/resume', async (req, res) => {
     const userDetails = req.body;
-
     const {
         upn,
         selectedRankId: rankId,
-        selectedRoleId: currentRoleId,
+        selectedQualificationIdm,
         nextRoles: desiredRoleIds,
         aboutMe: freeText,
         phoneNumber,
@@ -73,10 +72,10 @@ router.post('/resume', async (req, res) => {
         await db.query('BEGIN');
         await db.query(
             `
-                INSERT INTO jobs.users_resume (upn, rank_id, current_role_id, free_text, phone_number) 
+                INSERT INTO jobs.users_resume (upn, rank_id, qualification_id, free_text, phone_number) 
                 VALUES ($1, $2, $3, $4, $5) 
             `,
-            [upn, rankId, currentRoleId, freeText, phoneNumber]
+            [upn, rankId, selectedQualificationIdm, freeText, phoneNumber]
         );
 
         for (const job of previousJobs) {

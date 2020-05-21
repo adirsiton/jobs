@@ -17,7 +17,10 @@ export interface Advertisement  {
     branch: AdPropertiesData;
     department: AdPropertiesData;
     location: AdPropertiesData;
-    advertiser: Advertiser ;
+    advertiser: Advertiser;
+    advertismentDate: Date;
+    closingDate: Date;
+    lastReferenceDate: Date;
 }
 
 export interface AdvertisementInsertData {
@@ -72,4 +75,7 @@ export interface sqlAd {
     location: string;
     advertiser: string;
     standards_array: string[];
+    advertisment_date: Date;
+    closing_date: Date;
+    last_reference_date: Date;
 }

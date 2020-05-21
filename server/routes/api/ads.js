@@ -125,17 +125,9 @@ router.get('/departments/:branchId', async (req, res) => {
 router.post('/', async (req, res) => {
     console.log(req.body);
     const ads = req.body;
-    const {
-        baseLocation,
-        departmentData,
-        jobNickname,
-        role,
-        standards,
-        entryDate,
-        yearsInSeniority,
-        shouldHaveDamach,
-        jobDescription,
-        contactInformation,
+    const { baseLocation, departmentData, jobNickname, role,
+        standards, entryDate, yearsInSeniority, shouldHaveDamach,
+        jobDescription, contactInformation
     } = ads;
 
     const baseLocationId = baseLocation.id;
@@ -147,7 +139,6 @@ router.post('/', async (req, res) => {
     const standardIds = standards.map((standard) => standard.id);
     try {
         await db.query('BEGIN');
-
         const values = [
             roleId,
             unitId,
@@ -155,18 +146,27 @@ router.post('/', async (req, res) => {
             departmentId,
             jobNickname,
             jobDescription,
-            entryDate,
-            yearsInSeniority,
-            shouldHaveDamach,
+            entryDate, 
+            yearsInSeniority, 
+            shouldHaveDamach, 
             req.user,
-            `${contactInformation.fullName} ${contactInformation.phoneNumber}`,
-            baseLocationId,
+            `${contactInformation.fullName} ${contactInformation.phoneNumber}`, 
+            baseLocationId, 
         ];
-        const advertisementId = await db
-            .query(
-                `
+        const advertisementId = await db.query(`
             INSERT INTO jobs.advertisements (
-                role_id, unit_id, branch_id, department_id, job_title, job_description, entry_date, seniority, is_damach, advertiser_upn, contact, base_location_id
+                role_id,
+                unit_id,
+                branch_id,
+                department_id,
+                job_title,
+                job_description,
+                entry_date,
+                seniority,
+                is_damach,
+                advertiser_upn,
+                contact,
+                base_location_id
             ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) 
             RETURNING id
         `,
