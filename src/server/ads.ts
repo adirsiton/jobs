@@ -1,5 +1,4 @@
-
-import { Advertisement , sqlAd, AdvertisementInsertData, CloseOpenAdSQL } from '../types/Advertisements';
+import { Advertisement , sqlAd, AdvertisementInsertData } from '../types/Advertisements';
 import { AllSelectOptions } from '../types/AllSelectOptions';
 import { Branch, Department } from '../types/Departments';
 import { Role } from '../types/Role';

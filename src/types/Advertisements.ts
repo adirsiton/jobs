@@ -79,7 +79,3 @@ export interface sqlAd {
     closing_date: Date;
     last_reference_date: Date;
 }
-
-export interface CloseOpenAdSQL {
-    is_close: boolean;
-}
