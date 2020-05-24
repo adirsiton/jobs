@@ -7,7 +7,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import Typography from '@material-ui/core/Typography';
 import SentimentSatisfiedAltIcon from '@material-ui/icons/SentimentSatisfiedAlt';
 
-import styles from './closeJobDialogStyle';
+import styles from './CloseJobDialogStyle';
 
 interface CloseJobDialog {
     closeDialog: () => void;

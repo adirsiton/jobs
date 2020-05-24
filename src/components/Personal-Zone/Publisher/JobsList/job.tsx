@@ -9,7 +9,7 @@ import CancelPresentationIcon from '@material-ui/icons/CancelPresentation';
 
 import { RamadAd } from '../../../../types/User';
 import styles from './jobsListStyle';
-import CloseJobDialog from './Close-Job-Dialog/closeJobDialog';
+import CloseJobDialog from './Close-Job-Dialog/CloseJobDialog';
 
 interface JobsProps {
     ad: RamadAd;
