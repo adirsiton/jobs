@@ -14,17 +14,12 @@ export class UserStore {
     private ramadAds = observable.box<RamadAd[]>([]);
 
     constructor (rootStore: RootStore) {
-        this.rootStore= rootStore;
+        this.rootStore = rootStore;
     }
     
     get getUser(): User {
-        return {
-            isRamad: false,
-            name: 'michael',
-            upn: 'michael',
-            userInitials: 'm'
-        }
-        // return this.loggedUser;
+        console.log(this.loggedUser)
+        return this.loggedUser;
     }
 
     get getFavoriteAds() {

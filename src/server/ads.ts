@@ -2,57 +2,68 @@
 import { Advertisement , sqlAd, AdvertisementInsertData, CloseOpenAdSQL } from '../types/Advertisements';
 import { AllSelectOptions } from '../types/AllSelectOptions';
 import { Branch, Department } from '../types/Departments';
+import { Role } from '../types/Role';
 
-export async function getAllAds(): Promise<Advertisement []> {
-    const ads: sqlAd[] = await fetch('/ads').then(response => {
-        return response.json();
-    }).then(data => {
-        return data;
-    });
+export async function getAllAds(): Promise<Advertisement[]> {
+    const ads: sqlAd[] = await fetch('/ads')
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            return data;
+        });
 
-    return ads.map(ad => parseAd(ad));
+    return ads.map((ad) => parseAd(ad));
 }
 
-export const getAllSelectOptions = async (): Promise<AllSelectOptions> => {    
+export const getAllSelectOptions = async (): Promise<AllSelectOptions> => {
     const response: Response = await fetch('/ads/options', {
-        method: 'GET'
+        method: 'GET',
     });
 
     const allSelectOptions = await response.json();
 
     return allSelectOptions;
-}
+};
 
-export const getBranchesOfUnit = async (unitId: number): Promise<Branch[]> => {    
+export const getBranchesOfUnit = async (unitId: number): Promise<Branch[]> => {
     const response: Response = await fetch(`/ads/branches/${unitId}`, {
-        method: 'GET'
+        method: 'GET',
     });
 
     const branchesOfUnit = await response.json();
 
     return branchesOfUnit;
-}
+};
 
-export const getDepartmentsOfBranch = async (branchId: number): Promise<Department[]> => {    
+export const getDepartmentsOfBranch = async (branchId: number): Promise<Department[]> => {
     const response: Response = await fetch(`/ads/departments/${branchId}`, {
-        method: 'GET'
+        method: 'GET',
     });
 
     const departmentsOfBranch = await response.json();
 
     return departmentsOfBranch;
-}
+};
 
-export const addNewAd = async (ad: AdvertisementInsertData): Promise<void> => {    
+export const addNewAd = async (ad: AdvertisementInsertData): Promise<void> => {
     await fetch('/ads', {
         headers: {
             Accept: 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
         },
         method: 'POST',
         body: JSON.stringify(ad),
     });
-}
+};
+
+export const getAllRoles = async (): Promise<Role[]> => {
+    const response: Response = await fetch('/ads/roles', {
+        method: 'GET',
+    });
+
+    return response.json();
+};
 
 function parseAd(adJson: sqlAd): Advertisement {
     return {
@@ -62,7 +73,7 @@ function parseAd(adJson: sqlAd): Advertisement {
             id: adJson.role_id,
             name: adJson.role_name,
             initials: adJson.role_initials,
-            color: adJson.role_color
+            color: adJson.role_color,
         },
         description: adJson.job_description,
         entryDate: adJson.entry_date,
@@ -71,25 +82,28 @@ function parseAd(adJson: sqlAd): Advertisement {
         standards: adJson.standards_array,
         unit: {
             id: adJson.unit_id,
-            name: adJson.unit_name
+            name: adJson.unit_name,
         },
         branch: {
             id: adJson.branch_id,
-            name: adJson.branch_name
+            name: adJson.branch_name,
         },
         department: {
             id: adJson.department_id,
-            name: adJson.department_name
+            name: adJson.department_name,
         },
         location: {
             id: adJson.base_location_id,
-            name: adJson.location
+            name: adJson.location,
         },
         advertiser: {
             upn: adJson.advertiser_upn,
             displayName: adJson.advertiser,
             contact: adJson.contact
-        }
+        },
+        advertismentDate: adJson.advertisment_date,
+        closingDate: adJson.closing_date,
+        lastReferenceDate: adJson.last_reference_date
     };
 }
 

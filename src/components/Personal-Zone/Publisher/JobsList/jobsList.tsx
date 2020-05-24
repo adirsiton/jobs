@@ -1,23 +1,19 @@
 import * as React from 'react';
-
 import Typography from '@material-ui/core/Typography';
-
 import { observer, inject } from 'mobx-react';
-
 import { RamadAd } from '../../../../types/User';
 import styles from './jobsListStyle';
 import Job from './job';
-import { JobsStore } from '../../../../store/JobsStore';
-
+import { AdsStore } from '../../../../store/AdvertisementStore';
 
 interface JobsListProps {
     ads: RamadAd[];
-    jobsStore?: JobsStore;
+    adsStore?: AdsStore;
 }
 
 const JobsList: React.FC<JobsListProps> = (props): JSX.Element => {
     const { ads } = props;
-    const jobsStore: JobsStore = props.jobsStore!;
+    const adsStore: AdsStore = props.adsStore!;
 
     const classes = styles();
 
@@ -29,8 +25,8 @@ const JobsList: React.FC<JobsListProps> = (props): JSX.Element => {
                 <Job 
                     key={ad.id} 
                     ad={ad}
-                    closeAd={() => jobsStore.closeAd(ad.id)}
-                    openAd={() => jobsStore.openAd(ad.id)}
+                    closeAd={() => adsStore.closeAd(ad.id)}
+                    openAd={() => adsStore.openAd(ad.id)}
                 />
             ))}</>;
         }

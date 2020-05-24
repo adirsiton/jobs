@@ -18,7 +18,7 @@ const CloseJobDialog: React.FC<CloseJobDialog> = (props): JSX.Element => {
     const { closeDialog, closeAd } = props;
     const classes = styles();
 
-    const handleCloseAdClick = () => { 
+    const handleCloseAdClick = (): void => { 
         closeAd();
         closeDialog(); 
     };

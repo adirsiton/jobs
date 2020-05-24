@@ -35,6 +35,7 @@ router.get('/auth/callback',
 
     const isRamad = checkIsRamad(WITH_RAMAD_ACCESS, user.is_ramad);
     
+    console.log(WITH_RAMAD_ACCESS, isRamad)
     res.cookie('user', JSON.stringify({
         upn: user.upn,
         name: user.name,
