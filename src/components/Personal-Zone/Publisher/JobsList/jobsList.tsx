@@ -25,8 +25,7 @@ const JobsList: React.FC<JobsListProps> = (props): JSX.Element => {
                 <Job 
                     key={ad.id} 
                     ad={ad}
-                    closeAd={() => adsStore.closeAd(ad.id)}
-                    openAd={() => adsStore.openAd(ad.id)}
+                    toggleIsClose={adsStore.toggleIsClose}
                 />
             ))}</>;
         }
@@ -46,4 +45,4 @@ const JobsList: React.FC<JobsListProps> = (props): JSX.Element => {
     );
 }
 
-export default inject('jobsStore')(observer(JobsList));
+export default inject('adsStore')(observer(JobsList));

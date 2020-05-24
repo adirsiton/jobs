@@ -107,22 +107,12 @@ function parseAd(adJson: sqlAd): Advertisement {
     };
 }
 
-export async function closeAd(adId: number): Promise<boolean> {
-    const answer: CloseOpenAdSQL = await fetch(`/ads/close/${adId}`, {
-        method: 'POST'
+export async function toggleIsClose(adId: number, isClose: boolean): Promise<boolean> {
+    const answer: boolean = await fetch(`/ads/toggle-is-close/${adId}/${isClose}`, {
+        method: 'PUT'
     }).then(response => {
-        return response.json();
+        return response.status === 200;
     });
 
-    return answer.is_close;
-};
-
-export async function openAd(adId: number): Promise<boolean> {
-    const answer: CloseOpenAdSQL = await fetch(`/ads/open/${adId}`, {
-        method: 'POST'
-    }).then(response => {
-        return response.json();
-    });
-
-    return answer.is_close;
+    return answer;
 };

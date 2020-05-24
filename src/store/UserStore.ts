@@ -18,7 +18,6 @@ export class UserStore {
     }
     
     get getUser(): User {
-        console.log(this.loggedUser)
         return this.loggedUser;
     }
 
@@ -43,8 +42,13 @@ export class UserStore {
 
     loadRamadAds = async () => {
         // Fetch data from server
-        const newRamadAds: RamadAd[] = await fetchRamadAds();
-        this.ramadAds.set(newRamadAds);
+        try {
+            const newRamadAds: RamadAd[] = await fetchRamadAds();
+            this.ramadAds.set(newRamadAds);            
+        } catch (error) {
+            console.log('an error occured while trying to fetch ramad ad', error);
+        }
+
     };
 
     toggleFavoriteAd = async (adId: number, isFavorite: boolean) => {

@@ -31,7 +31,8 @@ INSERT INTO jobs.standards(name) VALUES
 
 INSERT INTO jobs.users_resume(upn, rank_id, qualification_id, free_text, phone_number) VALUES
 ('IlliMalachi', 1, 2, 'hey, this is my resume', '053333533'), 
-('guyshany', 1, 1, 'hey, this is my resume', '0545421454');
+('guyshany', 1, 1, 'hey, this is my resume', '0545421454'),
+('SteveVaknin', 1, 1, 'hey, this is my resume', '0545421224');
 
 INSERT INTO jobs.users_desired_roles(upn, desired_role_id) VALUES
 ('guyshany', 1),

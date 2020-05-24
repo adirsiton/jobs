@@ -162,14 +162,15 @@ router.get('/ramad-ads', async (req, res) => {
                 'candidates', json_agg(json_build_object(
                     'upn', users.upn,
                     'name', users.display_name,
-                    'phoneNumber', users.phone_number
+                    'phoneNumber', resume.phone_number
                 )))  as ramad_ad
             FROM jobs.advertisements ads
             JOIN jobs.roles roles ON ads.role_id=roles.id
             LEFT JOIN jobs.favorite_ads_of_users favorite ON favorite.advertisement_id=ads.id
             LEFT JOIN jobs.users users ON users.upn=favorite.upn
+            LEFT JOIN jobs.users_resume resume ON users.upn=resume.upn
             WHERE ads.advertiser_upn=$1
-            GROUP BY ads.id, job_title, is_close, roles.id, roles.name, roles.color, roles.initials;
+            GROUP BY ads.id, job_title, is_close, roles.id, roles.name, roles.color, roles.initials;    
         `,
         [userUpn]
     );

@@ -1,7 +1,7 @@
 import { observable, decorate, action, computed } from 'mobx';
 
 import { Advertisement } from '../types/Advertisements';
-import { getAllAds, closeAd, openAd, getAllRoles } from '../server/ads';
+import { getAllAds, toggleIsClose, getAllRoles } from '../server/ads';
 import { RootStore } from './RootStore';
 import { Role } from '../types/Role';
 
@@ -40,24 +40,13 @@ export class AdsStore {
         this.isLoadingAds.set(false);
     }
 
-    closeAd = async (adId: number) => {
+    toggleIsClose = async (adId: number, isClose: boolean) => {
         try {
-            await closeAd(adId);
-            const newAds: Advertisement[] = this.ads.get().filter(ad => ad.id !== adId); // rather than load this.loadAdvertisements
-            this.ads.set(newAds);
-            await this.rootStore.userStore.loadRamadAds();
-        } catch (error) {
-            console.log('got error, closeAd function ', error);
-        }
-    }
-
-    openAd = async (adId: number) => {
-        try {
-            await openAd(adId);
+            await toggleIsClose(adId, isClose);
             await this.loadAdvertisements();
             await this.rootStore.userStore.loadRamadAds();
         } catch (error) {
-            console.log('got error, openAd function ', error);
+            console.log('got error, toggleIsClose function ', error);
         }
     }
 
@@ -75,7 +64,6 @@ decorate(AdsStore, {
     advertisements: computed,
     isLoading: computed,
     loadAdvertisements: action,
-    closeAd: action,
-    openAd: action,
+    toggleIsClose: action,
     setActiveFilerRoles: action
 });

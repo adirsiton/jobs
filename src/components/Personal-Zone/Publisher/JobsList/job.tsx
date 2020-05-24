@@ -13,13 +13,12 @@ import CloseJobDialog from './Close-Job-Dialog/closeJobDialog';
 
 interface JobsProps {
     ad: RamadAd;
-    closeAd: () => void;
-    openAd: () => void;
+    toggleIsClose: (adId: number, isClos: boolean) => void;
 }
 
 const Job: React.FC<JobsProps> = (props): JSX.Element => {
     const classes = styles();
-    const { ad, openAd, closeAd } = props;
+    const { ad, toggleIsClose } = props;
   const [isOpenCloseAdDialog, setIsOpenCloseAdDialog] = useState(false);
 
     const getJobName = (): JSX.Element => {
@@ -73,7 +72,7 @@ const Job: React.FC<JobsProps> = (props): JSX.Element => {
         ? ( 
             <Button 
                 className={classes.jobBtn}
-                onClick={openAd}
+                onClick={() => toggleIsClose(ad.id, false)}
             >
                 פתיחה מחדש
             </Button>
@@ -119,7 +118,7 @@ const Job: React.FC<JobsProps> = (props): JSX.Element => {
             {isOpenCloseAdDialog && 
                 <CloseJobDialog 
                     closeDialog={() => setIsOpenCloseAdDialog(false)}
-                    closeAd={closeAd}
+                    closeAd={() => toggleIsClose(ad.id, true)}
                 />
             }
         </div>
