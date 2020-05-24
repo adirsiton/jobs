@@ -8,7 +8,6 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
-import Tooltip from '@material-ui/core/Tooltip';
 
 import  jobsLogo from '../../assets/images/jobsLogo.png';
 import { UserStore } from '../../store/UserStore';
@@ -27,10 +26,7 @@ const JobsAppBar: React.FC<AppBarDataProps> = (props): JSX.Element => {
     const getUserDetails = (): JSX.Element => {
         return (
             <div className={classes.userDetails}>
-                {/* Todo tooltip dosnt work, fix it */}
-                <Tooltip placement="right" title="ג'ובים ששמרתי" aria-label="my favorites">
-                    <FavoriteList/>
-                </Tooltip>
+                {!userStore.getUser.isRamad && <FavoriteList/>}
                 <Link to='/personal'>
                     <Avatar className={classes.avatar}>
                         {userStore.getUserInitials}

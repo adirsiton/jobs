@@ -5,8 +5,8 @@ export class RootStore {
     adsStore: AdsStore;
     userStore: UserStore;
     constructor() {
-        this.adsStore = new AdsStore()
-        this.userStore = new UserStore()
+        this.adsStore = new AdsStore(this);
+        this.userStore = new UserStore(this);
     }
 }
 

@@ -7,15 +7,21 @@ import DialogContent from '@material-ui/core/DialogContent';
 import Typography from '@material-ui/core/Typography';
 import SentimentSatisfiedAltIcon from '@material-ui/icons/SentimentSatisfiedAlt';
 
-import styles from './closeJobDialogStyle';
+import styles from './CloseJobDialogStyle';
 
 interface CloseJobDialog {
     closeDialog: () => void;
+    closeAd: () => void;
 }
 
 const CloseJobDialog: React.FC<CloseJobDialog> = (props): JSX.Element => {
-    const { closeDialog } = props;
+    const { closeDialog, closeAd } = props;
     const classes = styles();
+
+    const handleAdCloseClick = (): void => { 
+        closeAd();
+        closeDialog(); 
+    };
 
     return (
         <Dialog
@@ -39,7 +45,7 @@ const CloseJobDialog: React.FC<CloseJobDialog> = (props): JSX.Element => {
                 <Button 
                     className={classes.confirmButton}
                     variant='outlined' 
-                    onClick={closeDialog} //TODO call thecloseAd function
+                    onClick={handleAdCloseClick}
                     autoFocus
                 >
                     אחלה, סגרו לי

@@ -3,21 +3,21 @@ import CookieUtils from 'js-cookie';
 import Swal from 'sweetalert2';
 import { observable, decorate, action, computed } from 'mobx';
 
-import {
-    fetchFavoriteAds,
-    unsetFavoriteAd,
-    setFavoriteAd,
-    fetchRamadAds,
-    saveUserResume,
-} from '../server/user';
+import { fetchFavoriteAds, unsetFavoriteAd, setFavoriteAd, fetchRamadAds, saveUserResume } from '../server/user';
 import { User, RamadAd, UserResume } from '../types/User';
+import { RootStore } from './RootStore';
 
 export class UserStore {
+    private rootStore: RootStore;
     private loggedUser: User = JSON.parse(CookieUtils.get('user') || '{}');
     private favoriteAds = observable.box<number[]>([]);
     private ramadAds = observable.box<RamadAd[]>([]);
 
-    get getUser() {
+    constructor (rootStore: RootStore) {
+        this.rootStore = rootStore;
+    }
+    
+    get getUser(): User {
         return this.loggedUser;
     }
 
@@ -42,8 +42,13 @@ export class UserStore {
 
     loadRamadAds = async () => {
         // Fetch data from server
-        const newRamadAds: RamadAd[] = await fetchRamadAds();
-        this.ramadAds.set(newRamadAds);
+        try {
+            const newRamadAds: RamadAd[] = await fetchRamadAds();
+            this.ramadAds.set(newRamadAds);            
+        } catch (error) {
+            console.log('an error occured while trying to fetch ramad ad', error);
+        }
+
     };
 
     toggleFavoriteAd = async (adId: number, isFavorite: boolean) => {

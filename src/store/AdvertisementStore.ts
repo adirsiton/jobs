@@ -1,14 +1,20 @@
 import { observable, decorate, action, computed } from 'mobx';
 
 import { Advertisement } from '../types/Advertisements';
-import { getAllAds, getAllRoles } from '../server/ads';
+import { getAllAds, toggleIsClose, getAllRoles } from '../server/ads';
+import { RootStore } from './RootStore';
 import { Role } from '../types/Role';
 
 export class AdsStore {
+    private rootStore: RootStore;
     private ads = observable.box<Advertisement[]>([]);
-    private isLoadingAds = observable.box<boolean>(false);
+    private isLoadingAds = observable.box<boolean>(false);    
     private activeFilterRoles = observable.box<string[]>([]);
     private allRoles = observable.box<Role[]>([]);
+
+    constructor (rootStore: RootStore) {
+        this.rootStore = rootStore;
+    }
 
     get advertisements() {
         return this.ads.get();
@@ -32,7 +38,17 @@ export class AdsStore {
         const ads: Advertisement[] = await getAllAds();
         this.ads.set(ads);
         this.isLoadingAds.set(false);
-    };
+    }
+
+    toggleIsClose = async (adId: number, isClose: boolean) => {
+        try {
+            await toggleIsClose(adId, isClose);
+            await this.loadAdvertisements();
+            await this.rootStore.userStore.loadRamadAds();
+        } catch (error) {
+            console.log('got error, toggleIsClose function ', error);
+        }
+    }
 
     loadAllRoles = async () => {
         const allRoles: Role[] = await getAllRoles();
@@ -48,5 +64,6 @@ decorate(AdsStore, {
     advertisements: computed,
     isLoading: computed,
     loadAdvertisements: action,
-    setActiveFilerRoles: action,
+    toggleIsClose: action,
+    setActiveFilerRoles: action
 });

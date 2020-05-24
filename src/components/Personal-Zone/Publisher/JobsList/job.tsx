@@ -9,15 +9,16 @@ import CancelPresentationIcon from '@material-ui/icons/CancelPresentation';
 
 import { RamadAd } from '../../../../types/User';
 import styles from './jobsListStyle';
-import CloseJobDialog from './Close-Job-Dialog/closeJobDialog';
+import CloseJobDialog from './Close-Job-Dialog/CloseJobDialog';
 
 interface JobsProps {
     ad: RamadAd;
+    toggleIsClose: (adId: number, isClos: boolean) => void;
 }
 
 const Job: React.FC<JobsProps> = (props): JSX.Element => {
     const classes = styles();
-    const { ad } = props;
+    const { ad, toggleIsClose } = props;
   const [isOpenCloseAdDialog, setIsOpenCloseAdDialog] = useState(false);
 
     const getJobName = (): JSX.Element => {
@@ -45,7 +46,7 @@ const Job: React.FC<JobsProps> = (props): JSX.Element => {
 
     const getJobCandidates = (): JSX.Element[] => {
         return ad.candidates.map(candidate => (
-            <div key={ad.id} className={classes.candidate}>
+            <div key={candidate.upn} className={classes.candidate}>
                 <Typography className={classes.candidateName} variant='h6'>
                     {candidate.name}
                 </Typography>
@@ -71,7 +72,7 @@ const Job: React.FC<JobsProps> = (props): JSX.Element => {
         ? ( 
             <Button 
                 className={classes.jobBtn}
-                // TODO onClick open ad
+                onClick={() => toggleIsClose(ad.id, false)}
             >
                 פתיחה מחדש
             </Button>
@@ -117,6 +118,7 @@ const Job: React.FC<JobsProps> = (props): JSX.Element => {
             {isOpenCloseAdDialog && 
                 <CloseJobDialog 
                     closeDialog={() => setIsOpenCloseAdDialog(false)}
+                    closeAd={() => toggleIsClose(ad.id, true)}
                 />
             }
         </div>

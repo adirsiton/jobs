@@ -194,6 +194,21 @@ router.post('/', async (req, res) => {
     }
 });
 
+router.put('/toggle-is-close/:id/:is_close', async (req, res) => {
+    const { id, is_close } = req.params;
+
+    const { rows } = await db.query(
+        `
+            UPDATE jobs.advertisements ads
+            SET is_close=$1
+            WHERE ads.id=$2
+        `,
+        [is_close, id]
+    );
+    res.json(rows[0]);
+});
+
+module.exports = router;
 router.get('/roles', async (req, res) => {
     try {
         const { rows } = await db.query(

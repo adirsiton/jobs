@@ -1,4 +1,4 @@
-import { Advertisement, sqlAd, AdvertisementInsertData } from '../types/Advertisements';
+import { Advertisement , sqlAd, AdvertisementInsertData } from '../types/Advertisements';
 import { AllSelectOptions } from '../types/AllSelectOptions';
 import { Branch, Department } from '../types/Departments';
 import { Role } from '../types/Role';
@@ -105,3 +105,13 @@ function parseAd(adJson: sqlAd): Advertisement {
         lastReferenceDate: adJson.last_reference_date
     };
 }
+
+export async function toggleIsClose(adId: number, isClose: boolean): Promise<boolean> {
+    const answer: boolean = await fetch(`/ads/toggle-is-close/${adId}/${isClose}`, {
+        method: 'PUT'
+    }).then(response => {
+        return response.status === 200;
+    });
+
+    return answer;
+};

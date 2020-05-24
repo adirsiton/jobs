@@ -38,10 +38,11 @@ export async function fetchRamadAds(): Promise<RamadAd[]> {
     }).then((response) => {
         return response.json();
     });
+
     const allRamadAds: RamadAd[] = ramadAdsSQL.map(
         (ad: RamadAdSQL) => ad.ramad_ad
     );
-
+    
     return allRamadAds;
 }
 
