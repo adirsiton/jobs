@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) =>
             height: '72vh',
             overflowX: "scroll",
             padding: "34px",
-            alignSelf: "center"
+            paddingRight: '100px'
         },
         favoriteTitle: {
             color: '#595959',

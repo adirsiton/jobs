@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) =>
             overflow: 'hidden',
             overflowY: "scroll",
             padding: "34px",
-            alignSelf: "center"
+            paddingRight: '100px'
         },
         job: {
             boxShadow: "14px 0px 8px 2px #bbbbbb, -14px 0px 8px 2px #bbbbbb",

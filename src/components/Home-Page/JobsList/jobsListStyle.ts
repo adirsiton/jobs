@@ -17,9 +17,9 @@ const useStyles = makeStyles((theme) =>
             },
             height: "76vh",
             padding: "34px",
-            paddingRight: '46px',
+            paddingRight: '100px',
             marginTop: '30px',
-            alignSelf: "center",
+            // alignSelf: "center",
             overflowX: 'auto',
             direction: 'ltr'
         },
