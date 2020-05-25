@@ -25,9 +25,8 @@ const styles = () => createStyles({
         alignItems: 'center',
         textDecoration: 'none'
     },
-    logoIcon: {
-        margin: '0 5px',
-        fontSize: '150%'
+    logoImg: {
+        height: '80px'
     },
     logoTitle: {
         color: LIGHT_COLOR_TEXT

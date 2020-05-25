@@ -27,7 +27,17 @@ const projectGlobalTheme = createMuiTheme({
       color: DARK_TEXT_COLOR
     }
   },
+  fontFamily: ASSISTANT_FONT,
+  span: {
+    fontFamily: ASSISTANT_FONT,
+    color: 'red'
+  },
   overrides: {
+    MuiTypography: {
+      root: {
+        fontStyle: ASSISTANT_FONT
+      }
+    },
     MuiTooltip: {
       tooltip: {
         backgroundColor: TOOLTIP_OR_SCROLLER_COLOR,
@@ -158,6 +168,7 @@ const projectGlobalTheme = createMuiTheme({
 ReactDOM.render(
   <React.StrictMode>
     <MuiThemeProvider theme={projectGlobalTheme}>
+      {/* <App style={{fontFamily: ASSISTANT_FONT}} /> */}
       <App />
     </MuiThemeProvider>
   </React.StrictMode>,

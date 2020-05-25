@@ -1,5 +1,6 @@
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { TEXT_AND_ICONS_ADS_COLOR } from '../../../assets/projectJSS/Colors';
+import { ITALIC_FONT } from '../../../assets/projectJSS/Fonts';
 
 const styles = (theme: Theme) => createStyles({
     root: {
@@ -10,7 +11,7 @@ const styles = (theme: Theme) => createStyles({
         height: "1.5rem",
         textAlign: "center",
         color: "white",
-        fontFamily: 'unset',
+        fontFamily: ITALIC_FONT,
         borderRadius: "5px"
     },
     job: {
@@ -82,7 +83,6 @@ const styles = (theme: Theme) => createStyles({
 
     },
     jobBtn: {
-
         color: "#21BD90",
         backgroundColor: '#F8F9FC',
         fontSize: "22px",

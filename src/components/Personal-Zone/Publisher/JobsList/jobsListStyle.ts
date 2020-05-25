@@ -1,4 +1,5 @@
 import { makeStyles, createStyles } from '@material-ui/core/styles';
+import { ITALIC_FONT } from '../../../../assets/projectJSS/Fonts';
 
 const useStyles = makeStyles((theme) =>
     createStyles({
@@ -10,7 +11,7 @@ const useStyles = makeStyles((theme) =>
             height: "1.5rem",
             textAlign: "center",
             color: "white",
-            fontFamily: 'unset',
+            fontFamily: ITALIC_FONT,
             borderRadius: "5px"
         },
         jobsList: {
