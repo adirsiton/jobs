@@ -82,12 +82,13 @@ const styles = (theme: Theme) => createStyles({
 
     },
     jobBtn: {
+
         color: "#21BD90",
+        backgroundColor: '#F8F9FC',
         fontSize: "22px",
         flexGrow: 1,
         '&:hover': {
             color: "#64e4bf",
-            backgroundColor: "transparent"
         }
     },
     jobDetail: {
@@ -117,7 +118,7 @@ const styles = (theme: Theme) => createStyles({
         width: "19vw"
     },
     dialogActions: {
-        marginLeft: "1.5vw"
+        padding: "0"
     },
     dialogContentText: {
         paddingBottom: "20px"
