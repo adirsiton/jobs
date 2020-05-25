@@ -21,7 +21,8 @@ const styles = (theme: Theme) => createStyles({
         height: '14vh',
         minHeight: '120px',
         width: "100%",
-        minWidth: '1220px'
+        minWidth: '1220px',
+        direction: 'rtl'
     },
     jobHeader: {
         display: "flex",
