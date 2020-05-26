@@ -2,6 +2,8 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { TEXT_AND_ICONS_ADS_COLOR } from '../../../assets/projectJSS/Colors';
 import { ITALIC_FONT } from '../../../assets/projectJSS/Fonts';
 
+const JOB_PADDING_BOTTOM: string = '15px'
+
 const styles = (theme: Theme) => createStyles({
     root: {
         maxWidth: 345,
@@ -26,7 +28,8 @@ const styles = (theme: Theme) => createStyles({
         minHeight: '120px',
         width: "100%",
         minWidth: '1220px',
-        direction: 'rtl'
+        direction: 'rtl',
+        paddingBottom: JOB_PADDING_BOTTOM
     },
     jobHeader: {
         display: "flex",
@@ -86,7 +89,7 @@ const styles = (theme: Theme) => createStyles({
         flexDirection: "row",
         backgroundColor: "#F8F9FC",
         justifyContent: "space-around",
-
+        height: `calc(100% + ${JOB_PADDING_BOTTOM})`
     },
     jobBtn: {
         color: "#21BD90",
