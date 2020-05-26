@@ -19,7 +19,6 @@ const useStyles = makeStyles((theme) =>
             padding: "34px",
             paddingRight: '100px',
             marginTop: '30px',
-            // alignSelf: "center",
             overflowX: 'auto',
             direction: 'ltr'
         },

@@ -172,7 +172,6 @@ const projectGlobalTheme = createMuiTheme({
 ReactDOM.render(
   <React.StrictMode>
     <MuiThemeProvider theme={projectGlobalTheme}>
-      {/* <App style={{fontFamily: ASSISTANT_FONT}} /> */}
       <App />
     </MuiThemeProvider>
   </React.StrictMode>,
