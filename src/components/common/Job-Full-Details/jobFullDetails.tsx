@@ -73,7 +73,7 @@ const JobFullDetails: React.FC<JobFullDetailsProps> = (props): JSX.Element => {
     const renderDialogBottomActions = (): JSX.Element => {
         return (
             <MuiDialogActions className={classes.dialogActions}>
-                <SaveJobButton isFavorite={isFavorite} handleClick={onSave}/>
+                <SaveJobButton width='100%' isFavorite={isFavorite} handleClick={onSave}/>
             </MuiDialogActions>
         );
     }

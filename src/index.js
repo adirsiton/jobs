@@ -102,6 +102,10 @@ const projectGlobalTheme = createMuiTheme({
         '&:focus': {
           ...BOX_SHADOW
         }
+      },
+      startIcon: {
+        marginLeft: 0,
+        marginRight: 0
       }
     },
     MuiRadio: {

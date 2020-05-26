@@ -84,7 +84,7 @@ const styles = (theme: Theme) => createStyles({
         marginLeft: "0.5vw"
     },
     jobFooter: {
-        width: "18%",
+        width: "16vw",
         display: "flex",
         flexDirection: "row",
         backgroundColor: "#F8F9FC",
@@ -95,7 +95,10 @@ const styles = (theme: Theme) => createStyles({
         color: "#21BD90",
         backgroundColor: '#F8F9FC',
         fontSize: "22px",
-        flexGrow: 1,
+        width: '8vw',
+        display: 'flex',
+        justifyContent: 'center',
+
         '&:hover': {
             color: "#64e4bf",
         }
