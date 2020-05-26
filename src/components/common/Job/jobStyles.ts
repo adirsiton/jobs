@@ -7,12 +7,15 @@ const styles = (theme: Theme) => createStyles({
         maxWidth: 345,
     },
     tag: {
-        width: "4ch",
+        width: "5ch",
         height: "1.5rem",
         textAlign: "center",
         color: "white",
         fontFamily: ITALIC_FONT,
-        borderRadius: "5px"
+        borderRadius: "5px",
+        margin: '0px 10px 0px 15px',
+        fontWeight: 100,
+
     },
     job: {
         boxShadow: "14px 0px 8px 2px #bbbbbb, -14px 0px 8px 2px #bbbbbb",
@@ -28,14 +31,17 @@ const styles = (theme: Theme) => createStyles({
     jobHeader: {
         display: "flex",
         flexDirection: "column",
-        padding: "20px",
-        width: "19vw"
+        padding: "20px 20px 20px 0",
+        width: "18vw"
     },
     jobTitle: {
         fontWeight: "bold",
         fontSize: "24px",
         marginBottom: "10px",
-        color: "#595959"
+        color: "#595959",
+        textOverflow: 'ellipsis',
+        overflow: 'hidden',
+        whiteSpace: 'nowrap'
     },
     jobMainTitles: {
         display: "flex",

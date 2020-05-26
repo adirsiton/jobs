@@ -3,7 +3,7 @@ import { YELLOW_STAR_COLOR, LIGHT_COLOR_TEXT } from '../../../assets/projectJSS/
 
 const styles = () => createStyles({
     starIcon: {
-        fontSize: '150%'
+        fontSize: '50px'
     },
     starIconYellow: {
         color: YELLOW_STAR_COLOR,

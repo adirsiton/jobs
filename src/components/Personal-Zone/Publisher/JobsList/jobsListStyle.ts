@@ -7,12 +7,13 @@ const useStyles = makeStyles((theme) =>
             maxWidth: 345,
         },
         tag: {
-            width: "4ch",
+            width: "5ch",
             height: "1.5rem",
             textAlign: "center",
             color: "white",
             fontFamily: ITALIC_FONT,
-            borderRadius: "5px"
+            borderRadius: "5px",
+            fontWeight: 100
         },
         jobsList: {
             display: "flex",
