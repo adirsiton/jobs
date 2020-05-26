@@ -40,12 +40,12 @@ const JobsAppBar: React.FC<AppBarDataProps> = (props): JSX.Element => {
         return (
             <div className={classes.logoContainer}>
                 <Link to='/'  >
-                    <img src={jobsLogo} alt="jobs_logo"/>
+                    <img className={classes.logoImg} src={jobsLogo} alt="jobs_logo"/>
                 </Link>
                 <Typography variant="h3" className={classes.logoSystemName}>
                     ג'ובניק
                 </Typography>
-                <Typography variant="h6" className={classes.logoSubTitle}>
+                <Typography variant="h5" className={classes.logoSubTitle}>
                     מוצא לך את הג'וב הבא
                 </Typography>
             </div>

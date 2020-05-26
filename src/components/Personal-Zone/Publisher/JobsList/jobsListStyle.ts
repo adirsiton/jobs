@@ -1,4 +1,5 @@
 import { makeStyles, createStyles } from '@material-ui/core/styles';
+import { ITALIC_FONT } from '../../../../assets/projectJSS/Fonts';
 
 const useStyles = makeStyles((theme) =>
     createStyles({
@@ -6,12 +7,13 @@ const useStyles = makeStyles((theme) =>
             maxWidth: 345,
         },
         tag: {
-            width: "4ch",
+            width: "5ch",
             height: "1.5rem",
             textAlign: "center",
             color: "white",
-            fontFamily: 'unset',
-            borderRadius: "5px"
+            fontFamily: ITALIC_FONT,
+            borderRadius: "5px",
+            fontWeight: 100
         },
         jobsList: {
             display: "flex",
@@ -24,7 +26,7 @@ const useStyles = makeStyles((theme) =>
             overflow: 'hidden',
             overflowY: "scroll",
             padding: "34px",
-            alignSelf: "center"
+            paddingRight: '100px'
         },
         job: {
             boxShadow: "14px 0px 8px 2px #bbbbbb, -14px 0px 8px 2px #bbbbbb",

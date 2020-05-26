@@ -27,7 +27,17 @@ const projectGlobalTheme = createMuiTheme({
       color: DARK_TEXT_COLOR
     }
   },
+  fontFamily: ASSISTANT_FONT,
+  span: {
+    fontFamily: ASSISTANT_FONT,
+    color: 'red'
+  },
   overrides: {
+    MuiTypography: {
+      root: {
+        fontStyle: ASSISTANT_FONT
+      }
+    },
     MuiTooltip: {
       tooltip: {
         backgroundColor: TOOLTIP_OR_SCROLLER_COLOR,
@@ -92,6 +102,10 @@ const projectGlobalTheme = createMuiTheme({
         '&:focus': {
           ...BOX_SHADOW
         }
+      },
+      startIcon: {
+        marginLeft: 0,
+        marginRight: 0
       }
     },
     MuiRadio: {

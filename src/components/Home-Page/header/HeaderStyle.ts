@@ -19,6 +19,7 @@ const styles = makeStyles({
         minWidth: '10ch',
     },
     searchBar: {
+        marginRight: '2vw',
         width: '50vw',
         fontSize: '1.3em',
         boxShadow: '0.5ch 0px 8px 2px #bbbbbb, -0.5ch 0px 8px 2px #bbbbbb',

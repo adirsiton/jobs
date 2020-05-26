@@ -20,7 +20,7 @@ const JobTitle: React.FC<JobTitleProps> = (props): JSX.Element => {
     return (
         <>
             <div className={classes.jobMainTitles}>
-                <span className={classes.jobTitle}>{ad.name}</span>
+                <span title={ad.name} className={classes.jobTitle}>{ad.name}</span>
                 <Typography 
                     className={classes.tag} 
                     style={{ backgroundColor: ad.role.color }}

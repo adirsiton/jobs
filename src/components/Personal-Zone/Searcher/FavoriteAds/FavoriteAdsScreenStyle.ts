@@ -7,12 +7,20 @@ const useStyles = makeStyles((theme) =>
             flexDirection: "column",
             width: "85%",
             '&::-webkit-scrollbar': {
-                display: "none"
+                width: '12px',
+                backgroundColor: 'transparent'
             },
+            '&::-webkit-scrollbar-thumb': {
+                borderRadius: '10px',
+                WebkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,.3)',
+                backgroundColor: 'rgb(127, 140, 157)'
+            },
+            direction: 'ltr',
+            marginTop: '20px',
             height: '72vh',
-            overflowY: "scroll",
+            overflowX: "scroll",
             padding: "34px",
-            alignSelf: "center"
+            paddingRight: '100px'
         },
         favoriteTitle: {
             color: '#595959',

@@ -10,12 +10,13 @@ import styles from './jobStyles';
 interface SaveJobData {
     isFavorite: boolean;
     handleClick: () => void;
+    width?: string
 }
 
 type SaveJobProps = SaveJobData & WithStyles<typeof styles>;
 
 const SaveJobButton: React.FC<SaveJobProps> = (props): JSX.Element => {
-    const { classes, isFavorite, handleClick } = props;
+    const { classes, isFavorite, handleClick, width } = props;
 
     const renderStarIcon = (): JSX.Element => {
         return isFavorite
@@ -24,7 +25,8 @@ const SaveJobButton: React.FC<SaveJobProps> = (props): JSX.Element => {
     }
 
     return (
-        <Button 
+        <Button
+            style={{width: width}}
             className={`${classes.jobBtn} ${isFavorite && classes.boldText}`}
             onClick={handleClick}
             startIcon={renderStarIcon()}

@@ -13,7 +13,7 @@ import { Advertisement } from '../../types/Advertisements';
 const styles = makeStyles({
     appBodyContent: {
         paddingLeft: '3vw',
-        paddingRight: '2vw',
+        paddingRight: '1vw',
         paddingTop: '2vh',
         display: 'flex',
         flexDirection: 'column',

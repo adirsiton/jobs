@@ -84,9 +84,9 @@ CREATE TABLE jobs.advertisements(
 	contact text,
 	base_location_id int REFERENCES jobs.base_locations(id) ON DELETE CASCADE,
 	is_close boolean DEFAULT false,
-	advertisment_date timestamp DEFAULT now(),
+	advertisment_date timestamp without time zone DEFAULT timezone('Israel', now()),
 	closing_date timestamp,
-	last_reference_date timestamp DEFAULT now(),
+	last_reference_date timestamp without time zone DEFAULT timezone('Israel', now()),
 	FOREIGN KEY (branch_id, unit_id) REFERENCES jobs.branches(id, unit_id),
 	FOREIGN KEY (department_id, branch_id) REFERENCES jobs.departments(id, branch_id)
 );

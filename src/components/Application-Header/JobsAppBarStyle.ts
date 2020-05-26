@@ -13,7 +13,9 @@ const styles = () => createStyles({
     },
     avatar: {
         backgroundColor: AVATAR_COLOR,
-        margin: '0 5px',
+        margin: '0 5px', 
+        width: '60px',
+        height: '60px',
         textDecoration: 'none'
     },
     userDetails: {
@@ -25,9 +27,8 @@ const styles = () => createStyles({
         alignItems: 'center',
         textDecoration: 'none'
     },
-    logoIcon: {
-        margin: '0 5px',
-        fontSize: '150%'
+    logoImg: {
+        height: '80px'
     },
     logoTitle: {
         color: LIGHT_COLOR_TEXT
@@ -35,7 +36,8 @@ const styles = () => createStyles({
     logoSystemName: {
         color: 'white',
         marginLeft: '20px',
-        fontWeight: 'bold'    
+        fontWeight: 'bold',
+        fontSize: '3.5rem'
     },
     logoSubTitle: {
         marginTop: '20px',
